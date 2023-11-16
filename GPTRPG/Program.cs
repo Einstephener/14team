@@ -40,10 +40,11 @@ internal class Program
     // ConsoleKeyInfo 선언
     static ConsoleKeyInfo e;
 
+
     //시작
     static void Main(string[] args)
     {
-        Rank rank = new Rank(1);
+        
         //게임이 실행되면 데이터 먼저 세팅
         GameDataSetting();
         //시작화면으로 이동
@@ -57,7 +58,7 @@ internal class Program
         Console.Title = "K-Army";
 
         // 캐릭터 정보 세팅
-        player1 = new Character("", "용사", 5, 5, 5, 5, 100, 1, 0, 5);
+        player1 = new Character("", "용사", 5, 5, 5, 5, 100, 0, 5);
 
         // 아이템 정보 세팅
         ring1 = new Item("수호 반지", 0, 500, 3000, "고대의 반지. 방어력을 늘려준다.");
@@ -100,117 +101,120 @@ internal class Program
         }
     }
 
-    //시작화면
-    static void StartScene()
-    {
-        Console.Clear();
-        //시작화면
-        Console.ForegroundColor = ConsoleColor.Red;
+   #region 굳건이 시작화면
 
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@@@@@,@@--@.~@@~=~@@@~@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@@ @:~@@*;@~*@@=@$@@~=@@@@@@@@@@,@@@@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@~:@*# -@#@$@:@*@#!:#@-@! @@:;@,$,@:@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@~@ #=@;@-!@#:$@#-@@@=!@@$;$:@~@;@:#*@!~@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@@@-$-!#@-@@;=@$;@@@$@@@@*@@*;@#,@@@-$@:@## ::@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@~~@*@*:@@!@@@=@@*@@@@@@@@@@@@@@@*@@@*@@@-@#;!#@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@!#-#@@$@@@@@@@@@@@@@@@@@@@@@@@@@@@@@$@@@#@@#;=@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#@@=#$@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@~@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@#@@@@@@@@@@@@@@@@$*;:~----~;!=#@@@@@@@@@@@@@@@!@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@~@@@@@@@@@@#*;~,                 .~;!$@@@@@@@@@!@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@~@@@@@@@@=,                          ..!@@@@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@!@@@@@#!,                               .;#@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@$.                                   .=@@@@:@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@-@@@@!                                      .*@@@:@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@~@@@=                                        .@@@*@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@=@@#                                          ~@@#@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@:             .:-           .              ,#@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@$@@,            -#*=*       .*$$*             .$@$@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@=@=.            ,-  =,      ;*..:              *@=@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@*                 .       ~.                 ;@#@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@-@@,               ..                           .@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@:@#               :=*:        -==~               #@~@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@$@:               * .$-      .* .*               !@~@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@,               - -**      ~*! -               -@*@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@;@=.                 $#*      ;=@                 ,@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@!@!                  @@*      ;@@.                .=@ @@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@#@,                  *@-      .@@                  *@-@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@                 ~*,        .:*=:                :@:@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@$:                                 .               .@=@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@$.                       .....                      #@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@=                     ~~-~~-.                       !#@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@~*$*~:!                     ...~!==*;:,                   ,=~:*$$;!@@@@@@");
-        Console.WriteLine("@@@@@@:$*!*=!:                  -;~~:~,                          .==;~--:$# @@@@");
-        Console.WriteLine("@@@@@!#-   ~#.        .=                               -:        .=,     .##@@@@");
-        Console.WriteLine("@@@@*$,     $         ~$                               ;,         ;       ;=@@@@");
-        Console.WriteLine("@@@@!:     .:         =#,                              ;,         :.      -#@@@@");
-        Console.WriteLine("@@@@#~.-.  ,.       -;$~*:~:-                      ,~;!==-        ..  :!~.,#@@@@");
-        Console.WriteLine("@@@@@-;!@~ .          :*!   ,*$*~.             ,:=#$;:,!-!,          -*.  .#@@@@");
-        Console.WriteLine("@@@@@- ,!$            .$!,      -:;;;::;;;;;!!!;:,   ~,*.            #=~  -=@@@@");
-        Console.WriteLine("@@@@#~ ,.=             $-!;                         -=-!             @-.  :;@@@@");
-        Console.WriteLine("@@@@*;   * .           ::.-!:~~.                 ,~!;.*~             ::   !$@@@@");
-        Console.WriteLine("@@@@$$   . :           ,!   .,-;=$=;~..     .,;=$;,...#               .  ~$;@@@@");
-        Console.WriteLine("@@@@:$;    !           .=.      ...-~:;!!!!!;:-..    -=            ,.   -=-@@@@@");
-        Console.WriteLine("@@@@@=#:   ;.           *,              . ..         ;-            *.  ~=:@@@@@@");
-        Console.WriteLine("@@@@@@=$!- ~!           :!             .      .      *.           .#::!$-@@@@@@@");
-        Console.WriteLine("@@@@@@@!#!$$@.          .$..                        .*            :#!$* @@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@-*;           =-                         !:           .*!@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@,!=$:          -;  .                    ..#.           ,#:@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@;*##$$#$~        .=. .                    .:;            *=@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@;=#;-,,-*#:        ;! .                     *.           ~@!@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@;=$~     .*=.        #-       ..,,,,...     ~;           .=# @@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@;$,       .$:        -*.   .-!*!!;;;!*!-.. ,#.           !#-@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@=!         :$         ;:..~=!-       .-*=- ;-           :@#@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@!=         -$         .$;*:.          ..-!*!           -#*-@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@!=*        ,$;          $-             ..~$.          ,@=@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@!#~       ,$!*.        ,=:.          ..~*.          ~#=!@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@!$.      -$@;#-         !=,        .,;=.         .;@=@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@;=!      -;*==$*!,       ~!!:,....-;*:          ,=$$@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@ $#,     ;=-   .*$~        .!$#$$#$:          .:@$@@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@;#:    --       :=;.         ....          .;=$*@@@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@,#:   ,          *#@!.                   .;#!,@@@@@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@,#:              !$*$$*;-             -;;====*,@@@@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@*#,             ~#$***!!$@$;,     ,:=*!;;;;;!#=~ @@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@~=$          .~!;;:;=*;!=!;!**==*!!!!$=;:;;;;;!=#!;@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@*$-       .~-*,     .#*#!!;;;;;;;;;!;;$*::::::;!*#!@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@!=         -~        :#;:;;;;;;;;;;:::;=!:::::;;!*#*@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@,$:                    #=;::::::::::::::;*#=:::;;!*$$-@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@;$~                    *$;:::::::::::::~:~*=*::;;!*=$!@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@*$,                    *$;::-,:::::::::,.-~#*::;;!**$*@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@$$.                    $$!:~-.::::::~~~..--;*::::!*$$:@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@=$.                ,!==#$!:,...-:::~......-~=:::;!*$$-@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@!#,              ,:!:,.:==:::~-~:::~......-~*=!;!!=#!@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@:#~            .=~.     .$;::;::::::~:~...-~~*$*=$#; @@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@$;             ,,       ;$!!*!!!!*!:::...----!  !=~@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@;$                      :#$$*,,,,-#==$=*!:-~-!. .=;@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@=$:                     !#=$!,,,,,#======$$$*=!  ~$-@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@;$#,                   .$$=$$!;;!*#*==$$$=*==$#.-.=*@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@-$!                  -$=!**=$$$$$*;;!!!*=$$===: :*$@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@!#!               ~*=!;;!!!!!!;;;;;;!!*!;!*=#* ~!#@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@!#!.           .;#=:::;;;;;;::::::;=**!!!;;!#;*!#@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@~!#*-        ,!$$;::::;;;;;;::::::;=!***;;;!=;~$:@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@=$$=-,.,,~$$$!::::::;;;;;;;;::::;=!*$!;;;!=#$~@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@~$*=$$#$#;;::::::::;;;;;;;;;;;:;==;;;;;;;*#,@@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@$#,~::::!;;;;;;;;;;;;;;!;;;::;;;;;!$;@@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@;#::::::!!;********=!;;;;:::::;;--~$$@@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@=$:::;!!;!;=========*;;;;::::::;---=$~@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@#=:::;;;;**!====!*==*;;;;:*!:~.--~;$=;@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@@@-#*:;!;;;;;*$****;*==*;;:!$;:::~~~:*$$=@@@@@@@@@@@@@@@@@@@@@");
-        Console.WriteLine("@@@@@@@@@@@@@@@@@@@@~#*:;;;;;;;;!====*=======!:::::::-~!=#$@@@@@@@@@@@@@@@@@@@@@");
+     //시작화면
+     static void StartScene()
+     {
+         Console.Clear();
+         //시작화면
+         Console.ForegroundColor = ConsoleColor.Red;
+ 
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@@@@@,@@--@.~@@~=~@@@~@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@@ @:~@@*;@~*@@=@$@@~=@@@@@@@@@@,@@@@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@~:@*# -@#@$@:@*@#!:#@-@! @@:;@,$,@:@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@~@ #=@;@-!@#:$@#-@@@=!@@$;$:@~@;@:#*@!~@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@@@-$-!#@-@@;=@$;@@@$@@@@*@@*;@#,@@@-$@:@## ::@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@~~@*@*:@@!@@@=@@*@@@@@@@@@@@@@@@*@@@*@@@-@#;!#@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@!#-#@@$@@@@@@@@@@@@@@@@@@@@@@@@@@@@@$@@@#@@#;=@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#@@=#$@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@*@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@~@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@#@@@@@@@@@@@@@@@@$*;:~----~;!=#@@@@@@@@@@@@@@@!@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@~@@@@@@@@@@#*;~,                 .~;!$@@@@@@@@@!@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@~@@@@@@@@=,                          ..!@@@@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@!@@@@@#!,                               .;#@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@$.                                   .=@@@@:@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@-@@@@!                                      .*@@@:@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@~@@@=                                        .@@@*@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@=@@#                                          ~@@#@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@:             .:-           .              ,#@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@$@@,            -#*=*       .*$$*             .$@$@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@=@=.            ,-  =,      ;*..:              *@=@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@*                 .       ~.                 ;@#@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@-@@,               ..                           .@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@:@#               :=*:        -==~               #@~@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@$@:               * .$-      .* .*               !@~@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@,               - -**      ~*! -               -@*@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@;@=.                 $#*      ;=@                 ,@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@!@!                  @@*      ;@@.                .=@ @@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@#@,                  *@-      .@@                  *@-@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@                 ~*,        .:*=:                :@:@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@$:                                 .               .@=@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@$.                       .....                      #@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@=                     ~~-~~-.                       !#@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@~*$*~:!                     ...~!==*;:,                   ,=~:*$$;!@@@@@@");
+         Console.WriteLine("@@@@@@:$*!*=!:                  -;~~:~,                          .==;~--:$# @@@@");
+         Console.WriteLine("@@@@@!#-   ~#.        .=                               -:        .=,     .##@@@@");
+         Console.WriteLine("@@@@*$,     $         ~$                               ;,         ;       ;=@@@@");
+         Console.WriteLine("@@@@!:     .:         =#,                              ;,         :.      -#@@@@");
+         Console.WriteLine("@@@@#~.-.  ,.       -;$~*:~:-                      ,~;!==-        ..  :!~.,#@@@@");
+         Console.WriteLine("@@@@@-;!@~ .          :*!   ,*$*~.             ,:=#$;:,!-!,          -*.  .#@@@@");
+         Console.WriteLine("@@@@@- ,!$            .$!,      -:;;;::;;;;;!!!;:,   ~,*.            #=~  -=@@@@");
+         Console.WriteLine("@@@@#~ ,.=             $-!;                         -=-!             @-.  :;@@@@");
+         Console.WriteLine("@@@@*;   * .           ::.-!:~~.                 ,~!;.*~             ::   !$@@@@");
+         Console.WriteLine("@@@@$$   . :           ,!   .,-;=$=;~..     .,;=$;,...#               .  ~$;@@@@");
+         Console.WriteLine("@@@@:$;    !           .=.      ...-~:;!!!!!;:-..    -=            ,.   -=-@@@@@");
+         Console.WriteLine("@@@@@=#:   ;.           *,              . ..         ;-            *.  ~=:@@@@@@");
+         Console.WriteLine("@@@@@@=$!- ~!           :!             .      .      *.           .#::!$-@@@@@@@");
+         Console.WriteLine("@@@@@@@!#!$$@.          .$..                        .*            :#!$* @@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@-*;           =-                         !:           .*!@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@,!=$:          -;  .                    ..#.           ,#:@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@;*##$$#$~        .=. .                    .:;            *=@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@;=#;-,,-*#:        ;! .                     *.           ~@!@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@;=$~     .*=.        #-       ..,,,,...     ~;           .=# @@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@;$,       .$:        -*.   .-!*!!;;;!*!-.. ,#.           !#-@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@=!         :$         ;:..~=!-       .-*=- ;-           :@#@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@!=         -$         .$;*:.          ..-!*!           -#*-@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@!=*        ,$;          $-             ..~$.          ,@=@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@!#~       ,$!*.        ,=:.          ..~*.          ~#=!@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@!$.      -$@;#-         !=,        .,;=.         .;@=@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@;=!      -;*==$*!,       ~!!:,....-;*:          ,=$$@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@ $#,     ;=-   .*$~        .!$#$$#$:          .:@$@@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@;#:    --       :=;.         ....          .;=$*@@@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@,#:   ,          *#@!.                   .;#!,@@@@@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@,#:              !$*$$*;-             -;;====*,@@@@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@*#,             ~#$***!!$@$;,     ,:=*!;;;;;!#=~ @@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@~=$          .~!;;:;=*;!=!;!**==*!!!!$=;:;;;;;!=#!;@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@*$-       .~-*,     .#*#!!;;;;;;;;;!;;$*::::::;!*#!@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@!=         -~        :#;:;;;;;;;;;;:::;=!:::::;;!*#*@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@,$:                    #=;::::::::::::::;*#=:::;;!*$$-@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@;$~                    *$;:::::::::::::~:~*=*::;;!*=$!@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@*$,                    *$;::-,:::::::::,.-~#*::;;!**$*@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@$$.                    $$!:~-.::::::~~~..--;*::::!*$$:@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@=$.                ,!==#$!:,...-:::~......-~=:::;!*$$-@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@!#,              ,:!:,.:==:::~-~:::~......-~*=!;!!=#!@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@:#~            .=~.     .$;::;::::::~:~...-~~*$*=$#; @@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@$;             ,,       ;$!!*!!!!*!:::...----!  !=~@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@;$                      :#$$*,,,,-#==$=*!:-~-!. .=;@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@=$:                     !#=$!,,,,,#======$$$*=!  ~$-@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@;$#,                   .$$=$$!;;!*#*==$$$=*==$#.-.=*@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@-$!                  -$=!**=$$$$$*;;!!!*=$$===: :*$@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@!#!               ~*=!;;!!!!!!;;;;;;!!*!;!*=#* ~!#@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@!#!.           .;#=:::;;;;;;::::::;=**!!!;;!#;*!#@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@~!#*-        ,!$$;::::;;;;;;::::::;=!***;;;!=;~$:@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@=$$=-,.,,~$$$!::::::;;;;;;;;::::;=!*$!;;;!=#$~@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@~$*=$$#$#;;::::::::;;;;;;;;;;;:;==;;;;;;;*#,@@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@$#,~::::!;;;;;;;;;;;;;;!;;;::;;;;;!$;@@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@;#::::::!!;********=!;;;;:::::;;--~$$@@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@=$:::;!!;!;=========*;;;;::::::;---=$~@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@#=:::;;;;**!====!*==*;;;;:*!:~.--~;$=;@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@@@-#*:;!;;;;;*$****;*==*;;:!$;:::~~~:*$$=@@@@@@@@@@@@@@@@@@@@@");
+         Console.WriteLine("@@@@@@@@@@@@@@@@@@@@~#*:;;;;;;;;!====*=======!:::::::-~!=#$@@@@@@@@@@@@@@@@@@@@@");
+ 
+         Console.WriteLine("                                                                                ");
+         Console.WriteLine("                         Press Any Key to start the game.                       ");
+         Console.WriteLine("                                                                                ");
+         Console.Write("                                                                              >>");
+ 
+         Console.ReadKey();
+         Console.ResetColor();
+         TrainingSchool(player1);//줄거리로 이동
+ 
+     }
+   #endregion
 
-        Console.WriteLine("                                                                                ");
-        Console.WriteLine("                         Press Any Key to start the game.                       ");
-        Console.WriteLine("                                                                                ");
-        Console.Write("                                                                              >>");
-
-        Console.ReadKey();
-        Console.ResetColor();
-        TrainingSchool(player1);//줄거리로 이동
-
-    }
-    
     //훈련소
     static void TrainingSchool(Character player)
     {
@@ -257,137 +261,145 @@ internal class Program
 
         Console.WriteLine("press any key to continue");
         Console.ReadKey();
-        Basic();
+        Basic(player1);
 
     }
-    //막사 매서드
-    static void Home()
-    {
-        Console.Clear();
-        Console.WriteLine();
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("막사");
-        Console.ResetColor();
-        Console.WriteLine("무엇을 할 것인가?");
-        Console.WriteLine();
-        Console.WriteLine("1. 스토리 진행하기");
-        Console.WriteLine("2. 일과하기");
-        Console.WriteLine("3. 인벤토리");
-        Console.WriteLine("4. 상태확인");
-        Console.WriteLine("5. PX가기")
-
-        int input = CheckValidInput(1, 5);
-        switch (input)
+    #region 막사/생활관
+        //막사 매서드
+        static void Home()
         {
-            case 1:
-                //스토리 진행
-                break;
-            case 2:
-                //일과 진행
-                break;
-            case 3:
-                //인벤토리
-                DisplayInventory();
-                break;
-            case 4:
-                //상태확인
-                DisplayMyInfo();
-                break;
-            case 5:
-                //px
-                PX();
-                break;
+            Console.Clear();
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("막사");
+            Console.ResetColor();
+            Console.WriteLine("무엇을 할 것인가?");
+            Console.WriteLine();
+            Console.WriteLine("1. 스토리 진행하기");
+            Console.WriteLine("2. 일과하기");
+            Console.WriteLine("3. 인벤토리");
+            Console.WriteLine("4. 상태확인");
+            Console.WriteLine("5. PX가기");
+    
+            int input = CheckValidInput(1, 5);
+            switch (input)
+            {
+                case 1:
+                    //스토리 진행
+                    break;
+                case 2:
+                    //일과 진행
+                    break;
+                case 3:
+                    //인벤토리
+                    DisplayInventory(player1);
+                    break;
+                case 4:
+                    //상태확인
+                    DisplayMyInfo();
+                    break;
+                case 5:
+                    //px
+                    PX();
+                    break;
+            }
         }
-    }
+    #endregion
 
-    //상태확인
-    static void DisplayMyInfo()
-    {
-        Console.Clear();
-        string currentRank = Rank.SetRank(); //현재 계급 가져오기
-        
-        Console.WriteLine("상태확인");
-        Console.WriteLine("당신의 정보를 표시합니다.");
-        Console.WriteLine();
-        Console.WriteLine("====================================");
-        Console.WriteLine($" {currentRank} | {player1.Name} ");
-        Console.WriteLine();
-        Console.WriteLine($" 힘 \t: {player1.Str}");
-        Console.WriteLine($" 민첩 \t: {player1.Dex}");
-        Console.WriteLine($" 지능 \t: {player1.IQ}");
-        Console.WriteLine($" 운 \t: {player1.Luk}");
-        Console.WriteLine($" 체력 \t\t: {player1.Hp}");        
-        Console.WriteLine($" 정신력 \t: {player1.MMind}");
-        Console.WriteLine($" Gold \t\t: {player1.Gold} G");
-        Console.WriteLine("====================================");
-        Console.WriteLine();
-        Console.WriteLine(" 0. 나가기");
-        Console.Write(">>");
-
-        int input = CheckValidInput(0, 0);
-        switch (input)
+    #region 상태창
+        //상태확인
+        static void DisplayMyInfo()
         {
-            case 0:
+            Console.Clear();
+            Rank myRank = new Rank(1);
+            myRank.SetRank();
+            string currentRank = myRank.rank; //현재 계급 가져오기
+    
+            Console.WriteLine("상태확인");
+            Console.WriteLine("당신의 정보를 표시합니다.");
+            Console.WriteLine();
+            Console.WriteLine("====================================");
+            Console.WriteLine($" {currentRank} | {player1.Name} ");
+            Console.WriteLine();
+            Console.WriteLine($" 힘 \t: {player1.Str}");
+            Console.WriteLine($" 민첩 \t: {player1.Dex}");
+            Console.WriteLine($" 지능 \t: {player1.IQ}");
+            Console.WriteLine($" 운 \t: {player1.Luk}");
+            Console.WriteLine($" 체력 \t\t: {player1.Hp}");
+            Console.WriteLine($" 정신력 \t: {player1.Mind}");
+            Console.WriteLine($" Gold \t\t: {player1.Gold} G");
+            Console.WriteLine("====================================");
+            Console.WriteLine();
+            Console.WriteLine(" 0. 나가기");
+            Console.Write(">>");
+    
+            int input = CheckValidInput(0, 0);
+            switch (input)
+            {
+                case 0:
+                    //막사로 돌아가기
+                    Home();
+                    break;
+            }
+        }
+    #endregion
+
+    #region 인벤토리
+
+        //인벤토리
+        static void DisplayInventory(Character player)
+        {
+            Console.Clear();
+    
+            Console.WriteLine();
+            Console.WriteLine(" [인벤토리]");
+            Console.WriteLine($"\t\t\t\t\t\t[소지금:{player1._gold}G]");
+            Console.WriteLine();
+            Console.WriteLine("============================================================================");
+            Console.WriteLine(" 소지중인 아이템 목록:");
+            Console.WriteLine();
+            Console.WriteLine("--------아이템 이름--------------------------아이템 설명---------------------");
+            Console.WriteLine();
+            //인벤토리 리스트에 있는 아이템들 나열
+            for (int i = 0; i < player.Inventory.Count; i++)
+            {
+                var item = player.Inventory[i];
+                string equippedStatus = item.IsEquipped ? "[E]" : ""; // 아이템이 장착되었는지 여부에 따라 [E] 표시 추가 없으면 공백
+                Console.Write($"{i + 1}. ");
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.Write($"{equippedStatus}");
+                Console.ResetColor();
+                Console.WriteLine($" \t {item.ItemName} \t | {item.ItemDescription}"); //아이템 부가 정보
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+            Console.WriteLine("============================================================================");
+            Console.WriteLine();
+            Console.WriteLine(" 장착/해제를 원하는 아이템을 입력해주세요.");
+            Console.WriteLine();
+            Console.WriteLine(" 0. 뒤로가기");
+            Console.Write(">>");
+    
+            int input = CheckValidInput(0, player.Inventory.Count);
+            if (input > 0)
+            {
+    
+                Console.WriteLine();
+                Console.WriteLine("Press AnyKey");
+                Console.ReadKey();
+                //인벤토리창 새로고침
+                DisplayInventory(player);
+            }
+            else
+            {
                 //막사로 돌아가기
                 Home();
-                break;
+            }
         }
-    }
-
-    //인벤토리
-    static void DisplayInventory(Character player)
-    {
-        Console.Clear();
-
-        Console.WriteLine();
-        Console.WriteLine(" [인벤토리]");
-        Console.WriteLine($"\t\t\t\t\t\t[소지금:{player1._gold}G]");
-        Console.WriteLine();
-        Console.WriteLine("============================================================================");
-        Console.WriteLine(" 소지중인 아이템 목록:");
-        Console.WriteLine();
-        Console.WriteLine("--------아이템 이름--------------------------아이템 설명---------------------");
-        Console.WriteLine();
-        //인벤토리 리스트에 있는 아이템들 나열
-        for (int i = 0; i < player.Inventory.Count; i++)
-        {
-            var item = player.Inventory[i];
-            string equippedStatus = item.IsEquipped ? "[E]" : ""; // 아이템이 장착되었는지 여부에 따라 [E] 표시 추가 없으면 공백
-            Console.Write($"{i + 1}. ");
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.Write($"{equippedStatus}");
-            Console.ResetColor();
-            Console.WriteLine($" \t {item.ItemName} \t | {item.ItemDescription}"); //아이템 부가 정보
-            Console.WriteLine();
-        }
-        Console.WriteLine();
-        Console.WriteLine("============================================================================");
-        Console.WriteLine();
-        Console.WriteLine(" 장착/해제를 원하는 아이템을 입력해주세요.");
-        Console.WriteLine();
-        Console.WriteLine(" 0. 뒤로가기");
-        Console.Write(">>");
-
-        int input = CheckValidInput(0, player.Inventory.Count);
-        if (input > 0)
-        {
-            player.EquipItem(input);
-            Console.WriteLine();
-            Console.WriteLine("Press AnyKey");
-            Console.ReadKey();
-            //인벤토리창 새로고침
-            DisplayInventory(player);
-        }
-        else
-        {
-            //막사로 돌아가기
-            Home();
-        }
-    }
-
+    #endregion
 
     //이등병 스토리
-    static void Basic()
+    static void Basic(Character player)
     {
         Console.Clear();
 
@@ -403,14 +415,14 @@ internal class Program
 
         Random Shoes = new Random();
         int number = Shoes.Next(2);
-        if(number ==0)
+        if (number == 0)
         {
             Console.WriteLine("네 닦았습니다!");
             Console.WriteLine("아무일도 일어나지 않았다");
         }
         else
         {
-            hp -= 30;
+            player1.Hp -= 30;
             Console.WriteLine("아 미쳐 닦지 못했습니다..");
             Console.WriteLine("하.. 아침부터 큰일이네;; ");
         }
@@ -419,7 +431,7 @@ internal class Program
 
     }
 
-    static void Basicstory()
+    static void Basicstory(Character player)
     {
         Console.Clear();
 
@@ -439,17 +451,17 @@ internal class Program
 
         Random Talk = new Random();
         int number = Talk.Next(2);
-       if(number = 0)
-       {
-        Console.WriteLine("네 있습니다!! 저 여자친구도 있고 여동생 1명과 누나 1명 있습니다");
-        Console.WriteLine("군생활이 화창하다!");
-       }
-       else
-       {
-        luck-=30;
-        Console.WriteLine("아뇨.. 아무도 없습니다");
-        Console.WriteLine("군생활 어떻하냐.. 막막하네..");
-       }
+        if (number == 0)
+        {
+            Console.WriteLine("네 있습니다!! 저 여자친구도 있고 여동생 1명과 누나 1명 있습니다");
+            Console.WriteLine("군생활이 화창하다!");
+        }
+        else
+        {
+            player1.Luk -= 30;
+            Console.WriteLine("아뇨.. 아무도 없습니다");
+            Console.WriteLine("군생활 어떻하냐.. 막막하네..");
+        }
         Console.WriteLine("하루가 1년같았다..");
         Console.ReadKey();
         Home();
@@ -467,9 +479,9 @@ internal class Program
         Console.Clear();
         Console.WriteLine("당신은 유격훈련에 참가했다.");
         Console.WriteLine("지옥의 PT체조가 시작됐다.");
-        Console.WriteLine("\"지금부터 대답은 \'네\'가 아니라 \'악\'으로 대체합니다.\"")
-        Console.WriteLine("악!")
-        Console.WriteLine("\"PT체조 8번 온몸비틀기 준비!\"")
+        Console.WriteLine("\"지금부터 대답은 \'네\'가 아니라 \'악\'으로 대체합니다.\"");
+        Console.WriteLine("악!");
+        Console.WriteLine("\"PT체조 8번 온몸비틀기 준비!\"");
         Console.WriteLine("교관은 쉽게 갈 생각이 없는거같다 살아남자!");
         Console.WriteLine();
         Console.WriteLine("1.유-격!");
@@ -480,7 +492,7 @@ internal class Program
         {
             double randomValue = random.NextDouble(); //0.0 이상 1.0 미만의 랜덤 실수
 
-            if(randomValue < success)
+            if (randomValue < success)
             {
                 Console.WriteLine("\"교육생들 수고 많았습니다.\"");
                 Console.WriteLine("\"본 교관 나쁜사람 아닙니다.\"");
@@ -498,7 +510,7 @@ internal class Program
             else
             {
                 //실패문구 랜덤생성
-                string[] failMessages={
+                string[] failMessages ={
                     "목소리 크게 합니다. 다시!",
                     "누가 마지막 구호를 외쳐! 다시!",
                     "자세 똑바로 합니다. 다시!",
@@ -545,7 +557,6 @@ internal class Program
         Console.WriteLine("1.소리지르기");
         Console.WriteLine("2.돌 던지기");
 
-
     }
 
     //상병 스토리 - KCTC
@@ -565,31 +576,25 @@ internal class Program
         int number = rand.Next(10);
         switch (number)
         {
-            case 0:
+            case 0: //10%
                 Console.WriteLine("폭격 지원 요청 성공!");
                 Console.WriteLine("적 대대 소탕 완료.");
                 //제일 큰 보상
                 break;
 
-            case 1:
-            case 2:
+            case 1: case 2: //20%
                 Console.WriteLine("수류탄 투척!");
                 Console.WriteLine("적 분대 소탕 완료.");
-                    //중간 보상
+                //중간 보상
                 break;
 
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
+            case 3: case 4: case 5: case 6: case 7: //50%
                 Console.WriteLine("K-2로 적 사살");
                 Console.WriteLine("대항군 한명 사살.");
-                     //보상 조금
+                //보상 조금
                 break;
 
-            case 8:
-            case 9:
+            case 8: case 9: //20%
                 Console.WriteLine("아군 전멸");
                 //패널티
                 break;
@@ -615,7 +620,7 @@ internal class Program
         Console.WriteLine("키: 175.4cm");
         Console.WriteLine("...");
         Console.WriteLine("========================");
-        
+
         Console.WriteLine("상검이 끝나고 국군병원 근처에서 몰래 치킨을 먹으려 한다.");
         Console.WriteLine("시도해볼까?");
         Console.WriteLine("1. 몰래 탈출해 치킨을 먹는다."); //(성공확률 40% 실패확률 60%)
@@ -628,44 +633,42 @@ internal class Program
         {
             case 1:
                 //치킨시도
-                switch(chicken)
-                { //성공 40퍼, 실패 60퍼
-                    case 0:
-                    case 1:
+                switch (chicken)
+                { 
+                    case 0: case 1://성공 40퍼
                         Console.WriteLine("성공!");
                         Console.WriteLine("맛있는 치킨을 먹었다.");
                         Console.WriteLine("정신력이 증가한다.");
                         Console.WriteLine("체력이 회복되었다.");
                         //정신력 5 증가 체력 증가
-                        player1.mind += 5;
+                        player1.Mind += 5;
                         player1.Hp += 10;
-                        player1.Gold -= 100;                    
+                        player1.Gold -= 100;
                         break;
-                    case 2:
-                    case 3:
-                    case 4:
-                        Console.WriteLine("실패!")
+
+                    case 2: case 3: case 4: //실패 60퍼
+                        Console.WriteLine("실패!");
                         Console.WriteLine("간부에게 죽도록 털렸다.");
                         Console.WriteLine("정신력이 감소했다.");
-                        Console.WriteLine("체력이 감소했다.");                     
-                        break;
-                        //정신력 1 감소, 체력 감소
-                        player1.mind--;
-                        player1.Hp -= 10;
-                }
+                        Console.WriteLine("체력이 감소했다.");
 
-                
+                        //정신력 1 감소, 체력 감소
+                        player1.Mind--;
+                        player1.Hp -= 10;
+                        break;
+                }
+                break;
+
             case 2:
-                //짬밥
+                //부대에서 짬밥
                 Console.WriteLine("얌전히 부대로 복귀한다.");
-                Console.WriteLine("체력이 회복되었다.");       
+                Console.WriteLine("맛없는 똥국이다...");
+                Console.WriteLine("정신력이 감소했다.");
+                Console.WriteLine("체력이 회복되었다.");
+                player1.Mind--;
                 player1.Hp += 10;
                 break;
-            
         }
-
-        //검사 결과에 따라 다른 결과
-        //검사 결과는 현재 스탯에 따라 영향을 받음.
 
     }
 
@@ -680,7 +683,7 @@ internal class Program
         Console.WriteLine("생활관으로 달려가서 개인 군장을 챙기고 물자를 챙긴다.");
         Console.WriteLine("물자를 챙기는 와중에 팔이 뻐근함을 느낀다.");
         Console.WriteLine("체력 테스트. 체력 n 이상"); //수정가능
-        if( player1.str >= 10)
+        if (player1.Str >= 10)
         {
             Console.WriteLine("아슬아슬했지만 안정적으로 물자를 다 옮기는데 성공했다.");
         }
@@ -688,21 +691,8 @@ internal class Program
         {
             Console.WriteLine("물자를 옮기던 와중 쏟아버렸다.");
             Console.WriteLine("간부의 엄청난 쿠사리가 쏟아진다.");
-            
+
         }
-
-        Console.WriteLine();
-                
-        Console.WriteLine();
-        
-        Console.WriteLine();
-        Console.WriteLine("1. ");
-        Console.WriteLine("2. 수비");
-
-        //후임병의 공격은 마음의 편지
-        //선임병의 공격은 짬으로 누르기? 고민 해봐야 할듯
-
-
     }
     //상병 스토리 - 체력검정
     static void CSTest()
@@ -807,6 +797,7 @@ internal class Program
                 OneHundredDaysEvennt(randomNum, "오랜만에 집에 왔건만 군대에서 뭐했냐며 잔소리만 들었다...",
                 "가족들과 오랜만에 식사하며 좋은 시간을 보냈다.",
                 "내가 오는 줄 몰랐나..? 아무도 없다...");
+                break;
             case 3:
                 // 혼자 논다
                 OneHundredDaysEvennt(randomNum, "혼자 즐겁게 놀았다. 진짜 즐거운 거 맞다, 아마도..",
@@ -814,28 +805,28 @@ internal class Program
                 "생활관에 있을 때가 더 나은 거 같다 너무 외롭다..");
                 break;
             default:
-                break; 
-            
+                break;
+
         }
     }
 
     static void OneHundredDaysEvent(int input, string one, string two, string three)
     {
-            if(input < 6) // 50%
-            {
-                Console.WriteLine(one);
-                // 체력 -- , 정신력 --
-            }
-            else if(input < 9) // 30%
-            {
-                Console.WriteLine(two);
-                // 체력 ++ , 정신력 ++, 돈 --
-            }
-            else // 20%
-            {
-                Console.WriteLine(three);
-                // 체력 -- , 정신력 --
-            }
+        if (input < 6) // 50%
+        {
+            Console.WriteLine(one);
+            // 체력 -- , 정신력 --
+        }
+        else if (input < 9) // 30%
+        {
+            Console.WriteLine(two);
+            // 체력 ++ , 정신력 ++, 돈 --
+        }
+        else // 20%
+        {
+            Console.WriteLine(three);
+            // 체력 -- , 정신력 --
+        }
     }
 
 
@@ -846,7 +837,7 @@ internal class Program
         Random random = new Random();
 
         // 사격 거리
-        int[] distance = {200, 100, 50};
+        int[] distance = { 200, 100, 50 };
         int num = 0;
 
         // Wave 설정
@@ -873,7 +864,7 @@ internal class Program
         Console.WriteLine("");
         Console.ReadKey();
 
-        for(int currentWave = 1; currentWave <= totalWave; currentWave++)
+        for (int currentWave = 1; currentWave <= totalWave; currentWave++)
         {
             // 10웨이브 반복
             while (onScene)
@@ -939,13 +930,13 @@ internal class Program
     // Shooting 처리 메서드
     static int ShootingEvent(int input, int _hitCount, int _cursor)
     {
-        if(input == _cursor)
+        if (input == _cursor)
         {
             Console.WriteLine("명중!!!");
             _hitCount++;
             Console.ReadKey();
         }
-        else 
+        else
         {
             Console.WriteLine("빗나갔다...");
             Console.ReadKey();
@@ -975,7 +966,7 @@ internal class Program
     }
     */
     // 일병 스토리 - 대민지원
-    static void DMsupport() 
+    static void DMsupport()
     {
         Console.Clear();
         Console.WriteLine("민간 지역에 큰화재가 발생했다!");
@@ -986,17 +977,17 @@ internal class Program
         Console.WriteLine("무너진 건물 잔해가 많다고 하니 다치지 않게 하길 바란다!");
         Console.WriteLine("");
         Console.ReadKey();
-                
+
         Console.WriteLine("=======================================");
         Console.WriteLine("10번의 삽질을 시도해서 6번 성공하세요!");
         Console.WriteLine("=======================================");
         Console.WriteLine("");
         Console.ReadKey();
         Console.Clear();
-        
+
         Console.WriteLine("삽질 시작하기");
         Console.ReadKey();
-        
+
 
         int sucessCount = 0;
         Random random = new Random();
@@ -1049,236 +1040,238 @@ internal class Program
                 }
             }
         }
-    } 
+    }
 
     // 외박(선택지) : 1.여자친구 2. 가족 3. 친구 셋중 플레이어가 고르도록 유도하고 보너스 능력치를 주는 스토리 능력치는 세가지 전부 다르게(가족>친구) 여친은 꽝 -능력치(여친 도망간스토리)
     static void overnight()
     {
         Console.WriteLine("첫 외박날짜가 정해졌습니다. 기대와 설렘이 가득찬 그의 마음속에는");
         Console.WriteLine("어디를 가야할지, 누구를 만나야 할지에 대한 고민으로 가득차있습니다.");
-        
+
     }
 
 
 
-        
+
+
+
+    static int workCount = 0;
+    static int Perfection = 0;
+    static void HardWork()
+    {
+        workCount++;
+        Console.Clear();
+        Console.WriteLine("아침에 행정반을 가니 행보관님계서 두가지 선택권을 주셨다.");
+        Console.WriteLine("하나는 행보관님과 공구리를 치는것이고 하나는 보급병과 창고정리를 하는 것이다.");
+        Console.WriteLine();
+        Console.WriteLine($"1. 행보관님과 공구리 작업");
+        Console.WriteLine($"2. 보급병과 창고정리");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                CementWork1();
+                break;
+            case 2:
+
+                break;
+        }
     }
-    
-        static int workCount = 0;
-        static int Perfection = 0;
-        static void HardWork()
+
+    static void CementWork1()
+    {
+        Console.Clear();
+        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+        Console.WriteLine("시멘트 포대를 옮겨야 한다.");
+        Console.WriteLine("말년에는 떨어지는 낙엽도 조심하라고 하는데 나에게는 너무 가혹한 일이다.");
+        Console.WriteLine("나와 같이 배정받은 후임들이 보인다.");
+        Console.WriteLine();
+        Console.WriteLine($"1. 후임들에게 시키고 관리 감독을 한다");
+        Console.WriteLine($"2. 후임들과 함께 포대를 옮긴다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
         {
-            workCount++;
-            Console.Clear();
-            Console.WriteLine("아침에 행정반을 가니 행보관님계서 두가지 선택권을 주셨다.");
-            Console.WriteLine("하나는 행보관님과 공구리를 치는것이고 하나는 보급병과 창고정리를 하는 것이다.");
-            Console.WriteLine();
-            Console.WriteLine($"1. 행보관님과 공구리 작업");
-            Console.WriteLine($"2. 보급병과 창고정리");
-            Console.WriteLine();
-            int input = CheckValidInput(1, 2);
-            switch (input)
-            {
-                case 1:
-                    CementWork1();
-                    break;
-                case 2:
-                    
-                    break;
-            }
+            case 1:
+                workCount += 1;
+                Perfection += 1;
+                CementWork2();
+                break;
+            case 2:
+                workCount += 1;
+                Perfection += 3;
+                CementWork2();
+                break;
+        }
+    }
+    static void CementWork2()
+    {
+        Console.Clear();
+        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+        Console.WriteLine("시멘트를 물과 섞어야한다.");
+        Console.WriteLine("옆에는 교회가 있고 군종병이 청소를 한다고 문을 열어뒀다.");
+        Console.WriteLine("주변을 둘러보니 간부는 보이지 않는다.");
+        Console.WriteLine();
+        Console.WriteLine("1. 교회에 들어가서 한숨 잔다.");
+        Console.WriteLine("2. 후임들을 믿을 수 없다 직접 시멘트를 만든다.");
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                workCount += 1;
+                Perfection = 0; //확률 넣어야함
+                CementWork3();
+                break;
+            case 2:
+                workCount += 2;
+                Perfection += 3;
+                CementWork3();
+                break;
+        }
+    }
+    static void CementWork3()
+    {
+        Console.Clear();
+        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+        Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
+        Console.WriteLine("하지만 점심 먹고 슬 잠이 쏟아진다.");
+        Console.WriteLine();
+        Console.WriteLine("1. 생활관에 숨어서 계속 잠을 잔다.");
+        Console.WriteLine("2. 후임들을 통솔하고 작업하러 떠난다.");
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                workCount += 3;
+                Perfection += 3; //확률 넣어야함
+                CementWorkLoop();
+                break;
+            case 2:
+                workCount += 1;
+                Perfection += 3;
+                CementWorkLoop();
+                break;
         }
 
-        static void CementWork1()
+    }
+    static void CementWork4()
+    {
+        Console.Clear();
+        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+        Console.WriteLine("후임들이 곤란해 하는 것 같다.");
+        Console.WriteLine("도와주면 쉽게 끝낼 수 있을 것 같다.");
+        Console.WriteLine();
+        Console.WriteLine("1. 계속 지켜본다.");
+        Console.WriteLine("2. 후임들에게 시범을 보여준다.");
+        int input = CheckValidInput(1, 2);
+        switch (input)
         {
-            Console.Clear();
-            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10-workCount}");
-            Console.WriteLine("시멘트 포대를 옮겨야 한다.");
-            Console.WriteLine("말년에는 떨어지는 낙엽도 조심하라고 하는데 나에게는 너무 가혹한 일이다.");
-            Console.WriteLine("나와 같이 배정받은 후임들이 보인다.");
-            Console.WriteLine();
-            Console.WriteLine($"1. 후임들에게 시키고 관리 감독을 한다");
-            Console.WriteLine($"2. 후임들과 함께 포대를 옮긴다.");
-            Console.WriteLine();
-            int input = CheckValidInput(1, 2);
-            switch (input)
-            {
-                case 1:
-                    workCount += 1;
-                    Perfection += 1;
-                    CementWork2();
-                    break;
-                case 2:
-                    workCount += 1;
-                    Perfection += 3;
-                    CementWork2();
-                    break;
-            }
+            case 1:
+                workCount += 1;
+                Perfection += 2;
+                CementWorkLoop();
+                break;
+            case 2:
+                workCount += 1;
+                Perfection += 1; //확률로 마이너스
+                CementWorkLoop();
+                break;
         }
-        static void CementWork2()
-        {
-            Console.Clear();
-            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-            Console.WriteLine("시멘트를 물과 섞어야한다.");
-            Console.WriteLine("옆에는 교회가 있고 군종병이 청소를 한다고 문을 열어뒀다.");
-            Console.WriteLine("주변을 둘러보니 간부는 보이지 않는다.");
-            Console.WriteLine();
-            Console.WriteLine("1. 교회에 들어가서 한숨 잔다.");
-            Console.WriteLine("2. 후임들을 믿을 수 없다 직접 시멘트를 만든다.");
-            int input = CheckValidInput(1, 2);
-            switch (input)
-            {
-                case 1:
-                    workCount += 1;
-                    Perfection = 0; //확률 넣어야함
-                    CementWork3();
-                    break;
-                case 2:
-                    workCount += 2;
-                    Perfection += 3;
-                    CementWork3();
-                    break;
-            }
-        }
-        static void CementWork3()
-        {
-            Console.Clear();
-            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-            Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
-            Console.WriteLine("하지만 점심 먹고 슬 잠이 쏟아진다.");
-            Console.WriteLine();
-            Console.WriteLine("1. 생활관에 숨어서 계속 잠을 잔다.");
-            Console.WriteLine("2. 후임들을 통솔하고 작업하러 떠난다.");
-            int input = CheckValidInput(1, 2);
-            switch (input)
-            {
-                case 1:
-                    workCount += 3;
-                    Perfection += 3; //확률 넣어야함
-                    CementWorkLoop();
-                    break;
-                case 2:
-                    workCount += 1;
-                    Perfection += 3;
-                    CementWorkLoop();
-                    break;
-            }
 
-        }
-        static void CementWork4()
+    }
+    static void CementWork5()
+    {
+        Console.Clear();
+        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+        Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
+        Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
+        Console.WriteLine();
+        Console.WriteLine("1. 계속 지켜본다");
+        Console.WriteLine("2. 후임들을 도와 작업을 마무리한다");
+        int input = CheckValidInput(1, 2);
+        switch (input)
         {
-            Console.Clear();
-            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-            Console.WriteLine("후임들이 곤란해 하는 것 같다.");
-            Console.WriteLine("도와주면 쉽게 끝낼 수 있을 것 같다.");
-            Console.WriteLine();
-            Console.WriteLine("1. 계속 지켜본다.");
-            Console.WriteLine("2. 후임들에게 시범을 보여준다.");
-            int input = CheckValidInput(1, 2);
-            switch (input)
-            {
-                case 1:
-                    workCount += 1;
-                    Perfection += 2;
-                    CementWorkLoop();
-                    break;
-                case 2:
-                    workCount += 1;
-                    Perfection += 1; //확률로 마이너스
-                    CementWorkLoop();
-                    break;
-            }
+            case 1:
+                workCount += 1;
+                Perfection += 3;
+                CementWorkLoop();
+                break;
+            case 2:
+                workCount += 1;
+                Perfection += 1;
+                CementWorkLoop();
+                break;
+        }
 
-        }
-        static void CementWork5()
+    }
+    static void CementWorkLoop()
+    {
+        Random random = new Random();
+        if (workCount < 9)
         {
-            Console.Clear();
-            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-            Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
-            Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
-            Console.WriteLine(); 
-            Console.WriteLine("1. 계속 지켜본다");
-            Console.WriteLine("2. 후임들을 도와 작업을 마무리한다");
-            int input = CheckValidInput(1, 2);
-            switch (input)
+            if (Perfection < 10)
             {
-                case 1:
-                    workCount += 1;
-                    Perfection += 3;
-                    CementWorkLoop();
-                    break;
-                case 2:
-                    workCount += 1;
-                    Perfection += 1;
-                    CementWorkLoop();
-                    break;
-            }
+                int randomChoice = random.Next(0, 2);
 
-        }
-        static void CementWorkLoop()
-        {
-            Random random = new Random();
-            if (workCount < 9)
-            {
-                if (Perfection < 10)
+                if (randomChoice == 0)
                 {
-                    int randomChoice = random.Next(0, 2);
-
-                    if (randomChoice == 0)
-                    {
-                        CementWork4();
-                    }
-                    else
-                    {
-                        CementWork5();
-                    }
+                    CementWork4();
                 }
                 else
                 {
-                    Console.Clear();
-                    Console.WriteLine("작업이 완료되었다.");
-                    Console.WriteLine($"개인정비까지 {9-workCount}시간 남았으니 휴식하자");
-                    Console.WriteLine("능력치 상승 & 스트레스 감소");
-                    Perfection = 0;
-                    workCount = 0;
+                    CementWork5();
                 }
-
             }
             else
             {
-                if (Perfection >= 10)
-                {
-                    Console.Clear();
-                    Console.WriteLine("작업이 완료되었다.");
-                    Console.WriteLine($"개인정비까지 {9}시간 남았으니 휴식하자");
-                    Console.WriteLine("능력치 상승 & 스트레스 감소");
-                    Perfection = 0;
-                    workCount = 0;
-                }
-                else if (Perfection < 10 && Perfection >= 7)
-                {
-                    Perfection = 0;
-                    workCount = 0;
-                    Console.Clear();
-                    Console.WriteLine("일과가 마무리 되었다. 작업물이 살짝 아쉽지만 완벽한 가라는 진짜랬다.");
-                    Console.WriteLine("들키지만 않으면 아무렴 어떠한가");
-                    Console.WriteLine("능력치 상승 & 스트레스 감소");
-                }
-                else
-                {
-                    Perfection = 0;
-                    workCount = 0;
-                    Console.Clear();
-                    Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
-                    Console.WriteLine("시작하고 가만히 있었겄만 결과가 터무니 없다.");
-                    Console.WriteLine("개인정비 시간때 행보관님과 공구리 작업을 치게 되었다.");
-                    Console.WriteLine("능력치 상승 & 스트레스 상승");
-                }
+                Console.Clear();
+                Console.WriteLine("작업이 완료되었다.");
+                Console.WriteLine($"개인정비까지 {9 - workCount}시간 남았으니 휴식하자");
+                Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Perfection = 0;
+                workCount = 0;
+            }
+
+        }
+        else
+        {
+            if (Perfection >= 10)
+            {
+                Console.Clear();
+                Console.WriteLine("작업이 완료되었다.");
+                Console.WriteLine($"개인정비까지 {9}시간 남았으니 휴식하자");
+                Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Perfection = 0;
+                workCount = 0;
+            }
+            else if (Perfection < 10 && Perfection >= 7)
+            {
+                Perfection = 0;
+                workCount = 0;
+                Console.Clear();
+                Console.WriteLine("일과가 마무리 되었다. 작업물이 살짝 아쉽지만 완벽한 가라는 진짜랬다.");
+                Console.WriteLine("들키지만 않으면 아무렴 어떠한가");
+                Console.WriteLine("능력치 상승 & 스트레스 감소");
+            }
+            else
+            {
+                Perfection = 0;
+                workCount = 0;
+                Console.Clear();
+                Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
+                Console.WriteLine("시작하고 가만히 있었겄만 결과가 터무니 없다.");
+                Console.WriteLine("개인정비 시간때 행보관님과 공구리 작업을 치게 되었다.");
+                Console.WriteLine("능력치 상승 & 스트레스 상승");
             }
         }
+    }
 
-    */
 
-    
+
+
+
+    #region px로 가기
     //상점(PX)
     static void PX()
     {
@@ -1342,51 +1335,54 @@ internal class Program
                 break;
         }
     }
+    #endregion
 
 
-    //구매한 아이템 인벤토리로 옮기기
-    static void BuyItem(Character player)
-    {
-        Console.Clear();
-        Console.WriteLine(" 구매할 아이템을 선택하세요:");
-        Console.WriteLine($" 현재 소지금: {player1._gold}");
-        Console.WriteLine();
-        Console.WriteLine("=====================================================================================");
-        Console.WriteLine();
-        for (int i = 0; i < items.Count; i++)
-        {
-            var item = items[i];
-            Console.WriteLine($" {i + 1}. {item.ItemName} \t| 공격력 : {item.ItemAtk} \t| 방어력 : {item.ItemDef} \t| 가격: {item.ItemGold}G");
-            Console.WriteLine();
-        }
-        Console.WriteLine("=====================================================================================");
-        Console.WriteLine();
+   #region 아이템 구매 메소드
+     //구매한 아이템 인벤토리로 옮기기
+     static void BuyItem(Character player)
+     {
+         Console.Clear();
+         Console.WriteLine(" 구매할 아이템을 선택하세요:");
+         Console.WriteLine($" 현재 소지금: {player1._gold}");
+         Console.WriteLine();
+         Console.WriteLine("=====================================================================================");
+         Console.WriteLine();
+         for (int i = 0; i < items.Count; i++)
+         {
+             var item = items[i];
+             Console.WriteLine($" {i + 1}. {item.ItemName} \t| 공격력 : {item.ItemAtk} \t| 방어력 : {item.ItemDef} \t| 가격: {item.ItemGold}G");
+             Console.WriteLine();
+         }
+         Console.WriteLine("=====================================================================================");
+         Console.WriteLine();
+ 
+         //1~7의 숫자를 입력하면 0~6번째의 아이템을 구매
+         int itemIndex = CheckValidInput(1, 7) - 1;
+ 
+         Item selectedItem = items[itemIndex]; // 선택한 아이템 가져오기
+ 
+         // 플레이어의 골드가 아이템 가격보다 많은지 확인
+         if (player.Gold >= selectedItem.ItemGold)
+         {
+             player.Gold -= selectedItem.ItemGold; // 골드 차감
+             player.AddToInventory(selectedItem); // 인벤토리에 아이템 추가
+             items.Remove(selectedItem);//선택한 아이템 제거
+             Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
+         }
+         else
+         {
+             Console.WriteLine(" 돈이 부족합니다!");
+         }
+ 
+         Console.WriteLine(" Press Anykey to go Back.");
+         Console.Write(">>");
+         Console.ReadKey();
+         PX(); // 다시 상점으로 돌아가기
+ 
+     }
+   #endregion
 
-        //1~7의 숫자를 입력하면 0~6번째의 아이템을 구매
-        int itemIndex = CheckValidInput(1, 7) - 1;
-
-        Item selectedItem = items[itemIndex]; // 선택한 아이템 가져오기
-
-        // 플레이어의 골드가 아이템 가격보다 많은지 확인
-        if (player.Gold >= selectedItem.ItemGold)
-        {
-            player.Gold -= selectedItem.ItemGold; // 골드 차감
-            player.AddToInventory(selectedItem); // 인벤토리에 아이템 추가
-            items.Remove(selectedItem);//선택한 아이템 제거
-            Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
-        }
-        else
-        {
-            Console.WriteLine(" 돈이 부족합니다!");
-        }
-
-        Console.WriteLine(" Press Anykey to go Back.");
-        Console.Write(">>");
-        Console.ReadKey();
-        PX(); // 다시 상점으로 돌아가기
-
-    }
-    
     /*
     //상태창
     static void DisplayMyInfo()
@@ -1471,7 +1467,7 @@ internal class Program
     }
     */
     //입력 키 확인 메서드
-    
+
 
     /*
     //몬스터 전투 메서드
