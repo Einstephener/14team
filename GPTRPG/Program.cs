@@ -8,6 +8,7 @@ using System.IO;
 using System.Xml.Linq;
 using System;
 using System.Text;
+using System.Drawing;
 
 internal class Program
 {
@@ -395,6 +396,73 @@ internal class Program
         }
     #endregion
 
+    #region 일과 ( 상시 이벤트 )
+    // 일과 ( 상시 이벤트 )
+    static void DailyRoutineScene()
+    {
+        // Cursor && Scene 초기화 값
+        int Cursor = 0;
+        bool onSecne = true;
+
+        // Text 배열
+        string[] text = { "1. 체력 단련", "2. 주특기 훈련", "3. 행보관님 작업" };
+
+        while (onSecne)
+        {
+            // 화면 초기화
+            Console.Clear();
+
+            Console.WriteLine("오늘 하루도 힘내보자.");
+            Console.WriteLine("");
+            Console.WriteLine("어떤일을 해볼까?");
+            Console.WriteLine("");
+
+            // Text[] Output
+            TextChoice(Cursor, text);
+            // Key Input
+            e = Console.ReadKey();
+            // Cursor Index
+            CursorChoice(e, Cursor, text, onSecne);
+        }
+
+        switch(Cursor)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            default:
+                break;
+        }
+    }
+    #endregion
+
+    #region 체력 단련 ( 상시 이벤트 선택지 )
+    // 체력 단련 ( 상시 이벤트 선택지 )
+    static void PhysicalTrainingScene()
+    {
+
+    }
+    #endregion
+
+    #region 주특기 훈련 ( 상시 이벤트 선택지 )
+    // 주특기 훈련 ( 상시 이벤트 선택지 )
+    static void SpecialityScene()
+    {
+
+    }
+    #endregion
+
+    #region 작업 ( 상시 이벤트 선택지)
+    // 작업 ( 상시 이벤트 선택지)
+    static void WorkScene()
+    {
+
+    }
+    #endregion
+
     //이등병 스토리
     static void Basic(Character player)
     {
@@ -704,19 +772,7 @@ internal class Program
         Console.WriteLine("");
     }
 
-
-
-
-    //병장
-
-
-
-    //    일병
-    //    - 100일 휴가
-    //    여자친구가 전화를 받지 않는다.(여자 친구 집 앞 찾아가기 50%확률로 바람,
-    //    -사격
-    //    (확률) 명중률 보상 20발 중 명중, 빗나감 개수에 따른 차등보상
-
+    #region 일별 - 100일 휴가
     //일병 스토리 - 100일 휴가
     static void HundredDaysvacationScene()
     {
@@ -742,17 +798,17 @@ internal class Program
             // Random Number 설정
             randomNum = random.Next(1, 10);
 
+            //화면 초기화
+            Console.Clear();
+
             Console.WriteLine("드디어 100일 휴가를 나왔다!");
             Console.WriteLine("어떤 일을 먼저 해볼까?");
 
-            for (int i = 0; i < text.Length; i++)
-            {
-                if (cursor == i) Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(text[i]);
-                Console.ResetColor();
-            }
-
+            // Text[] Output
+            TextChoice(cursor, text);
+            // Key Input
             e = Console.ReadKey();
+<<<<<<< Updated upstream
             switch (e.Key)
             {
                 case ConsoleKey.UpArrow:
@@ -769,6 +825,10 @@ internal class Program
                 default:
                     break;
             }
+=======
+            // Cursor Index
+            cursor = CursorChoice(e, cursor, text, onScene);
+>>>>>>> Stashed changes
         }
 
         // 화면 지우기
@@ -782,24 +842,28 @@ internal class Program
                 OneHundredDaysEvent(randomNum, "여자친구가 다른 남자와 다정하게 걷고 있다...",
                 "여자친구와 즐거운 시간을 보냈다.",
                 "나는 여자친구가 없다...");
+                // Scene이동
                 break;
             case 1:
                 // 친구들 만나러
                 OneHundredDaysEvent(randomNum, "오랜만에 친구들과 술 한잔하며 이야기했다.",
                 "친구들과 Pc방에 가서 시간 가는 줄 모르고 놀았다.",
                 "나는 친구가 없다...");
+                // Scene이동
                 break;
             case 2:
                 // 본가로 간다
                 OneHundredDaysEvent(randomNum, "오랜만에 집에 왔건만 군대에서 뭐했냐며 잔소리만 들었다...",
                 "가족들과 오랜만에 식사하며 좋은 시간을 보냈다.",
                 "내가 오는 줄 몰랐나..? 아무도 없다...");
+                // Scene이동
                 break;
             case 3:
                 // 혼자 논다
                 OneHundredDaysEvent(randomNum, "혼자 즐겁게 놀았다. 진짜 즐거운 거 맞다, 아마도..",
                 "여기저기 구경 다니며 신나게 놀았다.",
                 "생활관에 있을 때가 더 나은 거 같다 너무 외롭다..");
+                // Scene이동
                 break;
             default:
                 break;
@@ -825,8 +889,9 @@ internal class Program
             // 체력 -- , 정신력 --
         }
     }
+    #endregion
 
-
+    #region 일병 - 사격 훈련
     // 일병 스토리 - 사격 훈련
     static void ShootingScene()
     {
@@ -882,14 +947,11 @@ internal class Program
                 Console.WriteLine("어디를 조준하고 사격할까?");
                 Console.WriteLine("");
 
-                for (int i = 0; i < text.Length; i++)
-                {
-                    if (cursor == i) Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("text[i]");
-                    Console.ResetColor();
-                }
-
+                // Text[] Output
+                TextChoice(cursor, text);
+                // Key Input
                 e = Console.ReadKey();
+<<<<<<< Updated upstream
                 switch (e.Key)
                 {
                     case ConsoleKey.UpArrow:
@@ -906,6 +968,10 @@ internal class Program
                     default:
                         break;
                 }
+=======
+                // Cursor index
+                cursor = CursorChoice(e, cursor, text, onScene);
+>>>>>>> Stashed changes
             }
 
             // 화면 지우기
@@ -941,8 +1007,16 @@ internal class Program
 
         return _hitCount;
     }
+<<<<<<< Updated upstream
     /*
     static void CursorChoice(ReadKey e, int _cursor, string _text[])
+=======
+    #endregion
+
+    #region Cursor선택 캡슐화
+    // Cursor선택 메서드
+    static int CursorChoice(ConsoleKeyInfo e, int _cursor, string[] _text, ref bool _onScene)
+>>>>>>> Stashed changes
     {
             switch (e.Key)
             {
@@ -961,7 +1035,25 @@ internal class Program
                     break;
             }
     }
+<<<<<<< Updated upstream
     */
+=======
+    #endregion
+
+    #region Text 선택지 출력 캡슐화
+    // Text 출력 캡슐화
+    static void TextChoice(int _cursor, string[] _text)
+    {
+        for (int i = 0; i < text.Length; i++)
+        {
+            if (_cursor == i) Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(_text[i]);
+            Console.Clear();
+        }
+    }
+    #endregion
+
+>>>>>>> Stashed changes
     // 일병 스토리 - 대민지원
     static void DMsupport()
     {
