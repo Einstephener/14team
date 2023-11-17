@@ -1503,15 +1503,27 @@ internal class Program
         switch (input)
         {
             case 1:
-                ColdWeatherTrainingBattle1();
+                ColdWeatherTrainingBattle1(player1.Dex);
                 break;
             case 2:
                 ColdWeatherTraining3();
                 break;
         }
     }
-    static void ColdWeatherTrainingBattle1()
+    static void ColdWeatherTrainingBattle1(int stat)
     {
+        bool eventOccurred = EventOccur(player1.CalculateProbability(stat));
+        if (eventOccurred)
+        {
+            Console.WriteLine("행보관님에게 걸렸다.");
+        }
+        else
+        {
+            Console.WriteLine("개꿀 일과 빼먹었다.");
+            Console.WriteLine("press any Key");
+            
+        }
+
         //행보관님과 배틀
     }
     static void ColdWeatherTraining3()
@@ -2228,9 +2240,10 @@ internal class Program
     }
     #endregion
     #region 확률 구현
-    static void Probability()
+    static bool EventOccur(double probability)
     {
-
+        Random random = new Random();
+        return random.NextDouble() < probability;
     }
 
     #endregion

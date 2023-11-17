@@ -44,6 +44,11 @@ public class Character
         Inventory.Add(item);
     }
 
+    public double CalculateProbability(int Value)
+    {
+        return Math.Clamp(Math.Log(Value, 1.8) / 10, 0, 1);
+    }
+
 }
 public class Infantry : Character
 {
@@ -76,4 +81,5 @@ public class Maintenence : Character
         {
         }
 }
+
 
