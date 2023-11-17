@@ -46,7 +46,8 @@ public class Character
 
     public double CalculateProbability(int Value)
     {
-        return Math.Clamp(Math.Log(Value, 1.8) / 10, 0, 1);
+        return Math.Clamp(Math.Log(Value, 1.06) / 100, 0, 1);
+        //로그 함수 넣은건 다른 게임들도 그렇게 되어있기도 하고 확률이 100%에 육박하면 노잼이라서 100찍으면 79% 확률
     }
 
 }
