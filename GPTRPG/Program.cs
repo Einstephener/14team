@@ -624,6 +624,7 @@ internal class Program
 
     }
 
+    #region 상병 스토리
     //상병 스토리 - KCTC
     static void CStoryKCTC()
     {
@@ -736,7 +737,6 @@ internal class Program
         }
 
     }
-
     //상병 스토리-전준태
     static void CSDefcon(Character player)
     {
@@ -759,20 +759,46 @@ internal class Program
 
         }
     }
-    //상병 스토리 - 체력검정
+    //상병 스토리 - 대침투 훈련
     static void CSTest()
     {
         Console.Clear();
         Console.WriteLine();
-        Console.WriteLine("오늘은 체력측정이 있는 날이다.");
-        Console.WriteLine("시험관으로 저번달에 전입온 소위가 걸렸다.");
-        Console.WriteLine("아 저 소위 FM인데...");
-        Console.WriteLine("\"오늘은 체력 측정엔 가라는 없다! 알겠나!\"");
-        Console.WriteLine("특급전사를 따야 휴가를 받는데.. 어떻게 가라를 쳐야 하나..");
-        Console.WriteLine("");
+        Console.WriteLine("오늘은 대침투 훈련을 한다.");
+        Console.WriteLine("부대 근처 야산으로 가서 참호를 파고 총을 거치한다.");
+        Console.WriteLine("\"거수자 발견시 보고하고. 알지? 위장한 간부 잡으면 포상인거?\"");
+        Console.WriteLine("의욕이 셈솟기 시작한다.");
+        Console.WriteLine("하염없이 숨어있으니, 길 너머 풀숲에서 부스럭 거리는 소리가 들린다.");
+        Console.WriteLine("어떻게 할까?");
+        //일정 확률로 선공
+        //적 발견 시 전투, 선공 성공시 치명타
     }
+    //상병 스토리-초임 소대장
+    static void CSNewCommander(Character.player)
+    {
+        Console.Clear();
+        Console.WriteLine();
+        Console.WriteLine("오늘은 새로운 소위가 임관하는 날이다.");
+        Console.WriteLine("관상부터 FM인게 보인다.");
+        Console.WriteLine("ㅈ된듯 하다.");
+        Console.WriteLine("얼마 후...");
+        Console.WriteLine("FM 소대장: 이봐 {playt}");
+    }
+    //상병 스토리- 분대장 교육
+    static void CSschool()
+    {
+        Console.Clear();
+        Console.WriteLine("어쩌다보니 분대장으로 뽑혔다.");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("분대장 교육대로 이동중...");
+        Console.ResetColor();
+        Console.WriteLine("분대장 교육대에서 받은 성적을 통해 추가 보상이 있을 예정이다.");
 
-    #region 일별 - 100일 휴가
+
+    }
+    #endregion
+
+    #region 일병 - 100일 휴가
     //일병 스토리 - 100일 휴가
     static void HundredDaysvacationScene()
     {
@@ -808,7 +834,7 @@ internal class Program
             TextChoice(cursor, text);
             // Key Input
             e = Console.ReadKey();
-<<<<<<< Updated upstream
+
             switch (e.Key)
             {
                 case ConsoleKey.UpArrow:
@@ -825,10 +851,10 @@ internal class Program
                 default:
                     break;
             }
-=======
+
             // Cursor Index
             cursor = CursorChoice(e, cursor, text, onScene);
->>>>>>> Stashed changes
+
         }
 
         // 화면 지우기
@@ -951,7 +977,7 @@ internal class Program
                 TextChoice(cursor, text);
                 // Key Input
                 e = Console.ReadKey();
-<<<<<<< Updated upstream
+
                 switch (e.Key)
                 {
                     case ConsoleKey.UpArrow:
@@ -968,10 +994,10 @@ internal class Program
                     default:
                         break;
                 }
-=======
+
                 // Cursor index
                 cursor = CursorChoice(e, cursor, text, onScene);
->>>>>>> Stashed changes
+
             }
 
             // 화면 지우기
@@ -1007,16 +1033,16 @@ internal class Program
 
         return _hitCount;
     }
-<<<<<<< Updated upstream
+
     /*
     static void CursorChoice(ReadKey e, int _cursor, string _text[])
-=======
+
     #endregion
 
     #region Cursor선택 캡슐화
     // Cursor선택 메서드
     static int CursorChoice(ConsoleKeyInfo e, int _cursor, string[] _text, ref bool _onScene)
->>>>>>> Stashed changes
+
     {
             switch (e.Key)
             {
@@ -1035,9 +1061,9 @@ internal class Program
                     break;
             }
     }
-<<<<<<< Updated upstream
+
     */
-=======
+
     #endregion
 
     #region Text 선택지 출력 캡슐화
@@ -1053,8 +1079,7 @@ internal class Program
     }
     #endregion
 
->>>>>>> Stashed changes
-    // 일병 스토리 - 대민지원
+  // 일병 스토리 - 대민지원
     static void DMsupport()
     {
         Console.Clear();
