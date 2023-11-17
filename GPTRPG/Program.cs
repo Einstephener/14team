@@ -31,7 +31,7 @@ internal class Program
     //몬스터들 선언
     private static Enemy slime;
     private static Enemy gobline;
-    private static Enemy demon;
+    private static Enemy newCommander;
     private static Enemy Orc;
 
     //캐릭터 선언
@@ -81,6 +81,10 @@ internal class Program
 
 
         //몬스터들 정보 세팅
+        newCommander = new Enemy("초임 소위", 100, 100);
+
+        //몬스터 추가
+        enemys.Add(newCommander);
 
 
     }
@@ -257,7 +261,7 @@ internal class Program
             CSschool();
             break;
             case 12:            //12개월
-            CSNewCommander(player1);
+            CSNewCommander(player1, newCommander);
             break;
             case 13:            //13개월
             CSTest();
@@ -297,23 +301,23 @@ internal class Program
 
             Rank.SetRank();
 
-    
-            Console.WriteLine("상태확인");
-            Console.WriteLine("당신의 정보를 표시합니다.");
+            Console.WriteLine();    
+            Console.WriteLine(" 상태확인");
+            Console.WriteLine(" 당신의 정보를 표시합니다.");
             Console.WriteLine();
             Console.WriteLine("====================================");
             Console.WriteLine($" {Rank.rank} | {player1.Name} ");
             Console.WriteLine();
-            Console.WriteLine($" 힘 \t: {player1.Str}");
-            Console.WriteLine($" 민첩 \t: {player1.Dex}");
-            Console.WriteLine($" 지능 \t: {player1.IQ}");
-            Console.WriteLine($" 운 \t: {player1.Luk}");
+            Console.WriteLine($" 힘 \t\t: {player1.Str}");
+            Console.WriteLine($" 민첩 \t\t: {player1.Dex}");
+            Console.WriteLine($" 지능 \t\t: {player1.IQ}");
+            Console.WriteLine($" 운 \t\t: {player1.Luk}");
             Console.WriteLine($" 체력 \t\t: {player1.Hp}");
             Console.WriteLine($" 정신력 \t: {player1.Mind}");
             Console.WriteLine($" Gold \t\t: {player1.Gold} G");
             Console.WriteLine("====================================");
             Console.WriteLine();
-            Console.WriteLine(" 0. 나가기");
+            Console.WriteLine(" 0. 돌아가기");
             Console.Write(">>");
     
             int input = CheckValidInput(0, 0);
@@ -568,6 +572,7 @@ internal class Program
         Console.WriteLine("그때 한 선임이 \"굳건이 군화 닦았어 ? \"");
         Console.WriteLine("");
         Console.WriteLine("그 순간 머리가 하애졌다..");
+        Console.WriteLine("");
 
         Random Shoes = new Random();
         int number = Shoes.Next(2);
@@ -579,11 +584,15 @@ internal class Program
         else
         {
             player1.Hp -= 30;
+            Console.WriteLine("");
             Console.WriteLine("아 미쳐 닦지 못했습니다..");
             Console.WriteLine("하.. 아침부터 큰일이네;; ");
+            Console.WriteLine("체력이 30 감소했습니다.");
         }
         // 만약 굳건이가 군화를 닦았다면 아무일도 일어나지 않는다
         // 굳건이가 군화를 안닦았다면 -hp  확률 50%
+
+        OneMonthLater();
 
     }
 
@@ -680,6 +689,7 @@ internal class Program
                 //추가로 실패시 정신력, 체력 감소 추가해야됨
             }
         }
+        
         //switch (randomNumber)
         //{
         //    case 0:
@@ -824,6 +834,7 @@ internal class Program
                 player1.Hp += 10;
                 break;
         }
+        OneMonthLater();
 
     }
     //상병 스토리-전준태
@@ -862,17 +873,7 @@ internal class Program
         //일정 확률로 선공
         //적 발견 시 전투, 선공 성공시 치명타
     }
-    //상병 스토리-초임 소대장
-    static void CSNewCommander(Character player)
-    {
-        Console.Clear();
-        Console.WriteLine();
-        Console.WriteLine("오늘은 새로운 소위가 임관하는 날이다.");
-        Console.WriteLine("관상부터 FM인게 보인다.");
-        Console.WriteLine("ㅈ된듯 하다.");
-        Console.WriteLine("얼마 후...");
-        Console.WriteLine("FM 소대장: 이봐 {playt}");
-    }
+    
     //상병 스토리- 분대장 교육
     static void CSschool()
     {
@@ -885,6 +886,95 @@ internal class Program
 
 
     }
+    //상병 스토리- 보스몹 초임 소대장
+    static void CSNewCommander(Character player, Enemy enemy)
+    {
+        Console.Clear();
+        Console.WriteLine();
+        Console.WriteLine("오늘은 새로운 소위가 임관하는 날이다.");
+        Console.WriteLine("관상부터 FM인게 보인다.");
+        Console.WriteLine("ㅈ된듯 하다.");
+        Console.WriteLine("얼마 후...");
+        Console.WriteLine($"{enemy.EnemyName}: 이봐 {player.Name} 상병. ");
+        Console.WriteLine($"상병 {player.Name}. 무슨일이십니까? ");
+        Console.WriteLine($"{enemy.EnemyName}: 배수로 작업 하러 가지.");
+        Console.WriteLine("얼마 후...");
+        Console.WriteLine("얼마 후...");
+        Console.WriteLine("얼마 후...");
+        Console.WriteLine("얼마 후...");
+        Console.WriteLine("얼마 후...");
+
+    }
+    static void CSCommanderKill(Character player, Enemy enemy)
+    {
+        if(player1.Hp > 0 && enemy.EnemyHp > 0)
+        {
+            Console.Clear();
+            Console.WriteLine("전투시작");
+            Console.WriteLine("================================");
+            Console.Write("소대장의 체력: ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"{enemy.EnemyHp}");
+            Console.ResetColor();
+            Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine($"{player.Name}의 체력: {player.Hp}");
+            Console.ResetColor();
+            Console.WriteLine("================================");
+            Console.WriteLine("이번턴에 하실 행동을 골라주세요");
+            Console.WriteLine("");
+            Console.WriteLine("1. 공격하기");
+            Console.WriteLine("2. 방어하기");
+            Console.WriteLine("");
+        
+            int input = CheckValidInput(1,2);
+            if (input==1)
+            {
+                Random rand = new Random();
+                int number = rand.Next(player.Luk);
+                if(number <= 5) //따로 추가 스탯 없을경우 평타
+                {
+                    enemy.EnemyHp -= player.Str;
+                    Console.WriteLine("당신의 공격!");
+                    Thread.Sleep(500);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write($"{player.Str}");
+                    Console.ResetColor();
+                    Console.WriteLine("의 데미지를 주었다.");
+                    Thread.Sleep(500);
+                    Console.WriteLine($"{enemy.EnemyName}의 공격!");
+                    Console.WriteLine($"{enemy.EnemyAtk}만큼의 데미지를 입었다.");
+                    Console.ReadKey();
+                    CSCommanderKill(player1, newCommander);
+
+                }
+
+                else //치명타 (luk의 추가 스탯이 많을 수록 확률이 올라감)
+                {
+                    enemy.EnemyHp -= player.Str + player.Luk;
+                    Console.WriteLine("당신의 공격");
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("치명타!");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("{0}", player1.Str + player.Luk);
+                    Console.ResetColor();
+                    Console.WriteLine("만큼의 데미지를 주었다.");
+                    Thread.Sleep(500);
+                    Console.WriteLine($"{enemy.EnemyName}의 공격!");
+                    Console.WriteLine($"{enemy.EnemyAtk}만큼의 데미지를 입었다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    CSCommanderKill(player1, newCommander);
+                    
+                }
+
+            }
+        }
+        OneMonthLater();
+
+    }
+
+
     #endregion
 
     #region 일병 - 100일 휴가
