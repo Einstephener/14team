@@ -3,20 +3,16 @@
 public class Rank
 {
 
-    public int month;
-    public string rank { get; set; }
+    public static int month;
+    public static string rank { get; set; }
 
     public Rank(int initialMonth)
     {
         month = initialMonth;
     }
 
-    public void IncreaseMonth()
-    {
-        month++;
-    }
 
-    public void SetRank()
+    public static void SetRank()
     {
         if (month >= 1 && month <= 2)
         {

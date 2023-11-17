@@ -36,6 +36,7 @@ internal class Program
 
     //캐릭터 선언
     private static Character player1;
+    private static Rank rank1;    
 
     // ConsoleKeyInfo 선언
     static ConsoleKeyInfo e;
@@ -261,7 +262,7 @@ internal class Program
 
         Console.WriteLine("press any key to continue");
         Console.ReadKey();
-        Basic(player1);
+        Home();
 
     }
     #region 막사/생활관
@@ -273,7 +274,7 @@ internal class Program
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("막사");
             Console.ResetColor();
-            Console.WriteLine($"{Rank.rank} {player1.Name}");
+            Console.WriteLine($"계급: {Rank.rank} 이름: {player1.Name}");
             Console.WriteLine($"군생활 {Rank.month}개월 째");
             Console.WriteLine("무엇을 할 것인가?");
             Console.WriteLine();
@@ -288,6 +289,7 @@ internal class Program
             {
                 case 1:
                     //스토리 진행
+                    StoryPlay();
                     break;
                 case 2:
                     //일과 진행
@@ -371,6 +373,14 @@ internal class Program
 
     }
 
+    //한달 지나기
+    static void OneMonthLater()
+    {
+        Rank.month++;
+        Console.WriteLine("한달이 흘렀다...");
+        Console.ReadKey();
+        Home();
+    }
 
     #region 상태창
         //상태확인
@@ -379,13 +389,13 @@ internal class Program
             Console.Clear();
 
             Rank.SetRank();
-            string currentRank = Rank.rank; //현재 계급 가져오기
+
     
             Console.WriteLine("상태확인");
             Console.WriteLine("당신의 정보를 표시합니다.");
             Console.WriteLine();
             Console.WriteLine("====================================");
-            Console.WriteLine($" {currentRank} | {player1.Name} ");
+            Console.WriteLine($" {Rank.rank} | {player1.Name} ");
             Console.WriteLine();
             Console.WriteLine($" 힘 \t: {player1.Str}");
             Console.WriteLine($" 민첩 \t: {player1.Dex}");
@@ -703,7 +713,7 @@ internal class Program
         }
         Console.WriteLine("하루가 1년같았다..");
         Console.ReadKey();
-        Home();
+        OneMonthLater();
     }
 
 
@@ -839,7 +849,7 @@ internal class Program
         }
         Console.WriteLine("훈련이 끝났다. 막사로 돌아가자.");
         Console.ReadKey();
-        Home();
+        OneMonthLater();
 
     }
     //상병 스토리- 상검
@@ -1345,7 +1355,7 @@ internal class Program
     }
 
     // 외박(선택지) 일병스토리6
-    static void overnight()
+    static void Overnight()
     {
         Console.Clear();
         Console.WriteLine("");
