@@ -1378,7 +1378,7 @@ internal class Program
 
     static int workCount = 0;
     static int Perfection = 0;
-
+    #region 혹한기
     static void ColdWeatherTraining1()
     {
         Console.Clear();
@@ -1628,7 +1628,8 @@ internal class Program
                 break;
         }
     }
-
+    #endregion
+    #region 작업
     static void HardWork()
     {
         workCount++;
@@ -2030,6 +2031,8 @@ internal class Program
             }
         }
     }
+    #endregion
+    #region 말출
     static void LastLeave1()
     {
         Console.Clear();
@@ -2133,7 +2136,14 @@ internal class Program
         //이 상황에 질려서 집에서 말년 보내는 엔딩
         Console.WriteLine("밖은 위험하다 그냥 집에서 빈둥거리며 보내야겠다.");
     }
+    #endregion
+    #region 확률 구현
+    static void Probability()
+    {
 
+    }
+
+    #endregion
 
     #region px로 가기
     static void PX()
