@@ -944,7 +944,7 @@ internal class Program
             TextChoice(cursor, text);
             // Key Input
             e = Console.ReadKey();
-<<<<<<< HEAD
+
 
             switch (e.Key)
             {
@@ -966,10 +966,9 @@ internal class Program
             // Cursor Index
             cursor = CursorChoice(e, cursor, text, onScene);
 
-=======
+
             // Cursor Index
             cursor = CursorChoice(e, cursor, text, onScene);
->>>>>>> Juno
         }
 
         // 화면 지우기
@@ -1092,7 +1091,6 @@ internal class Program
                 TextChoice(cursor, text);
                 // Key Input
                 e = Console.ReadKey();
-<<<<<<< HEAD
 
                 switch (e.Key)
                 {
@@ -1111,8 +1109,6 @@ internal class Program
                         break;
                 }
 
-=======
->>>>>>> Juno
                 // Cursor index
                 cursor = CursorChoice(e, cursor, text, onScene);
 
@@ -1151,22 +1147,17 @@ internal class Program
 
         return _hitCount;
     }
-<<<<<<< HEAD
 
     /*
     static void CursorChoice(ReadKey e, int _cursor, string _text[])
 
-=======
->>>>>>> Juno
     #endregion
 
     #region Cursor선택 캡슐화
     // Cursor선택 메서드
     static int CursorChoice(ConsoleKeyInfo e, int _cursor, string[] _text, ref bool _onScene)
-<<<<<<< HEAD
 
-=======
->>>>>>> Juno
+
     {
         switch (e.Key)
         {
@@ -1185,12 +1176,11 @@ internal class Program
                 break;
         }
     }
-<<<<<<< HEAD
+
 
     */
 
-=======
->>>>>>> Juno
+
     #endregion
 
     #region Text 선택지 출력 캡슐화
@@ -1206,11 +1196,11 @@ internal class Program
     }
     #endregion
 
-<<<<<<< HEAD
+
   // 일병 스토리 - 대민지원
-=======
+
     // 일병 스토리 - 대민지원
->>>>>>> Juno
+
     static void DMsupport()
     {
         Console.Clear();
@@ -1514,8 +1504,8 @@ internal class Program
 
     #region px로 가기
     static void PX()
-    {
-                Console.Clear();
+    {   
+        Console.Clear();
 
         Console.WriteLine("                               _----_        ");
         Console.WriteLine("                              | _  _ |       ");
@@ -1556,7 +1546,7 @@ internal class Program
                             
             case 2:
                 // 상점에서 아이템을 구매하는 메서드 호출
-                foodPx();
+                FoodPx();
                 break;
 
         }
@@ -1568,7 +1558,7 @@ internal class Program
     {
         //군장점입니다.
 
-        Console.WriteLine();
+        Console.WriteLine("군장점 코너");
         Console.WriteLine("=====================================================================================");
         //반복문을 이용한 아이템 목록출력
         for (int i = 0; i < items.Count; i++)
@@ -1591,8 +1581,8 @@ internal class Program
         switch (input)
         {
             case 0:
-                //막사로
-                Home();
+                //px입구로
+                PX();
                 break;
             case 1:
                 // 상점에서 아이템을 구매하는 메서드 호출
@@ -1604,7 +1594,7 @@ internal class Program
 
 
     //음식(PX)
-    static void foodPx()
+    static void FoodPx()
     {
         //상점입니다.
 
@@ -1631,8 +1621,8 @@ internal class Program
         switch (input)
         {
             case 0:
-                //막사로
-                Home();
+                //px입구
+                PX();
                 break;
             case 1:
                 // 상점에서 아이템을 구매하는 메서드 호출
@@ -1732,185 +1722,6 @@ internal class Program
      }
    #endregion
 
-    /*
-    //상태창
-    static void DisplayMyInfo()
-    {
-        Console.Clear();
-
-        Console.WriteLine("상태창");
-        Console.WriteLine("캐릭터의 정보를 표시합니다.");
-        Console.WriteLine();
-        Console.WriteLine("====================================");
-        Console.WriteLine($" Lv. {player1.Level.ToString("000")} ");
-        Console.WriteLine($" {player1.Name} | {player1.Job} |");
-        Console.WriteLine();
-        Console.WriteLine($" 공격력 \t: {player1.Atk}");
-        Console.WriteLine($" 방어력 \t: {player1.Def}");
-        Console.WriteLine($" 체력 \t\t: {player1.Hp}");
-        Console.WriteLine($" Gold \t\t: {player1.Gold} G");
-        Console.WriteLine("====================================");
-        Console.WriteLine();
-        Console.WriteLine(" 0. 나가기");
-        Console.Write(">>");
-
-        int input = CheckValidInput(0, 0);
-        switch (input)
-        {
-            case 0:
-                //마을로 돌아가기
-                ShowVillageFirst();
-                break;
-        }
-    }
-
-    //인벤토리
-    static void DisplayInventory(Character player)
-    {
-        Console.Clear();
-
-        Console.WriteLine();
-        Console.WriteLine(" [인벤토리]");
-        Console.WriteLine($"\t\t\t\t\t\t[소지금:{player1._gold}G]");
-        Console.WriteLine();
-        Console.WriteLine("============================================================================");
-        Console.WriteLine(" 소지중인 아이템 목록:");
-        Console.WriteLine();
-        Console.WriteLine("--------아이템 이름--------------------------아이템 설명---------------------");
-        Console.WriteLine();
-        //인벤토리 리스트에 있는 아이템들 나열
-        for (int i = 0; i < player.Inventory.Count; i++)
-        {
-            var item = player.Inventory[i];
-            string equippedStatus = item.IsEquipped ? "[E]" : ""; // 아이템이 장착되었는지 여부에 따라 [E] 표시 추가 없으면 공백
-            Console.Write($"{i + 1}. ");
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.Write($"{equippedStatus}");
-            Console.ResetColor();
-            Console.WriteLine($" \t {item.ItemName} \t | {item.ItemDescription}"); //아이템 부가 정보
-            Console.WriteLine();
-        }
-        Console.WriteLine();
-        Console.WriteLine("============================================================================");
-        Console.WriteLine();
-        Console.WriteLine(" 장착/해제를 원하는 아이템을 입력해주세요.");
-        Console.WriteLine();
-        Console.WriteLine(" 0. 뒤로가기");
-        Console.Write(">>");
-
-        int input = CheckValidInput(0, player.Inventory.Count);
-        if (input > 0)
-        {
-            player.EquipItem(input);
-            Console.WriteLine();
-            Console.WriteLine("Press AnyKey");
-            Console.ReadKey();
-            //인벤토리창 새로고침
-            DisplayInventory(player);
-        }
-        else
-        {
-            //마을로 돌아가기
-            ShowVillageFirst();
-        }
-    }
-    */
-    //입력 키 확인 메서드
-
-
-    /*
-    //몬스터 전투 메서드
-    public static void DungeonField(Character player1, Monster monster)
-    {
-        Console.Clear();
-        Console.WriteLine();
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($" {monster.MonsterName} 등장!");
-        Console.WriteLine();
-        Console.ResetColor();
-        Console.WriteLine(" 진행하려면 enter");
-        Console.WriteLine();
-        Console.ReadKey();
-        Console.WriteLine(" 전투 시작");
-        int turnCount = 0;
-        int saveHp = monster.MonsterHp;
-        while (player1.Hp > 0 && monster.MonsterHp > 0) // 플레이어나 몬스터가 죽을 때까지 반복
-        {
-
-            Console.WriteLine(" 당신의 공격!");
-            Console.WriteLine();
-            monster.MonsterHp -= player1.Atk;
-            Console.WriteLine($" 당신은 {monster.MonsterName}에게 {player1.Atk}의 데미지를 주었다.");
-            Console.WriteLine();
-            Console.WriteLine($" {monster.MonsterName}의 남은 체력: {monster.MonsterHp}");
-            Thread.Sleep(1000);  // 턴 사이에 1초 대기
-
-            if (monster.MonsterHp <= 0) break;  // 몬스터가 죽었다면 턴 종료
-
-            Console.WriteLine();
-            Console.WriteLine($" {monster.MonsterName}의 공격!");
-            int GetDamage = (monster.MonsterAtk) - player1.Def; //몬스터의 공격 - 플레이어의 방어력 = 깎이는 체력
-            if (GetDamage <= 0)
-            {
-                GetDamage = 0;
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.Write(" 방어성공!");
-                Console.ResetColor();
-            }
-            player1.Hp = player1.Hp - GetDamage;
-            Console.WriteLine($" 체력이 {GetDamage} 감소했다.");
-            Console.WriteLine();
-            Console.WriteLine($" 당신의 남은 체력 : {player1.Hp}");
-            Console.WriteLine();
-
-            Thread.Sleep(1000);  // 턴 사이에 1초 대기
-
-            turnCount++;//진행된 턴수
-        }
-
-        if (player1.Hp <= 0)
-        {
-            Console.WriteLine(" 사망하셨습니다.");
-            MedicalCost();
-        }
-        else if (monster.MonsterHp <= 0)
-        {
-            Console.WriteLine();
-            Console.WriteLine($" {monster.MonsterName}을 처치했습니다.");
-            Console.ForegroundColor = ConsoleColor.Blue;
-            switch (turnCount) //턴에 따른 추가 보상
-            {
-                case 1:
-
-                    player1.Gold = player1.Gold + 3 * monster.MonsterGold;
-                    Console.WriteLine(" {0}G 획득", 3 * (monster.MonsterGold));
-
-                    IncreaseExperience(player1, monster);
-                    Console.WriteLine(" {0}EXP 획득", 3 * (monster.MonsterExperience));
-                    break;
-                case 2:
-                    player1.Gold = player1.Gold + 2 * monster.MonsterGold;
-                    Console.WriteLine(" {0}G 획득", 2 * (monster.MonsterGold));
-
-                    IncreaseExperience(player1, monster);
-                    Console.WriteLine(" {0}EXP 획득", 2 * (monster.MonsterExperience));
-                    break;
-                default:
-                    player1.Gold = player1.Gold + monster.MonsterGold;
-                    Console.WriteLine(" {0}G 획득", (monster.MonsterGold));
-
-                    IncreaseExperience(player1, monster);
-                    Console.WriteLine(" {0}EXP 획득", (monster.MonsterExperience));
-                    break;
-
-            }
-            Console.ResetColor();
-        }
-        monster.MonsterHp = saveHp;
-        Console.WriteLine();
-        Console.WriteLine(" 진행하려면 enter");
-        Console.WriteLine();
-    }*/
 }
 
 
