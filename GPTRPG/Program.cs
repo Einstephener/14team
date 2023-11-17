@@ -401,7 +401,7 @@ internal class Program
     static void DailyRoutineScene()
     {
         // Cursor && Scene 초기화 값
-        int Cursor = 0;
+        int cursor = 0;
         bool onSecne = true;
 
         // Text 배열
@@ -422,16 +422,19 @@ internal class Program
             // Key Input
             e = Console.ReadKey();
             // Cursor Index
-            CursorChoice(e, Cursor, text, onSecne);
+            cursor = CursorChoice(e, cursor, text, onSecne);
         }
 
-        switch(Cursor)
+        switch(cursor)
         {
             case 0:
+                PhysicalTrainingScene();
                 break;
             case 1:
+                SpecialityScene();
                 break;
             case 2:
+                WorkScene();
                 break;
             default:
                 break;
@@ -443,7 +446,44 @@ internal class Program
     // 체력 단련 ( 상시 이벤트 선택지 )
     static void PhysicalTrainingScene()
     {
+        // Cursor && Scene 초기화 값
+        int cursor = 0;
+        bool onSecne = true;
 
+        // Text 배열
+        string[] text = { "1. 구보", "2. 팔굽혀펴기", "3. 윗몸 일으키기", "4. 턱걸이" };
+
+        while (onSecne)
+        {
+            Console.WriteLine("건강한 육체에 건강한 정신이 깃든다!");
+            Console.WriteLine("오늘은 어떠한 운동으로 나의 육체를 단련해 볼까?");
+            Console.WriteLine("");
+
+            // Text 배열 출력
+            TextChoice(cursor, text);
+            // Key 입력
+            e = Console.ReadKey();
+            // Cursor index
+            cursor = CursorChoice(e, cursor, text, onScene);
+        }
+
+        switch (cursor)
+        {
+            case 0:
+                // 구보
+                break;
+            case 1:
+                // 팔굽
+                break;
+            case 2:
+                // 윗몸
+                break;
+            case 3:
+                // 턱걸이
+                break;
+            default:
+                break;
+        }
     }
     #endregion
 
@@ -451,7 +491,39 @@ internal class Program
     // 주특기 훈련 ( 상시 이벤트 선택지 )
     static void SpecialityScene()
     {
+        // Cursor && Scene 초기화 값
+        int cursor = 0;
+        bool onSecne = true;
 
+        // Text 배열
+        string[] text = { "1. 본 주특기", "2. 공통 주특기"};
+
+        while (onSecne)
+        {
+            Console.WriteLine("실전처럼 훈련하고 훈련한 대로 싸운다!");
+            Console.WriteLine("The Only Easy Day Was YesterDay");
+            Console.WriteLine("어떤 주특기를 훈련할까?");
+            Console.WriteLine("");
+
+            // Text 배열 출력
+            TextChoice(cursor, text);
+            // Key 입력
+            e = Console.ReadKey();
+            // Cursor index
+            cursor = CursorChoice(e, cursor, text, onScene);
+        }
+
+        switch (cursor)
+        {
+            case 0:
+                // 본 주특기
+                break;
+            case 1:
+                // 공통 주특기
+                break;
+            default:
+                break;
+        }
     }
     #endregion
 
@@ -459,7 +531,45 @@ internal class Program
     // 작업 ( 상시 이벤트 선택지)
     static void WorkScene()
     {
+        // Cursor && Scene 초기화 값
+        int cursor = 0;
+        bool onSecne = true;
 
+        // Text 배열
+        string[] text = { "1. 예초", "2. 제설", "3. 삽질" };
+
+        while (onSecne)
+        {
+            Console.WriteLine("훅 훅.. 행정반에서 전파합니다.");
+            Console.WriteLine("보급관님께서 작업 인원 내려오라고 했습니다");
+            Console.WriteLine("신속하게 내려와주시기 바랍니다.");
+            Console.WriteLine("");
+            Console.WriteLine("어~ 그래 (player_Name)! 역시 에이스야!");
+            Console.WriteLine("오늘 할 작업은...");
+            Console.WriteLine("");
+
+            // Text 배열 출력
+            TextChoice(cursor, text);
+            // Key 입력
+            e = Console.ReadKey();
+            // Cursor index
+            cursor = CursorChoice(e, cursor, text, onScene);
+        }
+
+        switch (cursor)
+        {
+            case 0:
+                // 예초
+                break;
+            case 1:
+                // 제설
+                break;
+            case 2:
+                // 삽질
+                break;
+            default:
+                break;
+        }
     }
     #endregion
 
@@ -808,27 +918,8 @@ internal class Program
             TextChoice(cursor, text);
             // Key Input
             e = Console.ReadKey();
-<<<<<<< Updated upstream
-            switch (e.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    cursor--;
-                    if (cursor < 0) cursor = text.Length - 1;
-                    break;
-                case ConsoleKey.DownArrow:
-                    cursor++;
-                    if (cursor > text.Length - 1) cursor = 0;
-                    break;
-                case ConsoleKey.Enter:
-                    onScene = false;
-                    break;
-                default:
-                    break;
-            }
-=======
             // Cursor Index
             cursor = CursorChoice(e, cursor, text, onScene);
->>>>>>> Stashed changes
         }
 
         // 화면 지우기
@@ -951,27 +1042,9 @@ internal class Program
                 TextChoice(cursor, text);
                 // Key Input
                 e = Console.ReadKey();
-<<<<<<< Updated upstream
-                switch (e.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        cursor--;
-                        if (cursor < 0) cursor = text.Length - 1;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        cursor++;
-                        if (cursor > text.Length - 1) cursor = 0;
-                        break;
-                    case ConsoleKey.Enter:
-                        onScene = false;
-                        break;
-                    default:
-                        break;
-                }
-=======
                 // Cursor index
                 cursor = CursorChoice(e, cursor, text, onScene);
->>>>>>> Stashed changes
+
             }
 
             // 화면 지우기
@@ -1007,37 +1080,29 @@ internal class Program
 
         return _hitCount;
     }
-<<<<<<< Updated upstream
-    /*
-    static void CursorChoice(ReadKey e, int _cursor, string _text[])
-=======
     #endregion
 
     #region Cursor선택 캡슐화
     // Cursor선택 메서드
     static int CursorChoice(ConsoleKeyInfo e, int _cursor, string[] _text, ref bool _onScene)
->>>>>>> Stashed changes
     {
-            switch (e.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    cursor--;
-                    if (_cursor < 0) cursor = _text.Length - 1;
-                    break;
-                case ConsoleKey.DownArrow:
-                    cursor++;
-                    if (_cursor > _text.Length - 1) cursor = 0;
-                    break;
-                case ConsoleKey.Enter:
-                    onScene = false;
-                    break;
-                default:
-                    break;
-            }
+        switch (e.Key)
+        {
+            case ConsoleKey.UpArrow:
+                cursor--;
+                if (_cursor < 0) cursor = _text.Length - 1;
+                break;
+            case ConsoleKey.DownArrow:
+                cursor++;
+                if (_cursor > _text.Length - 1) cursor = 0;
+                break;
+            case ConsoleKey.Enter:
+                onScene = false;
+                break;
+            default:
+                break;
+        }
     }
-<<<<<<< Updated upstream
-    */
-=======
     #endregion
 
     #region Text 선택지 출력 캡슐화
@@ -1053,7 +1118,6 @@ internal class Program
     }
     #endregion
 
->>>>>>> Stashed changes
     // 일병 스토리 - 대민지원
     static void DMsupport()
     {
