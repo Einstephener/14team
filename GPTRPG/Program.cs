@@ -756,22 +756,7 @@ internal class Program
             }
 
             e = Console.ReadKey();
-            switch (e.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    cursor--;
-                    if (cursor < 0) cursor = text.Length - 1;
-                    break;
-                case ConsoleKey.DownArrow:
-                    cursor++;
-                    if (cursor > text.Length - 1) cursor = 0;
-                    break;
-                case ConsoleKey.Enter:
-                    onScene = false;
-                    break;
-                default:
-                    break;
-            }
+            cursor = CursorChoice(e, cursor, text, onScene);
         }
 
         // 화면 지우기
@@ -893,22 +878,7 @@ internal class Program
                 }
 
                 e = Console.ReadKey();
-                switch (e.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        cursor--;
-                        if (cursor < 0) cursor = text.Length - 1;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        cursor++;
-                        if (cursor > text.Length - 1) cursor = 0;
-                        break;
-                    case ConsoleKey.Enter:
-                        onScene = false;
-                        break;
-                    default:
-                        break;
-                }
+                cursor = CursorChoice(e, cursor, text, onScene);
             }
 
             // 화면 지우기
@@ -944,8 +914,9 @@ internal class Program
 
         return _hitCount;
     }
-    /*
-    static void CursorChoice(ReadKey e, int _cursor, string _text[])
+    
+    // Cursor선택 메서드
+    static int CursorChoice(ConsoleKeyInfo e, int _cursor, string[] _text, ref bool _onScene)
     {
             switch (e.Key)
             {
@@ -963,8 +934,9 @@ internal class Program
                 default:
                     break;
             }
+        return _cursor;
     }
-    */
+    
     // 일병 스토리 - 대민지원
     static void DMsupport()
     {
