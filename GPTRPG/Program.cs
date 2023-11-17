@@ -76,6 +76,8 @@ internal class Program
         foods.Add(cupNoddle);
         foods.Add(egg);
 
+        Rank myRank = new Rank(1);
+
 
         //몬스터들 정보 세팅
 
@@ -271,6 +273,8 @@ internal class Program
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("막사");
             Console.ResetColor();
+            Console.WriteLine($"{Rank.rank} {player1.Name}");
+            Console.WriteLine($"군생활 {Rank.month}개월 째");
             Console.WriteLine("무엇을 할 것인가?");
             Console.WriteLine();
             Console.WriteLine("1. 스토리 진행하기");
@@ -303,15 +307,79 @@ internal class Program
             }
         }
     #endregion
+    //month에 따라 달라지는 스토리
+    static void StoryPlay()
+    {
+        switch (Rank.month)
+        {   //이병
+            case 1:            //1개월
+            Basic(player1);
+            break;
+            case 2:            //2개월
+            Basicstory(player1);
+            break;
+            //일병
+            case 3:            //3개월
+            FStoryRangerTraining();
+            break;
+            case 4:            //4개월
+            FStoryPullSecurity();
+            break;
+            case 5:            //5개월
+            HundredDaysvacationScene();
+            break;
+            case 6:            //6개월
+            ShootingScene();
+            break;
+            case 7:            //7개월
+            DMsupport();
+            break;
+            case 8:            //8개월
+            Overnight();
+            break;
+            //상병
+            case 9:            //9개월
+            CStoryKCTC();
+            break;
+            case 10:            //10개월
+            CSDefcon(player1);
+            break;
+            case 11:            //11개월
+            CSschool();
+            break;
+            case 12:            //12개월
+            CSNewCommander(player1);
+            break;
+            case 13:            //13개월
+            CSTest();
+            break;
+            case 14:            //14개월
+            CStoryPhysicalExamination(player1);
+            break;
+            //병장
+            case 15:            //15개월
+            break;
+            case 16:            //16개월
+            break;
+            case 17:            //17개월
+            break;
+            case 18:            //18개월
+            break;
+
+        }
+
+
+    }
+
 
     #region 상태창
         //상태확인
         static void DisplayMyInfo()
         {
             Console.Clear();
-            Rank myRank = new Rank(1);
-            myRank.SetRank();
-            string currentRank = myRank.rank; //현재 계급 가져오기
+
+            Rank.SetRank();
+            string currentRank = Rank.rank; //현재 계급 가져오기
     
             Console.WriteLine("상태확인");
             Console.WriteLine("당신의 정보를 표시합니다.");
@@ -362,11 +430,7 @@ internal class Program
             for (int i = 0; i < player.Inventory.Count; i++)
             {
                 var item = player.Inventory[i];
-                string equippedStatus = item.IsEquipped ? "[E]" : ""; // 아이템이 장착되었는지 여부에 따라 [E] 표시 추가 없으면 공백
                 Console.Write($"{i + 1}. ");
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.Write($"{equippedStatus}");
-                Console.ResetColor();
                 Console.WriteLine($" \t {item.ItemName} \t | {item.ItemDescription}"); //아이템 부가 정보
                 Console.WriteLine();
             }
@@ -401,7 +465,7 @@ internal class Program
     static void DailyRoutineScene()
     {
         // Cursor && Scene 초기화 값
-        int Cursor = 0;
+        int cursor = 0;
         bool onSecne = true;
 
         // Text 배열
@@ -422,16 +486,19 @@ internal class Program
             // Key Input
             e = Console.ReadKey();
             // Cursor Index
-            CursorChoice(e, Cursor, text, onSecne);
+            cursor = CursorChoice(e, cursor, text, onSecne);
         }
 
-        switch(Cursor)
+        switch(cursor)
         {
             case 0:
+                PhysicalTrainingScene();
                 break;
             case 1:
+                SpecialityScene();
                 break;
             case 2:
+                WorkScene();
                 break;
             default:
                 break;
@@ -443,7 +510,44 @@ internal class Program
     // 체력 단련 ( 상시 이벤트 선택지 )
     static void PhysicalTrainingScene()
     {
+        // Cursor && Scene 초기화 값
+        int cursor = 0;
+        bool onSecne = true;
 
+        // Text 배열
+        string[] text = { "1. 구보", "2. 팔굽혀펴기", "3. 윗몸 일으키기", "4. 턱걸이" };
+
+        while (onSecne)
+        {
+            Console.WriteLine("건강한 육체에 건강한 정신이 깃든다!");
+            Console.WriteLine("오늘은 어떠한 운동으로 나의 육체를 단련해 볼까?");
+            Console.WriteLine("");
+
+            // Text 배열 출력
+            TextChoice(cursor, text);
+            // Key 입력
+            e = Console.ReadKey();
+            // Cursor index
+            cursor = CursorChoice(e, cursor, text, onScene);
+        }
+
+        switch (cursor)
+        {
+            case 0:
+                // 구보
+                break;
+            case 1:
+                // 팔굽
+                break;
+            case 2:
+                // 윗몸
+                break;
+            case 3:
+                // 턱걸이
+                break;
+            default:
+                break;
+        }
     }
     #endregion
 
@@ -451,7 +555,39 @@ internal class Program
     // 주특기 훈련 ( 상시 이벤트 선택지 )
     static void SpecialityScene()
     {
+        // Cursor && Scene 초기화 값
+        int cursor = 0;
+        bool onSecne = true;
 
+        // Text 배열
+        string[] text = { "1. 본 주특기", "2. 공통 주특기"};
+
+        while (onSecne)
+        {
+            Console.WriteLine("실전처럼 훈련하고 훈련한 대로 싸운다!");
+            Console.WriteLine("The Only Easy Day Was YesterDay");
+            Console.WriteLine("어떤 주특기를 훈련할까?");
+            Console.WriteLine("");
+
+            // Text 배열 출력
+            TextChoice(cursor, text);
+            // Key 입력
+            e = Console.ReadKey();
+            // Cursor index
+            cursor = CursorChoice(e, cursor, text, onScene);
+        }
+
+        switch (cursor)
+        {
+            case 0:
+                // 본 주특기
+                break;
+            case 1:
+                // 공통 주특기
+                break;
+            default:
+                break;
+        }
     }
     #endregion
 
@@ -459,7 +595,45 @@ internal class Program
     // 작업 ( 상시 이벤트 선택지)
     static void WorkScene()
     {
+        // Cursor && Scene 초기화 값
+        int cursor = 0;
+        bool onSecne = true;
 
+        // Text 배열
+        string[] text = { "1. 예초", "2. 제설", "3. 삽질" };
+
+        while (onSecne)
+        {
+            Console.WriteLine("훅 훅.. 행정반에서 전파합니다.");
+            Console.WriteLine("보급관님께서 작업 인원 내려오라고 했습니다");
+            Console.WriteLine("신속하게 내려와주시기 바랍니다.");
+            Console.WriteLine("");
+            Console.WriteLine("어~ 그래 (player_Name)! 역시 에이스야!");
+            Console.WriteLine("오늘 할 작업은...");
+            Console.WriteLine("");
+
+            // Text 배열 출력
+            TextChoice(cursor, text);
+            // Key 입력
+            e = Console.ReadKey();
+            // Cursor index
+            cursor = CursorChoice(e, cursor, text, onScene);
+        }
+
+        switch (cursor)
+        {
+            case 0:
+                // 예초
+                break;
+            case 1:
+                // 제설
+                break;
+            case 2:
+                // 삽질
+                break;
+            default:
+                break;
+        }
     }
     #endregion
 
@@ -622,6 +796,7 @@ internal class Program
 
     }
 
+    #region 상병 스토리
     //상병 스토리 - KCTC
     static void CStoryKCTC()
     {
@@ -734,7 +909,6 @@ internal class Program
         }
 
     }
-
     //상병 스토리-전준태
     static void CSDefcon(Character player)
     {
@@ -757,20 +931,46 @@ internal class Program
 
         }
     }
-    //상병 스토리 - 체력검정
+    //상병 스토리 - 대침투 훈련
     static void CSTest()
     {
         Console.Clear();
         Console.WriteLine();
-        Console.WriteLine("오늘은 체력측정이 있는 날이다.");
-        Console.WriteLine("시험관으로 저번달에 전입온 소위가 걸렸다.");
-        Console.WriteLine("아 저 소위 FM인데...");
-        Console.WriteLine("\"오늘은 체력 측정엔 가라는 없다! 알겠나!\"");
-        Console.WriteLine("특급전사를 따야 휴가를 받는데.. 어떻게 가라를 쳐야 하나..");
-        Console.WriteLine("");
+        Console.WriteLine("오늘은 대침투 훈련을 한다.");
+        Console.WriteLine("부대 근처 야산으로 가서 참호를 파고 총을 거치한다.");
+        Console.WriteLine("\"거수자 발견시 보고하고. 알지? 위장한 간부 잡으면 포상인거?\"");
+        Console.WriteLine("의욕이 셈솟기 시작한다.");
+        Console.WriteLine("하염없이 숨어있으니, 길 너머 풀숲에서 부스럭 거리는 소리가 들린다.");
+        Console.WriteLine("어떻게 할까?");
+        //일정 확률로 선공
+        //적 발견 시 전투, 선공 성공시 치명타
     }
+    //상병 스토리-초임 소대장
+    static void CSNewCommander(Character player)
+    {
+        Console.Clear();
+        Console.WriteLine();
+        Console.WriteLine("오늘은 새로운 소위가 임관하는 날이다.");
+        Console.WriteLine("관상부터 FM인게 보인다.");
+        Console.WriteLine("ㅈ된듯 하다.");
+        Console.WriteLine("얼마 후...");
+        Console.WriteLine("FM 소대장: 이봐 {playt}");
+    }
+    //상병 스토리- 분대장 교육
+    static void CSschool()
+    {
+        Console.Clear();
+        Console.WriteLine("어쩌다보니 분대장으로 뽑혔다.");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("분대장 교육대로 이동중...");
+        Console.ResetColor();
+        Console.WriteLine("분대장 교육대에서 받은 성적을 통해 추가 보상이 있을 예정이다.");
 
-    #region 일별 - 100일 휴가
+
+    }
+    #endregion
+
+    #region 일병 - 100일 휴가
     //일병 스토리 - 100일 휴가
     static void HundredDaysvacationScene()
     {
@@ -806,7 +1006,8 @@ internal class Program
             TextChoice(cursor, text);
             // Key Input
             e = Console.ReadKey();
-<<<<<<< Updated upstream
+
+
             switch (e.Key)
             {
                 case ConsoleKey.UpArrow:
@@ -823,10 +1024,13 @@ internal class Program
                 default:
                     break;
             }
-=======
+
             // Cursor Index
             cursor = CursorChoice(e, cursor, text, onScene);
->>>>>>> Stashed changes
+
+
+            // Cursor Index
+            cursor = CursorChoice(e, cursor, text, onScene);
         }
 
         // 화면 지우기
@@ -949,7 +1153,7 @@ internal class Program
                 TextChoice(cursor, text);
                 // Key Input
                 e = Console.ReadKey();
-<<<<<<< Updated upstream
+
                 switch (e.Key)
                 {
                     case ConsoleKey.UpArrow:
@@ -966,10 +1170,10 @@ internal class Program
                     default:
                         break;
                 }
-=======
+
                 // Cursor index
                 cursor = CursorChoice(e, cursor, text, onScene);
->>>>>>> Stashed changes
+
             }
 
             // 화면 지우기
@@ -1005,44 +1209,47 @@ internal class Program
 
         return _hitCount;
     }
-<<<<<<< Updated upstream
+
     /*
     static void CursorChoice(ReadKey e, int _cursor, string _text[])
-=======
+
     #endregion
 
     #region Cursor선택 캡슐화
     // Cursor선택 메서드
     static int CursorChoice(ConsoleKeyInfo e, int _cursor, string[] _text, ref bool _onScene)
->>>>>>> Stashed changes
+
+
     {
-            switch (e.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    cursor--;
-                    if (_cursor < 0) cursor = _text.Length - 1;
-                    break;
-                case ConsoleKey.DownArrow:
-                    cursor++;
-                    if (_cursor > _text.Length - 1) cursor = 0;
-                    break;
-                case ConsoleKey.Enter:
-                    onScene = false;
-                    break;
-                default:
-                    break;
-            }
+        switch (e.Key)
+        {
+            case ConsoleKey.UpArrow:
+                cursor--;
+                if (_cursor < 0) cursor = _text.Length - 1;
+                break;
+            case ConsoleKey.DownArrow:
+                cursor++;
+                if (_cursor > _text.Length - 1) cursor = 0;
+                break;
+            case ConsoleKey.Enter:
+                onScene = false;
+                break;
+            default:
+                break;
+        }
     }
-<<<<<<< Updated upstream
+
+
     */
-=======
+
+
     #endregion
 
     #region Text 선택지 출력 캡슐화
     // Text 출력 캡슐화
     static void TextChoice(int _cursor, string[] _text)
     {
-        for (int i = 0; i < text.Length; i++)
+        for (int i = 0; i < _text.Length; i++)
         {
             if (_cursor == i) Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(_text[i]);
@@ -1051,8 +1258,11 @@ internal class Program
     }
     #endregion
 
->>>>>>> Stashed changes
+
+  // 일병 스토리 - 대민지원
+
     // 일병 스토리 - 대민지원
+
     static void DMsupport()
     {
         Console.Clear();
@@ -1130,11 +1340,110 @@ internal class Program
     }
 
     // 외박(선택지) : 1.여자친구 2. 가족 3. 친구 셋중 플레이어가 고르도록 유도하고 보너스 능력치를 주는 스토리 능력치는 세가지 전부 다르게(가족>친구) 여친은 꽝 -능력치(여친 도망간스토리)
-    static void overnight()
+    static void Overnight()
     {
+        Console.Clear();
+        Console.WriteLine("");
         Console.WriteLine("첫 외박날짜가 정해졌습니다. 기대와 설렘이 가득찬 그의 마음속에는");
+        Console.WriteLine("");
         Console.WriteLine("어디를 가야할지, 누구를 만나야 할지에 대한 고민으로 가득차있습니다.");
+        Console.ReadKey();
+        Console.Clear();
+        Console.WriteLine("");
+        Console.WriteLine("가족, 친구, 여자친구 세가지 선택지중 하나를 고르세요");
+        Console.WriteLine("");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("선택지마다 랜덤능력치가 부여됩니다. 신중하게 고르세요! ");
+        Console.ResetColor();
+        Console.WriteLine("");
+        Console.WriteLine("");
 
+        bool isValidInput = true;
+
+        while (isValidInput)
+        {
+
+            Console.WriteLine("선택지를 골라주세요! ");
+            Console.WriteLine("1. 가족");
+            Console.WriteLine("");
+            Console.WriteLine("2. 친구");
+            Console.WriteLine("");
+            Console.WriteLine("3. 여자친구");
+
+            string userInput = Console.ReadLine();
+
+            switch (userInput)
+            {
+                case "1":
+                    Console.Clear();
+                    Console.WriteLine("가족을 선택하셨습니다.");
+                    Console.WriteLine("");
+                    Console.WriteLine("가족은 당신의 안정과 지지를 의미합니다.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("그들과 함께하는 시간은 당신에게 힘을 주고");
+                    Console.WriteLine("");
+                    Console.WriteLine("당신은 그들을 위해 힘든 시간을 견디려고 노력할 것입니다.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("힘 능력치가 10 상승하였습니다.");
+                    Console.ResetColor();
+                    isValidInput = false;
+                    break;
+                case "2":
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.WriteLine("당신은 친구를 선택했습니다.");
+                    Console.WriteLine("");
+                    Console.WriteLine("김밥천국가서 대충먹고 PC방가서 날밤을 깠습니다.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+
+                    Console.WriteLine("친구들과 함께하는 시간은 즐거웠습니다.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("정신력 능력치가 10 상승하였습니다.");
+                    isValidInput = false;
+                    break;
+                case "3":
+                    Console.Clear();
+                    Console.WriteLine("여자친구를 선택하셨습니다.");
+                    Console.WriteLine("");
+                    Console.WriteLine("그녀에게 전화 했습니다. 전화를 안받습니다...");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("다시 한번 전화를 걸었습니다...");
+                    Console.WriteLine("");
+                    Console.ReadKey();
+                    Console.WriteLine("전화를 받았습니다!!");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.WriteLine("나 남자친구 생겼어 이제 전화하지말아줬으면 좋겠어 미안 툭 뚜..뚜..뚜..뚜");
+                    Console.ReadKey();
+                    Console.WriteLine("");
+                    Console.WriteLine("이로 인해 당신은 좌절하고 실망하며 슬픔을 겪게 됩니다.");
+                    Console.WriteLine("");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("정신력 능력치가 10 하락하였습니다.");
+                    Console.ResetColor();
+                    isValidInput = false;
+                    break;
+
+                default:
+                    Console.WriteLine("");
+                    Console.WriteLine("잘못된 선택입니다.");
+                    break;
+            }
+        }
     }
 
 
@@ -1356,8 +1665,8 @@ internal class Program
 
     #region px로 가기
     static void PX()
-    {
-                Console.Clear();
+    {   
+        Console.Clear();
 
         Console.WriteLine("                               _----_        ");
         Console.WriteLine("                              | _  _ |       ");
@@ -1398,7 +1707,7 @@ internal class Program
                             
             case 2:
                 // 상점에서 아이템을 구매하는 메서드 호출
-                foodPx();
+                FoodPx();
                 break;
 
         }
@@ -1410,7 +1719,7 @@ internal class Program
     {
         //군장점입니다.
 
-        Console.WriteLine();
+        Console.WriteLine("군장점 코너");
         Console.WriteLine("=====================================================================================");
         //반복문을 이용한 아이템 목록출력
         for (int i = 0; i < items.Count; i++)
@@ -1433,8 +1742,8 @@ internal class Program
         switch (input)
         {
             case 0:
-                //막사로
-                Home();
+                //px입구로
+                PX();
                 break;
             case 1:
                 // 상점에서 아이템을 구매하는 메서드 호출
@@ -1446,7 +1755,7 @@ internal class Program
 
 
     //음식(PX)
-    static void foodPx()
+    static void FoodPx()
     {
         //상점입니다.
 
@@ -1473,8 +1782,8 @@ internal class Program
         switch (input)
         {
             case 0:
-                //막사로
-                Home();
+                //px입구
+                PX();
                 break;
             case 1:
                 // 상점에서 아이템을 구매하는 메서드 호출
@@ -1574,185 +1883,6 @@ internal class Program
      }
    #endregion
 
-    /*
-    //상태창
-    static void DisplayMyInfo()
-    {
-        Console.Clear();
-
-        Console.WriteLine("상태창");
-        Console.WriteLine("캐릭터의 정보를 표시합니다.");
-        Console.WriteLine();
-        Console.WriteLine("====================================");
-        Console.WriteLine($" Lv. {player1.Level.ToString("000")} ");
-        Console.WriteLine($" {player1.Name} | {player1.Job} |");
-        Console.WriteLine();
-        Console.WriteLine($" 공격력 \t: {player1.Atk}");
-        Console.WriteLine($" 방어력 \t: {player1.Def}");
-        Console.WriteLine($" 체력 \t\t: {player1.Hp}");
-        Console.WriteLine($" Gold \t\t: {player1.Gold} G");
-        Console.WriteLine("====================================");
-        Console.WriteLine();
-        Console.WriteLine(" 0. 나가기");
-        Console.Write(">>");
-
-        int input = CheckValidInput(0, 0);
-        switch (input)
-        {
-            case 0:
-                //마을로 돌아가기
-                ShowVillageFirst();
-                break;
-        }
-    }
-
-    //인벤토리
-    static void DisplayInventory(Character player)
-    {
-        Console.Clear();
-
-        Console.WriteLine();
-        Console.WriteLine(" [인벤토리]");
-        Console.WriteLine($"\t\t\t\t\t\t[소지금:{player1._gold}G]");
-        Console.WriteLine();
-        Console.WriteLine("============================================================================");
-        Console.WriteLine(" 소지중인 아이템 목록:");
-        Console.WriteLine();
-        Console.WriteLine("--------아이템 이름--------------------------아이템 설명---------------------");
-        Console.WriteLine();
-        //인벤토리 리스트에 있는 아이템들 나열
-        for (int i = 0; i < player.Inventory.Count; i++)
-        {
-            var item = player.Inventory[i];
-            string equippedStatus = item.IsEquipped ? "[E]" : ""; // 아이템이 장착되었는지 여부에 따라 [E] 표시 추가 없으면 공백
-            Console.Write($"{i + 1}. ");
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.Write($"{equippedStatus}");
-            Console.ResetColor();
-            Console.WriteLine($" \t {item.ItemName} \t | {item.ItemDescription}"); //아이템 부가 정보
-            Console.WriteLine();
-        }
-        Console.WriteLine();
-        Console.WriteLine("============================================================================");
-        Console.WriteLine();
-        Console.WriteLine(" 장착/해제를 원하는 아이템을 입력해주세요.");
-        Console.WriteLine();
-        Console.WriteLine(" 0. 뒤로가기");
-        Console.Write(">>");
-
-        int input = CheckValidInput(0, player.Inventory.Count);
-        if (input > 0)
-        {
-            player.EquipItem(input);
-            Console.WriteLine();
-            Console.WriteLine("Press AnyKey");
-            Console.ReadKey();
-            //인벤토리창 새로고침
-            DisplayInventory(player);
-        }
-        else
-        {
-            //마을로 돌아가기
-            ShowVillageFirst();
-        }
-    }
-    */
-    //입력 키 확인 메서드
-
-
-    /*
-    //몬스터 전투 메서드
-    public static void DungeonField(Character player1, Monster monster)
-    {
-        Console.Clear();
-        Console.WriteLine();
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($" {monster.MonsterName} 등장!");
-        Console.WriteLine();
-        Console.ResetColor();
-        Console.WriteLine(" 진행하려면 enter");
-        Console.WriteLine();
-        Console.ReadKey();
-        Console.WriteLine(" 전투 시작");
-        int turnCount = 0;
-        int saveHp = monster.MonsterHp;
-        while (player1.Hp > 0 && monster.MonsterHp > 0) // 플레이어나 몬스터가 죽을 때까지 반복
-        {
-
-            Console.WriteLine(" 당신의 공격!");
-            Console.WriteLine();
-            monster.MonsterHp -= player1.Atk;
-            Console.WriteLine($" 당신은 {monster.MonsterName}에게 {player1.Atk}의 데미지를 주었다.");
-            Console.WriteLine();
-            Console.WriteLine($" {monster.MonsterName}의 남은 체력: {monster.MonsterHp}");
-            Thread.Sleep(1000);  // 턴 사이에 1초 대기
-
-            if (monster.MonsterHp <= 0) break;  // 몬스터가 죽었다면 턴 종료
-
-            Console.WriteLine();
-            Console.WriteLine($" {monster.MonsterName}의 공격!");
-            int GetDamage = (monster.MonsterAtk) - player1.Def; //몬스터의 공격 - 플레이어의 방어력 = 깎이는 체력
-            if (GetDamage <= 0)
-            {
-                GetDamage = 0;
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.Write(" 방어성공!");
-                Console.ResetColor();
-            }
-            player1.Hp = player1.Hp - GetDamage;
-            Console.WriteLine($" 체력이 {GetDamage} 감소했다.");
-            Console.WriteLine();
-            Console.WriteLine($" 당신의 남은 체력 : {player1.Hp}");
-            Console.WriteLine();
-
-            Thread.Sleep(1000);  // 턴 사이에 1초 대기
-
-            turnCount++;//진행된 턴수
-        }
-
-        if (player1.Hp <= 0)
-        {
-            Console.WriteLine(" 사망하셨습니다.");
-            MedicalCost();
-        }
-        else if (monster.MonsterHp <= 0)
-        {
-            Console.WriteLine();
-            Console.WriteLine($" {monster.MonsterName}을 처치했습니다.");
-            Console.ForegroundColor = ConsoleColor.Blue;
-            switch (turnCount) //턴에 따른 추가 보상
-            {
-                case 1:
-
-                    player1.Gold = player1.Gold + 3 * monster.MonsterGold;
-                    Console.WriteLine(" {0}G 획득", 3 * (monster.MonsterGold));
-
-                    IncreaseExperience(player1, monster);
-                    Console.WriteLine(" {0}EXP 획득", 3 * (monster.MonsterExperience));
-                    break;
-                case 2:
-                    player1.Gold = player1.Gold + 2 * monster.MonsterGold;
-                    Console.WriteLine(" {0}G 획득", 2 * (monster.MonsterGold));
-
-                    IncreaseExperience(player1, monster);
-                    Console.WriteLine(" {0}EXP 획득", 2 * (monster.MonsterExperience));
-                    break;
-                default:
-                    player1.Gold = player1.Gold + monster.MonsterGold;
-                    Console.WriteLine(" {0}G 획득", (monster.MonsterGold));
-
-                    IncreaseExperience(player1, monster);
-                    Console.WriteLine(" {0}EXP 획득", (monster.MonsterExperience));
-                    break;
-
-            }
-            Console.ResetColor();
-        }
-        monster.MonsterHp = saveHp;
-        Console.WriteLine();
-        Console.WriteLine(" 진행하려면 enter");
-        Console.WriteLine();
-    }*/
 }
 
 
