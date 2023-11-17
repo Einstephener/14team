@@ -76,6 +76,8 @@ internal class Program
         foods.Add(cupNoddle);
         foods.Add(egg);
 
+        Rank myRank = new Rank(1);
+
 
         //몬스터들 정보 세팅
 
@@ -271,6 +273,8 @@ internal class Program
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("막사");
             Console.ResetColor();
+            Console.WriteLine($"{Rank.rank} {player1.Name}");
+            Console.WriteLine($"군생활 {Rank.month}개월 째");
             Console.WriteLine("무엇을 할 것인가?");
             Console.WriteLine();
             Console.WriteLine("1. 스토리 진행하기");
@@ -303,15 +307,79 @@ internal class Program
             }
         }
     #endregion
+    //month에 따라 달라지는 스토리
+    static void StoryPlay()
+    {
+        switch (Rank.month)
+        {   //이병
+            case 1:            //1개월
+            Basic(player1);
+            break;
+            case 2:            //2개월
+            Basicstory(player1);
+            break;
+            //일병
+            case 3:            //3개월
+            FStoryRangerTraining();
+            break;
+            case 4:            //4개월
+            FStoryPullSecurity();
+            break;
+            case 5:            //5개월
+            HundredDaysvacationScene();
+            break;
+            case 6:            //6개월
+            ShootingScene();
+            break;
+            case 7:            //7개월
+            DMsupport();
+            break;
+            case 8:            //8개월
+            Overnight();
+            break;
+            //상병
+            case 9:            //9개월
+            CStoryKCTC();
+            break;
+            case 10:            //10개월
+            CSDefcon(player1);
+            break;
+            case 11:            //11개월
+            CSschool();
+            break;
+            case 12:            //12개월
+            CSNewCommander(player1);
+            break;
+            case 13:            //13개월
+            CSTest();
+            break;
+            case 14:            //14개월
+            CStoryPhysicalExamination(player1);
+            break;
+            //병장
+            case 15:            //15개월
+            break;
+            case 16:            //16개월
+            break;
+            case 17:            //17개월
+            break;
+            case 18:            //18개월
+            break;
+
+        }
+
+
+    }
+
 
     #region 상태창
         //상태확인
         static void DisplayMyInfo()
         {
             Console.Clear();
-            Rank myRank = new Rank(1);
-            myRank.SetRank();
-            string currentRank = myRank.rank; //현재 계급 가져오기
+
+            Rank.SetRank();
+            string currentRank = Rank.rank; //현재 계급 가져오기
     
             Console.WriteLine("상태확인");
             Console.WriteLine("당신의 정보를 표시합니다.");
@@ -362,11 +430,7 @@ internal class Program
             for (int i = 0; i < player.Inventory.Count; i++)
             {
                 var item = player.Inventory[i];
-                string equippedStatus = item.IsEquipped ? "[E]" : ""; // 아이템이 장착되었는지 여부에 따라 [E] 표시 추가 없으면 공백
                 Console.Write($"{i + 1}. ");
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.Write($"{equippedStatus}");
-                Console.ResetColor();
                 Console.WriteLine($" \t {item.ItemName} \t | {item.ItemDescription}"); //아이템 부가 정보
                 Console.WriteLine();
             }
@@ -884,7 +948,7 @@ internal class Program
         //적 발견 시 전투, 선공 성공시 치명타
     }
     //상병 스토리-초임 소대장
-    static void CSNewCommander(Character.player)
+    static void CSNewCommander(Character player)
     {
         Console.Clear();
         Console.WriteLine();
@@ -1187,7 +1251,7 @@ internal class Program
     // Text 출력 캡슐화
     static void TextChoice(int _cursor, string[] _text)
     {
-        for (int i = 0; i < text.Length; i++)
+        for (int i = 0; i < _text.Length; i++)
         {
             if (_cursor == i) Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(_text[i]);
@@ -1278,7 +1342,7 @@ internal class Program
     }
 
     // 외박(선택지) : 1.여자친구 2. 가족 3. 친구 셋중 플레이어가 고르도록 유도하고 보너스 능력치를 주는 스토리 능력치는 세가지 전부 다르게(가족>친구) 여친은 꽝 -능력치(여친 도망간스토리)
-    static void overnight()
+    static void Overnight()
     {
         Console.Clear();
         Console.WriteLine("");
