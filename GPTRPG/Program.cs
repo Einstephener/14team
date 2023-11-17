@@ -539,9 +539,6 @@ internal class Program
         //      Console.WriteLine("똑바로 합니다. 다시!");
         //      break; //실패3 정신력 체력 감소
         //}
-        Console.WriteLine("온몸에 힘이 없다... 막사로 돌아가자.");
-        Console.ReadKey();
-        Home();
     }
 
     //일병 스토리 - 경계근무
@@ -556,6 +553,7 @@ internal class Program
         Console.WriteLine();
         Console.WriteLine("1.소리지르기");
         Console.WriteLine("2.돌 던지기");
+        //전투
 
     }
 

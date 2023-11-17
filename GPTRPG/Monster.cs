@@ -1,7 +1,7 @@
 ﻿public class Enemy
 {
     public string EnemyName { get; } //적 이름
-    public string HowHarder { get; } //출현 난이도
+    public string HowHarder { get; } //출현 이벤트
     public int EnemyAtk { get; } //적 공격력
     public int EnemyHp { get; set; } //적 체력
 
