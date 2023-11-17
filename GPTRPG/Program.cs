@@ -32,7 +32,7 @@ internal class Program
     private static Enemy slime;
     private static Enemy gobline;
     private static Enemy newCommander;
-    private static Enemy Orc;
+    private static Enemy french;
 
     //캐릭터 선언
     private static Character player1;
@@ -82,9 +82,14 @@ internal class Program
 
         //몬스터들 정보 세팅
         newCommander = new Enemy("초임 소위", 100, 100);
+        french = new Enemy("참호", 5, 100);
 
         //몬스터 추가
+        enemys.Add(french);
         enemys.Add(newCommander);
+
+        
+        
 
 
     }
@@ -737,6 +742,7 @@ internal class Program
         Console.WriteLine("적을 공격한다.");
         Console.WriteLine("자주포 폭격 10% / 수류탄 투척 20% / K-2사격 50% / 매복으로 인한 패배 20%");
         Console.WriteLine("");
+        //직업 별, 다른 확률
         Random rand = new Random();
         int number = rand.Next(10);
         switch (number)
@@ -862,17 +868,93 @@ internal class Program
     //상병 스토리 - 대침투 훈련
     static void CSTest()
     {
+        
         Console.Clear();
         Console.WriteLine();
         Console.WriteLine("오늘은 대침투 훈련을 한다.");
-        Console.WriteLine("부대 근처 야산으로 가서 참호를 파고 총을 거치한다.");
+        Console.WriteLine("부대 근처 야산으로 가서 총을 거치 하고 참호를 파기 시작한다");
+        //땅파기
+        French(french);
         Console.WriteLine("\"거수자 발견시 보고하고. 알지? 위장한 간부 잡으면 포상인거?\"");
         Console.WriteLine("의욕이 셈솟기 시작한다.");
         Console.WriteLine("하염없이 숨어있으니, 길 너머 풀숲에서 부스럭 거리는 소리가 들린다.");
-        Console.WriteLine("어떻게 할까?");
-        //일정 확률로 선공
-        //적 발견 시 전투, 선공 성공시 치명타
+        Console.WriteLine("조심스럽게 접근한다.");
+        Console.ReadKey();
+        Random rand = new Random();
+        int attack = rand.Next(2);
+        switch(attack){
+            case 1:
+            Console.WriteLine("기습성공");
+            Console.WriteLine("안정적으로 거수자를 제압했다.");
+
+            break;
+            case 2:
+            Console.WriteLine("기습실패");
+            
+            break;
+        }
+
+
     }
+    //참호 전투
+    static void French(Enemy enemy)
+    {
+        //판 깊이. = 100cm - 적 체력
+        //남은 깊이 = 적 체력
+
+        int depth = (100 - enemy.EnemyHp) / 10;
+
+        Console.Clear();
+        Console.WriteLine();
+        Console.Write("의 남은 깊이: ");
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine($"{enemy.EnemyHp} cm");
+        Console.ResetColor();
+        Console.WriteLine($"남은 기회: {enemy.EnemyAtk}");
+        Console.WriteLine("=땅===------------------=====");
+
+        for (int i = 0; i <= depth; i++)
+        {
+            Console.WriteLine("     =                  =    ");
+        }
+        Console.WriteLine("     ====================");
+        Console.WriteLine();
+        Console.WriteLine("삽질하기");
+        Console.WriteLine();
+        Console.ReadKey();
+
+        if(enemy.EnemyHp > 0)
+        {
+            if (enemy.EnemyAtk > 0)
+            {
+                enemy.EnemyHp -= player1.Str;
+                if (enemy.EnemyHp < 0)
+                {
+                    Console.WriteLine($"땅을{player1.Str + enemy.EnemyHp}cm 만큼 팠습니다.");
+                    enemy.EnemyHp = 0;
+                }
+                else
+                {
+                    Console.WriteLine($"땅을 {player1.Str}cm 만큼 팠습니다.");
+                }
+
+                Console.ReadKey();
+                enemy.EnemyAtk--;
+                French(french);
+            }
+            else
+            {
+                Console.WriteLine("제한 시간 내에 땅을 다 못팠다.");
+            }
+        }
+        else
+        {
+            Console.WriteLine("땅파기 끝");
+        }
+
+    }
+
+
     
     //상병 스토리- 분대장 교육
     static void CSschool()
@@ -1468,7 +1550,7 @@ internal class Program
 
     static int workCount = 0;
     static int Perfection = 0;
-    #region 혹한기
+#region 혹한기
     static void ColdWeatherTraining1()
     {
         Console.Clear();
@@ -1514,8 +1596,8 @@ internal class Program
     {
         bool eventOccurred = EventOccur(player1.CalculateProbability(stat));
         if (eventOccurred)
-        {
-            Console.WriteLine("행보관님에게 걸렸다.");
+    {
+Console.WriteLine("행보관님에게 걸렸다.");
         }
         else
         {
@@ -1730,7 +1812,7 @@ internal class Program
                 break;
         }
     }
-    #endregion
+#endregion
     #region 작업
     static void HardWork()
     {
@@ -2133,7 +2215,7 @@ internal class Program
             }
         }
     }
-    #endregion
+#endregion
     #region 말출
     static void LastLeave1()
     {
@@ -2238,7 +2320,7 @@ internal class Program
         //이 상황에 질려서 집에서 말년 보내는 엔딩
         Console.WriteLine("밖은 위험하다 그냥 집에서 빈둥거리며 보내야겠다.");
     }
-    #endregion
+#endregion
     #region 확률 구현
     static bool EventOccur(double probability)
     {
@@ -2303,7 +2385,7 @@ internal class Program
     static void EquipPx()
     {
         //군장점입니다.
-        List<Weapon> weapons = new List<Weapon>
+List<Weapon> weapons = new List<Weapon>
         {
             new Weapon("야전삽", 50, "전투용 삽", 10, 5, 3, 2),
             new Weapon("K2", 200, "국산 소총", 20, 10, 5, 3),
@@ -2377,7 +2459,7 @@ internal class Program
     {
         //상점입니다.
 
-        List<Food> foods = new List<Food>
+List<Food> foods = new List<Food>
         {
              new Food("건빵", 5, 10, 20, "긴급 상황을 위한 비상식량"),
              new Food("전투식량", 10, 15, 30, "체력과 공격력을 강화하는 식사"),
