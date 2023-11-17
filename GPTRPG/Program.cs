@@ -1280,9 +1280,108 @@ internal class Program
     // 외박(선택지) : 1.여자친구 2. 가족 3. 친구 셋중 플레이어가 고르도록 유도하고 보너스 능력치를 주는 스토리 능력치는 세가지 전부 다르게(가족>친구) 여친은 꽝 -능력치(여친 도망간스토리)
     static void overnight()
     {
+        Console.Clear();
+        Console.WriteLine("");
         Console.WriteLine("첫 외박날짜가 정해졌습니다. 기대와 설렘이 가득찬 그의 마음속에는");
+        Console.WriteLine("");
         Console.WriteLine("어디를 가야할지, 누구를 만나야 할지에 대한 고민으로 가득차있습니다.");
+        Console.ReadKey();
+        Console.Clear();
+        Console.WriteLine("");
+        Console.WriteLine("가족, 친구, 여자친구 세가지 선택지중 하나를 고르세요");
+        Console.WriteLine("");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("선택지마다 랜덤능력치가 부여됩니다. 신중하게 고르세요! ");
+        Console.ResetColor();
+        Console.WriteLine("");
+        Console.WriteLine("");
 
+        bool isValidInput = true;
+
+        while (isValidInput)
+        {
+
+            Console.WriteLine("선택지를 골라주세요! ");
+            Console.WriteLine("1. 가족");
+            Console.WriteLine("");
+            Console.WriteLine("2. 친구");
+            Console.WriteLine("");
+            Console.WriteLine("3. 여자친구");
+
+            string userInput = Console.ReadLine();
+
+            switch (userInput)
+            {
+                case "1":
+                    Console.Clear();
+                    Console.WriteLine("가족을 선택하셨습니다.");
+                    Console.WriteLine("");
+                    Console.WriteLine("가족은 당신의 안정과 지지를 의미합니다.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("그들과 함께하는 시간은 당신에게 힘을 주고");
+                    Console.WriteLine("");
+                    Console.WriteLine("당신은 그들을 위해 힘든 시간을 견디려고 노력할 것입니다.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("힘 능력치가 10 상승하였습니다.");
+                    Console.ResetColor();
+                    isValidInput = false;
+                    break;
+                case "2":
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.WriteLine("당신은 친구를 선택했습니다.");
+                    Console.WriteLine("");
+                    Console.WriteLine("김밥천국가서 대충먹고 PC방가서 날밤을 깠습니다.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+
+                    Console.WriteLine("친구들과 함께하는 시간은 즐거웠습니다.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("정신력 능력치가 10 상승하였습니다.");
+                    isValidInput = false;
+                    break;
+                case "3":
+                    Console.Clear();
+                    Console.WriteLine("여자친구를 선택하셨습니다.");
+                    Console.WriteLine("");
+                    Console.WriteLine("그녀에게 전화 했습니다. 전화를 안받습니다...");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("다시 한번 전화를 걸었습니다...");
+                    Console.WriteLine("");
+                    Console.ReadKey();
+                    Console.WriteLine("전화를 받았습니다!!");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.WriteLine("나 남자친구 생겼어 이제 전화하지말아줬으면 좋겠어 미안 툭 뚜..뚜..뚜..뚜");
+                    Console.ReadKey();
+                    Console.WriteLine("");
+                    Console.WriteLine("이로 인해 당신은 좌절하고 실망하며 슬픔을 겪게 됩니다.");
+                    Console.WriteLine("");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("정신력 능력치가 10 하락하였습니다.");
+                    Console.ResetColor();
+                    isValidInput = false;
+                    break;
+
+                default:
+                    Console.WriteLine("");
+                    Console.WriteLine("잘못된 선택입니다.");
+                    break;
+            }
+        }
     }
 
 
