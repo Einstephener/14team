@@ -1378,6 +1378,257 @@ internal class Program
 
     static int workCount = 0;
     static int Perfection = 0;
+
+    static void ColdWeatherTraining1()
+    {
+        Console.Clear();
+        Console.WriteLine("혹한기 훈련이 시작되었다.");
+        Console.WriteLine("혹한기 일정동안 px는 잠시 폐쇠한다고 한다.");
+        Console.WriteLine();
+        Console.WriteLine($"1. 다행이다 미리 준비를 해놨어");
+        Console.WriteLine($"2. 큰일이다 이번 혹한기는 살아남을 수 있을까");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                ColdWeatherTraining2(); //인벤토리에 장비와 음식이 구비되어 있으면 선택 가능
+                break;
+            case 2:
+                ColdWeatherTraining2();
+                break;
+        }
+    }
+    static void ColdWeatherTraining2()
+    {
+        Console.Clear();
+        Console.WriteLine("뒷산에 24인용 텐트로 중대 본부를 설치해야한다.");
+        Console.WriteLine("우리 중대장님이 힘이 없는건가, 땅 밑에 바위가 많은 곳을 배정받았다.");
+        Console.WriteLine("바위를 깨야한다.");
+        Console.WriteLine();
+        Console.WriteLine($"1. 경계근무라고 이빨친 뒤 작업에서 빠진다.");
+        Console.WriteLine($"2. 간부님들도 많은데 내가 빠지기엔 눈치 보인다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                ColdWeatherTrainingBattle1();
+                break;
+            case 2:
+                ColdWeatherTraining3();
+                break;
+        }
+    }
+    static void ColdWeatherTrainingBattle1()
+    {
+        //행보관님과 배틀
+    }
+    static void ColdWeatherTraining3()
+    {
+        Console.Clear();
+        Console.WriteLine("행보관님이 곡괭이를 들고 땅을 내리치고 있다.");
+        Console.WriteLine("옆에선 소대장님이 철조망을 치려고 병사들을 부르고 있다.");
+        Console.WriteLine("누굴 도와야 할까");
+        Console.WriteLine();
+        Console.WriteLine($"1. 행보관님을 도와 바위를 깬다.");
+        Console.WriteLine($"2. 소대장님과 같이 철조망을 친다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                ColdWeatherTrainingNCORoot();
+                break;
+            case 2:
+                ColdWeatherTrainingNCORoot();
+                break;
+        }
+    }
+
+    static void ColdWeatherTrainingNCORoot()
+    {
+        Console.Clear();
+        Console.WriteLine("행보관님께서 손 다친다며 장갑을 주셨고 곡괭이를 넘겨 받아 바위를 깨기 시작했다.");
+        Console.WriteLine("곡괭이질 몇번하니 힘이 빠지기 시작했다. 내가 힘이 빠지는게 보이자");
+        Console.WriteLine("행보관님께서 다시 교대를 하자고 하신다.");
+        Console.WriteLine();
+        Console.WriteLine($"1. 이 바위까지만 제가 깨겠습니다.");
+        Console.WriteLine($"2. 행보관님께 바로 곡괭이를 드린다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                ColdWeatherTrainingNCORoot1();
+                break;
+            case 2:
+                ColdWeatherTrainingNCORoot2();
+                break;
+        }
+    }
+
+    static void ColdWeatherTrainingNCORoot1()
+    {
+        Console.Clear();
+        Console.WriteLine("내가 곡괭이질 하는 동안 행보관님께서 막사에 다녀오셨다.");
+        Console.WriteLine("막사에 다녀온 행보관님께서 착암기를 가져오셨다.");
+        Console.WriteLine("역시 행보관님이야");
+        Console.WriteLine();
+        Console.WriteLine($"1. 착암기로 돌을 부순다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 1);
+        switch (input)
+        {
+            case 1:
+                ColdWeatherTraining5();
+                break;
+
+        }
+    }
+    static void ColdWeatherTrainingNCORoot2()
+    {
+        Console.Clear();
+        Console.WriteLine("행보관님과 번갈아 곡괭이 질을 하기 시작했다.");
+        Console.WriteLine("오랜 작업으로 힘이 많이 빠졌다.");
+        Console.WriteLine("병장인데 이런 고생을 해야하나");
+        Console.WriteLine();
+        Console.WriteLine($"1. 소대장님한테 붙을걸 그랬다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 1);
+        switch (input)
+        {
+            case 1:
+                ColdWeatherTraining5();
+                break;
+        }
+    }
+    static void ColdWeatherTrainingCORoot()
+    {
+        Console.Clear();
+        Console.WriteLine("여기가 사람이 많아서 더 쉬워보인다.");
+        Console.WriteLine("2단3열 윤형 철조망을 쳐야한다.");
+        Console.WriteLine("소대장님이 나서서 뭔가를 하려고 한다.");
+        Console.WriteLine();
+        Console.WriteLine($"1. 가만히 지켜본다.");
+        Console.WriteLine($"2. 소대장님을 도와준다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                ColdWeatherTrainingCORoot1();
+                break;
+            case 2:
+                ColdWeatherTrainingCORoot1();
+                break;
+        }
+    }
+    static void ColdWeatherTrainingCORoot1()
+    {
+        Console.Clear();
+        //Console.WriteLine("소대장님이 사고를 쳤다.");
+        //Console.WriteLine("철조망이 서로 얽혀서 모양이 이쁘지 않게 되었다.");
+
+        Console.WriteLine("1단에 두개의 철조망을 깔고 2단에 한개의 철조망을 올려야한다. ");
+        Console.WriteLine();
+        Console.WriteLine($"1. 가만히 지켜본다.");
+        Console.WriteLine($"2. 같이 작업을 시작한다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                ColdWeatherTraining5();
+                break;
+            case 2:
+                ColdWeatherTraining5();
+                break;
+        }
+    }
+
+    static void ColdWeatherTraining4()
+    {
+        Console.Clear();
+        Console.WriteLine("숙영하기 위해 D형 텐트를 쳐야한다.");
+        Console.WriteLine("숙영하기 위해 D형 텐트를 쳐야한다.");
+        Console.WriteLine("옆에선 소대장님이 철조망을 치려고 병사들을 부르고 있다.");
+        Console.WriteLine("누굴 도와야 할까");
+        Console.WriteLine();
+        Console.WriteLine($"1. 행보관님을 도와 바위를 깬다.");
+        Console.WriteLine($"2. 소대장님과 같이 철조망을 친다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                ColdWeatherTrainingNCORoot();
+                break;
+            case 2:
+                ColdWeatherTrainingCORoot();
+                break;
+        }
+    }
+
+    static void ColdWeatherTraining5()
+    {
+        Console.Clear();
+        Console.WriteLine("오후 일과가 끝났다.");
+        Console.WriteLine("숙영을 하기 떄문에 저녁식사 추진 후 바로 취침이다.");
+        Console.WriteLine("그래서 불침번 근무가 많아졌기에 나도 들어가야한다.");
+        Console.WriteLine();
+        Console.WriteLine($"??? : 김굳건 병장님 일어나셔야합니다.");
+        Console.WriteLine("불침번이 내 차례까지 왔다.");
+        Console.WriteLine("후임에게 인원체크를 시키고 구석에 쪼그려 앉았다.");
+        Console.WriteLine("그러자 숲속에서 소리가 들려온다.");
+        Console.WriteLine();
+        Console.WriteLine($"1. 무시한다.");
+        Console.WriteLine($"2. 경계한다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                ColdWeatherTrainingBattle2(); //데미지 받고 시작
+                break;
+            case 2:
+                ColdWeatherTrainingBattle2(); //데미지 받지 않고 시작
+                break;
+        }
+    }
+    static void ColdWeatherTrainingBattle2()
+    {
+        //고라니와 배틀
+    }
+
+    static void ColdWeatherTraining6()
+    {
+        //혹한기 훈련 끝
+        Console.Clear();
+        Console.WriteLine("오후 일과가 끝났다.");
+        Console.WriteLine("숙영을 하기 떄문에 저녁식사 추진 후 바로 취침이다.");
+        Console.WriteLine("그래서 불침번 근무가 많아졌기에 나도 들어가야한다.");
+        Console.WriteLine();
+        Console.WriteLine($"??? : 김굳건 병장님 일어나셔야합니다.");
+        Console.WriteLine("불침번이 내 차례까지 왔다.");
+        Console.WriteLine("후임에게 인원체크를 시키고 구석에 쪼그려 앉았다.");
+        Console.WriteLine("그러자 숲속에서 소리가 들려온다.");
+        Console.WriteLine();
+        Console.WriteLine($"1. 무시한다.");
+        Console.WriteLine($"2. 경계한다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                ColdWeatherTrainingBattle2(); //데미지 받고 시작
+                break;
+            case 2:
+                ColdWeatherTrainingBattle2(); //데미지 받지 않고 시작
+                break;
+        }
+    }
+
     static void HardWork()
     {
         workCount++;
@@ -1395,7 +1646,7 @@ internal class Program
                 CementWork1();
                 break;
             case 2:
-
+                WarehouseWokr1();
                 break;
         }
     }
@@ -1440,13 +1691,13 @@ internal class Program
         switch (input)
         {
             case 1:
-                workCount += 1;
-                Perfection = 0; //확률 넣어야함
+                workCount += 2;
+                Perfection = 1; //확률 넣어야함
                 CementWork3();
                 break;
             case 2:
-                workCount += 2;
-                Perfection += 3;
+                workCount += 1;
+                Perfection += 2;
                 CementWork3();
                 break;
         }
@@ -1587,6 +1838,302 @@ internal class Program
             }
         }
     }
+    static void WarehouseWokr1()
+    {
+        Console.Clear();
+        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+        Console.WriteLine("보급병이 창고 현황판을 뽑고 있다.");
+        Console.WriteLine("그 동안 창고 열쇠를 챙기고 출발할 준비를 하자.");
+        Console.WriteLine("중대장님에게 상단키를 받아야한다. 중대장님이랑 마주치기 껄끄러운데...");
+        Console.WriteLine();
+        Console.WriteLine($"1. 후임에게 시킨다.");
+        Console.WriteLine($"2. 직접 상단키를 받아 창고 열쇠를 챙긴다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                workCount += 1;
+                Perfection += 1; //일정 확률로 진행도 workcount +1
+                WarehouseWokr2();
+                break;
+            case 2:
+                workCount += 1;
+                Perfection += 1;
+                WarehouseWokr2();
+                break;
+        }
+    }
+
+    static void WarehouseWokr2()
+    {
+        Console.Clear();
+        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+        //workcount가 2일때 후임이 안들고왔다고 알림
+        Console.WriteLine("한겨울의 컨테이너 한기가 느껴진다.");
+        Console.WriteLine("창고 문을 열자 먼지가 날리고 냄새가 난다.");
+        Console.WriteLine("보급병이 창고 물건을 다 꺼내서 재고파악을 하려고 한다.");
+        Console.WriteLine();
+        Console.WriteLine($"1. 후임에게 시키고 간이 막사에서 한숨 잔다.");
+        Console.WriteLine($"2. A급 장비가 있는지 궁금하다. 같이 작업을 시작한다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                workCount += 2;
+                Perfection += 1;
+                WarehouseWokr3();
+                break;
+            case 2:
+                workCount += 1;
+                Perfection += 2; //확률로 A급 장비 얻을 수 있음
+                WarehouseWokr3();
+                break;
+        }
+    }
+
+    static void WarehouseWokr3()
+    {
+        Console.Clear();
+        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+        Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
+        Console.WriteLine("한기가 느껴졌던 컨테이너도 오후가 되니 열을 뿜고 있었고.");
+        Console.WriteLine("날이 풀려 몸이 따뜻해지고 슬 잠이 쏟아지기 시작한다.");
+        Console.WriteLine();
+        Console.WriteLine("1. 오후에도 뭔 일이 있겠냐 간이 막사에서 한숨 잔다.");
+        Console.WriteLine("2. 할 일이 많이 남아 보인다. 같이 작업을 시작한다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                workCount += 2;
+                Perfection += 1;
+                WarehouseWokr4();
+                break;
+            case 2:
+                workCount += 1;
+                Perfection += 2; //확률로 A급 장비 얻을 수 있음
+                WarehouseWokr4();
+                break;
+        }
+    }
+
+    static void WarehouseWokr4()
+    {
+        Console.Clear();
+        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+        Console.WriteLine("재고가 안맞는것 같다.");
+        Console.WriteLine("보급병은 그걸 또 다시 세고 있다.");
+        Console.WriteLine();
+        Console.WriteLine("1. 계속 지켜본다.");
+        Console.WriteLine("2. 보급병에게 가라의 정석을 알려준다.");
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                workCount += 1;
+                Perfection += 3; //확률로 낮아질 수 있음
+                WarehouseWorkLoop();
+                break;
+            case 2:
+                workCount += 1;
+                Perfection += 1;
+                WarehouseWorkLoop();
+                break;
+        }
+    }
+    static void WarehouseWokr5()
+    {
+        Console.Clear();
+        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+        Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
+        Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
+        Console.WriteLine();
+        Console.WriteLine("1. 계속 지켜본다");
+        Console.WriteLine("2. 후임들을 도와 작업을 마무리한다");
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                workCount += 1;
+                Perfection += 2; //확률로 낮아질 수 있음
+                WarehouseWorkLoop();
+                break;
+            case 2:
+                workCount += 1;
+                Perfection += 1; //확률로 A급 장비 얻을 수 있음
+                WarehouseWorkLoop();
+                break;
+        }
+    }
+
+    static void WarehouseWorkLoop()
+    {
+        Random random = new Random();
+        if (workCount < 9)
+        {
+            if (Perfection < 10)
+            {
+                int randomChoice = random.Next(0, 2);
+
+                if (randomChoice == 0)
+                {
+                    WarehouseWokr4();
+                }
+                else
+                {
+                    WarehouseWokr5();
+                }
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("작업이 완료되었다.");
+                Console.WriteLine($"개인정비까지 {9 - workCount}시간 남았으니 휴식하자");
+                Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Perfection = 0;
+                workCount = 0;
+            }
+
+        }
+        else
+        {
+            if (Perfection >= 10)
+            {
+                Console.Clear();
+                Console.WriteLine("작업이 완료되었다.");
+                Console.WriteLine($"개인정비까지 {9}시간 남았으니 휴식하자");
+                Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Perfection = 0;
+                workCount = 0;
+            }
+            else if (Perfection < 10 && Perfection >= 7)
+            {
+                Perfection = 0;
+                workCount = 0;
+                Console.Clear();
+                Console.WriteLine("일과가 마무리 되었다. 작업물이 살짝 아쉽지만 완벽한 가라는 진짜랬다.");
+                Console.WriteLine("들키지만 않으면 아무렴 어떠한가");
+                Console.WriteLine("능력치 상승 & 스트레스 감소");
+            }
+            else
+            {
+                Perfection = 0;
+                workCount = 0;
+                Console.Clear();
+                Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
+                Console.WriteLine("시작하고 가만히 있었겄만 결과가 터무니 없다.");
+                Console.WriteLine("개인정비 시간때 행보관님과 공구리 작업을 치게 되었다.");
+                Console.WriteLine("능력치 상승 & 스트레스 상승");
+            }
+        }
+    }
+    static void LastLeave1()
+    {
+        Console.Clear();
+        Console.WriteLine("말년휴가를 나오게 되었다.");
+        Console.WriteLine();
+        Console.WriteLine($"1. 일단 집으로 간다.");
+        Console.WriteLine($"2. 친구들과 연락을 한다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                LastLeave2();
+                break;
+            case 2:
+                LastLeave2();
+                break;
+        }
+    }
+    static void LastLeave2()
+    {
+        Console.Clear();
+        //아무도 연락되지 않음 그래서 혼자서 번화가로 나옴
+        Console.WriteLine("번화가로 나오게 되었다.");
+        Console.WriteLine("내 앞으로 이상형의 여성분이 지나간다.");
+        Console.WriteLine();
+        Console.WriteLine($"1. 말을 건다.");
+        Console.WriteLine($"2. 말을 걸지 않는다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                //여성분이 불쾌하게 처다봄
+                LastLeave3();
+                break;
+            case 2:
+                LastLeave3();
+                break;
+        }
+    }
+    static void LastLeave3()
+    {
+        Console.Clear();
+        //아무도 연락되지 않음 그래서 혼자서 번화가로 나옴
+        Console.WriteLine("여성분의 남자친구와 눈이 마주쳤다.");
+        Console.WriteLine("그리고 나를 밀쳐냈다.");
+        Console.WriteLine("군바리가 누구한테 찝쩍대는거야!");
+        Console.WriteLine();
+        Console.WriteLine($"1. 억울하다 싸운다.");
+        Console.WriteLine($"2. 사람 잘못봤습니다 죄송합니다.");
+        Console.WriteLine();
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                LastLeaveBattle1();
+                break;
+            case 2:
+                LastLeave4();
+                break;
+        }
+    }
+    static void LastLeaveBattle1()
+    {
+        Console.Clear();
+        //남자와 배틀
+        //지면 경찰서에 끌려가서 행보관한테 복귀엔딩
+        //이기면 집으로 돌가는 엔딩
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                LastLeaveBattle2(); //이김
+                break;
+            case 2:
+                LastLeave4(); //짐
+                break;
+        }
+    }
+    static void LastLeaveBattle2()
+    {
+        Console.Clear();
+        //남자와 배틀
+        //지면 경찰서에 끌려가서 행보관한테 복귀엔딩
+        //이기면 집으로 돌가는 엔딩
+        int input = CheckValidInput(1, 2);
+        switch (input)
+        {
+            case 1:
+                LastLeave3();
+                break;
+            case 2:
+                LastLeave3();
+                break;
+        }
+    }
+    static void LastLeave4()
+    {
+        Console.Clear();
+        //이 상황에 질려서 집에서 말년 보내는 엔딩
+        Console.WriteLine("밖은 위험하다 그냥 집에서 빈둥거리며 보내야겠다.");
+    }
+
 
     #region px로 가기
     static void PX()
