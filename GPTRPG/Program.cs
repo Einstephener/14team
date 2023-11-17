@@ -19,14 +19,13 @@ internal class Program
     private static List<Enemy> enemys = new List<Enemy>();
 
     //아이템들 선언
-    private static Item ring1;
-    private static Item ring2;
-    private static Item sword1;
-    private static Item sword2;
-    private static Item sword3;
-    private static Item armor1;
-    private static Item armor2;
-    private static Item armor3;
+    private static Item ROKA;
+    private static Item RPG;
+    private static Item K2;
+
+    private static Food iceChicken;
+    private static Food cupNoddle;
+    private static Food egg;
 
     //몬스터들 선언
     private static Enemy slime;
@@ -39,7 +38,6 @@ internal class Program
 
     // ConsoleKeyInfo 선언
     static ConsoleKeyInfo e;
-
 
     //시작
     static void Main(string[] args)
@@ -61,23 +59,22 @@ internal class Program
         player1 = new Character("", "용사", 5, 5, 5, 5, 100, 0, 5);
 
         // 아이템 정보 세팅
-        ring1 = new Item("수호 반지", 0, 500, 3000, "고대의 반지. 방어력을 늘려준다.");
-        ring2 = new Item("마법 반지", 500, 0, 3000, "고대의 반지. 공격력을 늘려준다.");
-        sword1 = new Item("부러진 검", 10, 0, 100, "끝이 부러진 검. 사과를 깎을 수 있을 것 같다.");
-        sword2 = new Item("기사의 검", 50, 10, 1000, "중심이 잘 잡힌 검. 떠돌이 기사가 쓰던 검인듯 하다.");
-        sword3 = new Item("용사의 검", 700, 50, 5000, "전대 용사가 쓰던 검. 관리가 잘 되어있다.");
-        armor1 = new Item("천 갑옷", 0, 10, 100, "허름한 천갑옷. 화살이 박혔던 자국이 있다.");
-        armor2 = new Item("사슬 갑옷", 10, 50, 1000, "얇은 사슬 갑옷. 사용감이 있다.");
-        armor3 = new Item("판금 갑옷", 100, 700, 5000, "무겁고 두꺼운 갑옷. 대부분의 칼로는 흠집도 안날 것 같다.");
+        ROKA = new Item("로카 반팔티", 4, 4, 0, 0, 10, 10, 3000, "로카티. 잘때 입으면 편할 것 같다.");
+        RPG = new Item("RPG", 10, 0, 0, 10, 0, 0, 3000, "알라의 요술봉(모조품). 가뿐히 적을 잡을 수 있을 것 같다.");
+
         //리스트에 아이템들 추가
-        items.Add(ring1);
-        items.Add(ring2);
-        items.Add(sword1);
-        items.Add(sword2);
-        items.Add(sword3);
-        items.Add(armor1);
-        items.Add(armor2);
-        items.Add(armor3);
+        items.Add(ROKA);
+        items.Add(RPG);
+        
+        //아이템 정보 세팅
+        iceChicken = new Food("슈넬치킨", 3, 0, 0, 0, 10, 10, 1000, "맛있는 슈넬치킨. 요즘엔 더 맛있는 것도 많아졌다.");
+        cupNoddle = new Food("신라면 블랙", 3, 0, 0, 0, 10, 10, 1000, "전자레인지에 돌려먹으면 더 맛있는 신라면 블랙.");
+        egg = new Food("참숯란", 10, 0, 0, 0, 0, 40, 4000, "군대의 몇 안되는 단백질 보급원. 헬창들에게 인기가 많다.");
+        //리스트에 음식 추가
+        foods.Add(iceChicken);
+        foods.Add(cupNoddle);
+        foods.Add(egg);
+
 
         //몬스터들 정보 세팅
 
@@ -756,7 +753,22 @@ internal class Program
             }
 
             e = Console.ReadKey();
-            cursor = CursorChoice(e, cursor, text, onScene);
+            switch (e.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    cursor--;
+                    if (cursor < 0) cursor = text.Length - 1;
+                    break;
+                case ConsoleKey.DownArrow:
+                    cursor++;
+                    if (cursor > text.Length - 1) cursor = 0;
+                    break;
+                case ConsoleKey.Enter:
+                    onScene = false;
+                    break;
+                default:
+                    break;
+            }
         }
 
         // 화면 지우기
@@ -767,25 +779,25 @@ internal class Program
         {
             case 0:
                 // 여자친구 만나러
-                OneHundredDaysEvennt(randomNum, "여자친구가 다른 남자와 다정하게 걷고 있다...",
+                OneHundredDaysEvent(randomNum, "여자친구가 다른 남자와 다정하게 걷고 있다...",
                 "여자친구와 즐거운 시간을 보냈다.",
                 "나는 여자친구가 없다...");
                 break;
             case 1:
                 // 친구들 만나러
-                OneHundredDaysEvennt(randomNum, "오랜만에 친구들과 술 한잔하며 이야기했다.",
+                OneHundredDaysEvent(randomNum, "오랜만에 친구들과 술 한잔하며 이야기했다.",
                 "친구들과 Pc방에 가서 시간 가는 줄 모르고 놀았다.",
                 "나는 친구가 없다...");
                 break;
             case 2:
                 // 본가로 간다
-                OneHundredDaysEvennt(randomNum, "오랜만에 집에 왔건만 군대에서 뭐했냐며 잔소리만 들었다...",
+                OneHundredDaysEvent(randomNum, "오랜만에 집에 왔건만 군대에서 뭐했냐며 잔소리만 들었다...",
                 "가족들과 오랜만에 식사하며 좋은 시간을 보냈다.",
                 "내가 오는 줄 몰랐나..? 아무도 없다...");
                 break;
             case 3:
                 // 혼자 논다
-                OneHundredDaysEvennt(randomNum, "혼자 즐겁게 놀았다. 진짜 즐거운 거 맞다, 아마도..",
+                OneHundredDaysEvent(randomNum, "혼자 즐겁게 놀았다. 진짜 즐거운 거 맞다, 아마도..",
                 "여기저기 구경 다니며 신나게 놀았다.",
                 "생활관에 있을 때가 더 나은 거 같다 너무 외롭다..");
                 break;
@@ -878,7 +890,22 @@ internal class Program
                 }
 
                 e = Console.ReadKey();
-                cursor = CursorChoice(e, cursor, text, onScene);
+                switch (e.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        cursor--;
+                        if (cursor < 0) cursor = text.Length - 1;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        cursor++;
+                        if (cursor > text.Length - 1) cursor = 0;
+                        break;
+                    case ConsoleKey.Enter:
+                        onScene = false;
+                        break;
+                    default:
+                        break;
+                }
             }
 
             // 화면 지우기
@@ -914,9 +941,8 @@ internal class Program
 
         return _hitCount;
     }
-    
-    // Cursor선택 메서드
-    static int CursorChoice(ConsoleKeyInfo e, int _cursor, string[] _text, ref bool _onScene)
+    /*
+    static void CursorChoice(ReadKey e, int _cursor, string _text[])
     {
             switch (e.Key)
             {
@@ -934,9 +960,8 @@ internal class Program
                 default:
                     break;
             }
-        return _cursor;
     }
-    
+    */
     // 일병 스토리 - 대민지원
     static void DMsupport()
     {
@@ -1239,16 +1264,10 @@ internal class Program
         }
     }
 
-
-
-
-
     #region px로 가기
-    //상점(PX)
     static void PX()
     {
-        //상점입니다.
-        Console.Clear();
+                Console.Clear();
 
         Console.WriteLine("                               _----_        ");
         Console.WriteLine("                              | _  _ |       ");
@@ -1270,6 +1289,37 @@ internal class Program
         Console.WriteLine();
 
         Console.WriteLine($" 현재 소지금: {player1._gold}G"); //소지금 표시
+        Console.WriteLine("1. 장비코너");
+        Console.WriteLine("2. 음식코너");
+        Console.WriteLine("0. 막사");
+        
+
+        int input = CheckValidInput(0, 2);
+        switch (input)
+        {
+            case 0:
+                //막사로
+                Home();
+                break;
+            case 1:
+                // 상점에서 아이템을 구매하는 메서드 호출
+                EquipPx();
+                break;
+                            
+            case 2:
+                // 상점에서 아이템을 구매하는 메서드 호출
+                foodPx();
+                break;
+
+        }
+    }
+
+
+    //상점(PX)
+    static void EquipPx()
+    {
+        //군장점입니다.
+
         Console.WriteLine();
         Console.WriteLine("=====================================================================================");
         //반복문을 이용한 아이템 목록출력
@@ -1277,15 +1327,14 @@ internal class Program
         {
             var item = items[i];
             Console.WriteLine("------------------------------------------------------------------");
-            Console.WriteLine($" {i + 1}. {item.ItemName} \t| 공격력 : {item.ItemAtk} \t| 방어력 : {item.ItemDef} \t| 가격: {item.ItemGold}G");
-
+            Console.WriteLine($" {i + 1}. {item.ItemName} \t| 가격: {item.ItemGold}G \t| 아이템 설명: {item.ItemDescription} ");
         }
+
         Console.WriteLine("------------------------------------------------------------------");
         Console.WriteLine("=====================================================================================");
         Console.WriteLine();
         Console.WriteLine(" 1. 아이템 구매하기");
-        Console.WriteLine();
-        Console.WriteLine(" 2. 아이템 판매하기");
+
         Console.WriteLine();
         Console.WriteLine(" 0. 뒤로가기");
         Console.Write(">>");
@@ -1301,10 +1350,47 @@ internal class Program
                 // 상점에서 아이템을 구매하는 메서드 호출
                 BuyItem(player1);
                 break;
-            case 2:
-                //구매 목록 확인
-                SellItem(player1);
+
+        }
+    }
+
+
+    //음식(PX)
+    static void foodPx()
+    {
+        //상점입니다.
+
+        Console.WriteLine();
+        Console.WriteLine("식재료 코너");
+        Console.WriteLine("=====================================================================================");
+        //반복문을 이용한 아이템 목록출력
+        for (int i = 0; i < foods.Count; i++)
+        {
+            var food = foods[i];
+            Console.WriteLine("------------------------------------------------------------------");
+            Console.WriteLine($" {i + 1}. {food.ItemName} \t| 가격: {food.ItemGold}G \t| 아이템 설명: {food.ItemDescription} ");
+        }
+        Console.WriteLine("------------------------------------------------------------------");
+        Console.WriteLine("=====================================================================================");
+        Console.WriteLine();
+        Console.WriteLine(" 1. 아이템 구매하기");
+
+        Console.WriteLine();
+        Console.WriteLine(" 0. 뒤로가기");
+        Console.Write(">>");
+
+        int input = CheckValidInput(0, 2);
+        switch (input)
+        {
+            case 0:
+                //막사로
+                Home();
                 break;
+            case 1:
+                // 상점에서 아이템을 구매하는 메서드 호출
+                BuyFood(player1);
+                break;
+
         }
     }
     #endregion
@@ -1323,10 +1409,53 @@ internal class Program
          for (int i = 0; i < items.Count; i++)
          {
              var item = items[i];
-             Console.WriteLine($" {i + 1}. {item.ItemName} \t| 공격력 : {item.ItemAtk} \t| 방어력 : {item.ItemDef} \t| 가격: {item.ItemGold}G");
+             Console.WriteLine($" {i + 1}. {item.ItemName} \t| 가격: {item.ItemGold}G");
              Console.WriteLine();
          }
          Console.WriteLine("=====================================================================================");
+
+         Console.WriteLine();
+ 
+         //1~7의 숫자를 입력하면 0~6번째의 아이템을 구매
+         int itemIndex = CheckValidInput(1, 7) - 1;
+ 
+         Item selectedItem = items[itemIndex]; // 선택한 아이템 가져오기
+ 
+         // 플레이어의 골드가 아이템 가격보다 많은지 확인
+         if (player.Gold >= selectedItem.ItemGold)
+         {
+             player.Gold -= selectedItem.ItemGold; // 골드 차감
+             player.AddToInventory(selectedItem); // 인벤토리에 아이템 추가
+             items.Remove(selectedItem);//선택한 아이템 제거
+             Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
+         }
+         else
+         {
+             Console.WriteLine(" 돈이 부족합니다!");
+         }
+ 
+         Console.WriteLine(" Press Anykey to go Back.");
+         Console.Write(">>");
+         Console.ReadKey();
+         PX(); // 다시 상점으로 돌아가기
+ 
+     }
+          //구매한 아이템 인벤토리로 옮기기
+     static void BuyFood(Character player)
+     {
+         Console.Clear();
+         Console.WriteLine(" 구매할 아이템을 선택하세요:");
+         Console.WriteLine($" 현재 소지금: {player1._gold}");
+
+         Console.WriteLine("=====================================================================================");
+           Console.WriteLine();
+         for (int i = 0; i < foods.Count; i++)
+         {
+             var food = items[i];
+             Console.WriteLine($" {i + 1}. {food.ItemName} \t| 가격: {food.ItemGold}G");
+             Console.WriteLine();
+         }
+          Console.WriteLine("=====================================================================================");
          Console.WriteLine();
  
          //1~7의 숫자를 입력하면 0~6번째의 아이템을 구매
