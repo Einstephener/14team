@@ -1585,10 +1585,10 @@ internal class Program
         switch (input)
         {
             case 1:
-                ColdWeatherTrainingBattle1(player1.Dex);
+                ColdWeatherTrainingBattle1(player1.Dex); //덱스를 기반으로한 확률 높으면 행보관 피하고 바로 불침번으로 넘어감
                 break;
             case 2:
-                ColdWeatherTraining3();
+                ColdWeatherTraining3(); //지옥의 작업 시작
                 break;
         }
     }
