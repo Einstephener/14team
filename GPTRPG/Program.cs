@@ -57,7 +57,7 @@ internal class Program
         Console.Title = "K-Army";
 
         // 캐릭터 정보 세팅
-        player1 = new Character("", "용사", 5, 5, 5, 5, 100, 0, 5);
+        //player1 = new Character("", "용사", 5, 5, 5, 5, 100, 0, 5);
 
         // 아이템 정보 세팅
         ROKA = new Item("로카 반팔티", 4, 4, 0, 0, 10, 10, 3000, "로카티. 잘때 입으면 편할 것 같다.");
@@ -236,22 +236,22 @@ internal class Program
         {
             case 1:
                 //포병 전직
-                player.Job = "포병";
+                player1 = new Artillery(player.Name,"포병", 5, 5, 5, 5, 100, 0, 5);
                 Console.WriteLine("포병이다.");
                 break;
             case 2:
                 //보병 전직
-                player.Job = "보병";
+                player1 = new Infantry(player.Name,"보병", 5, 5, 5, 5, 100, 0, 5);
                 Console.WriteLine("보병이다.");
                 break;
             case 3:
                 //운전병 전직
-                player.Job = "운전병";
+                player1 = new Transportation(player.Name,"운전병", 5, 5, 5, 5, 100, 0, 5);
                 Console.WriteLine("운전병이다.");
                 break;
             case 4:
                 //정비병 전직
-                player.Job = "정비병";
+                player1 = new Maintenence(player.Name,"정비병", 5, 5, 5, 5, 100, 0, 5);
                 Console.WriteLine("정비병이다.");
                 break;
         }
