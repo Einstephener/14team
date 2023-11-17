@@ -1261,10 +1261,9 @@ internal class Program
     #endregion
 
 
-  // 일병 스토리 - 대민지원
+  
 
-    // 일병 스토리 - 대민지원
-
+    //대민지원 일병스토리5
     static void DMsupport()
     {
         Console.Clear();
@@ -1320,8 +1319,14 @@ internal class Program
 
             if (sucessCount >= 6)
             {
+                Console.WriteLine("");
                 Console.WriteLine("대민지원을 완료했습니다.");
-                // Input 이전화면으로가서 스토리진행
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("체력이 50증가합니다.");
+                Console.ResetColor();
+                Console.WriteLine("");
+                player1.Hp += 50;
+
             }
             else
             {
@@ -1341,8 +1346,8 @@ internal class Program
         }
     }
 
-    // 외박(선택지) : 1.여자친구 2. 가족 3. 친구 셋중 플레이어가 고르도록 유도하고 보너스 능력치를 주는 스토리 능력치는 세가지 전부 다르게(가족>친구) 여친은 꽝 -능력치(여친 도망간스토리)
-    static void Overnight()
+    // 외박(선택지) 일병스토리6
+    static void overnight()
     {
         Console.Clear();
         Console.WriteLine("");
@@ -1392,6 +1397,7 @@ internal class Program
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("힘 능력치가 10 상승하였습니다.");
                     Console.ResetColor();
+                    player1.Str += 10;
                     isValidInput = false;
                     break;
                 case "2":
@@ -1410,6 +1416,7 @@ internal class Program
                     Console.WriteLine("");
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("정신력 능력치가 10 상승하였습니다.");
+                    player1.Mind += 10;
                     isValidInput = false;
                     break;
                 case "3":
@@ -1437,6 +1444,7 @@ internal class Program
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("정신력 능력치가 10 하락하였습니다.");
                     Console.ResetColor();
+                    player1.Mind -= 10;
                     isValidInput = false;
                     break;
 
