@@ -41,6 +41,7 @@ internal class Program
     // ConsoleKeyInfo 선언
     static ConsoleKeyInfo e;
 
+    static bool frenchSuccess;
     //시작
     static void Main(string[] args)
     {
@@ -782,49 +783,50 @@ internal class Program
     //상병 스토리- 상검
     static void CStoryPhysicalExamination(Character player)
     {
-        Console.Clear();
-        Console.WriteLine("상병 신검 날이 되었다.");
-        Console.WriteLine("국군 병원으로 가는 버스에 탔다.");
-        Console.WriteLine("...");
-        Console.WriteLine("병원에 도착했다.");
-        Console.WriteLine("잠시 대기 후 신체검사를 시작했다.");
-        Console.WriteLine("...");
-        Console.WriteLine("========================");
-        Console.WriteLine($"이름: {player.Name}");
-        Console.WriteLine("체중: 70.3kg");
-        Console.WriteLine("키: 175.4cm");
-        Console.WriteLine("...");
-        Console.WriteLine("========================");
+        int cursor = 0;
+        bool onScene = true;
 
-        Console.WriteLine("상검이 끝나고 국군병원 근처에서 몰래 치킨을 먹으려 한다.");
-        Console.WriteLine("시도해볼까?");
-        Console.WriteLine("1. 몰래 탈출해 치킨을 먹는다."); //(성공확률 40% 실패확률 60%)
-
-        Console.WriteLine("2. 얌전히 부대로 가서 짬밥을 먹는다.");
-        int input = CheckValidInput(1, 2);
-        Random rand = new Random();
-        int chicken = rand.Next(5);
-        switch (input)
+        string[] text = { "1. 몰래 탈출해 치킨을 먹는다.", "2. 얌전히 부대로 가서 짬밥을 먹는다." };
+        double successPercent = (player.Dex)/(5+player.Dex) * 100
+        while (onScene)
         {
-            case 1:
+            Console.Clear();
+            Console.WriteLine("상병 신검 날이 되었다.");
+            Console.WriteLine("국군 병원으로 가는 버스에 탔다.");
+            Console.WriteLine("...");
+            Console.WriteLine("병원에 도착했다.");
+            Console.WriteLine("잠시 대기 후 신체검사를 시작했다.");
+            Console.WriteLine("...");
+            Console.WriteLine("========================");
+            Console.WriteLine($"이름: {player.Name}");
+            Console.WriteLine("체중: 70.3kg");
+            Console.WriteLine("키: 175.4cm");
+            Console.WriteLine("...");
+            Console.WriteLine("========================");
+
+            Console.WriteLine("상검이 끝나고 국군병원 근처에서 몰래 치킨을 먹으려 한다.");
+            Console.WriteLine($"시도해볼까?(성공확률 {successPercent}%)");
+
+            TextChoice(cursor, text);
+            // Key Input
+            e = Console.ReadKey();
+            // Cursor Index
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        Random rand = new Random();
+        int chicken = rand.Next(5+player.Dex);
+        switch (cursor)
+        {
+            case 0:
                 //치킨시도
                 switch (chicken)
                 {
                     case 0:
-                    case 1://성공 40퍼
-                        Console.WriteLine("성공!");
-                        Console.WriteLine("맛있는 치킨을 먹었다.");
-                        Console.WriteLine("정신력이 증가한다.");
-                        Console.WriteLine("체력이 회복되었다.");
-                        //정신력 5 증가 체력 증가
-                        player1.Mind += 5;
-                        player1.Hp += 10;
-                        player1.Gold -= 100;
-                        break;
-
+                    case 1:
                     case 2:
                     case 3:
-                    case 4: //실패 60퍼
+                    case 4:
+                    //실패
                         Console.WriteLine("실패!");
                         Console.WriteLine("간부에게 죽도록 털렸다.");
                         Console.WriteLine("정신력이 감소했다.");
@@ -833,11 +835,30 @@ internal class Program
                         //정신력 1 감소, 체력 감소
                         player1.Mind--;
                         player1.Hp -= 10;
+                        Console.WriteLine("press any key to continue");
+                        Console.ReadKey();
+                        OneMonthLater();
+                        break;
+                        
+                    default:
+                        //성공 
+                        Console.WriteLine("성공!");
+                        Console.WriteLine("맛있는 치킨을 먹었다.");
+                        Console.WriteLine("정신력이 증가한다.");
+                        Console.WriteLine("체력이 회복되었다.");
+                        //정신력 5 증가 체력 증가
+                        player1.Mind += 5;
+                        player1.Hp += 10;
+                        player1.Gold -= 100;
+                        Console.WriteLine("press any key to continue");
+                        Console.ReadKey();
+
+                        OneMonthLater();
                         break;
                 }
                 break;
 
-            case 2:
+            case 1:
                 //부대에서 짬밥
                 Console.WriteLine("얌전히 부대로 복귀한다.");
                 Console.WriteLine("맛없는 똥국이다...");
@@ -845,9 +866,16 @@ internal class Program
                 Console.WriteLine("체력이 회복되었다.");
                 player1.Mind--;
                 player1.Hp += 10;
+                
+                Console.WriteLine("press any key to continue");
+                Console.ReadKey();
+
+                OneMonthLater();
+                break;
+
+            default:
                 break;
         }
-        OneMonthLater();
 
     }
     //상병 스토리-전준태
@@ -888,23 +916,31 @@ internal class Program
         Console.WriteLine("조심스럽게 접근한다.");
         Console.ReadKey();
         Random rand = new Random();
-        int attack = rand.Next(2);
+        int plusPoint = 0;
+        if (frenchSuccess == false)
+        {
+            plusPoint = 0;
+        }
+        else{
+            plusPoint = 1;
+        }
+        int attack = rand.Next(2+plusPoint);
         switch (attack)
         {
             case 1:
+            Console.WriteLine("기습실패");
+                break;
+                
+            default:
                 Console.WriteLine("기습성공");
                 Console.WriteLine("안정적으로 거수자를 제압했다.");
-
-                break;
-            case 2:
-                Console.WriteLine("기습실패");
 
                 break;
         }
 
 
     }
-    //참호 전투
+    //참호 파기
     static void French(Enemy enemy)
     {
         //판 깊이. = 100cm - 적 체력
@@ -927,7 +963,7 @@ internal class Program
         }
         Console.WriteLine("     ====================");
         Console.WriteLine();
-        Console.WriteLine("삽질하기");
+        Console.WriteLine("<<삽질하려면 ENTER>>");
         Console.WriteLine();
         Console.ReadKey();
 
@@ -953,11 +989,13 @@ internal class Program
             else
             {
                 Console.WriteLine("제한 시간 내에 땅을 다 못팠다.");
+                frenchSuccess = false;
             }
         }
         else
         {
             Console.WriteLine("땅파기 끝");
+            frenchSuccess = true;
         }
 
     }
@@ -2346,8 +2384,8 @@ internal class Program
         Console.WriteLine("  | ___ | | | / /                     ");
         Console.WriteLine("  | |_/ /  | V /                      ");
         Console.WriteLine("  |  __/   /   |                      ");
-        Console.WriteLine("  | |     / /^| |                      ");
-        Console.WriteLine("  |_|    /_/   |_|                    ");
+        Console.WriteLine("  | |     / /| |                      ");
+        Console.WriteLine("  |_|    /_/  |_|                    ");
         Console.WriteLine(" -------------------------------------------- ");
         Console.WriteLine();
         Console.WriteLine(" 이곳은 PX입니다.");
