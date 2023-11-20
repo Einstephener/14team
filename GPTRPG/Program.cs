@@ -60,7 +60,7 @@ internal class Program
         Console.Title = "K-Army";
 
         // 캐릭터 정보 세팅
-        //player1 = new Character("", "용사", 5, 5, 5, 5, 100, 0, 5);
+        player1 = new Character("", "용사", 5, 5, 5, 5, 100, 0, 5);
 
         // 아이템 정보 세팅
 
@@ -728,6 +728,442 @@ internal class Program
 
     }
 
+
+#region 일병 - 100일 휴가
+    //일병 스토리 - 100일 휴가
+    static void HundredDaysvacationScene()
+    {
+        // 초기 씬 셋팅값
+        int cursor = 0;
+        bool onScene = true;
+
+        // Random 객체 생성
+        Random random = new Random();
+
+        // Random값을 담아둘 변수
+        int randomNum = 0;
+
+        // 선택지 Text
+        string[] text = {"1. 여자친구를 만나러 간다.",
+        "2. 친구들을 만나러 간다.",
+        "3. 본가로 간다.",
+        "4. 혼자 논다."};
+
+
+        while (onScene)
+        {
+            // Random Number 설정
+            randomNum = random.Next(1, 10);
+
+            //화면 초기화
+            Console.Clear();
+
+            Console.WriteLine("드디어 100일 휴가를 나왔다!");
+            Console.WriteLine("어떤 일을 먼저 해볼까?");
+
+            // Text[] Output
+            TextChoice(cursor, text);
+            // Key Input
+            e = Console.ReadKey();
+
+
+            switch (e.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    cursor--;
+                    if (cursor < 0) cursor = text.Length - 1;
+                    break;
+                case ConsoleKey.DownArrow:
+                    cursor++;
+                    if (cursor > text.Length - 1) cursor = 0;
+                    break;
+                case ConsoleKey.Enter:
+                    onScene = false;
+                    break;
+                default:
+                    break;
+            }
+
+            // Cursor Index
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+
+
+            // Cursor Index
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+
+        // 화면 지우기
+        Console.Clear();
+
+        // Cursor값에 따른 선택지
+        switch (cursor)
+        {
+            case 0:
+                // 여자친구 만나러
+                OneHundredDaysEvent(randomNum, "여자친구가 다른 남자와 다정하게 걷고 있다...",
+                "여자친구와 즐거운 시간을 보냈다.",
+                "나는 여자친구가 없다...");
+                // Scene이동
+                break;
+            case 1:
+                // 친구들 만나러
+                OneHundredDaysEvent(randomNum, "오랜만에 친구들과 술 한잔하며 이야기했다.",
+                "친구들과 Pc방에 가서 시간 가는 줄 모르고 놀았다.",
+                "나는 친구가 없다...");
+                // Scene이동
+                break;
+            case 2:
+                // 본가로 간다
+                OneHundredDaysEvent(randomNum, "오랜만에 집에 왔건만 군대에서 뭐했냐며 잔소리만 들었다...",
+                "가족들과 오랜만에 식사하며 좋은 시간을 보냈다.",
+                "내가 오는 줄 몰랐나..? 아무도 없다...");
+                // Scene이동
+                break;
+            case 3:
+                // 혼자 논다
+                OneHundredDaysEvent(randomNum, "혼자 즐겁게 놀았다. 진짜 즐거운 거 맞다, 아마도..",
+                "여기저기 구경 다니며 신나게 놀았다.",
+                "생활관에 있을 때가 더 나은 거 같다 너무 외롭다..");
+                // Scene이동
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    static void OneHundredDaysEvent(int input, string one, string two, string three)
+    {
+        if (input < 6) // 50%
+        {
+            Console.WriteLine(one);
+            // 체력 -- , 정신력 --
+        }
+        else if (input < 9) // 30%
+        {
+            Console.WriteLine(two);
+            // 체력 ++ , 정신력 ++, 돈 --
+        }
+        else // 20%
+        {
+            Console.WriteLine(three);
+            // 체력 -- , 정신력 --
+        }
+    }
+    #endregion
+
+    #region 일병 - 사격 훈련
+    // 일병 스토리 - 사격 훈련
+    static void ShootingScene()
+    {
+        // Random 객체 생성
+        Random random = new Random();
+
+        // 사격 거리
+        int[] distance = { 200, 100, 50 };
+        int num = 0;
+
+        // Wave 설정
+        int totalWave = 10;
+        int hitCount = 0;
+
+        // 선택지 Text
+        string[] text = { "1. 머리 조준", "2. 몸통 조준", "3. 바닥 경계선 조준" };
+
+        // 초기 씬 셋팅값
+        int cursor = 0;
+        bool onScene = true;
+
+        Console.WriteLine("오늘은 사격훈련을 진행하겠다.");
+        Console.WriteLine("");
+        Console.ReadKey();
+        Console.WriteLine("한발 한발 신중하게 쏠 수 있도록 한다.");
+        Console.WriteLine("");
+        Console.ReadKey();
+        Console.WriteLine("탄약을 분배 받은 사수는 각자 위치로!");
+        Console.WriteLine("");
+        Console.ReadKey();
+        Console.WriteLine("준비된 사수는 사격 개시!");
+        Console.WriteLine("");
+        Console.ReadKey();
+
+        for (int currentWave = 1; currentWave <= totalWave; currentWave++)
+        {
+            // 10웨이브 반복
+            while (onScene)
+            {
+                // 화면 초기화
+                Console.Clear();
+
+                // cursor위치 초기화
+                cursor = 0;
+
+                // Random 거리 초기화 ( 200m , 100m, 50m )
+                num = random.Next(0, 2);
+
+                Console.WriteLine(" 현재 사격 시도 : {0} / {1}   명중 횟수 : {2}", currentWave, totalWave, hitCount);
+                Console.WriteLine("");
+                Console.WriteLine("사격 거리 : {0}m ", distance[num]);
+                Console.WriteLine("");
+                Console.WriteLine("어디를 조준하고 사격할까?");
+                Console.WriteLine("");
+
+                // Text[] Output
+                TextChoice(cursor, text);
+                // Key Input
+                e = Console.ReadKey();
+
+                switch (e.Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        cursor--;
+                        if (cursor < 0) cursor = text.Length - 1;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        cursor++;
+                        if (cursor > text.Length - 1) cursor = 0;
+                        break;
+                    case ConsoleKey.Enter:
+                        onScene = false;
+                        break;
+                    default:
+                        break;
+                }
+
+                // Cursor index
+                cursor = CursorChoice(e, cursor, text, ref onScene);
+
+            }
+
+            // 화면 지우기
+            Console.Clear();
+
+            // 사격 로직 및 명중 횟수++
+            hitCount = ShootingEvent(num, hitCount, cursor);
+
+            // 웨이브 + 1
+            currentWave++;
+
+            onScene = true;
+        }
+
+        // hitCount(명중 횟수)에 따른 보상 로직 작성.
+        // 1~5 폐급, 6~8 평균, 9~10 특등사수 
+    }
+
+    // Shooting 처리 메서드
+    static int ShootingEvent(int input, int _hitCount, int _cursor)
+    {
+        if (input == _cursor)
+        {
+            Console.WriteLine("명중!!!");
+            _hitCount++;
+            Console.ReadKey();
+        }
+        else
+        {
+            Console.WriteLine("빗나갔다...");
+            Console.ReadKey();
+        }
+
+        return _hitCount;
+    }
+
+
+    //대민지원 일병스토리5
+    static void DMsupport()
+    {
+        Console.Clear();
+        Console.WriteLine("민간 지역에 큰화재가 발생했다!");
+        Console.WriteLine("대민지원 활동에 참여해야겠다!");
+        Console.WriteLine("");
+        Console.ReadKey();
+        Console.WriteLine("화재진압은 되었다고 한다! ");
+        Console.WriteLine("무너진 건물 잔해가 많다고 하니 다치지 않게 하길 바란다!");
+        Console.WriteLine("");
+        Console.ReadKey();
+
+        Console.WriteLine("=======================================");
+        Console.WriteLine("10번의 삽질을 시도해서 6번 성공하세요!");
+        Console.WriteLine("=======================================");
+        Console.WriteLine("");
+        Console.ReadKey();
+        Console.Clear();
+
+        Console.WriteLine("삽질 시작하기");
+        Console.ReadKey();
+
+
+        int sucessCount = 0;
+        Random random = new Random();
+
+        string userInput = Console.ReadLine();
+        while (true)
+        {
+
+            for (int i = 0; i <= 10; i++)
+            {
+                bool fireControlSuccess = random.Next(0, 2) == 0; // 50%확률로 성공
+
+                if (fireControlSuccess)
+                {
+                    sucessCount++;
+                    Console.WriteLine($"{i}. 삽질에 성공했습니다!");
+                }
+                else
+                {
+                    Console.WriteLine($"{i}. 삽질에 실패했습니다.");
+                }
+                break;
+            }
+
+            Console.WriteLine("======================================================");
+            Console.WriteLine($"결과: 10번에 삽질 중 {sucessCount}번 성공했습니다!");
+            Console.WriteLine("======================================================");
+            Console.WriteLine("1. 결과확인하기");
+            Console.ReadLine();
+            Console.Clear();
+
+            if (sucessCount >= 6)
+            {
+                Console.WriteLine("");
+                Console.WriteLine("대민지원을 완료했습니다.");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("체력이 50증가합니다.");
+                Console.ResetColor();
+                Console.WriteLine("");
+                player1.Hp += 50;
+
+            }
+            else
+            {
+                Console.WriteLine("대민지원을 실패했습니다.");
+                Console.WriteLine("다시 시도하시겠습니까? (Y)");
+                Console.WriteLine("나가시겠습니까? (N)");
+                string response = Console.ReadLine();
+                if (response.ToUpper() == "Y")
+                {
+                    continue; // 실패시 다시 시작
+                }
+                else
+                {
+                    break;// 나가기 (이전화면)
+                }
+            }
+        }
+    }
+
+    // 외박(선택지) 일병스토리6
+    static void Overnight()
+    {
+        Console.Clear();
+        Console.WriteLine("");
+        Console.WriteLine("첫 외박날짜가 정해졌습니다. 기대와 설렘이 가득찬 그의 마음속에는");
+        Console.WriteLine("");
+        Console.WriteLine("어디를 가야할지, 누구를 만나야 할지에 대한 고민으로 가득차있습니다.");
+        Console.ReadKey();
+        Console.Clear();
+        Console.WriteLine("");
+        Console.WriteLine("가족, 친구, 여자친구 세가지 선택지중 하나를 고르세요");
+        Console.WriteLine("");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("선택지마다 랜덤능력치가 부여됩니다. 신중하게 고르세요! ");
+        Console.ResetColor();
+        Console.WriteLine("");
+        Console.WriteLine("");
+
+        bool isValidInput = true;
+
+        while (isValidInput)
+        {
+
+            Console.WriteLine("선택지를 골라주세요! ");
+            Console.WriteLine("1. 가족");
+            Console.WriteLine("");
+            Console.WriteLine("2. 친구");
+            Console.WriteLine("");
+            Console.WriteLine("3. 여자친구");
+
+            string userInput = Console.ReadLine();
+
+            switch (userInput)
+            {
+                case "1":
+                    Console.Clear();
+                    Console.WriteLine("가족을 선택하셨습니다.");
+                    Console.WriteLine("");
+                    Console.WriteLine("가족은 당신의 안정과 지지를 의미합니다.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("그들과 함께하는 시간은 당신에게 힘을 주고");
+                    Console.WriteLine("");
+                    Console.WriteLine("당신은 그들을 위해 힘든 시간을 견디려고 노력할 것입니다.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("힘 능력치가 10 상승하였습니다.");
+                    Console.ResetColor();
+                    player1.Str += 10;
+                    isValidInput = false;
+                    break;
+                case "2":
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.WriteLine("당신은 친구를 선택했습니다.");
+                    Console.WriteLine("");
+                    Console.WriteLine("김밥천국가서 대충먹고 PC방가서 날밤을 깠습니다.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+
+                    Console.WriteLine("친구들과 함께하는 시간은 즐거웠습니다.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("정신력 능력치가 10 상승하였습니다.");
+                    player1.Mind += 10;
+                    isValidInput = false;
+                    break;
+                case "3":
+                    Console.Clear();
+                    Console.WriteLine("여자친구를 선택하셨습니다.");
+                    Console.WriteLine("");
+                    Console.WriteLine("그녀에게 전화 했습니다. 전화를 안받습니다...");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("다시 한번 전화를 걸었습니다...");
+                    Console.WriteLine("");
+                    Console.ReadKey();
+                    Console.WriteLine("전화를 받았습니다!!");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.WriteLine("나 남자친구 생겼어 이제 전화하지말아줬으면 좋겠어 미안 툭 뚜..뚜..뚜..뚜");
+                    Console.ReadKey();
+                    Console.WriteLine("");
+                    Console.WriteLine("이로 인해 당신은 좌절하고 실망하며 슬픔을 겪게 됩니다.");
+                    Console.WriteLine("");
+                    Console.ReadKey();
+                    Console.Clear();
+                    Console.WriteLine("");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("정신력 능력치가 10 하락하였습니다.");
+                    Console.ResetColor();
+                    player1.Mind -= 10;
+                    isValidInput = false;
+                    break;
+
+                default:
+                    Console.WriteLine("");
+                    Console.WriteLine("잘못된 선택입니다.");
+                    break;
+            }
+        }
+    }
+
+
     #region 상병 스토리
     //상병 스토리 - KCTC
     static void CStoryKCTC()
@@ -788,7 +1224,7 @@ internal class Program
         bool onScene = true;
 
         string[] text = { "1. 몰래 탈출해 치킨을 먹는다.", "2. 얌전히 부대로 가서 짬밥을 먹는다." };
-        double successPercent = (player.Dex)/(5+player.Dex) * 100
+        double successPercent = (player.Dex)/(5+player.Dex) * 100;
         while (onScene)
         {
             Console.Clear();
@@ -1105,246 +1541,7 @@ internal class Program
 
     #endregion
 
-    #region 일병 - 100일 휴가
-    //일병 스토리 - 100일 휴가
-    static void HundredDaysvacationScene()
-    {
-        // 초기 씬 셋팅값
-        int cursor = 0;
-        bool onScene = true;
-
-        // Random 객체 생성
-        Random random = new Random();
-
-        // Random값을 담아둘 변수
-        int randomNum = 0;
-
-        // 선택지 Text
-        string[] text = {"1. 여자친구를 만나러 간다.",
-        "2. 친구들을 만나러 간다.",
-        "3. 본가로 간다.",
-        "4. 혼자 논다."};
-
-
-        while (onScene)
-        {
-            // Random Number 설정
-            randomNum = random.Next(1, 10);
-
-            //화면 초기화
-            Console.Clear();
-
-            Console.WriteLine("드디어 100일 휴가를 나왔다!");
-            Console.WriteLine("어떤 일을 먼저 해볼까?");
-
-            // Text[] Output
-            TextChoice(cursor, text);
-            // Key Input
-            e = Console.ReadKey();
-
-
-            switch (e.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    cursor--;
-                    if (cursor < 0) cursor = text.Length - 1;
-                    break;
-                case ConsoleKey.DownArrow:
-                    cursor++;
-                    if (cursor > text.Length - 1) cursor = 0;
-                    break;
-                case ConsoleKey.Enter:
-                    onScene = false;
-                    break;
-                default:
-                    break;
-            }
-
-            // Cursor Index
-            cursor = CursorChoice(e, cursor, text, ref onScene);
-
-
-            // Cursor Index
-            cursor = CursorChoice(e, cursor, text, ref onScene);
-        }
-
-        // 화면 지우기
-        Console.Clear();
-
-        // Cursor값에 따른 선택지
-        switch (cursor)
-        {
-            case 0:
-                // 여자친구 만나러
-                OneHundredDaysEvent(randomNum, "여자친구가 다른 남자와 다정하게 걷고 있다...",
-                "여자친구와 즐거운 시간을 보냈다.",
-                "나는 여자친구가 없다...");
-                // Scene이동
-                break;
-            case 1:
-                // 친구들 만나러
-                OneHundredDaysEvent(randomNum, "오랜만에 친구들과 술 한잔하며 이야기했다.",
-                "친구들과 Pc방에 가서 시간 가는 줄 모르고 놀았다.",
-                "나는 친구가 없다...");
-                // Scene이동
-                break;
-            case 2:
-                // 본가로 간다
-                OneHundredDaysEvent(randomNum, "오랜만에 집에 왔건만 군대에서 뭐했냐며 잔소리만 들었다...",
-                "가족들과 오랜만에 식사하며 좋은 시간을 보냈다.",
-                "내가 오는 줄 몰랐나..? 아무도 없다...");
-                // Scene이동
-                break;
-            case 3:
-                // 혼자 논다
-                OneHundredDaysEvent(randomNum, "혼자 즐겁게 놀았다. 진짜 즐거운 거 맞다, 아마도..",
-                "여기저기 구경 다니며 신나게 놀았다.",
-                "생활관에 있을 때가 더 나은 거 같다 너무 외롭다..");
-                // Scene이동
-                break;
-            default:
-                break;
-
-        }
-    }
-
-    static void OneHundredDaysEvent(int input, string one, string two, string three)
-    {
-        if (input < 6) // 50%
-        {
-            Console.WriteLine(one);
-            // 체력 -- , 정신력 --
-        }
-        else if (input < 9) // 30%
-        {
-            Console.WriteLine(two);
-            // 체력 ++ , 정신력 ++, 돈 --
-        }
-        else // 20%
-        {
-            Console.WriteLine(three);
-            // 체력 -- , 정신력 --
-        }
-    }
-    #endregion
-
-    #region 일병 - 사격 훈련
-    // 일병 스토리 - 사격 훈련
-    static void ShootingScene()
-    {
-        // Random 객체 생성
-        Random random = new Random();
-
-        // 사격 거리
-        int[] distance = { 200, 100, 50 };
-        int num = 0;
-
-        // Wave 설정
-        int totalWave = 10;
-        int hitCount = 0;
-
-        // 선택지 Text
-        string[] text = { "1. 머리 조준", "2. 몸통 조준", "3. 바닥 경계선 조준" };
-
-        // 초기 씬 셋팅값
-        int cursor = 0;
-        bool onScene = true;
-
-        Console.WriteLine("오늘은 사격훈련을 진행하겠다.");
-        Console.WriteLine("");
-        Console.ReadKey();
-        Console.WriteLine("한발 한발 신중하게 쏠 수 있도록 한다.");
-        Console.WriteLine("");
-        Console.ReadKey();
-        Console.WriteLine("탄약을 분배 받은 사수는 각자 위치로!");
-        Console.WriteLine("");
-        Console.ReadKey();
-        Console.WriteLine("준비된 사수는 사격 개시!");
-        Console.WriteLine("");
-        Console.ReadKey();
-
-        for (int currentWave = 1; currentWave <= totalWave; currentWave++)
-        {
-            // 10웨이브 반복
-            while (onScene)
-            {
-                // 화면 초기화
-                Console.Clear();
-
-                // cursor위치 초기화
-                cursor = 0;
-
-                // Random 거리 초기화 ( 200m , 100m, 50m )
-                num = random.Next(0, 2);
-
-                Console.WriteLine(" 현재 사격 시도 : {0} / {1}   명중 횟수 : {2}", currentWave, totalWave, hitCount);
-                Console.WriteLine("");
-                Console.WriteLine("사격 거리 : {0}m ", distance[num]);
-                Console.WriteLine("");
-                Console.WriteLine("어디를 조준하고 사격할까?");
-                Console.WriteLine("");
-
-                // Text[] Output
-                TextChoice(cursor, text);
-                // Key Input
-                e = Console.ReadKey();
-
-                switch (e.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        cursor--;
-                        if (cursor < 0) cursor = text.Length - 1;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        cursor++;
-                        if (cursor > text.Length - 1) cursor = 0;
-                        break;
-                    case ConsoleKey.Enter:
-                        onScene = false;
-                        break;
-                    default:
-                        break;
-                }
-
-                // Cursor index
-                cursor = CursorChoice(e, cursor, text, ref onScene);
-
-            }
-
-            // 화면 지우기
-            Console.Clear();
-
-            // 사격 로직 및 명중 횟수++
-            hitCount = ShootingEvent(num, hitCount, cursor);
-
-            // 웨이브 + 1
-            currentWave++;
-
-            onScene = true;
-        }
-
-        // hitCount(명중 횟수)에 따른 보상 로직 작성.
-        // 1~5 폐급, 6~8 평균, 9~10 특등사수 
-    }
-
-    // Shooting 처리 메서드
-    static int ShootingEvent(int input, int _hitCount, int _cursor)
-    {
-        if (input == _cursor)
-        {
-            Console.WriteLine("명중!!!");
-            _hitCount++;
-            Console.ReadKey();
-        }
-        else
-        {
-            Console.WriteLine("빗나갔다...");
-            Console.ReadKey();
-        }
-
-        return _hitCount;
-    }
-
+    
 
 
     #region Cursor선택 캡슐화
@@ -1393,199 +1590,6 @@ internal class Program
 
 
 
-
-    //대민지원 일병스토리5
-    static void DMsupport()
-    {
-        Console.Clear();
-        Console.WriteLine("민간 지역에 큰화재가 발생했다!");
-        Console.WriteLine("대민지원 활동에 참여해야겠다!");
-        Console.WriteLine("");
-        Console.ReadKey();
-        Console.WriteLine("화재진압은 되었다고 한다! ");
-        Console.WriteLine("무너진 건물 잔해가 많다고 하니 다치지 않게 하길 바란다!");
-        Console.WriteLine("");
-        Console.ReadKey();
-
-        Console.WriteLine("=======================================");
-        Console.WriteLine("10번의 삽질을 시도해서 6번 성공하세요!");
-        Console.WriteLine("=======================================");
-        Console.WriteLine("");
-        Console.ReadKey();
-        Console.Clear();
-
-        Console.WriteLine("삽질 시작하기");
-        Console.ReadKey();
-
-
-        int sucessCount = 0;
-        Random random = new Random();
-
-        string userInput = Console.ReadLine();
-        while (true)
-        {
-
-            for (int i = 0; i <= 10; i++)
-            {
-                bool fireControlSuccess = random.Next(0, 2) == 0; // 50%확률로 성공
-
-                if (fireControlSuccess)
-                {
-                    sucessCount++;
-                    Console.WriteLine($"{i}. 삽질에 성공했습니다!");
-                }
-                else
-                {
-                    Console.WriteLine($"{i}. 삽질에 실패했습니다.");
-                }
-                break;
-            }
-
-            Console.WriteLine("======================================================");
-            Console.WriteLine($"결과: 10번에 삽질 중 {sucessCount}번 성공했습니다!");
-            Console.WriteLine("======================================================");
-            Console.WriteLine("1. 결과확인하기");
-            Console.ReadLine();
-            Console.Clear();
-
-            if (sucessCount >= 6)
-            {
-                Console.WriteLine("");
-                Console.WriteLine("대민지원을 완료했습니다.");
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("체력이 50증가합니다.");
-                Console.ResetColor();
-                Console.WriteLine("");
-                player1.Hp += 50;
-
-            }
-            else
-            {
-                Console.WriteLine("대민지원을 실패했습니다.");
-                Console.WriteLine("다시 시도하시겠습니까? (Y)");
-                Console.WriteLine("나가시겠습니까? (N)");
-                string response = Console.ReadLine();
-                if (response.ToUpper() == "Y")
-                {
-                    continue; // 실패시 다시 시작
-                }
-                else
-                {
-                    break;// 나가기 (이전화면)
-                }
-            }
-        }
-    }
-
-    // 외박(선택지) 일병스토리6
-    static void Overnight()
-    {
-        Console.Clear();
-        Console.WriteLine("");
-        Console.WriteLine("첫 외박날짜가 정해졌습니다. 기대와 설렘이 가득찬 그의 마음속에는");
-        Console.WriteLine("");
-        Console.WriteLine("어디를 가야할지, 누구를 만나야 할지에 대한 고민으로 가득차있습니다.");
-        Console.ReadKey();
-        Console.Clear();
-        Console.WriteLine("");
-        Console.WriteLine("가족, 친구, 여자친구 세가지 선택지중 하나를 고르세요");
-        Console.WriteLine("");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("선택지마다 랜덤능력치가 부여됩니다. 신중하게 고르세요! ");
-        Console.ResetColor();
-        Console.WriteLine("");
-        Console.WriteLine("");
-
-        bool isValidInput = true;
-
-        while (isValidInput)
-        {
-
-            Console.WriteLine("선택지를 골라주세요! ");
-            Console.WriteLine("1. 가족");
-            Console.WriteLine("");
-            Console.WriteLine("2. 친구");
-            Console.WriteLine("");
-            Console.WriteLine("3. 여자친구");
-
-            string userInput = Console.ReadLine();
-
-            switch (userInput)
-            {
-                case "1":
-                    Console.Clear();
-                    Console.WriteLine("가족을 선택하셨습니다.");
-                    Console.WriteLine("");
-                    Console.WriteLine("가족은 당신의 안정과 지지를 의미합니다.");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("그들과 함께하는 시간은 당신에게 힘을 주고");
-                    Console.WriteLine("");
-                    Console.WriteLine("당신은 그들을 위해 힘든 시간을 견디려고 노력할 것입니다.");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("힘 능력치가 10 상승하였습니다.");
-                    Console.ResetColor();
-                    player1.Str += 10;
-                    isValidInput = false;
-                    break;
-                case "2":
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.WriteLine("당신은 친구를 선택했습니다.");
-                    Console.WriteLine("");
-                    Console.WriteLine("김밥천국가서 대충먹고 PC방가서 날밤을 깠습니다.");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-
-                    Console.WriteLine("친구들과 함께하는 시간은 즐거웠습니다.");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("정신력 능력치가 10 상승하였습니다.");
-                    player1.Mind += 10;
-                    isValidInput = false;
-                    break;
-                case "3":
-                    Console.Clear();
-                    Console.WriteLine("여자친구를 선택하셨습니다.");
-                    Console.WriteLine("");
-                    Console.WriteLine("그녀에게 전화 했습니다. 전화를 안받습니다...");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("다시 한번 전화를 걸었습니다...");
-                    Console.WriteLine("");
-                    Console.ReadKey();
-                    Console.WriteLine("전화를 받았습니다!!");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.WriteLine("나 남자친구 생겼어 이제 전화하지말아줬으면 좋겠어 미안 툭 뚜..뚜..뚜..뚜");
-                    Console.ReadKey();
-                    Console.WriteLine("");
-                    Console.WriteLine("이로 인해 당신은 좌절하고 실망하며 슬픔을 겪게 됩니다.");
-                    Console.WriteLine("");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("정신력 능력치가 10 하락하였습니다.");
-                    Console.ResetColor();
-                    player1.Mind -= 10;
-                    isValidInput = false;
-                    break;
-
-                default:
-                    Console.WriteLine("");
-                    Console.WriteLine("잘못된 선택입니다.");
-                    break;
-            }
-        }
-    }
 
     static int workCount = 0;
     static int Perfection = 0;
@@ -2631,3 +2635,6 @@ internal class Program
 
     }
     #endregion
+    #endregion
+    
+}
