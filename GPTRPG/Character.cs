@@ -13,6 +13,9 @@ public class Character
 
     public int _gold; //소유 골드
     public List<Item> Inventory { get; } = new List<Item>(); // 인벤토리 리스트 추가
+    public List<Food> InventoryFood { get; } = new List<Food>(); // 인벤토리 리스트 추가
+    public List<Armor> InventoryArmor { get; } = new List<Armor>(); // 인벤토리 리스트 추가
+    public List<Weapon> InventoryWeapon { get; } = new List<Weapon>(); // 인벤토리 리스트 추가
 
    
     public int Gold //골드 증감
@@ -36,13 +39,33 @@ public class Character
 
     }
 
-    //인벤토리에 아이템 추가
-    public void AddToInventory(Item item)
-    {
+      //인벤토리에 아이템 추가
+  public void AddToInventory(Item item)
+  {
 
-        //인벤토리에 아이템 추가
-        Inventory.Add(item);
-    }
+      //인벤토리에 아이템 추가
+      Inventory.Add(item);
+
+  }
+  public void AddToInventoryFood(Food food)
+  {
+
+      //인벤토리에 아이템 추가
+
+      InventoryFood.Add(food);
+  }
+  public void AddToInventoryArmor(Armor armor)
+  {
+
+      //인벤토리에 아이템 추가
+      InventoryArmor.Add(armor);
+  }
+  public void AddToInventoryWeapon(Weapon weapon)
+  {
+
+      //인벤토리에 아이템 추가
+      InventoryWeapon.Add(weapon);
+  }
 
     public double CalculateProbability(int Value)
     {

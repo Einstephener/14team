@@ -12,10 +12,45 @@ using System.Drawing;
 
 internal class Program
 {
+    private static List<Weapon> weapons = new List<Weapon>
+        {
+            new Weapon("야전삽", 50, "전투용 삽", 10, 5, 3, 2),
+            new Weapon("K2", 200, "국산 소총", 20, 10, 5, 3),
+            new Weapon("AK47", 300, "돌격소총", 25, 15, 5, 1),
+            new Weapon("샷건", 150, "원거리 전투용 산탄총", 15, 5, 2, 1),
+            new Weapon("M60", 400, "무거운 기관총", 30, 5, 2, 1),
+            new Weapon("AWP", 500, "저격소총", 40, 5, 2, 1),
+            new Weapon("판처파우스트", 600, "고급 소총", 50, 20, 10, 5),
+            new Weapon("발칸", 450, "군용 소총", 35, 15, 8, 3),
+            new Weapon("K-9자주포", 700, "대형 포탄 발사기", 60, 10, 5, 2),
+            new Weapon("현무 극초음속 순항 미사일", 1000, "최첨단 미사일", 100, 50, 30, 10),
+            new Weapon("마음의편지", 9999, "최강의 무기", 999, 999, 999, 999)
+        };
+
+    // 능력치들은 밸런스에맞게 조정해야됨
+    private static List<Armor> armors = new List<Armor>
+        {
+            new Armor("생활복", 50, "평범한 옷", 5, 10),
+            new Armor("로카티", 150, "강화된 방어복", 15, 20),
+            new Armor("화생방 보호의", 200, "생화학적 위협으로부터 보호하는 의복", 20, 25),
+            new Armor("깔깔이", 100, "특수 재료로 만든 방어복", 10, 15),
+            new Armor("신형 전투복", 300, "최신형 전투용 갑옷", 25, 30),
+            new Armor("개구리 전투복", 120, "개구리 가죽으로 만든 방어복", 12, 18),
+            new Armor("특전사 이준호 전투복", 9999, "특전사 이준호님의 전투복", 999, 999)
+        };
 
     //아이템 리스트
-    private static List<Item> items = new List<Item>();
-    private static List<Food> foods = new List<Food>();
+    
+    private static List<Food> foods = new List<Food>
+        {
+             new Food("건빵", 5, 10, 20, "긴급 상황을 위한 비상식량"),
+             new Food("전투식량", 10, 15, 30, "체력과 공격력을 강화하는 식사"),
+             new Food("", 3, 5, 15, "체력 회복을 위한 탄수화물 보충"),
+             new Food("단백질 바", 4, 7, 18, "체력 및 공격력 강화를 위한 단백질 섭취"),                                   // 능력치들은 밸런스에맞게 조정해야됨
+             new Food("야간식량", 8, 12, 25, "야간에 먹는 음식, 체력 및 방어력 강화"),
+             new Food("특급 식사", 15, 20, 50, "전투에 최적화된 특별한 식사"),
+             new Food("야전식량", 12, 18, 40, "야외 전투에 적합한 식사")
+        };
     //몬스터 리스트
     private static List<Enemy> enemys = new List<Enemy>();
 
@@ -63,7 +98,7 @@ internal class Program
         greenStrap = new Armor("분대장 견장", 0, "분대장의 상징인 녹견", 10, 10);
 
         //리스트에 아이템들 추가
-        items.Add(greenStrap);
+
 
         //아이템 정보 세팅
 
@@ -378,51 +413,69 @@ internal class Program
     #region 인벤토리
 
     //인벤토리
-    static void DisplayInventory(Character player)
-    {
-        Console.Clear();
+     static void DisplayInventory(Character player)
+ {
+     Console.Clear();
 
-        Console.WriteLine();
-        Console.WriteLine(" [인벤토리]");
-        Console.WriteLine($"\t\t\t\t\t\t[소지금:{player1._gold}G]");
-        Console.WriteLine();
-        Console.WriteLine("============================================================================");
-        Console.WriteLine(" 소지중인 아이템 목록:");
-        Console.WriteLine();
-        Console.WriteLine("--------아이템 이름--------------------------아이템 설명---------------------");
-        Console.WriteLine();
-        //인벤토리 리스트에 있는 아이템들 나열
-        for (int i = 0; i < player.Inventory.Count; i++)
-        {
-            var item = player.Inventory[i];
-            Console.Write($"{i + 1}. ");
-            Console.WriteLine($" \t {item.ItemName} \t | {item.ItemDescription}"); //아이템 부가 정보
-            Console.WriteLine();
-        }
-        Console.WriteLine();
-        Console.WriteLine("============================================================================");
-        Console.WriteLine();
-        Console.WriteLine(" 장착/해제를 원하는 아이템을 입력해주세요.");
-        Console.WriteLine();
-        Console.WriteLine(" 0. 뒤로가기");
-        Console.Write(">>");
+     Console.WriteLine();
+     Console.WriteLine(" [인벤토리]");
+     Console.WriteLine($"\t\t\t\t\t\t[소지금:{player1._gold}G]");
+     Console.WriteLine();
+     Console.WriteLine("============================================================================");
+     Console.WriteLine(" 소지중인 아이템 목록:");
+     Console.WriteLine();
+     Console.WriteLine("--------아이템 이름--------------------------아이템 설명---------------------");
+     Console.WriteLine("음식");
+     //인벤토리 리스트에 있는 아이템들 나열
+     for (int i = 0; i < player.InventoryFood.Count; i++)
+     {
+         var food = player.InventoryFood[i];
+         Console.Write($"{i + 1}. ");
+         Console.WriteLine($" \t {food.ItemName} \t | {food.ItemDescription}"); //음식 부가 정보
+         Console.WriteLine();
+     }
+     Console.WriteLine("무기");
+     //인벤토리 리스트에 있는 아이템들 나열
+     for (int i = 0; i < player.InventoryWeapon.Count; i++)
+     {
+         var weapon = player.InventoryWeapon[i];
+         Console.Write($"{i + 1}. ");
+         Console.WriteLine($" \t {weapon.ItemName} \t | {weapon.ItemDescription}"); //음식 부가 정보
+         Console.WriteLine();
+     }
+     Console.WriteLine();
+     Console.WriteLine("방어구");
+     //인벤토리 리스트에 있는 아이템들 나열
+     for (int i = 0; i < player.InventoryArmor.Count; i++)
+     {
+         var armor = player.InventoryArmor[i];
+         Console.Write($"{i + 1}. ");
+         Console.WriteLine($" \t {armor.ItemName} \t | {armor.ItemDescription}"); //음식 부가 정보
+         Console.WriteLine();
+     }
+     Console.WriteLine("============================================================================");
+     Console.WriteLine();
+     Console.WriteLine(" 장착/해제를 원하는 아이템을 입력해주세요.");
+     Console.WriteLine();
+     Console.WriteLine(" 0. 뒤로가기");
+     Console.Write(">>");
 
-        int input = CheckValidInput(0, player.Inventory.Count);
-        if (input > 0)
-        {
+     int input = CheckValidInput(0, player.Inventory.Count);
+     if (input > 0)
+     {
 
-            Console.WriteLine();
-            Console.WriteLine("Press AnyKey");
-            Console.ReadKey();
-            //인벤토리창 새로고침
-            DisplayInventory(player);
-        }
-        else
-        {
-            //막사로 돌아가기
-            Home();
-        }
-    }
+         Console.WriteLine();
+         Console.WriteLine("Press AnyKey");
+         Console.ReadKey();
+         //인벤토리창 새로고침
+         DisplayInventory(player);
+     }
+     else
+     {
+         //막사로 돌아가기
+         Home();
+     }
+ }
     #endregion
 
     #region 일과 ( 상시 이벤트 )
@@ -1244,67 +1297,74 @@ internal class Program
         Console.Clear();
         Console.WriteLine();
         Console.WriteLine(" 당신은 KCTC 훈련에 참여했다.");
-        Console.WriteLine(" 훈련 2일차, 앞에 대항군을 발견했다는 무전이 들어왔다.");
-        Console.WriteLine(" 전투 시작!");
-        Console.WriteLine();
-        Console.WriteLine("-----------------------------------------------------------------------");
-        Console.WriteLine("\t\t 적을 공격한다.");
-        Console.WriteLine(" 자주포 폭격 10% / 수류탄 투척 20% / K-2사격 50% / 매복으로 인한 패배 20%");
-        Console.WriteLine("-----------------------------------------------------------------------");
         Console.ForegroundColor = ConsoleColor.DarkRed;
         Console.WriteLine("계속하려면 enter.");
         Console.ResetColor();
-        //직업 별, 다른 확률
-        Random rand = new Random();
-        int number = rand.Next(10);
-        switch (number)
+        Console.ReadKey();
+        if (player.Job == "포병") 
         {
-            case 0: //10%
-                Console.WriteLine(" 폭격 지원 요청 성공!");
-                Console.WriteLine(" 적 대대 소탕 완료.");
-                Console.WriteLine(" 표창장과 포상금을 받았다.");
-                player._gold += 500;
-                Console.WriteLine();
-                //제일 큰 보상
-                break;
-
-            case 1:
-            case 2: //20%
-                Console.WriteLine(" 수류탄 투척!");
-                Console.WriteLine(" 적 분대 소탕 완료.");
-                Console.WriteLine(" 표창장과 약간의 포상금을 받았다.");
-                player._gold += 200;
-                Console.WriteLine();
-                //중간 보상
-                break;
-
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7: //50%
-                Console.WriteLine(" K-2로 적 사살");
-                Console.WriteLine(" 대항군 한명 사살.");
-                Console.WriteLine();
-
-                //보상 없음.
-                break;
-
-            case 8:
-            case 9: //20%
-                Console.WriteLine("아군 전멸");
-                Console.WriteLine("분노한 중대장에게 얼차려를 받았다.");
-                Console.WriteLine("체력이 10 감소한다.");
-                player.Hp -= 10;
-                Console.WriteLine();
-                //패널티
-                break;
+            ArtilleryKCTC();
         }
-        Console.WriteLine("훈련이 끝났다. 막사로 돌아가자.");
+        else if (player.Job == "보병" || player.Job == "정비병") 
+        {
+            InfantryKCTC();
+        }
+        else if (player.Job == "운전병") 
+        {
+            TransportationKCTC();
+        }
+
+        
+        Console.WriteLine("막사로 돌아가자.");
+        Console.ReadKey();
+        Console.WriteLine("개고생을 했더니 체력이 늘어난것 같다.");
+        player.Hp += 20;
         Console.ReadKey();
         OneMonthLater();
+    }
+
+    //kctc 포병전투 씬
+    static void ArtilleryKCTC()
+    {
+        Console.WriteLine(" 전방 부대에서 포격 지원을 요청했다.");
+        Console.ReadKey();
+        Console.WriteLine(" 관측병이 따온 적 좌표로 방열한다.");
+        Console.ReadKey();
+        Console.WriteLine(" 잠시 후 무전으로 새로운 좌표가 들어온다");
+        Console.ReadKey();
+        Console.WriteLine(" ...");
+        Console.ReadKey();
+        Console.WriteLine(" 미친듯이 포만 쏘다가 훈련이 끝났다.");
+        Console.ReadKey();
 
     }
+    //kctc 보병전투 씬
+    static void InfantryKCTC()
+    {
+        Console.WriteLine(" 두돈 반을 타고 전선으로 투입되었다.");
+        Console.ReadKey();
+        Console.WriteLine(" 진지를 구축하고 참호에서 대기했다.");
+        Console.ReadKey();
+        Console.WriteLine(" 2일 후 새벽에 포격을 맞고 전멸했다.");
+        Console.ReadKey();
+        Console.WriteLine(" 의무대에서 대기하다 훈련이 끝났다.");
+    }
+    //kctc 운전병전투 씬
+    static void TransportationKCTC()
+    {
+        Console.WriteLine(" 두돈반을 운전해서 병사들을 수송한다.");
+        Console.ReadKey();
+        Console.WriteLine(" 다시 두돈반을 타고 병사들을 수송한다.");
+        Console.ReadKey();
+        Console.WriteLine(" 다음날 보급품을 수송한다.");
+        Console.ReadKey();
+        Console.WriteLine("....");
+        Console.ReadKey();
+        Console.WriteLine(" 훈련이 끝났다.");
+    }
+
+
+
     //상병 스토리- 상검
     static void CStoryPhysicalExamination(Character player)
     {
@@ -2714,12 +2774,12 @@ internal class Program
                 Home();
                 break;
             case 1:
-                // 상점에서 아이템을 구매하는 메서드 호출
+                // 무기점 메서드 호출
                 EquipPx();
                 break;
 
             case 2:
-                // 상점에서 아이템을 구매하는 메서드 호출
+                // 음식코너 메서드 호출
                 FoodPx();
                 break;
 
@@ -2731,30 +2791,7 @@ internal class Program
     static void EquipPx()
     {
         //군장점입니다.
-        List<Weapon> weapons = new List<Weapon>
-        {
-            new Weapon("야전삽", 50, "전투용 삽", 10, 5, 3, 2),
-            new Weapon("K2", 200, "국산 소총", 20, 10, 5, 3),
-            new Weapon("AK47", 300, "돌격소총", 25, 15, 5, 1),
-            new Weapon("샷건", 150, "원거리 전투용 산탄총", 15, 5, 2, 1),
-            new Weapon("M60", 400, "무거운 기관총", 30, 5, 2, 1),
-            new Weapon("AWP", 500, "저격소총", 40, 5, 2, 1),
-            new Weapon("판처파우스트", 600, "고급 소총", 50, 20, 10, 5),
-            new Weapon("발칸", 450, "군용 소총", 35, 15, 8, 3),
-            new Weapon("K-9자주포", 700, "대형 포탄 발사기", 60, 10, 5, 2),
-            new Weapon("현무 극초음속 순항 미사일", 1000, "최첨단 미사일", 100, 50, 30, 10),
-            new Weapon("마음의편지", 9999, "최강의 무기", 999, 999, 999, 999)
-        };                                                                                                           // 능력치들은 밸런스에맞게 조정해야됨
-        List<Armor> armors = new List<Armor>
-        {
-            new Armor("생활복", 50, "평범한 옷", 5, 10),
-            new Armor("로카티", 150, "강화된 방어복", 15, 20),
-            new Armor("화생방 보호의", 200, "생화학적 위협으로부터 보호하는 의복", 20, 25),
-            new Armor("깔깔이", 100, "특수 재료로 만든 방어복", 10, 15),
-            new Armor("신형 전투복", 300, "최신형 전투용 갑옷", 25, 30),
-            new Armor("개구리 전투복", 120, "개구리 가죽으로 만든 방어복", 12, 18),
-            new Armor("특전사 이준호 전투복", 9999, "특전사 이준호님의 전투복", 999, 999)
-        };
+       
         Console.WriteLine("군장점 코너");
         Console.WriteLine("=====================================================================================");
         //반복문을 이용한 아이템 목록출력
@@ -2778,7 +2815,8 @@ internal class Program
         Console.WriteLine("------------------------------------------------------------------");
         Console.WriteLine("=====================================================================================");
         Console.WriteLine();
-        Console.WriteLine(" 1. 아이템 구매하기");
+        Console.WriteLine(" 1. 무기 구매하기");
+        Console.WriteLine(" 2. 방어구 구매하기");
 
         Console.WriteLine();
         Console.WriteLine(" 0. 뒤로가기");
@@ -2792,8 +2830,12 @@ internal class Program
                 PX();
                 break;
             case 1:
-                // 상점에서 아이템을 구매하는 메서드 호출
-                BuyItem(player1);
+                // 상점에서 무기를 구매하는 메서드 호출
+                BuyWeapon(player1);
+                break;
+            case 2:
+                // 상점에서 방어구를 구매하는 메서드 호출
+                BuyArmor(player1);
                 break;
 
         }
@@ -2805,16 +2847,6 @@ internal class Program
     {
         //상점입니다.
 
-        List<Food> foods = new List<Food>
-        {
-             new Food("건빵", 5, 10, 20, "긴급 상황을 위한 비상식량"),
-             new Food("전투식량", 10, 15, 30, "체력과 공격력을 강화하는 식사"),
-             new Food("", 3, 5, 15, "체력 회복을 위한 탄수화물 보충"),
-             new Food("단백질 바", 4, 7, 18, "체력 및 공격력 강화를 위한 단백질 섭취"),                                   // 능력치들은 밸런스에맞게 조정해야됨
-             new Food("야간식량", 8, 12, 25, "야간에 먹는 음식, 체력 및 방어력 강화"),
-             new Food("특급 식사", 15, 20, 50, "전투에 최적화된 특별한 식사"),
-             new Food("야전식량", 12, 18, 40, "야외 전투에 적합한 식사")
-        };
         Console.WriteLine();
         Console.WriteLine("식재료 코너");
         Console.WriteLine("=====================================================================================");
@@ -2853,7 +2885,7 @@ internal class Program
 
     #region 아이템 구매 메소드
     //구매한 아이템 인벤토리로 옮기기
-    static void BuyItem(Character player)
+    static void BuyWeapon(Character player)
     {
         Console.Clear();
         Console.WriteLine(" 구매할 아이템을 선택하세요:");
@@ -2861,9 +2893,9 @@ internal class Program
         Console.WriteLine();
         Console.WriteLine("=====================================================================================");
         Console.WriteLine();
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0; i < weapons.Count; i++)
         {
-            var item = items[i];
+            var item = weapons[i];
             Console.WriteLine($" {i + 1}. {item.ItemName} \t| 가격: {item.ItemGold}G");
             Console.WriteLine();
         }
@@ -2874,14 +2906,56 @@ internal class Program
         //1~7의 숫자를 입력하면 0~6번째의 아이템을 구매
         int itemIndex = CheckValidInput(1, 7) - 1;
 
-        Item selectedItem = items[itemIndex]; // 선택한 아이템 가져오기
+        Weapon selectedItem = weapons[itemIndex]; // 선택한 아이템 가져오기
 
         // 플레이어의 골드가 아이템 가격보다 많은지 확인
         if (player.Gold >= selectedItem.ItemGold)
         {
             player.Gold -= selectedItem.ItemGold; // 골드 차감
-            player.AddToInventory(selectedItem); // 인벤토리에 아이템 추가
-            items.Remove(selectedItem);//선택한 아이템 제거
+            player.AddToInventoryWeapon(selectedItem); // 인벤토리에 아이템 추가
+            weapons.Remove(selectedItem);//선택한 아이템 제거
+            Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
+        }
+        else
+        {
+            Console.WriteLine(" 돈이 부족합니다!");
+        }
+
+        Console.WriteLine(" Press Anykey to go Back.");
+        Console.Write(">>");
+        Console.ReadKey();
+        PX(); // 다시 상점으로 돌아가기
+
+    }
+    static void BuyArmor(Character player)
+    {
+        Console.Clear();
+        Console.WriteLine(" 구매할 아이템을 선택하세요:");
+        Console.WriteLine($" 현재 소지금: {player1._gold}");
+        Console.WriteLine();
+        Console.WriteLine("=====================================================================================");
+        Console.WriteLine();
+        for (int i = 0; i < armors.Count; i++)
+        {
+            var item = armors[i];
+            Console.WriteLine($" {i + 1}. {item.ItemName} \t| 가격: {item.ItemGold}G");
+            Console.WriteLine();
+        }
+        Console.WriteLine("=====================================================================================");
+
+        Console.WriteLine();
+
+        //1~7의 숫자를 입력하면 0~6번째의 아이템을 구매
+        int itemIndex = CheckValidInput(1, 7) - 1;
+
+        Armor selectedItem = armors[itemIndex]; // 선택한 아이템 가져오기
+
+        // 플레이어의 골드가 아이템 가격보다 많은지 확인
+        if (player.Gold >= selectedItem.ItemGold)
+        {
+            player.Gold -= selectedItem.ItemGold; // 골드 차감
+            player.AddToInventoryArmor(selectedItem); // 인벤토리에 아이템 추가
+            armors.Remove(selectedItem);//선택한 아이템 제거
             Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
         }
         else
@@ -2906,7 +2980,7 @@ internal class Program
         Console.WriteLine();
         for (int i = 0; i < foods.Count; i++)
         {
-            var food = items[i];
+            var food = foods[i];
             Console.WriteLine($" {i + 1}. {food.ItemName} \t| 가격: {food.ItemGold}G");
             Console.WriteLine();
         }
@@ -2916,14 +2990,14 @@ internal class Program
         //1~7의 숫자를 입력하면 0~6번째의 아이템을 구매
         int itemIndex = CheckValidInput(1, 7) - 1;
 
-        Item selectedItem = items[itemIndex]; // 선택한 아이템 가져오기
+        Food selectedItem = foods[itemIndex]; // 선택한 아이템 가져오기
 
         // 플레이어의 골드가 아이템 가격보다 많은지 확인
         if (player.Gold >= selectedItem.ItemGold)
         {
             player.Gold -= selectedItem.ItemGold; // 골드 차감
-            player.AddToInventory(selectedItem); // 인벤토리에 아이템 추가
-            items.Remove(selectedItem);//선택한 아이템 제거
+            player.AddToInventoryFood(selectedItem); // 인벤토리에 아이템 추가
+            foods.Remove(selectedItem);//선택한 아이템 제거
             Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
         }
         else
