@@ -490,7 +490,11 @@ internal class Program
         for (int i = 0; i < player.InventoryWeapon.Count; i++)
         {
             var weapon = player.InventoryWeapon[i];
+            string equippedStatus = weapon.isEquipped ? "[E]" : ""; // 아이템이 장착되었는지 여부에 따라 [E] 표시 추가 없으면 공백
             Console.Write($"{i + 1}. ");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write($"{equippedStatus}");
+            Console.ResetColor();
             Console.WriteLine($" \t {weapon.ItemName} \t | {weapon.ItemDescription}"); //무기 부가 정보
             Console.WriteLine();
         }
@@ -506,7 +510,7 @@ internal class Program
         int input = CheckValidInput(0, player.InventoryWeapon.Count);
         if (input > 0)
         {
-
+            player.EquipWeapon(input);
             Console.WriteLine();
             Console.WriteLine("Press AnyKey");
             Console.ReadKey();
@@ -529,7 +533,11 @@ internal class Program
         for (int i = 0; i < player.InventoryArmor.Count; i++)
         {
             var armor = player.InventoryArmor[i];
+            string equippedStatus = armor.isEquipped ? "[E]" : ""; // 아이템이 장착되었는지 여부에 따라 [E] 표시 추가 없으면 공백
             Console.Write($"{i + 1}. ");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write($"{equippedStatus}");
+            Console.ResetColor();
             Console.WriteLine($" \t {armor.ItemName} \t | {armor.ItemDescription}"); //방어구 부가 정보
             Console.WriteLine();
         }      
@@ -543,6 +551,7 @@ internal class Program
         int input = CheckValidInput(0, player.InventoryArmor.Count);
         if (input > 0)
         {
+            player.EquipArmor(input);
             Console.WriteLine();
             Console.WriteLine("Press AnyKey");
             Console.ReadKey();
@@ -3122,14 +3131,7 @@ internal class Program
         if (player.Gold >= selectedItem.ItemGold)
         {
             player.Gold -= selectedItem.ItemGold; // 골드 차감
-            player.AddToInventoryWeapon(selectedItem); // 인벤토리에 아이템 추가
-
-            selectedItem.isEquipped = true; //구매시 자동 장착
-            player.Str += selectedItem.ItemStr;//장착 후 힘 증가
-            player.Dex += selectedItem.ItemDex; //장착 후 민첩 증가
-            player.IQ += selectedItem.ItemIq; //장착 후 지능 증가
-            player.Luk += selectedItem.ItemLuk; //장착 후 민첩 증가
-            
+            player.AddToInventoryWeapon(selectedItem); // 인벤토리에 아이템 추가            
             weapons.Remove(selectedItem);//선택한 아이템 제거
             Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
         }
@@ -3174,11 +3176,6 @@ internal class Program
         {
             player.Gold -= selectedItem.ItemGold; // 골드 차감
             player.AddToInventoryArmor(selectedItem); // 인벤토리에 아이템 추가            
-
-            selectedItem.isEquipped = true; //구매시 자동 장착
-            player.Hp += selectedItem.ItemHp;//장착 후 체력 증가
-            player.Mind += selectedItem.ItemMind; //장착 후 정신력 증가
-            
             armors.Remove(selectedItem);//선택한 아이템 제거
             Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
         }

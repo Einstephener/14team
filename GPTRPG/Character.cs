@@ -55,6 +55,85 @@ public class Character
         InventoryWeapon.Add(weapon);
     }
 
+    //장비 장착
+    public void EquipWeapon(int input)
+    {
+        //착용하려는 장비가 인벤토리 안에 있는 장비인가
+        if (input > 0 && input <= InventoryWeapon.Count)
+        {
+            
+            //배열은 0부터 시작하기 때문에 input-1
+            var item = InventoryWeapon[input - 1];
+
+            if (!item.isEquipped) //착용여부가 false일때
+            {
+                
+                item.isEquipped = true; //착용여부를 true로 바꿈
+                Console.WriteLine($" [{item.ItemName}]을(를) 장착했습니다.");
+                //착용된 아이템의 스탯을 캐릭터 스탯에 적용
+                
+                Str += item.ItemStr;
+                Dex += item.ItemDex;
+                IQ += item.ItemIq;
+                Luk += item.ItemLuk;
+            }
+            else
+            {
+                item.isEquipped = false; //착용여부를 false로 바꿈
+                Console.WriteLine($" [{item.ItemName}]을(를) 해제했습니다.");
+                //착용 해제된 아이템의 스탯을 캐릭터 스탯에 적용
+                Str -= item.ItemStr;
+                Dex -= item.ItemDex;
+                IQ -= item.ItemIq;
+                Luk -= item.ItemLuk;
+            }
+        }
+        else
+        {
+            Console.WriteLine(" 잘못된 입력입니다.");
+        }
+        
+        
+    }
+    public void EquipArmor(int input)
+    {
+        //착용하려는 장비가 인벤토리 안에 있는 장비인가
+        if (input > 0 && input <= InventoryArmor.Count)
+        {
+            
+            //배열은 0부터 시작하기 때문에 input-1
+            var item = InventoryArmor[input - 1];
+
+            if (!item.isEquipped) //착용여부가 false일때
+            {
+                
+                item.isEquipped = true; //착용여부를 true로 바꿈
+                Console.WriteLine($" [{item.ItemName}]을(를) 장착했습니다.");
+                
+                //착용된 아이템의 스탯을 캐릭터 스탯에 적용                
+                Mind += item.ItemMind;
+                Hp += item.ItemHp;
+            }
+            else
+            {
+                item.isEquipped = false; //착용여부를 false로 바꿈
+                Console.WriteLine($" [{item.ItemName}]을(를) 해제했습니다.");
+                
+                //착용 해제된 아이템의 스탯을 캐릭터 스탯에 적용                
+                Mind -= item.ItemMind;
+                Hp -= item.ItemHp;
+            }
+        }
+        else
+        {
+            Console.WriteLine(" 잘못된 입력입니다.");
+        }
+        
+        
+    }
+
+
+
     public double CalculateProbability(int Value)
     {
         return Math.Clamp(Math.Log(Value, 1.06) / 100, 0, 1);
@@ -126,5 +205,6 @@ public class Maintenence : Character
     {
     }
 }
+
 
 
