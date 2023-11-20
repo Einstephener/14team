@@ -102,8 +102,7 @@ internal class Program
         //게임이 실행되면 데이터 먼저 세팅
         GameDataSetting();
         //시작화면으로 이동
-        FStoryPullSecurity(player1, wildBoar, waterDeer);
-        //StartScene();
+        StartScene();
     }
 
     //게임 데이터 준비
