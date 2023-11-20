@@ -10,20 +10,18 @@ public class Character
     public int Luk { get;  set; } //캐릭터 운
     public int Hp { get; set; } //캐릭터 체력
     public int Mind {get; set;} //캐릭터 정신력
-
     public int _gold; //소유 골드
-    public List<Item> Inventory { get; } = new List<Item>(); // 인벤토리 리스트 추가
-    public List<Food> InventoryFood { get; } = new List<Food>(); // 인벤토리 리스트 추가
-    public List<Armor> InventoryArmor { get; } = new List<Armor>(); // 인벤토리 리스트 추가
-    public List<Weapon> InventoryWeapon { get; } = new List<Weapon>(); // 인벤토리 리스트 추가
 
-   
     public int Gold //골드 증감
     {
         get { return _gold; }
         set { _gold = value; }
     }
 
+
+    public List<Food> InventoryFood { get; } = new List<Food>(); // 인벤토리 리스트 추가
+    public List<Armor> InventoryArmor { get; } = new List<Armor>(); // 인벤토리 리스트 추가
+    public List<Weapon> InventoryWeapon { get; } = new List<Weapon>(); // 인벤토리 리스트 추가
 
     public Character(string name, string job, int str, int dex, int iq, int luk, int hp, int gold, int mind)
     {
