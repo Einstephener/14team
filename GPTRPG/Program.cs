@@ -629,25 +629,25 @@ internal class Program
         Console.ReadKey();
         Console.WriteLine("굳건이: 아 당황해서 잘못말한것 같습니다..");
         Console.ReadKey();
-        Console.WriteLine("맞선임: (발로 정강이를 까며)그렇다고 거짓말을 쳐? 라떼는 말이야 하.. 아니다")
+        Console.WriteLine("맞선임: (발로 정강이를 까며)그렇다고 거짓말을 쳐? 라떼는 말이야 하.. 아니다");
         Console.ReadKey();
-        Console.WriteLine("굳건이: 근데 때리는건 너무 하지 않습니까? ")
+        Console.WriteLine("굳건이: 근데 때리는건 너무 하지 않습니까? ");
         Console.ReadKey();
-        Console.WriteLine("맞선임: 머라고??(머리를 때리려 손을 들면서)")
+        Console.WriteLine("맞선임: 머라고??(머리를 때리려 손을 들면서)");
         Console.ReadKey();
-        Console.WriteLine("그때 굳건이가 맞선임의 손을 막으면서 맞짱이 시작되었다..!!")
+        Console.WriteLine("그때 굳건이가 맞선임의 손을 막으면서 맞짱이 시작되었다..!!");
         Console.ReadKey();
         Console.WriteLine("싸움을 하실려면 아무키나 눌러주세요");
         Console.ReadKey();
      
-        SeniorFight(player, senior);
+        SeniorFight(player, Senior);
     }
     //맞선임 보스전
-    bool Fight = true;
+    
 
     static void SeniorFight(Character player, Enemy enemy)
     {
-            while(Fight)
+            while(true)
             {
                 enemy.EnemyHp -=player.Str; //플레이어가 맞선임 공격
                 if(enemy.EnemyHp<=0)
@@ -695,6 +695,7 @@ internal class Program
         Console.WriteLine("분대장: 굳건이 혹시 여자친구나 여동생이나 누나 있어?");
         Console.ReadKey();
         Console.WriteLine("군생활이 걸린 대답 생각중");
+        Console.ReadKey();
 
         Random Talk = new Random();
         int number = Talk.Next(2);
@@ -705,7 +706,7 @@ internal class Program
         }
         else
         {
-            player1.Luk -= 30;
+            player1.Luk -= 10;
             Console.WriteLine("아뇨.. 아무도 없습니다");
             Console.WriteLine("군생활 어떻하냐.. 막막하네..");
         }
