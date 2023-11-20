@@ -755,7 +755,7 @@ internal class Program
         bool onScene = true;
 
         // Text 배열
-        string[] text = { " 체력 단련", " 주특기 훈련", " 행보관님 작업", " 메인 화면" };
+        string[] text = { " ==체력 단련==\n", " ==주특기 훈련==\n", " ==행보관님 작업==\n", " ==메인 화면==\n" };
 
         while (onScene)
         {
@@ -765,7 +765,8 @@ internal class Program
             Console.WriteLine("");
             Console.WriteLine(" 오늘 하루도 힘내보자.");
             Console.WriteLine("");
-            Console.WriteLine(" 어떤일을 해볼까?");
+            Console.WriteLine(" 어떤일을 해볼까?\n");
+            Console.WriteLine("==============================");
             Console.WriteLine("");
 
             // Text[] Output
