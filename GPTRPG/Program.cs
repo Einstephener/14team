@@ -43,13 +43,13 @@ internal class Program
 
     private static List<Food> foods = new List<Food>
         {
-             new Food("건빵", 5, 10, 20, "긴급 상황을 위한 비상식량"),
-             new Food("전투식량", 10, 15, 30, "체력과 공격력을 강화하는 식사"),
-             new Food("", 3, 5, 15, "체력 회복을 위한 탄수화물 보충"),
-             new Food("단백질 바", 4, 7, 18, "체력 및 공격력 강화를 위한 단백질 섭취"),                                   // 능력치들은 밸런스에맞게 조정해야됨
-             new Food("야간식량", 8, 12, 25, "야간에 먹는 음식, 체력 및 방어력 강화"),
-             new Food("특급 식사", 15, 20, 50, "전투에 최적화된 특별한 식사"),
-             new Food("야전식량", 12, 18, 40, "야외 전투에 적합한 식사")
+             new Food("건빵", 10, 20, "긴급 상황을 위한 비상식량"),
+             new Food("전투식량", 15, 30, "맛은 없지만 체력이 충분히 올라가는 식사"),
+             new Food("감자", 5, 15, "체력 회복을 위한 탄수화물 보충"),
+             new Food("단백질 바", 7, 18, "체력을 위한 단백질 섭취"),                                   // 능력치들은 밸런스에맞게 조정해야됨
+             new Food("야간식량", 12, 25, "야간에 먹는 음식, 체력 회복"),
+             new Food("특급 식사", 20, 50, "전투에 최적화된 특별한 식사"),
+             new Food("야전식량", 18, 40, "야외 전투에 적합한 식사")
         };
     //몬스터 리스트
     private static List<Enemy> enemys = new List<Enemy>
@@ -1398,6 +1398,7 @@ internal class Program
    //일병 스토리 - 경계근무
     static void FStoryPullSecurity(Character player1, Enemy wildBoar, Enemy waterDeer)
     {
+
         int cursor = 0;
         bool onScene = true;
         
