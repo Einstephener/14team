@@ -742,7 +742,7 @@ internal class Program
     }
 
 
-#region 일병 - 100일 휴가
+    #region 일병 - 100일 휴가
     //일병 스토리 - 100일 휴가
     static void HundredDaysvacationScene()
     {
@@ -758,9 +758,9 @@ internal class Program
 
         // 선택지 Text
         string[] text = {"1. 여자친구를 만나러 간다.",
-        "2. 친구들을 만나러 간다.",
-        "3. 본가로 간다.",
-        "4. 혼자 논다."};
+                "2. 친구들을 만나러 간다.",
+                "3. 본가로 간다.",
+                "4. 혼자 논다."};
 
         // 게임 시작
         // 화면 초기화
@@ -769,7 +769,7 @@ internal class Program
         while (onScene)
         {
             // Random Number 설정
-            randomNum = random.Next(1, 10);
+            randomNum = random.Next(1, 11);
 
             //화면 초기화
             Console.Clear();
@@ -781,23 +781,6 @@ internal class Program
             TextChoice(cursor, text);
             // Key Input
             e = Console.ReadKey();
-
-            switch (e.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    cursor--;
-                    if (cursor < 0) cursor = text.Length - 1;
-                    break;
-                case ConsoleKey.DownArrow:
-                    cursor++;
-                    if (cursor > text.Length - 1) cursor = 0;
-                    break;
-                case ConsoleKey.Enter:
-                    onScene = false;
-                    break;
-                default:
-                    break;
-            }
             // Cursor Index
             cursor = CursorChoice(e, cursor, text, ref onScene);
         }
@@ -862,7 +845,7 @@ internal class Program
     }
     #endregion
 
-#region 일병 - 사격 훈련
+    #region 일병 - 사격 훈련
     // 일병 스토리 - 사격 훈련
     static void ShootingScene()
     {
@@ -892,22 +875,22 @@ internal class Program
         Console.WriteLine("");
         Console.WriteLine("준비된 사수는 사격 개시!");
         Console.WriteLine("");
-        Console.WriteLine("아무 키나 눌러주십시오.");
+        Console.WriteLine(":::아무 키나 눌러주십시오:::");
         Console.ReadKey();
 
         for (int currentWave = 1; currentWave <= totalWave; currentWave++)
         {
+            // cursor위치 초기화
+            cursor = 0;
+
+            // Random 거리 초기화 ( 200m , 100m, 50m )
+            num = random.Next(0, 3);
+
             // 10웨이브 반복
             while (onScene)
             {
                 // 화면 초기화
                 Console.Clear();
-
-                // cursor위치 초기화
-                cursor = 0;
-
-                // Random 거리 초기화 ( 200m , 100m, 50m )
-                num = random.Next(0, 2);
 
                 Console.WriteLine(" 현재 사격 시도 : {0} / {1}   명중 횟수 : {2}", currentWave, totalWave, hitCount);
                 Console.WriteLine("");
@@ -920,24 +903,6 @@ internal class Program
                 TextChoice(cursor, text);
                 // Key Input
                 e = Console.ReadKey();
-
-                switch (e.Key)
-                {
-                    case ConsoleKey.UpArrow:
-                        cursor--;
-                        if (cursor < 0) cursor = text.Length - 1;
-                        break;
-                    case ConsoleKey.DownArrow:
-                        cursor++;
-                        if (cursor > text.Length - 1) cursor = 0;
-                        break;
-                    case ConsoleKey.Enter:
-                        onScene = false;
-                        break;
-                    default:
-                        break;
-                }
-
                 // Cursor index
                 cursor = CursorChoice(e, cursor, text, ref onScene);
 
@@ -948,9 +913,6 @@ internal class Program
 
             // 사격 로직 및 명중 횟수++
             hitCount = ShootingEvent(num, hitCount, cursor);
-
-            // 웨이브 + 1
-            currentWave++;
 
             // Scene값 초기화
             onScene = true;
@@ -977,7 +939,7 @@ internal class Program
 
         return _hitCount;
     }
-#endregion
+    #endregion
 
 
     //대민지원 일병스토리5
@@ -1593,7 +1555,7 @@ internal class Program
         {
             if (_cursor == i) Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(_text[i]);
-            Console.Clear();
+            Console.ResetColor();
         }
     }
     #endregion
