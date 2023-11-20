@@ -68,7 +68,7 @@ internal class Program
     //캐릭터 선언
     private static Character player1;
 
-
+    private static int howhard;
     static int workCount = 0;
     static int Perfection = 0;
     // ConsoleKeyInfo 선언
@@ -164,24 +164,77 @@ internal class Program
     //시작화면
     static void StartScene()
     {
-        Console.Clear();
-        //시작화면
-        Console.ForegroundColor = ConsoleColor.Red;
+        int cursor = 0;
+        bool onScene = true;
+        string[] text = { "                              쉬움",
+        "                              보통",
+        "                             어려움" };
+        while (onScene)
+        {
+            Console.Clear();
+            //시작화면
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("                                                                                ");
+            Console.WriteLine("                  Press Any Key to start the game.                       ");
+            Console.ResetColor();
+            Console.WriteLine("                    ==========================                             ");
 
-        Console.WriteLine();
-        Console.WriteLine();
-        Console.WriteLine("                                   군대 RPG                                   ");        
-        Console.WriteLine();
-        Console.WriteLine();
-        Console.WriteLine("난이도 설정");
-        Console.Write("                                                                              >>");
+            Console.WriteLine("                                                                              ");
 
-        Console.ReadKey();
-        Console.ResetColor();
+
+            // Text[] Output
+            TextChoice(cursor, text);
+            Console.WriteLine("                                                                              ");
+            Console.WriteLine("                    ==========================                             ");
+            // Key Input
+            e = Console.ReadKey();
+            // Cursor Index
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+
+        }
+        switch (cursor)
+        {
+            case 0:
+                //쉬움
+                howhard = 1;
+                foreach (Enemy enemy in enemys)
+                {
+                    enemy.EnemyAtk *= howhard;
+                }
+                Console.WriteLine(" 선택 난이도: 쉬움");
+                Console.ReadKey();
+                TrainingSchool(player1);//줄거리로 이동
+                break;
+            case 1:
+                //보통
+                howhard = 2;
+                foreach (Enemy enemy in enemys)
+                {
+                    enemy.EnemyAtk *= howhard;
+                }
+                Console.WriteLine(" 선택 난이도: 보통");
+                Console.ReadKey();
+                TrainingSchool(player1);//줄거리로 이동
+                break;
+            case 2:
+                //어려움
+                howhard = 3;
+                foreach (Enemy enemy in enemys)
+                {
+                    enemy.EnemyAtk *= howhard;
+                }
+                Console.WriteLine(" 선택 난이도: 어려움");
+                Console.ReadKey();
+                TrainingSchool(player1);//줄거리로 이동
+                break;
+
+
+        }
         TrainingSchool(player1);//줄거리로 이동
 
     }
     #endregion
+
 
     //훈련소
     static void TrainingSchool(Character player)
@@ -236,14 +289,15 @@ internal class Program
     //막사 매서드
     static void Home()
     {
+        Rank.SetRank();
         Console.Clear();
         Console.WriteLine();
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("막사");
         Console.ResetColor();
-        Console.WriteLine($"계급: {Rank.rank} 이름: {player1.Name}");
-        Console.WriteLine($"군생활 {Rank.month}개월 째");
-        Console.WriteLine("무엇을 할 것인가?");
+        Console.WriteLine($" 계급: {Rank.rank} 이름: {player1.Name}");
+        Console.WriteLine($" 군생활 {Rank.month}개월 째");
+        Console.WriteLine(" 무엇을 할 것인가?");
         Console.WriteLine();
         Console.WriteLine("1. 스토리 진행하기");
         Console.WriteLine("2. 일과하기");
@@ -292,7 +346,7 @@ internal class Program
                 FStoryRangerTraining();
                 break;
             case 4:            //4개월
-                FStoryPullSecurity(player1, );
+                FStoryPullSecurity(player1, enemy1, enemy2);
                 break;
             case 5:            //5개월
                 HundredDaysvacationScene();
@@ -2126,7 +2180,7 @@ internal class Program
     static void CSCommanderDead()
     {
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("소대장을 쓰러트렸다.");
+        Console.WriteLine(" 소대장을 쓰러트렸다.");
         Console.ResetColor();
         OneMonthLater();
     }
