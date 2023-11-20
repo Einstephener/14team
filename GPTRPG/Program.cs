@@ -198,101 +198,158 @@ internal class Program
         Console.WriteLine("                                                                                ");
         Console.Write("                                                                              >>");
 
-        Console.ReadKey();
+        Console.ReadKey(true);
         Console.ResetColor();
         TrainingSchool(player1);//줄거리로 이동
 
     }
     #endregion
 
+    #region 훈련소
     //훈련소
     static void TrainingSchool(Character player)
     {
+        // 커서 초기화 값
+        string[] text = { " =보병=", " =포병=", " =운전병=", " =정비병=" };
+        int cursor = 0;
+        bool onScene = true;
+
+        // 나레이션 초기화 값
+        string tex = " 139번 훈련병! \n\n 너 이름이 뭐야? \n\n 이름을 입력 하세요... \n\n >>";
+        char[] texs = tex.ToCharArray();
+
+        // 화면 초기화
         Console.Clear();
-        Console.WriteLine("139번 훈련병!");
-        Console.WriteLine("너 이름이 뭐야?");
-        Console.WriteLine("이름을 입력 하세요...");
-        player.Name = Console.ReadLine();
-        Console.WriteLine($"이제부터는 이병 {player.Name}이네.");
-        Console.WriteLine("너 보직은 뭐야?");
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("보직을 선택하세요...");
+
+        // 이름 입력받기.
         Console.WriteLine();
-        Console.WriteLine("1. 포병");
-        Console.WriteLine("2. 보병");
-        Console.WriteLine("3. 운전병");
-        Console.WriteLine("4. 정비병");
-        Console.ResetColor();
-        int input = CheckValidInput(1, 4);
-        switch (input)
+        foreach (char index in texs)
         {
+            Console.Write(index);
+            Thread.Sleep(100);
+        }
+        player.Name = Console.ReadLine();
+
+        // 화면 초기화
+        Console.Clear();
+
+        while (onScene)
+        {
+            Console.Clear();
+
+            Console.WriteLine("");
+            Console.WriteLine($" 이제부터는 이병 {player.Name}이네.\n");
+            Console.WriteLine(" 너 보직은 뭐야?\n");
+            Console.WriteLine(" 보직을 선택하세요.");
+            Console.WriteLine("");
+            Console.WriteLine(" ==========================");
+            Console.WriteLine("");
+
+            // Text 배열 출력
+            TextChoice(cursor, text);
+            // Key 입력
+            e = Console.ReadKey();
+            // Cursor Index
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+
+        Console.Clear();
+        Console.WriteLine("");
+        switch (cursor)
+        {
+            case 0:
+                //보병 전직
+                player1 = new Infantry(player.Name, "보병", 5, 5, 5, 5, 100, 0, 5);
+                Console.WriteLine(" 보병을 선택했다.");
+                break;
             case 1:
                 //포병 전직
                 player1 = new Artillery(player.Name, "포병", 5, 5, 5, 5, 100, 0, 5);
-                Console.WriteLine("포병이다.");
+                Console.WriteLine(" 포병을 선택했다.");
                 break;
             case 2:
-                //보병 전직
-                player1 = new Infantry(player.Name, "보병", 5, 5, 5, 5, 100, 0, 5);
-                Console.WriteLine("보병이다.");
-                break;
-            case 3:
                 //운전병 전직
                 player1 = new Transportation(player.Name, "운전병", 5, 5, 5, 5, 100, 0, 5);
-                Console.WriteLine("운전병이다.");
+                Console.WriteLine(" 운전병을 선택했다.");
                 break;
-            case 4:
+            case 3:
                 //정비병 전직
                 player1 = new Maintenence(player.Name, "정비병", 5, 5, 5, 5, 100, 0, 5);
-                Console.WriteLine("정비병이다.");
+                Console.WriteLine(" 정비병을 선택했다.");
+                break;
+            default:
                 break;
         }
-        Console.WriteLine("자대로 가서도 꼭 연락해!");
+        Console.WriteLine("");
+        Console.WriteLine(" 자대로 가서도 꼭 연락해!");
 
-        Console.WriteLine("press any key to continue");
+        Console.WriteLine("");
+        Console.WriteLine(" press any key to continue");
         Console.ReadKey();
         Home();
 
     }
+    #endregion
+
     #region 막사/생활관
     //막사 매서드
     static void Home()
     {
-        Console.Clear();
-        Console.WriteLine();
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("막사");
-        Console.ResetColor();
-        Console.WriteLine($"계급: {Rank.rank} 이름: {player1.Name}");
-        Console.WriteLine($"군생활 {Rank.month}개월 째");
-        Console.WriteLine("무엇을 할 것인가?");
-        Console.WriteLine();
-        Console.WriteLine("1. 스토리 진행하기");
-        Console.WriteLine("2. 일과하기");
-        Console.WriteLine("3. 인벤토리");
-        Console.WriteLine("4. 상태확인");
-        Console.WriteLine("5. PX가기");
+        // 커서 초기화 값
+        string[] text = { " =스토리 진행=", " =일과 진행=", " =인벤토리=", " =상태 확인=", " =PX 가기=" };
+        int cursor = 0;
+        bool onScene = true;
 
-        int input = CheckValidInput(1, 5);
-        switch (input)
+        // 화면 초기화
+        Console.Clear();
+
+        while(onScene)
         {
-            case 1:
+            // 계급 설정
+            Rank.SetRank();
+
+            Console.Clear();
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(" ==========막사==========");
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.WriteLine($" 계급: {Rank.rank} 이름: {player1.Name}");
+            Console.WriteLine();
+            Console.WriteLine($" 군생활 {Rank.month}개월 째");
+            Console.WriteLine();
+            Console.WriteLine(" 무엇을 할 것인가?");
+            Console.WriteLine();
+            Console.WriteLine(" ========================\n");
+
+            // Text 배열 출력
+            TextChoice(cursor, text);
+            // Key 입력
+            e = Console.ReadKey();
+            // Cursor Index
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+
+        switch (cursor)
+        {
+            case 0:
                 //스토리 진행
                 StoryPlay();
                 break;
-            case 2:
+            case 1:
                 //일과 진행
                 DailyRoutineScene();
                 break;
-            case 3:
+            case 2:
                 //인벤토리
                 DisplayInventory(player1);
                 break;
-            case 4:
+            case 3:
                 //상태확인
                 DisplayMyInfo();
                 break;
-            case 5:
+            case 4:
                 //px
                 PX();
                 break;
@@ -368,12 +425,12 @@ internal class Program
     {
         Rank.month++;
         Console.WriteLine("");
-        Console.WriteLine("한달이 흘렀다");
+        Console.WriteLine(" 한달이 흘렀다");
         Console.WriteLine("");
         Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write("월급");
+        Console.Write(" 월급");
         Console.ResetColor();
-        Console.WriteLine("이 들어왔다");
+        Console.WriteLine(" 이 들어왔다");
         if (Rank.month < 3)
         {
             player1._gold += 1000;
@@ -646,9 +703,10 @@ internal class Program
             // 화면 초기화
             Console.Clear();
 
-            Console.WriteLine("오늘 하루도 힘내보자.");
             Console.WriteLine("");
-            Console.WriteLine("어떤일을 해볼까?");
+            Console.WriteLine(" 오늘 하루도 힘내보자.");
+            Console.WriteLine("");
+            Console.WriteLine(" 어떤일을 해볼까?");
             Console.WriteLine("");
 
             // Text[] Output
@@ -662,13 +720,13 @@ internal class Program
         switch (cursor)
         {
             case 0:
-                PhysicalTrainingScene();
+                PhysicalTraining_Run();
                 break;
             case 1:
-                SpecialityScene();
+                Speciality_Common();
                 break;
             case 2:
-                WorkScene();
+                Work_Shoveling();
                 break;
             case 3:
                 Home();
@@ -680,6 +738,7 @@ internal class Program
     #endregion
 
     #region 체력 단련 ( 상시 이벤트 선택지 )
+    /*
     // 체력 단련 ( 상시 이벤트 선택지 )
     static void PhysicalTrainingScene()
     {
@@ -738,6 +797,7 @@ internal class Program
                 break;
         }
     }
+    */
 
     static void PhysicalTraining_Run()
     {
@@ -749,13 +809,14 @@ internal class Program
         Console.Clear();
 
         // Explanation
-        Console.WriteLine("아무 키나 연타해서 Goal 지점에 도착하세요!");
         Console.WriteLine("");
-        Console.WriteLine("빨리 도착할수록 좋은 보상을 얻습니다!");
+        Console.WriteLine(" 아무 키나 연타해서 Goal 지점에 도착하세요!");
         Console.WriteLine("");
-        Console.WriteLine("움직이지 않고 가만히 있으면 시간이 더 빠르게 흘러갑니다.");
+        Console.WriteLine(" 빨리 도착할수록 좋은 보상을 얻습니다!");
         Console.WriteLine("");
-        Console.WriteLine(">> Press the Any key to proceed <<");
+        Console.WriteLine(" 움직이지 않고 가만히 있으면 시간이 더 빠르게 흘러갑니다.");
+        Console.WriteLine("");
+        Console.WriteLine(" >> Press the Any key to proceed <<");
         Console.ReadKey();
 
         // 화면 초기화
@@ -808,6 +869,7 @@ internal class Program
         Console.WriteLine("보상 계산중.... 잠시만 기다려주십시오.");
         Thread.Sleep(2000);
 
+        Console.ReadKey();
         Console.WriteLine("남은 시간 : {0}", time.ToString("F"));
         Console.WriteLine("");
         Console.WriteLine(">> Press the Any key to proceed <<");
@@ -820,6 +882,8 @@ internal class Program
     #endregion
 
     #region 주특기 훈련 ( 상시 이벤트 선택지 )
+
+    /*
     // 주특기 훈련 ( 상시 이벤트 선택지 )
     static void SpecialityScene()
     {
@@ -868,6 +932,7 @@ internal class Program
                 break;
         }
     }
+    */
 
     static void Speciality_Common()
     {
@@ -893,11 +958,12 @@ internal class Program
         // 화면 초기화
         Console.Clear();
 
-        Console.WriteLine("표시되는 방향키를 순서대로 누르세요!");
         Console.WriteLine("");
-        Console.WriteLine("총 10개가 나오며 성공한 수대로 보상을 받습니다.");
+        Console.WriteLine(" 표시되는 방향키를 순서대로 누르세요!");
         Console.WriteLine("");
-        Console.WriteLine(">> Press the Any key to proceed <<");
+        Console.WriteLine(" 총 10개가 나오며 성공한 수대로 보상을 받습니다.");
+        Console.WriteLine("");
+        Console.WriteLine(" >> Press the Any key to proceed <<");
 
         // 아무 Key나 누를시 진행
         Console.ReadKey(true);
@@ -914,9 +980,9 @@ internal class Program
         Console.WriteLine("");
         Console.WriteLine("========================================");
         Console.WriteLine("");
-        Console.WriteLine("보기를 외워서 알맞은 키를 순서대로 누십시오!");
+        Console.WriteLine(" 보기를 외워서 알맞은 키를 순서대로 누십시오!");
         Console.WriteLine("");
-        Console.WriteLine("남은 시간이 끝나면 시작되며 보기가 사라집니다.");
+        Console.WriteLine(" 남은 시간이 끝나면 시작되며 보기가 사라집니다.");
 
         // 타이머 표시
         while (time >= 0)
@@ -931,7 +997,7 @@ internal class Program
         Console.Clear();
 
         // 입력 로직
-        Console.WriteLine("알맞는 키를 입력하시오.");
+        Console.WriteLine(" 알맞는 키를 입력하시오.");
         while (sequence < 10)
         {
             e = Console.ReadKey(true);
@@ -970,6 +1036,8 @@ internal class Program
     #endregion
 
     #region 작업 ( 상시 이벤트 선택지)
+
+    /*
     // 작업 ( 상시 이벤트 선택지)
     static void WorkScene()
     {
@@ -1027,6 +1095,7 @@ internal class Program
                 break;
         }
     }
+    */
 
     // 작업_삽질
     static void Work_Shoveling()
@@ -1038,11 +1107,12 @@ internal class Program
         // 화면 초기화
         Console.Clear();
 
-        Console.WriteLine("화살표가 가운데 왔을 때 아무 키나 누르세요!");
         Console.WriteLine("");
-        Console.WriteLine("총 5번 진행되며 성공한 수대로 보상을 받습니다.");
+        Console.WriteLine(" 화살표가 가운데 왔을 때 아무 키나 누르세요!");
         Console.WriteLine("");
-        Console.WriteLine(">> Press the Any key to proceed <<");
+        Console.WriteLine(" 총 5번 진행되며 성공한 수대로 보상을 받습니다.");
+        Console.WriteLine("");
+        Console.WriteLine(" >> Press the Any key to proceed <<");
 
         // 아무 Key나 누를시 진행
         Console.ReadKey(true);
@@ -1055,14 +1125,16 @@ internal class Program
 
             if (i == 5)
             {
-                Console.WriteLine("총 성공 횟수 : {0} ", hitCount);
-                Console.WriteLine("횟수에 맞게 보상을 지급합니다!");
+                Console.WriteLine("");
+                Console.WriteLine(" 총 성공 횟수 : {0} ", hitCount);
+                Console.WriteLine(" 횟수에 맞게 보상을 지급합니다!");
             }
             else
             {
                 // 대기시간
-                Console.WriteLine("현재 라운드 {0} / {1}   성공 횟수 : {2} ", i, 5, hitCount);
-                Console.WriteLine("잠시후 다시 시작합니다!");
+                Console.WriteLine("");
+                Console.WriteLine(" 현재 라운드 {0} / {1}   성공 횟수 : {2} ", i, 5, hitCount);
+                Console.WriteLine(" 잠시후 다시 시작합니다!");
                 Thread.Sleep(1000);
             }
         }
@@ -1139,27 +1211,24 @@ internal class Program
     //이등병 스토리
     static void Basic(Character player)
     {
+        
+        // 텍스트 설정 값
+        string texts = "\n 드디어 훈련병 생활이 끝났군 \n\n 이제 자대에서 열심히 해보자! \n\n" +
+            " 자대배치 후 첫 아침점호 시간이다 \n\n 긴장한 상태로 열을 맞춰서있다.. \n\n 그때 한 선임이 \"굳건이 군화 닦았어 ? \"" +
+            " 옙. 닦았습니다. \n\n 진짜? 확인해봐서 안닦였으면 뒤진다. \n\n 이거 봐봐. 이게 닦은거야? \n\n 죄.. 죄송합니다. \n\n" +
+            " 너 점호끝나고 보자\n\n <점호 후 막사 뒷편 창고>";
+        char[] text = texts.ToCharArray();
+
+
+        // 화면 초기화
         Console.Clear();
 
-        Console.WriteLine("드디어 훈련병 생활이 끝났군");
-        Console.ReadKey();
-        Console.Write("이제 자대에서 열심히 해보자!");
-        Console.ReadKey();
-        Console.WriteLine("");
-        Console.WriteLine("자대배치 후 첫 아침점호 시간이다");
-        Console.WriteLine("");
-        Console.ReadKey();
-        Console.WriteLine("긴장한 상태로 열을 맞춰서있다..");
-        Console.ReadKey();
-        Console.WriteLine("그때 한 선임이 \"굳건이 군화 닦았어 ? \"");
-        Console.ReadKey();
-        Console.WriteLine("");
-        Console.WriteLine("옙. 닦았습니다.");
-        Console.WriteLine("진짜? 확인해봐서 안닦였으면 뒤진다.");
-        Console.WriteLine("이거 봐봐. 이게 닦은거야?");
-        Console.WriteLine("죄.. 죄송합니다.");
-        Console.WriteLine("너 점호끝나고 보자");
-        Console.WriteLine("<점호 후 막사 뒷편 창고>");
+        foreach (char index in texts)
+        {
+            Console.Write(index);
+            Thread.Sleep(100);
+        }
+        
         Console.WriteLine("");//맞선임:~~대충 대사
         Console.WriteLine("");//대충 전투시작
 
