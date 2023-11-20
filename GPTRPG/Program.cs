@@ -25,9 +25,10 @@ internal class Program
 
 
     //몬스터들 선언
-    private static Enemy Senior;
+
     private static Enemy newCommander;
     private static Enemy french;
+    private static Enemy senior; //맞선임 선언
 
     //캐릭터 선언
     private static Character player1;
@@ -97,10 +98,12 @@ internal class Program
 
         newCommander = new Enemy("초임 소위", 100, 100);
         french = new Enemy("참호", 5, 100);
+        senior = new Enemy("맞선임", 4, 10);
 
         //몬스터 추가
         enemys.Add(french);
         enemys.Add(newCommander);
+        enemys.Add(senior);
 
 
 
@@ -617,9 +620,19 @@ internal class Program
         Console.WriteLine("그때 한 선임이 \"굳건이 군화 닦았어 ? \"");
         Console.ReadKey();
         Console.WriteLine("");
-        Console.WriteLine("그 순간 머리가 하애졌다..");
-        Console.WriteLine("");
+        Console.WriteLine("옙. 닦았습니다.");
+        Console.WriteLine("진짜? 확인해봐서 안닦였으면 뒤진다.");
+        Console.WriteLine("이거 봐봐. 이게 닦은거야?");
+        Console.WriteLine("죄.. 죄송합니다.");
+        Console.WriteLine("너 점호끝나고 보자");
+        Console.WriteLine("<점호 후 막사 뒷편 창고>");
+        Console.WriteLine("");//맞선임:~~대충 대사
+        Console.WriteLine("");//대충 전투시작
 
+        SeniorFight(player1, senior);
+
+        OneMonthLater();
+        /*
         Random Shoes = new Random();
         int number = Shoes.Next(2);
         if (number == 0)
@@ -637,9 +650,33 @@ internal class Program
         }
         // 만약 굳건이가 군화를 닦았다면 아무일도 일어나지 않는다
         // 굳건이가 군화를 안닦았다면 -hp  확률 50%
+        */
 
-        OneMonthLater();
+     
 
+
+    }
+    //맞선임 보스전
+
+         
+    static void SeniorFight(Character player, Enemy enemy)
+    {
+            while(true)
+            {
+                enemy.EnemyHp -=player.Str; //플레이어가 맞선임 공격
+                if(enemy.EnemyHp<=0)
+                {
+                    Console.WriteLine("승리했습니다");
+                    Console.WriteLine($"남은 체력:{player.Hp}");
+                    break;
+                }
+                player.Hp -= enemy.EnemyAtk;//맞선임이 플레이어 공격
+                if(player1.Hp<=0)
+                {
+                    Console.WriteLine("패배했습니다");
+                    break;
+                }
+            }
     }
 
     static void Basicstory(Character player)
