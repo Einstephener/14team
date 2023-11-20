@@ -8,7 +8,7 @@ using System.IO;
 using System.Xml.Linq;
 using System;
 using System.Text;
-using System.Drawing; 
+using System.Drawing;
 //Text//
 //Test//
 internal class Program
@@ -69,9 +69,9 @@ internal class Program
 
 
         //아이템 정보 세팅
-        iceChicken = new Food("슈넬치킨",  10, 10, 1000, "맛있는 슈넬치킨. 요즘엔 더 맛있는 것도 많아졌다.");
-        cupNoddle = new Food("신라면 블랙",  10, 10, 1000, "전자레인지에 돌려먹으면 더 맛있는 신라면 블랙.");
-        egg = new Food("참숯란",  0, 40, 4000, "군대의 몇 안되는 단백질 보급원. 헬창들에게 인기가 많다.");
+        iceChicken = new Food("슈넬치킨", 10, 10, 1000, "맛있는 슈넬치킨. 요즘엔 더 맛있는 것도 많아졌다.");
+        cupNoddle = new Food("신라면 블랙", 10, 10, 1000, "전자레인지에 돌려먹으면 더 맛있는 신라면 블랙.");
+        egg = new Food("참숯란", 0, 40, 4000, "군대의 몇 안되는 단백질 보급원. 헬창들에게 인기가 많다.");
         //리스트에 음식 추가
         foods.Add(iceChicken);
         foods.Add(cupNoddle);
@@ -257,7 +257,7 @@ internal class Program
                 break;
             //상병
             case 9:            //9개월
-                CStoryKCTC();
+                CStoryKCTC(player1);
                 break;
             case 10:            //10개월
                 CSDefcon(player1);
@@ -683,7 +683,7 @@ internal class Program
                 //성공시 스텟증가 추가해야됨
                 OneMonthLater();
                 break;
-                
+
             }
             else
             {
@@ -869,10 +869,13 @@ internal class Program
 
         Console.WriteLine("오늘은 사격훈련을 진행하겠다.");
         Console.WriteLine("");
+        Console.ReadKey();
         Console.WriteLine("한발 한발 신중하게 쏠 수 있도록 한다.");
         Console.WriteLine("");
+        Console.ReadKey();
         Console.WriteLine("탄약을 분배 받은 사수는 각자 위치로!");
         Console.WriteLine("");
+        Console.ReadKey();
         Console.WriteLine("준비된 사수는 사격 개시!");
         Console.WriteLine("");
         Console.WriteLine(":::아무 키나 눌러주십시오:::");
@@ -1146,33 +1149,42 @@ internal class Program
 
     #region 상병 스토리
     //상병 스토리 - KCTC
-    static void CStoryKCTC()
+    static void CStoryKCTC(Character player)
     {
         Console.Clear();
         Console.WriteLine();
-        Console.WriteLine("당신은 KCTC 훈련에 참여했다.");
-        Console.WriteLine("훈련 2일차, 앞에 대항군을 발견했다는 무전이 들어왔다.");
-        Console.WriteLine("전투 시작!");
+        Console.WriteLine(" 당신은 KCTC 훈련에 참여했다.");
+        Console.WriteLine(" 훈련 2일차, 앞에 대항군을 발견했다는 무전이 들어왔다.");
+        Console.WriteLine(" 전투 시작!");
         Console.WriteLine();
-
-        Console.WriteLine("적을 공격한다.");
-        Console.WriteLine("자주포 폭격 10% / 수류탄 투척 20% / K-2사격 50% / 매복으로 인한 패배 20%");
-        Console.WriteLine("");
+        Console.WriteLine("-----------------------------------------------------------------------");
+        Console.WriteLine("\t\t 적을 공격한다.");
+        Console.WriteLine(" 자주포 폭격 10% / 수류탄 투척 20% / K-2사격 50% / 매복으로 인한 패배 20%");
+        Console.WriteLine("-----------------------------------------------------------------------");
+        Console.ForegroundColor = ConsoleColor.DarkRed;
+        Console.WriteLine("계속하려면 enter.");
+        Console.ResetColor();
         //직업 별, 다른 확률
         Random rand = new Random();
         int number = rand.Next(10);
         switch (number)
         {
             case 0: //10%
-                Console.WriteLine("폭격 지원 요청 성공!");
-                Console.WriteLine("적 대대 소탕 완료.");
+                Console.WriteLine(" 폭격 지원 요청 성공!");
+                Console.WriteLine(" 적 대대 소탕 완료.");
+                Console.WriteLine(" 표창장과 포상금을 받았다.");
+                player._gold += 500;
+                Console.WriteLine();
                 //제일 큰 보상
                 break;
 
             case 1:
             case 2: //20%
-                Console.WriteLine("수류탄 투척!");
-                Console.WriteLine("적 분대 소탕 완료.");
+                Console.WriteLine(" 수류탄 투척!");
+                Console.WriteLine(" 적 분대 소탕 완료.");
+                Console.WriteLine(" 표창장과 약간의 포상금을 받았다.");
+                player._gold += 200;
+                Console.WriteLine();
                 //중간 보상
                 break;
 
@@ -1181,14 +1193,20 @@ internal class Program
             case 5:
             case 6:
             case 7: //50%
-                Console.WriteLine("K-2로 적 사살");
-                Console.WriteLine("대항군 한명 사살.");
-                //보상 조금
+                Console.WriteLine(" K-2로 적 사살");
+                Console.WriteLine(" 대항군 한명 사살.");
+                Console.WriteLine();
+
+                //보상 없음.
                 break;
 
             case 8:
             case 9: //20%
                 Console.WriteLine("아군 전멸");
+                Console.WriteLine("분노한 중대장에게 얼차려를 받았다.");
+                Console.WriteLine("체력이 10 감소한다.");
+                player.Hp -= 10;
+                Console.WriteLine();
                 //패널티
                 break;
         }
@@ -1204,25 +1222,37 @@ internal class Program
         bool onScene = true;
 
         string[] text = { "1. 몰래 탈출해 치킨을 먹는다.", "2. 얌전히 부대로 가서 짬밥을 먹는다." };
-        double successPercent = (player.Dex)/(5+player.Dex) * 100;
+        double successPercent = (double)player.Dex / (5 + player.Dex) * 100;
         while (onScene)
         {
             Console.Clear();
             Console.WriteLine("상병 신검 날이 되었다.");
+            Console.ReadKey();
             Console.WriteLine("국군 병원으로 가는 버스에 탔다.");
+            Console.ReadKey();
             Console.WriteLine("...");
+            Console.ReadKey();
             Console.WriteLine("병원에 도착했다.");
+            Console.ReadKey();
             Console.WriteLine("잠시 대기 후 신체검사를 시작했다.");
+            Console.ReadKey();
             Console.WriteLine("...");
+            Console.ReadKey();
             Console.WriteLine("========================");
             Console.WriteLine($"이름: {player.Name}");
             Console.WriteLine("체중: 70.3kg");
             Console.WriteLine("키: 175.4cm");
             Console.WriteLine("...");
             Console.WriteLine("========================");
+            Console.ReadKey();
 
             Console.WriteLine("상검이 끝나고 국군병원 근처에서 몰래 치킨을 먹으려 한다.");
+            Console.ReadKey();
             Console.WriteLine($"시도해볼까?(성공확률 {successPercent}%)");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("계속하려면 enter.");
+            Console.ResetColor();
+            Console.ReadKey();
 
             TextChoice(cursor, text);
             // Key Input
@@ -1231,7 +1261,7 @@ internal class Program
             cursor = CursorChoice(e, cursor, text, ref onScene);
         }
         Random rand = new Random();
-        int chicken = rand.Next(5+player.Dex);
+        int chicken = rand.Next(5 + player.Dex);
         switch (cursor)
         {
             case 0:
@@ -1243,31 +1273,44 @@ internal class Program
                     case 2:
                     case 3:
                     case 4:
-                    //실패
+                        //실패
                         Console.WriteLine("실패!");
+                        Console.ReadKey();
                         Console.WriteLine("간부에게 죽도록 털렸다.");
+                        Console.ReadKey();
                         Console.WriteLine("정신력이 감소했다.");
+                        Console.ReadKey();
                         Console.WriteLine("체력이 감소했다.");
+                        Console.ReadKey();
 
                         //정신력 1 감소, 체력 감소
                         player1.Mind--;
                         player1.Hp -= 10;
-                        Console.WriteLine("press any key to continue");
+
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("계속하려면 enter.");
+                        Console.ResetColor();
                         Console.ReadKey();
                         OneMonthLater();
                         break;
-                        
+
                     default:
                         //성공 
                         Console.WriteLine("성공!");
+                        Console.ReadKey();
                         Console.WriteLine("맛있는 치킨을 먹었다.");
+                        Console.ReadKey();
                         Console.WriteLine("정신력이 증가한다.");
+                        Console.ReadKey();
                         Console.WriteLine("체력이 회복되었다.");
                         //정신력 5 증가 체력 증가
                         player1.Mind += 5;
                         player1.Hp += 10;
                         player1.Gold -= 100;
-                        Console.WriteLine("press any key to continue");
+
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
+                        Console.WriteLine("계속하려면 enter.");
+                        Console.ResetColor();
                         Console.ReadKey();
 
                         OneMonthLater();
@@ -1278,13 +1321,19 @@ internal class Program
             case 1:
                 //부대에서 짬밥
                 Console.WriteLine("얌전히 부대로 복귀한다.");
+                Console.ReadKey();
                 Console.WriteLine("맛없는 똥국이다...");
+                Console.ReadKey();
                 Console.WriteLine("정신력이 감소했다.");
+                Console.ReadKey();
                 Console.WriteLine("체력이 회복되었다.");
                 player1.Mind--;
                 player1.Hp += 10;
-                
-                Console.WriteLine("press any key to continue");
+
+
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("계속하려면 enter.");
+                Console.ResetColor();
                 Console.ReadKey();
 
                 OneMonthLater();
@@ -1301,20 +1350,40 @@ internal class Program
         Console.Clear();
         Console.WriteLine();
         Console.WriteLine("웨에에에엥-");
+        Console.ReadKey();
         Console.WriteLine("화스트 페이스. 화스트 페이스.");
+        Console.ReadKey();
         Console.WriteLine("타다다닥-");
+        Console.ReadKey();
         Console.WriteLine("생활관으로 달려가서 개인 군장을 챙기고 물자를 챙긴다.");
+        Console.ReadKey();
         Console.WriteLine("물자를 챙기는 와중에 팔이 뻐근함을 느낀다.");
-        Console.WriteLine("체력 테스트. 체력 n 이상"); //수정가능
+        Console.ReadKey();
+
+        Console.ForegroundColor = ConsoleColor.DarkRed;
+        Console.WriteLine("힘 10 이상이면 성공"); //수정가능
+        Console.WriteLine("계속하려면 enter.");
+        Console.ResetColor();
+
         if (player1.Str >= 10)
         {
             Console.WriteLine("아슬아슬했지만 안정적으로 물자를 다 옮기는데 성공했다.");
+            Console.ReadKey();
+            Console.WriteLine("반복된 노동으로 체력이 10 오른다.");
+            player.Hp += 10;
+
+            OneMonthLater();
         }
         else
         {
             Console.WriteLine("물자를 옮기던 와중 쏟아버렸다.");
+            Console.ReadKey();
             Console.WriteLine("간부의 엄청난 쿠사리가 쏟아진다.");
+            Console.ReadKey();
+            Console.WriteLine("정신력이 3 감소한다.");
+            player.Mind -= 3;
 
+            OneMonthLater();
         }
     }
     //상병 스토리 - 대침투 훈련
@@ -1324,33 +1393,47 @@ internal class Program
         Console.Clear();
         Console.WriteLine();
         Console.WriteLine("오늘은 대침투 훈련을 한다.");
+        Console.ReadKey();
         Console.WriteLine("부대 근처 야산으로 가서 총을 거치 하고 참호를 파기 시작한다");
+        Console.ReadKey();
         //땅파기
         French(french);
         Console.WriteLine("\"거수자 발견시 보고하고. 알지? 위장한 간부 잡으면 포상인거?\"");
+        Console.ReadKey();
         Console.WriteLine("의욕이 셈솟기 시작한다.");
+        Console.ReadKey();
         Console.WriteLine("하염없이 숨어있으니, 길 너머 풀숲에서 부스럭 거리는 소리가 들린다.");
+        Console.ReadKey();
         Console.WriteLine("조심스럽게 접근한다.");
         Console.ReadKey();
         Random rand = new Random();
-        int plusPoint = 0;
+        int plusPoint;
         if (frenchSuccess == false)
         {
             plusPoint = 0;
         }
-        else{
+        else
+        {
             plusPoint = 1;
         }
-        int attack = rand.Next(2+plusPoint);
+        int attack = rand.Next(2 + plusPoint);
         switch (attack)
         {
             case 1:
-            Console.WriteLine("기습실패");
+                Console.WriteLine("기습실패");
+                Console.ReadKey();
+                Console.WriteLine("눈앞에서 포상이 날아갔다...");
+                OneMonthLater();
                 break;
-                
+
             default:
                 Console.WriteLine("기습성공");
+                Console.ReadKey();
                 Console.WriteLine("안정적으로 거수자를 제압했다.");
+                Console.ReadKey();
+                Console.WriteLine("포상금을 받았다.");
+                player1._gold += 100;
+                OneMonthLater();
 
                 break;
         }
@@ -1372,6 +1455,7 @@ internal class Program
         Console.WriteLine($"{enemy.EnemyHp} cm");
         Console.ResetColor();
         Console.WriteLine($"남은 기회: {enemy.EnemyAtk}");
+        Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("=땅===------------------=====");
 
         for (int i = 0; i <= depth; i++)
@@ -1379,6 +1463,7 @@ internal class Program
             Console.WriteLine("     =                  =    ");
         }
         Console.WriteLine("     ====================");
+        Console.ResetColor();
         Console.WriteLine();
         Console.WriteLine("<<삽질하려면 ENTER>>");
         Console.WriteLine();
@@ -1424,10 +1509,13 @@ internal class Program
     {
         Console.Clear();
         Console.WriteLine("어쩌다보니 분대장으로 뽑혔다.");
+        Console.ReadKey();
         Console.ForegroundColor = ConsoleColor.Green;
         Console.WriteLine("분대장 교육대로 이동중...");
         Console.ResetColor();
+        Console.ReadKey();
         Console.WriteLine("분대장 교육대에서 받은 성적을 통해 추가 보상이 있을 예정이다.");
+        OneMonthLater();
 
 
     }
@@ -1437,25 +1525,32 @@ internal class Program
         Console.Clear();
         Console.WriteLine();
         Console.WriteLine("오늘은 새로운 소위가 임관하는 날이다.");
+        Console.ReadKey();
         Console.WriteLine("관상부터 FM인게 보인다.");
         Console.WriteLine("ㅈ된듯 하다.");
+        Console.ReadKey();
         Console.WriteLine("얼마 후...");
+        Console.ReadKey();
         Console.WriteLine($"{enemy.EnemyName}: 이봐 {player.Name} 상병. ");
+        Console.ReadKey();
         Console.WriteLine($"상병 {player.Name}. 무슨일이십니까? ");
+        Console.ReadKey();
         Console.WriteLine($"{enemy.EnemyName}: 배수로 작업 하러 가지.");
+        Console.ReadKey();
         Console.WriteLine("얼마 후...");
         Console.WriteLine("얼마 후...");
         Console.WriteLine("얼마 후...");
         Console.WriteLine("얼마 후...");
         Console.WriteLine("얼마 후...");
+        Console.WriteLine("전투시작");
+        CSCommanderAttack(player1, newCommander);
 
     }
-    static void CSCommanderKill(Character player, Enemy enemy)
+    static void CSCommanderAttack(Character player, Enemy enemy)
     {
         if (player1.Hp > 0 && enemy.EnemyHp > 0)
         {
             Console.Clear();
-            Console.WriteLine("전투시작");
             Console.WriteLine("================================");
             Console.Write("소대장의 체력: ");
             Console.ForegroundColor = ConsoleColor.Red;
@@ -1467,9 +1562,10 @@ internal class Program
             Console.ResetColor();
             Console.WriteLine("================================");
             Console.WriteLine("이번턴에 하실 행동을 골라주세요");
+
             Console.WriteLine("");
-            Console.WriteLine("1. 공격하기");
-            Console.WriteLine("2. 방어하기");
+            Console.WriteLine("1. 일반 공격하기");
+            Console.WriteLine("2. 스킬 사용하기");
             Console.WriteLine("");
 
             int input = CheckValidInput(1, 2);
@@ -1490,7 +1586,12 @@ internal class Program
                     Console.WriteLine($"{enemy.EnemyName}의 공격!");
                     Console.WriteLine($"{enemy.EnemyAtk}만큼의 데미지를 입었다.");
                     Console.ReadKey();
-                    CSCommanderKill(player1, newCommander);
+                    if (newCommander.EnemyHp <= 0)
+                    {
+                        CSCommanderDead();
+                    }
+                    CSCommanderAttack(player1, newCommander);
+
 
                 }
 
@@ -1509,19 +1610,34 @@ internal class Program
                     Console.WriteLine($"{enemy.EnemyAtk}만큼의 데미지를 입었다.");
                     Console.WriteLine();
                     Console.ReadKey();
-                    CSCommanderKill(player1, newCommander);
+                    if (newCommander.EnemyHp <= 0)
+                    {
+                        CSCommanderDead();
+                    }
+                    CSCommanderAttack(player1, newCommander);
                 }
 
             }
+            else//스킬사용하기
+            {
+                Console.WriteLine("스킬을 사용했다.");
+                //스킬
+                CSCommanderAttack(player1, newCommander);
+            }
         }
-        OneMonthLater();
 
     }
 
-
+    private static void CSCommanderDead()
+    {
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("소대장을 쓰러트렸다.");
+        Console.ResetColor();
+        OneMonthLater();
+    }
     #endregion
 
-    
+
 
 
     #region Cursor선택 캡슐화
@@ -2615,6 +2731,6 @@ internal class Program
 
     }
     #endregion
-    #endregion
-    
+
+
 }
