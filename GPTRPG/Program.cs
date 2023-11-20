@@ -282,6 +282,7 @@ internal class Program
                 break;
             case 2:
                 //일과 진행
+                DailyRoutineScene();
                 break;
             case 3:
                 //인벤토리
@@ -638,7 +639,7 @@ internal class Program
         bool onScene = true;
 
         // Text 배열
-        string[] text = { "1. 체력 단련", "2. 주특기 훈련", "3. 행보관님 작업", "4. 메인 화면" };
+        string[] text = { " 체력 단련", " 주특기 훈련", " 행보관님 작업", " 메인 화면" };
 
         while (onScene)
         {
@@ -691,6 +692,8 @@ internal class Program
 
         while (onScene)
         {
+            Console.Clear();
+
             Console.WriteLine("건강한 육체에 건강한 정신이 깃든다!");
             Console.WriteLine("오늘은 어떠한 운동으로 나의 육체를 단련해 볼까?");
             Console.WriteLine("");
@@ -743,6 +746,8 @@ internal class Program
 
         double time = 30;
 
+        Console.Clear();
+
         // Explanation
         Console.WriteLine("아무 키나 연타해서 Goal 지점에 도착하세요!");
         Console.WriteLine("");
@@ -794,7 +799,7 @@ internal class Program
                 Console.Clear();
                 Console.WriteLine("완주 실패....");
                 Thread.Sleep(2000);
-                // 메인씬으로 이동하는 코드 추가
+                Home();
             }
             Thread.Sleep(10);
         }
@@ -827,6 +832,9 @@ internal class Program
 
         while (onScene)
         {
+            // 화면 초기화
+            Console.Clear();
+
             Console.WriteLine("실전처럼 훈련하고 훈련한 대로 싸운다!");
             Console.WriteLine("The Only Easy Day Was YesterDay");
             Console.WriteLine("어떤 주특기를 훈련할까?");
@@ -974,6 +982,9 @@ internal class Program
 
         while (onScene)
         {
+            // 화면 초기화
+            Console.Clear();
+
             Console.WriteLine("훅 훅.. 행정반에서 전파합니다.");
             Console.WriteLine("보급관님께서 작업 인원 내려오라고 했습니다");
             Console.WriteLine("신속하게 내려와주시기 바랍니다.");
