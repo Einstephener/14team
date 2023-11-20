@@ -52,7 +52,27 @@ internal class Program
              new Food("야전식량", 12, 18, 40, "야외 전투에 적합한 식사")
         };
     //몬스터 리스트
-    private static List<Enemy> enemys = new List<Enemy>();
+    private static List<Enemy> enemys = new List<Enemy>
+        {
+            new Enemy("초임 소위", 100, 100),
+            new Enemy("참호", 5, 100),
+            new Enemy("맞선임", 4, 10),
+            new Enemy("멧돼지", 50, 100),
+            new Enemy("고라니", 50, 100)
+        };
+
+    private static Enemy FindEnemyByName(string enemyName)
+    {
+        return enemys.Find(m=>m.EnemyName==enemyName);
+    }
+
+    private static Enemy wildBoar = FindEnemyByName("멧돼지");
+    private static Enemy waterDeer = FindEnemyByName("고라니");
+    private static Enemy newCommander = FindEnemyByName("초임 소위");
+    private static Enemy french = FindEnemyByName("참호");
+    private static Enemy senior = FindEnemyByName("맞선임");
+
+    
 
     //아이템들 선언
 
@@ -61,9 +81,9 @@ internal class Program
 
     //몬스터들 선언
 
-    private static Enemy newCommander;
-    private static Enemy french;
-    private static Enemy senior; //맞선임 선언
+    //private static Enemy newCommander;
+    //private static Enemy french;
+    //private static Enemy senior; //맞선임 선언
 
     //캐릭터 선언
     private static Character player1;
@@ -131,14 +151,19 @@ internal class Program
 
 
 
-        newCommander = new Enemy("초임 소위", 100, 100);
-        french = new Enemy("참호", 5, 100);
-        senior = new Enemy("맞선임", 4, 10);
+        //newCommander = new Enemy("초임 소위", 100, 100);
+        //french = new Enemy("참호", 5, 100);
+        //senior = new Enemy("맞선임", 4, 10);
+
 
         //몬스터 추가
-        enemys.Add(french);
-        enemys.Add(newCommander);
-        enemys.Add(senior);
+        //enemys.Add(french);
+        //enemys.Add(newCommander);
+        //enemys.Add(senior);
+
+
+
+
 
     }
 
@@ -346,7 +371,7 @@ internal class Program
                 FStoryRangerTraining();
                 break;
             case 4:            //4개월
-                FStoryPullSecurity(player1, enemy1, enemy2);
+                FStoryPullSecurity(player1, wildBoar, waterDeer);
                 break;
             case 5:            //5개월
                 HundredDaysvacationScene();
@@ -479,7 +504,7 @@ internal class Program
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.Write("weapon");
         Console.ResetColor();
-        Console.WriteLine("        |");    
+        Console.WriteLine("        |");
         Console.WriteLine("|======================|");
         Console.WriteLine("|--------------|       |");
         Console.WriteLine("|              |     | |");
@@ -488,7 +513,7 @@ internal class Program
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.Write("food");
         Console.ResetColor();
-        Console.WriteLine(" |");  
+        Console.WriteLine(" |");
         Console.WriteLine("|              |       |");
         Console.WriteLine("|              |=======|");
         Console.WriteLine("|    ");
@@ -500,11 +525,11 @@ internal class Program
         Console.WriteLine("|              |       |");
         Console.WriteLine("|              |=======|");
         Console.WriteLine("|              |       |");
-        Console.WriteLine("|              |=======|");       
+        Console.WriteLine("|              |=======|");
         Console.WriteLine("|              |   -   |");
         Console.WriteLine("========================");
-        Console.WriteLine("|                      |");         
-        
+        Console.WriteLine("|                      |");
+
         Console.WriteLine();
         Console.WriteLine("1. 무기 확인하기");
         Console.WriteLine();
@@ -514,25 +539,25 @@ internal class Program
         Console.WriteLine();
         Console.WriteLine("0. 뒤로가기");
         int input = CheckValidInput(0, 3);
-        switch(input){
+        switch (input) {
             case 0:
-            Home();
-            break;
+                Home();
+                break;
 
             case 1:
-            DisplayWeapon(player1);
-            break;
+                DisplayWeapon(player1);
+                break;
 
             case 2:
-            DisplayArmor(player1);
-            break;
+                DisplayArmor(player1);
+                break;
 
             case 3:
-            DisplayFood(player1);
-            break;
+                DisplayFood(player1);
+                break;
 
         }
-        
+
     }
     //무기 인벤
     static void DisplayWeapon(Character player)
@@ -552,7 +577,7 @@ internal class Program
             Console.WriteLine();
         }
         Console.WriteLine();
-        
+
         Console.WriteLine("============================================================================");
         Console.WriteLine();
         Console.WriteLine(" 장착/해제를 원하는 아이템을 입력해주세요.");
@@ -593,7 +618,7 @@ internal class Program
             Console.ResetColor();
             Console.WriteLine($" \t {armor.ItemName} \t | {armor.ItemDescription}"); //방어구 부가 정보
             Console.WriteLine();
-        }      
+        }
         Console.WriteLine("============================================================================");
         Console.WriteLine();
         Console.WriteLine(" 장착/해제를 원하는 아이템을 입력해주세요.");
@@ -630,7 +655,7 @@ internal class Program
             Console.WriteLine($" \t {food.ItemName} \t | {food.ItemDescription}"); //음식 부가 정보
             Console.WriteLine();
         }
-        
+
         Console.WriteLine("============================================================================");
         Console.WriteLine();
         Console.WriteLine(" 섭취할 음식을 입력해주세요.");
@@ -670,7 +695,7 @@ internal class Program
         bool onScene = true;
 
         // Text 배열
-        string[] text = { "1. 체력 단련", "2. 주특기 훈련", "3. 행보관님 작업" };
+        string[] text = { "1. 체력 단련", "2. 주특기 훈련", "3. 행보관님 작업", "4. 메인 화면" };
 
         while (onScene)
         {
@@ -701,6 +726,9 @@ internal class Program
             case 2:
                 WorkScene();
                 break;
+            case 3:
+                Home();
+                break;
             default:
                 break;
         }
@@ -716,7 +744,7 @@ internal class Program
         bool onScene = true;
 
         // Text 배열
-        string[] text = { "1. 구보", "2. 팔굽혀펴기", "3. 윗몸 일으키기", "4. 턱걸이" };
+        string[] text = { "1. 구보", "2. 팔굽혀펴기", "3. 윗몸 일으키기", "4. 턱걸이", "5. 돌아가기" };
 
         while (onScene)
         {
@@ -736,19 +764,110 @@ internal class Program
         {
             case 0:
                 // 구보
+                PhysicalTraining_Run();
                 break;
             case 1:
                 // 팔굽
+                Console.WriteLine("미구현");
+                Console.ReadKey();
+                PhysicalTrainingScene();
                 break;
             case 2:
                 // 윗몸
+                Console.WriteLine("미구현");
+                Console.ReadKey();
+                PhysicalTrainingScene();
                 break;
             case 3:
                 // 턱걸이
+                Console.WriteLine("미구현");
+                Console.ReadKey();
+                PhysicalTrainingScene();
+                break;
+            case 4:
+                // 돌아가기
+                DailyRoutineScene();
                 break;
             default:
                 break;
         }
+    }
+
+    static void PhysicalTraining_Run()
+    {
+        // Start Point
+        int x = 0;
+
+        double time = 30;
+
+        // Explanation
+        Console.WriteLine("아무 키나 연타해서 Goal 지점에 도착하세요!");
+        Console.WriteLine("");
+        Console.WriteLine("빨리 도착할수록 좋은 보상을 얻습니다!");
+        Console.WriteLine("");
+        Console.WriteLine("움직이지 않고 가만히 있으면 시간이 더 빠르게 흘러갑니다.");
+        Console.WriteLine("");
+        Console.WriteLine(">> Press the Any key to proceed <<");
+        Console.ReadKey();
+
+        // 화면 초기화
+        Console.Clear();
+
+        // 라인 좌표 설정 및 텍스트
+        Console.SetCursorPosition(0, 0);
+        Console.WriteLine("================================================================================@\n" +
+            "                                                                                @\n" +
+            "================================================================================@");
+
+        // Game Start
+        while (true)
+        {
+            string space = "";
+
+            // 타이머 차감 및 남은 시간 텍스트
+            time -= 0.1f;
+            Console.SetCursorPosition(30, 5);
+            Console.Write($"남은 시간 : {time.ToString("F")}");
+
+            // player 위치 표시
+            Console.SetCursorPosition(0, 1);
+            for (int i = 0; i < x; i++)
+            {
+                space += " ";
+            }
+            Console.WriteLine(space + "O");
+
+            // 이동 로직
+            if (Console.KeyAvailable)
+            {
+                x++;
+                Console.ReadKey(true);
+            }
+            // 완주시 반복문 정지
+            if (x >= 80) break;
+            // 타임 오버시
+            if (time <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("완주 실패....");
+                Thread.Sleep(2000);
+                // 메인씬으로 이동하는 코드 추가
+            }
+            Thread.Sleep(10);
+        }
+        Console.Clear();
+        Console.WriteLine("완주 완료!!");
+        Console.WriteLine("보상 계산중.... 잠시만 기다려주십시오.");
+        Thread.Sleep(2000);
+
+        Console.WriteLine("남은 시간 : {0}", time.ToString("F"));
+        Console.WriteLine("");
+        Console.WriteLine(">> Press the Any key to proceed <<");
+        Console.ReadKey(true);
+
+        // 남은 시간에 따른 보상 및 씬이동 로직 추가예정
+        // Home Scene이동
+        Home();
     }
     #endregion
 
@@ -761,7 +880,7 @@ internal class Program
         bool onScene = true;
 
         // Text 배열
-        string[] text = { "1. 본 주특기", "2. 공통 주특기" };
+        string[] text = { "1. 본 주특기", "2. 공통 주특기", "3. 돌아가기" };
 
         while (onScene)
         {
@@ -782,13 +901,120 @@ internal class Program
         {
             case 0:
                 // 본 주특기
+                Console.WriteLine("미구현");
+                Console.ReadKey();
+                SpecialityScene();
                 break;
             case 1:
                 // 공통 주특기
+                Speciality_Common();
+                break;
+            case 2:
+                // 돌아가기
+                DailyRoutineScene();
                 break;
             default:
                 break;
         }
+    }
+
+    static void Speciality_Common()
+    {
+        // Random 객체 및 randomNumber 초기화
+        Random random = new Random();
+        int randomNumber = 0;
+
+        // 방향키 입력 순서
+        int sequence = 0;
+
+        // 타이머
+        double time = 10f;
+
+        // 성공 횟수
+        int hitCount = 0;
+
+        // 방향키[]
+        char[] text = { '↑', '↓', '←', '→' };
+
+        // 랜덤 방향키를 담을 리스트
+        List<char> numberBox = new List<char>();
+
+        // 화면 초기화
+        Console.Clear();
+
+        Console.WriteLine("표시되는 방향키를 순서대로 누르세요!");
+        Console.WriteLine("");
+        Console.WriteLine("총 10개가 나오며 성공한 수대로 보상을 받습니다.");
+        Console.WriteLine("");
+        Console.WriteLine(">> Press the Any key to proceed <<");
+
+        // 아무 Key나 누를시 진행
+        Console.ReadKey(true);
+
+        // 화면 초기화
+        Console.Clear();
+        Console.WriteLine("========================================");
+        for (int i = 0; i < 10; i++)
+        {
+            randomNumber = random.Next(0, 3);
+            Console.Write($" {text[randomNumber]} ");
+            numberBox.Add(text[randomNumber]);
+        }
+        Console.WriteLine("");
+        Console.WriteLine("========================================");
+        Console.WriteLine("");
+        Console.WriteLine("보기를 외워서 알맞은 키를 순서대로 누십시오!");
+        Console.WriteLine("");
+        Console.WriteLine("남은 시간이 끝나면 시작되며 보기가 사라집니다.");
+
+        // 타이머 표시
+        while (time >= 0)
+        {
+            Console.SetCursorPosition(0, 8);
+            Console.WriteLine($"남은 시간 : {time:F}");
+            time -= 0.01f;
+            Thread.Sleep(10);
+        }
+
+        // 화면 초기화
+        Console.Clear();
+
+        // 입력 로직
+        Console.WriteLine("알맞는 키를 입력하시오.");
+        while (sequence < 10)
+        {
+            e = Console.ReadKey(true);
+            switch (e.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    if (numberBox[sequence] == '↑') hitCount++;
+                    Console.Write(" ↑ ");
+                    break;
+                case ConsoleKey.DownArrow:
+                    if (numberBox[sequence] == '↓') hitCount++;
+                    Console.Write(" ↓ ");
+                    break;
+                case ConsoleKey.LeftArrow:
+                    if (numberBox[sequence] == '←') hitCount++;
+                    Console.Write(" ← ");
+                    break;
+                case ConsoleKey.RightArrow:
+                    if (numberBox[sequence] == '→') hitCount++;
+                    Console.Write(" → ");
+                    break;
+                default:
+                    break;
+            }
+            sequence++;
+        }
+
+        Console.WriteLine("");
+        Console.WriteLine("총 맞춘 횟수 : {0}", hitCount);
+
+        Console.ReadKey();
+        // 맞춘 횟수에 맞는 보상 지급 로직 추가
+        // 메인화면 이동
+        Home();
     }
     #endregion
 
@@ -801,7 +1027,7 @@ internal class Program
         bool onScene = true;
 
         // Text 배열
-        string[] text = { "1. 예초", "2. 제설", "3. 삽질" };
+        string[] text = { "1. 예초", "2. 제설", "3. 삽질", "4. 돌아가기" };
 
         while (onScene)
         {
@@ -825,16 +1051,134 @@ internal class Program
         {
             case 0:
                 // 예초
+                Console.WriteLine("미구현");
+                Console.ReadKey();
+                WorkScene();
                 break;
             case 1:
                 // 제설
+                Console.WriteLine("미구현");
+                Console.ReadKey();
+                WorkScene();
                 break;
             case 2:
                 // 삽질
+                Work_Shoveling();
+                break;
+            case 3:
+                // 돌아가기
+                DailyRoutineScene();
                 break;
             default:
                 break;
         }
+    }
+
+    // 작업_삽질
+    static void Work_Shoveling()
+    {
+        // 성공 횟수
+        int hitCount = 0;
+        // 화살표 속도
+        int arrowSpeed = 25;
+        // 화면 초기화
+        Console.Clear();
+
+        Console.WriteLine("화살표가 가운데 왔을 때 아무 키나 누르세요!");
+        Console.WriteLine("");
+        Console.WriteLine("총 5번 진행되며 성공한 수대로 보상을 받습니다.");
+        Console.WriteLine("");
+        Console.WriteLine(">> Press the Any key to proceed <<");
+
+        // 아무 Key나 누를시 진행
+        Console.ReadKey(true);
+
+        for (int i = 1; i <= 5; i++)
+        {
+            hitCount = ShovelingEvent(hitCount, arrowSpeed);
+            // 웨이브별 속도 업 ( 난이도 상승 )
+            arrowSpeed -= 5;
+
+            if (i == 5)
+            {
+                Console.WriteLine("총 성공 횟수 : {0} ", hitCount);
+                Console.WriteLine("횟수에 맞게 보상을 지급합니다!");
+            }
+            else
+            {
+                // 대기시간
+                Console.WriteLine("현재 라운드 {0} / {1}   성공 횟수 : {2} ", i, 5, hitCount);
+                Console.WriteLine("잠시후 다시 시작합니다!");
+                Thread.Sleep(1000);
+            }
+        }
+
+        Console.ReadKey();
+        // hitCount 횟수에 맞는 보상 지급
+        // 메인화면 이동
+        Home();
+    }
+
+    // 삽질_로직
+    static int ShovelingEvent(int _hitCount, int _arrowSpeed)
+    {
+        // 초기 좌표 설정 값
+        int xfront = 60;
+        int xback = 0;
+
+        Console.Clear();
+
+        Console.WriteLine("===========================ㅣ   ㅣ===========================\n\n" +
+            "===========================ㅣ   ㅣ===========================\n\n" +
+            "               Press Enter at the right time                ");
+
+        while (!Console.KeyAvailable && xfront > 0)
+        {
+            // 앞 뒤 공백변수 선언
+            string space = "";
+            string spaceback = "";
+
+            // 화살표 이동 로직
+            Console.SetCursorPosition(0, 1);
+            for (int i = 0; i < xfront; i++)
+            {
+                space += " ";
+            }
+            for (int j = 0; j < xback; j++)
+            {
+                spaceback += " ";
+            }
+            Console.Write(space + "<" + spaceback);
+
+            // space수량 조절
+            xfront--;
+            xback++;
+            // 대기시간
+            Thread.Sleep(_arrowSpeed);
+        }
+        // 삽질 성공or실패
+        if (xfront >= 28 && xfront <= 32)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("                         삽질 성공 !                ");
+            Thread.Sleep(1000);
+            _hitCount++;
+        }
+        else
+        {
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("                         삽질 실패 . . .              ");
+            Thread.Sleep(1000);
+        }
+        // 화면 초기화
+        Console.Clear();
+
+        // KeyAvailable 초기화
+        Console.ReadKey();
+
+        return _hitCount;
     }
     #endregion
 
@@ -1029,7 +1373,7 @@ internal class Program
     }
 
    //일병 스토리 - 경계근무
-    static void FStoryPullSecurity(Character player1, Enemy enemy1, Enemy enemy2)
+    static void FStoryPullSecurity(Character player1, Enemy wildBoar, Enemy waterDeer)
     {
         int cursor = 0;
         bool onScene = true;
@@ -1040,14 +1384,14 @@ internal class Program
         Console.ReadKey();
         Console.WriteLine("저 앞 풀숲에서 부스럭거리는 소리가 난다.");
         Console.ReadKey();
-        Console.WriteLine($"야생의 {enemy1.EnemyName}와 {enemy2.EnemyName}가 나타났다!");
+        Console.WriteLine($"야생의 {wildBoar.EnemyName}와 {waterDeer.EnemyName}가 나타났다!");
         Console.ReadKey();
         Console.WriteLine("전투 시작!");
         Console.WriteLine();
-        while (player1.Hp > 0 && (enemy1.EnemyHp > 0 || enemy2.EnemyHp > 0))
+        while (player1.Hp > 0 && (wildBoar.EnemyHp > 0 || waterDeer.EnemyHp > 0))
         {
             //내 턴
-            Console.WriteLine($"{enemy1.EnemyName}: HP {enemy1.EnemyHp}, {enemy2.EnemyName}: HP {enemy2.EnemyHp}");
+            Console.WriteLine($"{wildBoar.EnemyName}: HP {wildBoar.EnemyHp}, {waterDeer.EnemyName}: HP {waterDeer.EnemyHp}");
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine($"{player1.Name}: HP {player1.Hp}");
@@ -1062,76 +1406,74 @@ internal class Program
             switch (actionChoice)
             {
                 case 1:
-                    AttackAction(player1, enemy1, enemy2);
+                    AttackAction(player1, wildBoar, waterDeer);
                     break;
                 case 2:
-                    SkillAction(player1, enemy1, enemy2);
+                    SkillAction(player1, wildBoar, waterDeer);
                     break;
             }
 
             //몬스터 턴
-            if (enemy1.EnemyHp > 0)
+            if (wildBoar.EnemyHp > 0)
             {
-                Console.WriteLine($"{enemy1.EnemyName}의 공격!");
-                int enemyDamage1 = enemy1.EnemyAtk;
+                Console.WriteLine($"{wildBoar.EnemyName}의 공격!");
+                int enemyDamage1 = wildBoar.EnemyAtk;
                 player1.Hp -= enemyDamage1;
-                Console.WriteLine($"{enemy1.EnemyName}이(가) 플레이어에게 {enemyDamage1}의 데미지를 입혔습니다.");
+                Console.WriteLine($"{wildBoar.EnemyName}이(가) 플레이어에게 {enemyDamage1}의 데미지를 입혔습니다.");
             }
 
-            if (enemy2.EnemyHp > 0)
+            if (waterDeer.EnemyHp > 0)
             {
-                Console.WriteLine($"{enemy2.EnemyName}의 공격!");
-                int enemyDamage2 = enemy2.EnemyAtk;
+                Console.WriteLine($"{waterDeer.EnemyName}의 공격!");
+                int enemyDamage2 = waterDeer.EnemyAtk;
                 player1.Hp -= enemyDamage2;
-                Console.WriteLine($"{enemy2.EnemyName}이(가) 플레이어에게 {enemyDamage2}의 데미지를 입혔습니다.");
+                Console.WriteLine($"{waterDeer.EnemyName}이(가) 플레이어에게 {enemyDamage2}의 데미지를 입혔습니다.");
             }
         }
 
         //전투 결과
-        DisplayResult(player1.Hp, enemy1.EnemyHp, enemy2.EnemyHp);
-        OneMonthLater();
+        DisplayResult(player1.Hp, wildBoar, waterDeer);
 
     }
     //공격선택
-    private static void AttackAction(Character player1, Enemy enemy1, Enemy enemy2)
+    private static void AttackAction(Character player1, params Enemy[] enemies)
     {
         Console.WriteLine("어떤 몬스터를 공격하시겠습니까?");
-        Console.WriteLine("1. " + enemy1.EnemyName);
-        Console.WriteLine("2. " + enemy2.EnemyName);
-
-        int targetChoice = CheckValidInput(1, 2);
-
-        switch (targetChoice)
+        for (int i = 0; i<enemies.Length;i++)
         {
-            case 1:
-                int playerDamage1 = player1.Attack();
-                enemy1.EnemyHp -= playerDamage1;
-                Console.WriteLine($"플레이어가 {enemy1.EnemyName}에게 {playerDamage1}의 데미지를 입혔습니다.");
-                break;
-            case 2:
-                int playerDamage2 = player1.Attack();
-                enemy2.EnemyHp -= playerDamage2;
-                Console.WriteLine($"플레이어가 {enemy2.EnemyName}에게 {playerDamage2}의 데미지를 입혔습니다.");
-                break;
+            Console.WriteLine($"{i+1}. {enemies[i].EnemyName}");
         }
+
+        int targetChoice = CheckValidInput(1, enemies.Length);
+
+        int playerDamage = player1.Attack();
+        enemies[targetChoice - 1].EnemyHp -= playerDamage;
+        Console.WriteLine($"플레이어가 {enemies[targetChoice - 1].EnemyName}에게 {playerDamage}의 데미지를 입혔습니다.");
     }
-    private static void SkillAction(Character player1, Enemy enemy1, Enemy enemy2)
+    private static void SkillAction(Character player1, params Enemy[] enemies)
     {
         // 스킬 추가하고 여기에 구현
         Console.WriteLine("스킬 낫띵");
     }
 
-    private static void DisplayResult(int playerHp, int enemyHp1, int enemyHp2)
+    private static void DisplayResult(int playerHp, params Enemy[] enemies)
     {
         if (playerHp <= 0)
         {
             Console.WriteLine("전투에서 패배했습니다. 게임 오버!");
+            Console.ReadKey();
             Home();
             return;
         }
         else
         {
             Console.WriteLine("적을 격파했습니다. 전투에서 승리!");
+            // 몬스터별 보상 처리
+            foreach (var enemy in enemies)
+            {
+                //player1.Gold += enemy.GoldReward;
+                // 경험치 또는 다른 보상 처리도 추가 가능
+            }
             Console.ReadLine();
             OneMonthLater();
             //보상 아이템? 스텟?
