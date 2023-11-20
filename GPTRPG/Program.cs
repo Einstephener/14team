@@ -977,7 +977,7 @@ internal class Program
 
         return _hitCount;
     }
-#endregion
+    #endregion
 
 
     //대민지원 일병스토리5
@@ -992,24 +992,25 @@ internal class Program
         Console.WriteLine("무너진 건물 잔해가 많다고 하니 다치지 않게 하길 바란다!");
         Console.WriteLine("");
         Console.ReadKey();
+        Console.Clear();
 
         Console.WriteLine("=======================================");
         Console.WriteLine("10번의 삽질을 시도해서 6번 성공하세요!");
         Console.WriteLine("=======================================");
         Console.WriteLine("");
         Console.ReadKey();
-        Console.Clear();
 
-        Console.WriteLine("삽질 시작하기");
+        Console.WriteLine("아무키나 눌러 삽질을 시작하세요");
         Console.ReadKey();
 
 
-        int sucessCount = 0;
+
         Random random = new Random();
 
-        string userInput = Console.ReadLine();
+
         while (true)
         {
+            int sucessCount = 0;
 
             for (int i = 0; i <= 10; i++)
             {
@@ -1018,37 +1019,44 @@ internal class Program
                 if (fireControlSuccess)
                 {
                     sucessCount++;
-                    Console.WriteLine($"{i}. 삽질에 성공했습니다!");
+                    Console.WriteLine($"{i}. 삽질에 성공했습니다!\n");
+
                 }
                 else
                 {
-                    Console.WriteLine($"{i}. 삽질에 실패했습니다.");
+                    Console.WriteLine($"{i}. 삽질에 실패했습니다!\n");
                 }
-                break;
+
+
             }
+
 
             Console.WriteLine("======================================================");
             Console.WriteLine($"결과: 10번에 삽질 중 {sucessCount}번 성공했습니다!");
             Console.WriteLine("======================================================");
-            Console.WriteLine("1. 결과확인하기");
-            Console.ReadLine();
+            Console.WriteLine("");
+            Console.WriteLine("결과확인하기");
+            Console.ReadKey();
             Console.Clear();
 
             if (sucessCount >= 6)
             {
                 Console.WriteLine("");
                 Console.WriteLine("대민지원을 완료했습니다.");
+                Console.WriteLine("");
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("체력이 50증가합니다.");
                 Console.ResetColor();
-                Console.WriteLine("");
                 player1.Hp += 50;
+                break; //나가기 
 
             }
             else
             {
                 Console.WriteLine("대민지원을 실패했습니다.");
+                Console.WriteLine("");
                 Console.WriteLine("다시 시도하시겠습니까? (Y)");
+                Console.WriteLine("");
                 Console.WriteLine("나가시겠습니까? (N)");
                 string response = Console.ReadLine();
                 if (response.ToUpper() == "Y")
