@@ -9,8 +9,7 @@ using System.Xml.Linq;
 using System;
 using System.Text;
 using System.Drawing;
-//Text//
-//Test//
+
 internal class Program
 {
 
@@ -21,24 +20,21 @@ internal class Program
     private static List<Enemy> enemys = new List<Enemy>();
 
     //아이템들 선언
-    private static Item ROKA;
-    private static Item RPG;
-    private static Item K2;
 
-    private static Food iceChicken;
-    private static Food cupNoddle;
-    private static Food egg;
+    private static Armor greenStrap;
+
 
     //몬스터들 선언
-    private static Enemy slime;
-    private static Enemy gobline;
+    private static Enemy Senior;
     private static Enemy newCommander;
     private static Enemy french;
 
     //캐릭터 선언
     private static Character player1;
-    private static Rank rank1;
 
+
+    static int workCount = 0;
+    static int Perfection = 0;
     // ConsoleKeyInfo 선언
     static ConsoleKeyInfo e;
 
@@ -63,24 +59,42 @@ internal class Program
         player1 = new Character("", "용사", 5, 5, 5, 5, 100, 0, 5);
 
         // 아이템 정보 세팅
-
+        greenStrap = new Armor("분대장 견장", 0, "분대장의 상징인 녹견", 10, 10);
 
         //리스트에 아이템들 추가
-
+        items.Add(greenStrap);
 
         //아이템 정보 세팅
-        iceChicken = new Food("슈넬치킨", 10, 10, 1000, "맛있는 슈넬치킨. 요즘엔 더 맛있는 것도 많아졌다.");
-        cupNoddle = new Food("신라면 블랙", 10, 10, 1000, "전자레인지에 돌려먹으면 더 맛있는 신라면 블랙.");
-        egg = new Food("참숯란", 0, 40, 4000, "군대의 몇 안되는 단백질 보급원. 헬창들에게 인기가 많다.");
-        //리스트에 음식 추가
-        foods.Add(iceChicken);
-        foods.Add(cupNoddle);
-        foods.Add(egg);
+
+
+        //직업 별 아이템 설정//
+
+        /*
+        //포병 
+        revisePin = new Item("크리크 수정핀","포병", 3, 0, 5, 2, 0, 150, 10, "사격장에서 흔히 볼수 있는 도구");// 기본템
+        shovel = new Item("각삽","포병", 20, 0, 0, 20, 0, 1000, 30, "지형을 수정하거나 만드는 도구 (사실 만능)");
+        grain = new Item("곡갱이","포병", 35, 0, 0, 25, 0, 1600, 40, "고르지 못한 땅을 평탕화할 때 유용한 도구");
+
+        //보병
+        broom = new Item("빗자루", "보병", 3 ,0, 0, 5, 0, 0, 200, 10, "부대에서 흔히 볼수 있는 도구"); // 기본템
+        buttstock = new Item("개머리판","보병", 10, 5, 0, 5, 0, 1000, 30, "머리보다 단단한 개머리판");
+        sword = new Item("대검","보병", 30, 5, 0, 10, 0 , 0, 1500, 40, "근무중에 흔히 볼 수 있는 대검")
+
+        //운전병
+        wiper = new Item("부러진 와이퍼", "운전병", 3, 0, 0, 5, 0, 200, 10, "운전병 창고에서 흔히 볼수 있는 도구");// 기본템
+        chain = new Item("미끄럼 방지체인","운전병", 15, 0, 0, 10, 0 ,1200, 30, "겨울에 볼수 있는 길고 단단한 체인");
+        lever = new Item("지렛대", "운전병", 30, 0, 0, 20, 0, 1500, 40, "정비할 때 자주쓰이는 도구");
+
+        //정비병 무기
+        Screwdriver = new Item(" +드라이버", "정비병", 3, 0, 5, 0, 0, 200, 10, "정비소에 가면 흔히 볼수 있는 도구");// 기본템
+        Spanner = new Item(" 9/16 스페너", "정비병", 10, 0, 10, 20, 0, 1000, 30, "자주 사용하는 사이즈의 스페너");
+        Hammer = new Item("오함마", "정비병", 30, 0, 25, 0, 30, 0, 1700, 40,"정비하다가 끼거나 막히면 해결해주는 해결사 도구");
+        */
 
         Rank myRank = new Rank(1);
 
 
-        //몬스터들 정보 세팅
+
         newCommander = new Enemy("초임 소위", 100, 100);
         french = new Enemy("참호", 5, 100);
 
@@ -293,7 +307,29 @@ internal class Program
     static void OneMonthLater()
     {
         Rank.month++;
-        Console.WriteLine("한달이 흘렀다...");
+        Console.WriteLine("");
+        Console.WriteLine("한달이 흘렀다");
+        Console.WriteLine("");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.Write("월급");
+        Console.ResetColor();
+        Console.WriteLine("이 들어왔다");
+        if (Rank.month < 3)
+        {
+            player1._gold += 1000;
+        }
+        else if (Rank.month < 9)
+        {
+            player1._gold += 1500;
+        }
+        else if (Rank.month < 15)
+        {
+            player1._gold += 2000;
+        }
+        else
+        {
+            player1._gold += 3000;
+        }
         Console.ReadKey();
         Home();
     }
@@ -569,12 +605,17 @@ internal class Program
         Console.Clear();
 
         Console.WriteLine("드디어 훈련병 생활이 끝났군");
+        Console.ReadKey();
         Console.Write("이제 자대에서 열심히 해보자!");
+        Console.ReadKey();
         Console.WriteLine("");
         Console.WriteLine("자대배치 후 첫 아침점호 시간이다");
         Console.WriteLine("");
+        Console.ReadKey();
         Console.WriteLine("긴장한 상태로 열을 맞춰서있다..");
+        Console.ReadKey();
         Console.WriteLine("그때 한 선임이 \"굳건이 군화 닦았어 ? \"");
+        Console.ReadKey();
         Console.WriteLine("");
         Console.WriteLine("그 순간 머리가 하애졌다..");
         Console.WriteLine("");
@@ -606,17 +647,26 @@ internal class Program
         Console.Clear();
 
         Console.WriteLine("오늘도 다사다난한 하루였고만");
+        Console.ReadKey();
         Console.WriteLine("이제 군화닦고 청소를 시작해보자");
+        Console.ReadKey();
         Console.WriteLine("오늘은 화장실 청소하는 날이네");
+        Console.ReadKey();
         Console.WriteLine("선임한테 잘보이기 위해 내가 변기를 맡아서 열심히 닦아야겠다");
+        Console.ReadKey();
         Console.WriteLine("아니 오줌 조준못하는건 이해하는데 똥 조준은 왜 못하는거야?");
+        Console.ReadKey();
         Console.WriteLine("라는 생각과 함꼐 청소가 끝났다!!");
+        Console.ReadKey();
         Console.WriteLine("드디어 오늘 하루도 끝나가는군!!");
+        Console.ReadKey();
         Console.WriteLine("");
         Console.WriteLine("----(저녁 점호 시간)-----)");
         Console.WriteLine();
+        Console.ReadKey();
         Console.Write("정적이 흐른다... 그때");
         Console.WriteLine("분대장: 굳건이 혹시 여자친구나 여동생이나 누나 있어?");
+        Console.ReadKey();
         Console.WriteLine("군생활이 걸린 대답 생각중");
 
         Random Talk = new Random();
@@ -648,20 +698,20 @@ internal class Program
 
         Console.Clear();
         Console.WriteLine("당신은 유격훈련에 참가했다.");
-        Console.ReadKey();
+Console.ReadKey();
         Console.WriteLine("지옥의 PT체조가 시작됐다.");
-        Console.ReadKey();
+Console.ReadKey();
         Console.WriteLine("\"지금부터 대답은 \'네\'가 아니라 \'악\'으로 대체합니다.\"");
-        Console.ReadKey();
+Console.ReadKey();
         Console.WriteLine("악!");
-        Console.ReadKey();
+Console.ReadKey();
         Console.WriteLine("\"PT체조 8번 온몸비틀기 준비!\"");
-        Console.ReadKey();
+Console.ReadKey();
         Console.WriteLine("교관은 쉽게 갈 생각이 없는거같다 살아남자!");
-        Console.ReadKey();
+Console.ReadKey();
         Console.WriteLine();
         Console.WriteLine("유-격!");
-        Console.ReadKey();
+Console.ReadKey();
         //확률에 따라 성공 혹은 실패
         //실패마다 정신력, 체력 감소
         //실패시 출력멘트
@@ -672,11 +722,11 @@ internal class Program
             if (randomValue < success)
             {
                 Console.WriteLine("\"교육생들 수고 많았습니다.\"");
-                Console.ReadKey();
+Console.ReadKey();
                 Console.WriteLine("\"본 교관 나쁜사람 아닙니다.\"");
-                Console.ReadKey();
+Console.ReadKey();
                 Console.WriteLine("\"교육생들 막사로 가서 쉬도록합니다.\"");
-                Console.ReadKey();
+Console.ReadKey();
                 Console.WriteLine("");
                 Console.WriteLine("지옥같은 유격훈련이 끝났다... 돌아가자.");
                 Console.ReadKey();
@@ -699,7 +749,7 @@ internal class Program
                 int randomIndex = random.Next(failMessages.Length);
                 Console.WriteLine(failMessages[randomIndex]);
                 success += 0.03; //실패시 성공확률 3%씩 증가
-                Console.ReadKey();
+Console.ReadKey();
                 //추가로 실패시 정신력, 체력 감소 추가해야됨
             }
         }
@@ -727,15 +777,15 @@ internal class Program
         Console.Clear();
         Console.WriteLine();
         Console.WriteLine("어두운 새벽 경계근무중...");
-        Console.ReadKey();
+Console.ReadKey();
         Console.WriteLine("저 앞 풀숲에서 부스럭거리는 소리가 난다.");
-        Console.ReadKey();
+Console.ReadKey();
         Console.WriteLine("야생의 고라니와 멧돼지가 나타났다!");
-        Console.ReadKey();
+Console.ReadKey();
         Console.WriteLine("전투 시작!");
         Console.WriteLine();
-        Console.ReadKey();
-
+        Console.WriteLine("1.소리지르기");
+        Console.WriteLine("2.돌 던지기");
         OneMonthLater();
         //전투
 
@@ -758,9 +808,9 @@ internal class Program
 
         // 선택지 Text
         string[] text = {"1. 여자친구를 만나러 간다.",
-                "2. 친구들을 만나러 간다.",
-                "3. 본가로 간다.",
-                "4. 혼자 논다."};
+        "2. 친구들을 만나러 간다.",
+        "3. 본가로 간다.",
+        "4. 혼자 논다."};
 
         // 게임 시작
         // 화면 초기화
@@ -797,6 +847,7 @@ internal class Program
                 "여자친구와 즐거운 시간을 보냈다.",
                 "나는 여자친구가 없다...");
                 // Scene이동
+                OneMonthLater();
                 break;
             case 1:
                 // 친구들 만나러
@@ -804,6 +855,7 @@ internal class Program
                 "친구들과 Pc방에 가서 시간 가는 줄 모르고 놀았다.",
                 "나는 친구가 없다...");
                 // Scene이동
+                OneMonthLater();
                 break;
             case 2:
                 // 본가로 간다
@@ -811,6 +863,7 @@ internal class Program
                 "가족들과 오랜만에 식사하며 좋은 시간을 보냈다.",
                 "내가 오는 줄 몰랐나..? 아무도 없다...");
                 // Scene이동
+                OneMonthLater();
                 break;
             case 3:
                 // 혼자 논다
@@ -818,6 +871,7 @@ internal class Program
                 "여기저기 구경 다니며 신나게 놀았다.",
                 "생활관에 있을 때가 더 나은 거 같다 너무 외롭다..");
                 // Scene이동
+                OneMonthLater();
                 break;
             default:
                 break;
@@ -866,7 +920,7 @@ internal class Program
         // 초기 씬 셋팅값
         int cursor = 0;
         bool onScene = true;
-
+        Console.Clear();
         Console.WriteLine("오늘은 사격훈련을 진행하겠다.");
         Console.WriteLine("");
         Console.ReadKey();
@@ -923,1608 +977,1724 @@ internal class Program
 
         // hitCount(명중 횟수)에 따른 보상 로직 작성.
         // 1~5 폐급, 6~8 평균, 9~10 특등사수 
+
     }
-
-    // Shooting 처리 메서드
-    static int ShootingEvent(int input, int _hitCount, int _cursor)
-    {
-        if (input == _cursor)
+        // Shooting 처리 메서드
+        static int ShootingEvent(int input, int _hitCount, int _cursor)
         {
-            Console.WriteLine("명중!!!");
-            _hitCount++;
-            Console.ReadKey();
-        }
-        else
-        {
-            Console.WriteLine("빗나갔다...");
-            Console.ReadKey();
-        }
-
-        return _hitCount;
-    }
-    #endregion
-
-
-    //대민지원 일병스토리5
-    static void DMsupport()
-    {
-        Console.Clear();
-        Console.WriteLine("민간 지역에 큰화재가 발생했다!");
-        Console.WriteLine("대민지원 활동에 참여해야겠다!");
-        Console.WriteLine("");
-        Console.ReadKey();
-        Console.WriteLine("화재진압은 되었다고 한다! ");
-        Console.WriteLine("무너진 건물 잔해가 많다고 하니 다치지 않게 하길 바란다!");
-        Console.WriteLine("");
-        Console.ReadKey();
-        Console.Clear();
-
-        Console.WriteLine("=======================================");
-        Console.WriteLine("10번의 삽질을 시도해서 6번 성공하세요!");
-        Console.WriteLine("=======================================");
-        Console.WriteLine("");
-        Console.ReadKey();
-
-        Console.WriteLine("아무키나 눌러 삽질을 시작하세요");
-        Console.ReadKey();
-
-
-
-        Random random = new Random();
-
-
-        while (true)
-        {
-            int sucessCount = 0;
-
-            for (int i = 0; i <= 10; i++)
+            if (input == _cursor)
             {
-                bool fireControlSuccess = random.Next(0, 2) == 0; // 50%확률로 성공
-
-                if (fireControlSuccess)
-                {
-                    sucessCount++;
-                    Console.WriteLine($"{i}. 삽질에 성공했습니다!\n");
-
-                }
-                else
-                {
-                    Console.WriteLine($"{i}. 삽질에 실패했습니다!\n");
-                }
-
-
-            }
-
-
-            Console.WriteLine("======================================================");
-            Console.WriteLine($"결과: 10번에 삽질 중 {sucessCount}번 성공했습니다!");
-            Console.WriteLine("======================================================");
-            Console.WriteLine("");
-            Console.WriteLine("결과확인하기");
-            Console.ReadKey();
-            Console.Clear();
-
-            if (sucessCount >= 6)
-            {
-                Console.WriteLine("");
-                Console.WriteLine("대민지원을 완료했습니다.");
-                Console.WriteLine("");
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("체력이 50증가합니다.");
-                Console.ResetColor();
-                player1.Hp += 50;
-                break; //나가기 
-
+                Console.WriteLine("명중!!!");
+                _hitCount++;
+                Console.ReadKey();
             }
             else
             {
-                Console.WriteLine("대민지원을 실패했습니다.");
-                Console.WriteLine("");
-                Console.WriteLine("다시 시도하시겠습니까? (Y)");
-                Console.WriteLine("");
-                Console.WriteLine("나가시겠습니까? (N)");
-                string response = Console.ReadLine();
-                if (response.ToUpper() == "Y")
+                Console.WriteLine("빗나갔다...");
+                Console.ReadKey();
+            }
+
+            return _hitCount;
+        }
+        #endregion
+
+
+        //대민지원 일병스토리5
+        static void DMsupport()
+        {
+            Console.Clear();
+            Console.WriteLine("민간 지역에 큰화재가 발생했다!");
+            Console.WriteLine("대민지원 활동에 참여해야겠다!");
+            Console.WriteLine("");
+            Console.ReadKey();
+            Console.WriteLine("화재진압은 되었다고 한다! ");
+            Console.WriteLine("무너진 건물 잔해가 많다고 하니 다치지 않게 하길 바란다!");
+            Console.WriteLine("");
+            Console.ReadKey();
+            Console.Clear();
+
+            Console.WriteLine("=======================================");
+            Console.WriteLine("10번의 삽질을 시도해서 6번 성공하세요!");
+            Console.WriteLine("=======================================");
+            Console.WriteLine("");
+            Console.ReadKey();
+
+            Console.WriteLine("아무키나 눌러 삽질을 시작하세요");
+            Console.ReadKey();
+
+
+
+            Random random = new Random();
+
+
+            while (true)
+            {
+                int sucessCount = 0;
+
+                for (int i = 0; i <= 10; i++)
                 {
-                    continue; // 실패시 다시 시작
+                    bool fireControlSuccess = random.Next(0, 2) == 0; // 50%확률로 성공
+
+                    if (fireControlSuccess)
+                    {
+                        sucessCount++;
+                        Console.WriteLine($"{i}. 삽질에 성공했습니다!\n");
+
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{i}. 삽질에 실패했습니다!\n");
+                    }
+
+
+                }
+
+                Console.WriteLine("======================================================");
+                Console.WriteLine($"결과: 10번에 삽질 중 {sucessCount}번 성공했습니다!");
+                Console.WriteLine("======================================================");
+                Console.WriteLine("");
+            Console.WriteLine("결과확인하기");
+                Console.ReadKey();
+                Console.Clear();
+
+                if (sucessCount >= 6)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("대민지원을 완료했습니다.");
+                    Console.WriteLine("");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("체력이 50증가합니다.");
+                    Console.ResetColor();
+                    player1.Hp += 50;
+                    break; //나가기 
+
                 }
                 else
                 {
-                    break;// 나가기 (이전화면)
+                    Console.WriteLine("대민지원을 실패했습니다.");
+                    Console.WriteLine("");
+                    Console.WriteLine("다시 시도하시겠습니까? (Y)");
+                    Console.WriteLine("");
+                    Console.WriteLine("나가시겠습니까? (N)");
+                    string response = Console.ReadLine();
+                    if (response.ToUpper() == "Y")
+                    {
+                        continue; // 실패시 다시 시작
+                    }
+                    else
+                    {
+                        break;// 나가기 (이전화면)
+                    }
                 }
             }
         }
-    }
 
-    // 외박(선택지) 일병스토리6
-    static void Overnight()
-    {
-        Console.Clear();
-        Console.WriteLine("");
-        Console.WriteLine("첫 외박날짜가 정해졌습니다. 기대와 설렘이 가득찬 그의 마음속에는");
-        Console.WriteLine("");
-        Console.WriteLine("어디를 가야할지, 누구를 만나야 할지에 대한 고민으로 가득차있습니다.");
-        Console.ReadKey();
-        Console.Clear();
-        Console.WriteLine("");
-        Console.WriteLine("가족, 친구, 여자친구 세가지 선택지중 하나를 고르세요");
-        Console.WriteLine("");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("선택지마다 랜덤능력치가 부여됩니다. 신중하게 고르세요! ");
-        Console.ResetColor();
-        Console.WriteLine("");
-        Console.WriteLine("");
-
-        bool isValidInput = true;
-
-        while (isValidInput)
-        {
-
-            Console.WriteLine("선택지를 골라주세요! ");
-            Console.WriteLine("1. 가족");
-            Console.WriteLine("");
-            Console.WriteLine("2. 친구");
-            Console.WriteLine("");
-            Console.WriteLine("3. 여자친구");
-
-            string userInput = Console.ReadLine();
-
-            switch (userInput)
-            {
-                case "1":
-                    Console.Clear();
-                    Console.WriteLine("가족을 선택하셨습니다.");
-                    Console.WriteLine("");
-                    Console.WriteLine("가족은 당신의 안정과 지지를 의미합니다.");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("그들과 함께하는 시간은 당신에게 힘을 주고");
-                    Console.WriteLine("");
-                    Console.WriteLine("당신은 그들을 위해 힘든 시간을 견디려고 노력할 것입니다.");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("힘 능력치가 10 상승하였습니다.");
-                    Console.ResetColor();
-                    player1.Str += 10;
-                    isValidInput = false;
-                    break;
-                case "2":
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.WriteLine("당신은 친구를 선택했습니다.");
-                    Console.WriteLine("");
-                    Console.WriteLine("김밥천국가서 대충먹고 PC방가서 날밤을 깠습니다.");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-
-                    Console.WriteLine("친구들과 함께하는 시간은 즐거웠습니다.");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("정신력 능력치가 10 상승하였습니다.");
-                    player1.Mind += 10;
-                    isValidInput = false;
-                    break;
-                case "3":
-                    Console.Clear();
-                    Console.WriteLine("여자친구를 선택하셨습니다.");
-                    Console.WriteLine("");
-                    Console.WriteLine("그녀에게 전화 했습니다. 전화를 안받습니다...");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("다시 한번 전화를 걸었습니다...");
-                    Console.WriteLine("");
-                    Console.ReadKey();
-                    Console.WriteLine("전화를 받았습니다!!");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.WriteLine("나 남자친구 생겼어 이제 전화하지말아줬으면 좋겠어 미안 툭 뚜..뚜..뚜..뚜");
-                    Console.ReadKey();
-                    Console.WriteLine("");
-                    Console.WriteLine("이로 인해 당신은 좌절하고 실망하며 슬픔을 겪게 됩니다.");
-                    Console.WriteLine("");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("정신력 능력치가 10 하락하였습니다.");
-                    Console.ResetColor();
-                    player1.Mind -= 10;
-                    isValidInput = false;
-                    break;
-
-                default:
-                    Console.WriteLine("");
-                    Console.WriteLine("잘못된 선택입니다.");
-                    break;
-            }
-        }
-    }
-
-
-    #region 상병 스토리
-    //상병 스토리 - KCTC
-    static void CStoryKCTC(Character player)
-    {
-        Console.Clear();
-        Console.WriteLine();
-        Console.WriteLine(" 당신은 KCTC 훈련에 참여했다.");
-        Console.WriteLine(" 훈련 2일차, 앞에 대항군을 발견했다는 무전이 들어왔다.");
-        Console.WriteLine(" 전투 시작!");
-        Console.WriteLine();
-        Console.WriteLine("-----------------------------------------------------------------------");
-        Console.WriteLine("\t\t 적을 공격한다.");
-        Console.WriteLine(" 자주포 폭격 10% / 수류탄 투척 20% / K-2사격 50% / 매복으로 인한 패배 20%");
-        Console.WriteLine("-----------------------------------------------------------------------");
-        Console.ForegroundColor = ConsoleColor.DarkRed;
-        Console.WriteLine("계속하려면 enter.");
-        Console.ResetColor();
-        //직업 별, 다른 확률
-        Random rand = new Random();
-        int number = rand.Next(10);
-        switch (number)
-        {
-            case 0: //10%
-                Console.WriteLine(" 폭격 지원 요청 성공!");
-                Console.WriteLine(" 적 대대 소탕 완료.");
-                Console.WriteLine(" 표창장과 포상금을 받았다.");
-                player._gold += 500;
-                Console.WriteLine();
-                //제일 큰 보상
-                break;
-
-            case 1:
-            case 2: //20%
-                Console.WriteLine(" 수류탄 투척!");
-                Console.WriteLine(" 적 분대 소탕 완료.");
-                Console.WriteLine(" 표창장과 약간의 포상금을 받았다.");
-                player._gold += 200;
-                Console.WriteLine();
-                //중간 보상
-                break;
-
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7: //50%
-                Console.WriteLine(" K-2로 적 사살");
-                Console.WriteLine(" 대항군 한명 사살.");
-                Console.WriteLine();
-
-                //보상 없음.
-                break;
-
-            case 8:
-            case 9: //20%
-                Console.WriteLine("아군 전멸");
-                Console.WriteLine("분노한 중대장에게 얼차려를 받았다.");
-                Console.WriteLine("체력이 10 감소한다.");
-                player.Hp -= 10;
-                Console.WriteLine();
-                //패널티
-                break;
-        }
-        Console.WriteLine("훈련이 끝났다. 막사로 돌아가자.");
-        Console.ReadKey();
-        OneMonthLater();
-
-    }
-    //상병 스토리- 상검
-    static void CStoryPhysicalExamination(Character player)
-    {
-        int cursor = 0;
-        bool onScene = true;
-
-        string[] text = { "1. 몰래 탈출해 치킨을 먹는다.", "2. 얌전히 부대로 가서 짬밥을 먹는다." };
-        double successPercent = (double)player.Dex / (5 + player.Dex) * 100;
-        while (onScene)
+        // 외박(선택지) 일병스토리6
+        static void Overnight()
         {
             Console.Clear();
-            Console.WriteLine("상병 신검 날이 되었다.");
+            Console.WriteLine("");
+            Console.WriteLine("첫 외박날짜가 정해졌습니다. 기대와 설렘이 가득찬 그의 마음속에는");
+            Console.WriteLine("");
+            Console.WriteLine("어디를 가야할지, 누구를 만나야 할지에 대한 고민으로 가득차있습니다.");
             Console.ReadKey();
-            Console.WriteLine("국군 병원으로 가는 버스에 탔다.");
-            Console.ReadKey();
-            Console.WriteLine("...");
-            Console.ReadKey();
-            Console.WriteLine("병원에 도착했다.");
-            Console.ReadKey();
-            Console.WriteLine("잠시 대기 후 신체검사를 시작했다.");
-            Console.ReadKey();
-            Console.WriteLine("...");
-            Console.ReadKey();
-            Console.WriteLine("========================");
-            Console.WriteLine($"이름: {player.Name}");
-            Console.WriteLine("체중: 70.3kg");
-            Console.WriteLine("키: 175.4cm");
-            Console.WriteLine("...");
-            Console.WriteLine("========================");
-            Console.ReadKey();
-
-            Console.WriteLine("상검이 끝나고 국군병원 근처에서 몰래 치킨을 먹으려 한다.");
-            Console.ReadKey();
-            Console.WriteLine($"시도해볼까?(성공확률 {successPercent}%)");
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine("계속하려면 enter.");
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine("가족, 친구, 여자친구 세가지 선택지중 하나를 고르세요");
+            Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("선택지마다 랜덤능력치가 부여됩니다. 신중하게 고르세요! ");
             Console.ResetColor();
-            Console.ReadKey();
+            Console.WriteLine("");
+            Console.WriteLine("");
 
-            TextChoice(cursor, text);
-            // Key Input
-            e = Console.ReadKey();
-            // Cursor Index
-            cursor = CursorChoice(e, cursor, text, ref onScene);
-        }
-        Random rand = new Random();
-        int chicken = rand.Next(5 + player.Dex);
-        switch (cursor)
-        {
-            case 0:
-                //치킨시도
-                switch (chicken)
+            bool isValidInput = true;
+
+            while (isValidInput)
+            {
+
+                Console.WriteLine("선택지를 골라주세요! ");
+                Console.WriteLine("1. 가족");
+                Console.WriteLine("");
+                Console.WriteLine("2. 친구");
+                Console.WriteLine("");
+                Console.WriteLine("3. 여자친구");
+
+                string userInput = Console.ReadLine();
+
+                switch (userInput)
                 {
-                    case 0:
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                        //실패
-                        Console.WriteLine("실패!");
+                    case "1":
+                        Console.Clear();
+                        Console.WriteLine("가족을 선택하셨습니다.");
+                        Console.WriteLine("");
+                        Console.WriteLine("가족은 당신의 안정과 지지를 의미합니다.");
                         Console.ReadKey();
-                        Console.WriteLine("간부에게 죽도록 털렸다.");
+                        Console.Clear();
+                        Console.WriteLine("그들과 함께하는 시간은 당신에게 힘을 주고");
+                        Console.WriteLine("");
+                        Console.WriteLine("당신은 그들을 위해 힘든 시간을 견디려고 노력할 것입니다.");
                         Console.ReadKey();
-                        Console.WriteLine("정신력이 감소했다.");
-                        Console.ReadKey();
-                        Console.WriteLine("체력이 감소했다.");
-                        Console.ReadKey();
-
-                        //정신력 1 감소, 체력 감소
-                        player1.Mind--;
-                        player1.Hp -= 10;
-
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("계속하려면 enter.");
+                        Console.Clear();
+                        Console.WriteLine("");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("힘 능력치가 10 상승하였습니다.");
                         Console.ResetColor();
+                        player1.Str += 10;
+                        isValidInput = false;
+                        break;
+                    case "2":
+                        Console.Clear();
+                        Console.WriteLine("");
+                        Console.WriteLine("당신은 친구를 선택했습니다.");
+                        Console.WriteLine("");
+                        Console.WriteLine("김밥천국가서 대충먹고 PC방가서 날밤을 깠습니다.");
                         Console.ReadKey();
-                        OneMonthLater();
+                        Console.Clear();
+                        Console.WriteLine("");
+
+                        Console.WriteLine("친구들과 함께하는 시간은 즐거웠습니다.");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Console.WriteLine("");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("정신력 능력치가 10 상승하였습니다.");
+                        player1.Mind += 10;
+                        isValidInput = false;
+                        break;
+                    case "3":
+                        Console.Clear();
+                        Console.WriteLine("여자친구를 선택하셨습니다.");
+                        Console.WriteLine("");
+                        Console.WriteLine("그녀에게 전화 했습니다. 전화를 안받습니다...");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Console.WriteLine("다시 한번 전화를 걸었습니다...");
+                        Console.WriteLine("");
+                        Console.ReadKey();
+                        Console.WriteLine("전화를 받았습니다!!");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Console.WriteLine("");
+                        Console.WriteLine("나 남자친구 생겼어 이제 전화하지말아줬으면 좋겠어 미안 툭 뚜..뚜..뚜..뚜");
+                        Console.ReadKey();
+                        Console.WriteLine("");
+                        Console.WriteLine("이로 인해 당신은 좌절하고 실망하며 슬픔을 겪게 됩니다.");
+                        Console.WriteLine("");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Console.WriteLine("");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("정신력 능력치가 10 하락하였습니다.");
+                        Console.ResetColor();
+                        player1.Mind -= 10;
+                        isValidInput = false;
                         break;
 
                     default:
-                        //성공 
-                        Console.WriteLine("성공!");
-                        Console.ReadKey();
-                        Console.WriteLine("맛있는 치킨을 먹었다.");
-                        Console.ReadKey();
-                        Console.WriteLine("정신력이 증가한다.");
-                        Console.ReadKey();
-                        Console.WriteLine("체력이 회복되었다.");
-                        //정신력 5 증가 체력 증가
-                        player1.Mind += 5;
-                        player1.Hp += 10;
-                        player1.Gold -= 100;
-
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.WriteLine("계속하려면 enter.");
-                        Console.ResetColor();
-                        Console.ReadKey();
-
-                        OneMonthLater();
+                        Console.WriteLine("");
+                        Console.WriteLine("잘못된 선택입니다.");
                         break;
                 }
-                break;
-
-            case 1:
-                //부대에서 짬밥
-                Console.WriteLine("얌전히 부대로 복귀한다.");
-                Console.ReadKey();
-                Console.WriteLine("맛없는 똥국이다...");
-                Console.ReadKey();
-                Console.WriteLine("정신력이 감소했다.");
-                Console.ReadKey();
-                Console.WriteLine("체력이 회복되었다.");
-                player1.Mind--;
-                player1.Hp += 10;
+            }
+        }
 
 
+        #region 상병 스토리
+        //상병 스토리 - KCTC
+        static void CStoryKCTC(Character player)
+        {
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine(" 당신은 KCTC 훈련에 참여했다.");
+            Console.WriteLine(" 훈련 2일차, 앞에 대항군을 발견했다는 무전이 들어왔다.");
+            Console.WriteLine(" 전투 시작!");
+            Console.WriteLine();
+            Console.WriteLine("-----------------------------------------------------------------------");
+            Console.WriteLine("\t\t 적을 공격한다.");
+            Console.WriteLine(" 자주포 폭격 10% / 수류탄 투척 20% / K-2사격 50% / 매복으로 인한 패배 20%");
+            Console.WriteLine("-----------------------------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("계속하려면 enter.");
+            Console.ResetColor();
+            //직업 별, 다른 확률
+            Random rand = new Random();
+            int number = rand.Next(10);
+            switch (number)
+            {
+                case 0: //10%
+                    Console.WriteLine(" 폭격 지원 요청 성공!");
+                    Console.WriteLine(" 적 대대 소탕 완료.");
+                    Console.WriteLine(" 표창장과 포상금을 받았다.");
+                    player._gold += 500;
+                    Console.WriteLine();
+                    //제일 큰 보상
+                    break;
+
+                case 1:
+                case 2: //20%
+                    Console.WriteLine(" 수류탄 투척!");
+                    Console.WriteLine(" 적 분대 소탕 완료.");
+                    Console.WriteLine(" 표창장과 약간의 포상금을 받았다.");
+                    player._gold += 200;
+                    Console.WriteLine();
+                    //중간 보상
+                    break;
+
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7: //50%
+                    Console.WriteLine(" K-2로 적 사살");
+                    Console.WriteLine(" 대항군 한명 사살.");
+                    Console.WriteLine();
+
+                    //보상 없음.
+                    break;
+
+                case 8:
+                case 9: //20%
+                    Console.WriteLine("아군 전멸");
+                    Console.WriteLine("분노한 중대장에게 얼차려를 받았다.");
+                    Console.WriteLine("체력이 10 감소한다.");
+                    player.Hp -= 10;
+                    Console.WriteLine();
+                    //패널티
+                    break;
+            }
+            Console.WriteLine("훈련이 끝났다. 막사로 돌아가자.");
+            Console.ReadKey();
+            OneMonthLater();
+
+        }
+        //상병 스토리- 상검
+        static void CStoryPhysicalExamination(Character player)
+        {
+            int cursor = 0;
+            bool onScene = true;
+
+            string[] text = { "1. 몰래 탈출해 치킨을 먹는다.", "2. 얌전히 부대로 가서 짬밥을 먹는다." };
+            double successPercent = (double)player.Dex / (5 + player.Dex) * 100;
+            while (onScene)
+            {
+                Console.Clear();
+                Console.WriteLine("상병 신검 날이 되었다.");
+                Console.ReadKey();
+                Console.WriteLine("국군 병원으로 가는 버스에 탔다.");
+                Console.ReadKey();
+                Console.WriteLine("...");
+                Console.ReadKey();
+                Console.WriteLine("병원에 도착했다.");
+                Console.ReadKey();
+                Console.WriteLine("잠시 대기 후 신체검사를 시작했다.");
+                Console.ReadKey();
+                Console.WriteLine("...");
+                Console.ReadKey();
+                Console.WriteLine("========================");
+                Console.WriteLine($"이름: {player.Name}");
+                Console.WriteLine("체중: 70.3kg");
+                Console.WriteLine("키: 175.4cm");
+                Console.WriteLine("...");
+                Console.WriteLine("========================");
+                Console.ReadKey();
+
+                Console.WriteLine("상검이 끝나고 국군병원 근처에서 몰래 치킨을 먹으려 한다.");
+                Console.ReadKey();
+                Console.WriteLine($"시도해볼까?(성공확률 {successPercent}%)");
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("계속하려면 enter.");
                 Console.ResetColor();
                 Console.ReadKey();
 
-                OneMonthLater();
-                break;
-
-            default:
-                break;
-        }
-
-    }
-    //상병 스토리-전준태
-    static void CSDefcon(Character player)
-    {
-        Console.Clear();
-        Console.WriteLine();
-        Console.WriteLine("웨에에에엥-");
-        Console.ReadKey();
-        Console.WriteLine("화스트 페이스. 화스트 페이스.");
-        Console.ReadKey();
-        Console.WriteLine("타다다닥-");
-        Console.ReadKey();
-        Console.WriteLine("생활관으로 달려가서 개인 군장을 챙기고 물자를 챙긴다.");
-        Console.ReadKey();
-        Console.WriteLine("물자를 챙기는 와중에 팔이 뻐근함을 느낀다.");
-        Console.ReadKey();
-
-        Console.ForegroundColor = ConsoleColor.DarkRed;
-        Console.WriteLine("힘 10 이상이면 성공"); //수정가능
-        Console.WriteLine("계속하려면 enter.");
-        Console.ResetColor();
-
-        if (player1.Str >= 10)
-        {
-            Console.WriteLine("아슬아슬했지만 안정적으로 물자를 다 옮기는데 성공했다.");
-            Console.ReadKey();
-            Console.WriteLine("반복된 노동으로 체력이 10 오른다.");
-            player.Hp += 10;
-
-            OneMonthLater();
-        }
-        else
-        {
-            Console.WriteLine("물자를 옮기던 와중 쏟아버렸다.");
-            Console.ReadKey();
-            Console.WriteLine("간부의 엄청난 쿠사리가 쏟아진다.");
-            Console.ReadKey();
-            Console.WriteLine("정신력이 3 감소한다.");
-            player.Mind -= 3;
-
-            OneMonthLater();
-        }
-    }
-    //상병 스토리 - 대침투 훈련
-    static void CSTest()
-    {
-
-        Console.Clear();
-        Console.WriteLine();
-        Console.WriteLine("오늘은 대침투 훈련을 한다.");
-        Console.ReadKey();
-        Console.WriteLine("부대 근처 야산으로 가서 총을 거치 하고 참호를 파기 시작한다");
-        Console.ReadKey();
-        //땅파기
-        French(french);
-        Console.WriteLine("\"거수자 발견시 보고하고. 알지? 위장한 간부 잡으면 포상인거?\"");
-        Console.ReadKey();
-        Console.WriteLine("의욕이 셈솟기 시작한다.");
-        Console.ReadKey();
-        Console.WriteLine("하염없이 숨어있으니, 길 너머 풀숲에서 부스럭 거리는 소리가 들린다.");
-        Console.ReadKey();
-        Console.WriteLine("조심스럽게 접근한다.");
-        Console.ReadKey();
-        Random rand = new Random();
-        int plusPoint;
-        if (frenchSuccess == false)
-        {
-            plusPoint = 0;
-        }
-        else
-        {
-            plusPoint = 1;
-        }
-        int attack = rand.Next(2 + plusPoint);
-        switch (attack)
-        {
-            case 1:
-                Console.WriteLine("기습실패");
-                Console.ReadKey();
-                Console.WriteLine("눈앞에서 포상이 날아갔다...");
-                OneMonthLater();
-                break;
-
-            default:
-                Console.WriteLine("기습성공");
-                Console.ReadKey();
-                Console.WriteLine("안정적으로 거수자를 제압했다.");
-                Console.ReadKey();
-                Console.WriteLine("포상금을 받았다.");
-                player1._gold += 100;
-                OneMonthLater();
-
-                break;
-        }
-
-
-    }
-    //참호 파기
-    static void French(Enemy enemy)
-    {
-        //판 깊이. = 100cm - 적 체력
-        //남은 깊이 = 적 체력
-
-        int depth = (100 - enemy.EnemyHp) / 10;
-
-        Console.Clear();
-        Console.WriteLine();
-        Console.Write("의 남은 깊이: ");
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine($"{enemy.EnemyHp} cm");
-        Console.ResetColor();
-        Console.WriteLine($"남은 기회: {enemy.EnemyAtk}");
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("=땅===------------------=====");
-
-        for (int i = 0; i <= depth; i++)
-        {
-            Console.WriteLine("     =                  =    ");
-        }
-        Console.WriteLine("     ====================");
-        Console.ResetColor();
-        Console.WriteLine();
-        Console.WriteLine("<<삽질하려면 ENTER>>");
-        Console.WriteLine();
-        Console.ReadKey();
-
-        if (enemy.EnemyHp > 0)
-        {
-            if (enemy.EnemyAtk > 0)
-            {
-                enemy.EnemyHp -= player1.Str;
-                if (enemy.EnemyHp < 0)
-                {
-                    Console.WriteLine($"땅을{player1.Str + enemy.EnemyHp}cm 만큼 팠습니다.");
-                    enemy.EnemyHp = 0;
-                }
-                else
-                {
-                    Console.WriteLine($"땅을 {player1.Str}cm 만큼 팠습니다.");
-                }
-
-                Console.ReadKey();
-                enemy.EnemyAtk--;
-                French(french);
+                TextChoice(cursor, text);
+                // Key Input
+                e = Console.ReadKey();
+                // Cursor Index
+                cursor = CursorChoice(e, cursor, text, ref onScene);
             }
-            else
+            Random rand = new Random();
+            int chicken = rand.Next(5 + player.Dex);
+            switch (cursor)
             {
-                Console.WriteLine("제한 시간 내에 땅을 다 못팠다.");
-                frenchSuccess = false;
+                case 0:
+                    //치킨시도
+                    switch (chicken)
+                    {
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                            //실패
+                            Console.WriteLine("실패!");
+                            Console.ReadKey();
+                            Console.WriteLine("간부에게 죽도록 털렸다.");
+                            Console.ReadKey();
+                            Console.WriteLine("정신력이 감소했다.");
+                            Console.ReadKey();
+                            Console.WriteLine("체력이 감소했다.");
+                            Console.ReadKey();
+
+                            //정신력 1 감소, 체력 감소
+                            player1.Mind--;
+                            player1.Hp -= 10;
+
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("계속하려면 enter.");
+                            Console.ResetColor();
+                            Console.ReadKey();
+                            OneMonthLater();
+                            break;
+
+                        default:
+                            //성공 
+                            Console.WriteLine("성공!");
+                            Console.ReadKey();
+                            Console.WriteLine("맛있는 치킨을 먹었다.");
+                            Console.ReadKey();
+                            Console.WriteLine("정신력이 증가한다.");
+                            Console.ReadKey();
+                            Console.WriteLine("체력이 회복되었다.");
+                            //정신력 5 증가 체력 증가
+                            player1.Mind += 5;
+                            player1.Hp += 10;
+                            player1.Gold -= 100;
+
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("계속하려면 enter.");
+                            Console.ResetColor();
+                            Console.ReadKey();
+
+                            OneMonthLater();
+                            break;
+                    }
+                    break;
+
+                case 1:
+                    //부대에서 짬밥
+                    Console.WriteLine("얌전히 부대로 복귀한다.");
+                    Console.ReadKey();
+                    Console.WriteLine("맛없는 똥국이다...");
+                    Console.ReadKey();
+                    Console.WriteLine("정신력이 감소했다.");
+                    Console.ReadKey();
+                    Console.WriteLine("체력이 회복되었다.");
+                    player1.Mind--;
+                    player1.Hp += 10;
+
+
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.WriteLine("계속하려면 enter.");
+                    Console.ResetColor();
+                    Console.ReadKey();
+
+                    OneMonthLater();
+                    break;
+
+                default:
+                    break;
             }
+
         }
-        else
-        {
-            Console.WriteLine("땅파기 끝");
-            frenchSuccess = true;
-        }
-
-    }
-
-
-
-    //상병 스토리- 분대장 교육
-    static void CSschool()
-    {
-        Console.Clear();
-        Console.WriteLine("어쩌다보니 분대장으로 뽑혔다.");
-        Console.ReadKey();
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("분대장 교육대로 이동중...");
-        Console.ResetColor();
-        Console.ReadKey();
-        Console.WriteLine("분대장 교육대에서 받은 성적을 통해 추가 보상이 있을 예정이다.");
-        OneMonthLater();
-
-
-    }
-    //상병 스토리- 보스몹 초임 소대장
-    static void CSNewCommander(Character player, Enemy enemy)
-    {
-        Console.Clear();
-        Console.WriteLine();
-        Console.WriteLine("오늘은 새로운 소위가 임관하는 날이다.");
-        Console.ReadKey();
-        Console.WriteLine("관상부터 FM인게 보인다.");
-        Console.WriteLine("ㅈ된듯 하다.");
-        Console.ReadKey();
-        Console.WriteLine("얼마 후...");
-        Console.ReadKey();
-        Console.WriteLine($"{enemy.EnemyName}: 이봐 {player.Name} 상병. ");
-        Console.ReadKey();
-        Console.WriteLine($"상병 {player.Name}. 무슨일이십니까? ");
-        Console.ReadKey();
-        Console.WriteLine($"{enemy.EnemyName}: 배수로 작업 하러 가지.");
-        Console.ReadKey();
-        Console.WriteLine("얼마 후...");
-        Console.WriteLine("얼마 후...");
-        Console.WriteLine("얼마 후...");
-        Console.WriteLine("얼마 후...");
-        Console.WriteLine("얼마 후...");
-        Console.WriteLine("전투시작");
-        CSCommanderAttack(player1, newCommander);
-
-    }
-    static void CSCommanderAttack(Character player, Enemy enemy)
-    {
-        if (player1.Hp > 0 && enemy.EnemyHp > 0)
+        //상병 스토리-전준태
+        static void CSDefcon(Character player)
         {
             Console.Clear();
-            Console.WriteLine("================================");
-            Console.Write("소대장의 체력: ");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{enemy.EnemyHp}");
-            Console.ResetColor();
-            Console.WriteLine("");
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine($"{player.Name}의 체력: {player.Hp}");
-            Console.ResetColor();
-            Console.WriteLine("================================");
-            Console.WriteLine("이번턴에 하실 행동을 골라주세요");
+            Console.WriteLine();
+            Console.WriteLine("웨에에에엥-");
+            Console.ReadKey();
+            Console.WriteLine("화스트 페이스. 화스트 페이스.");
+            Console.ReadKey();
+            Console.WriteLine("타다다닥-");
+            Console.ReadKey();
+            Console.WriteLine("생활관으로 달려가서 개인 군장을 챙기고 물자를 챙긴다.");
+            Console.ReadKey();
+            Console.WriteLine("물자를 챙기는 와중에 팔이 뻐근함을 느낀다.");
+            Console.ReadKey();
 
-            Console.WriteLine("");
-            Console.WriteLine("1. 일반 공격하기");
-            Console.WriteLine("2. 스킬 사용하기");
-            Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine("힘 10 이상이면 성공"); //수정가능
+            Console.WriteLine("계속하려면 enter.");
+            Console.ResetColor();
 
+            if (player1.Str >= 10)
+            {
+                Console.WriteLine("아슬아슬했지만 안정적으로 물자를 다 옮기는데 성공했다.");
+                Console.ReadKey();
+                Console.WriteLine("반복된 노동으로 체력이 10 오른다.");
+                player.Hp += 10;
+
+                OneMonthLater();
+            }
+            else
+            {
+                Console.WriteLine("물자를 옮기던 와중 쏟아버렸다.");
+                Console.ReadKey();
+                Console.WriteLine("간부의 엄청난 쿠사리가 쏟아진다.");
+                Console.ReadKey();
+                Console.WriteLine("정신력이 3 감소한다.");
+                player.Mind -= 3;
+
+                OneMonthLater();
+            }
+        }
+        //상병 스토리 - 대침투 훈련
+        static void CSTest()
+        {
+
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine("오늘은 대침투 훈련을 한다.");
+            Console.ReadKey();
+            Console.WriteLine("부대 근처 야산으로 가서 총을 거치 하고 참호를 파기 시작한다");
+            Console.ReadKey();
+            //땅파기
+            French(french);
+            Console.WriteLine("\"거수자 발견시 보고하고. 알지? 위장한 간부 잡으면 포상인거?\"");
+            Console.ReadKey();
+            Console.WriteLine("의욕이 셈솟기 시작한다.");
+            Console.ReadKey();
+            Console.WriteLine("하염없이 숨어있으니, 길 너머 풀숲에서 부스럭 거리는 소리가 들린다.");
+            Console.ReadKey();
+            Console.WriteLine("조심스럽게 접근한다.");
+            Console.ReadKey();
+            Random rand = new Random();
+            int plusPoint;
+            if (frenchSuccess == false)
+            {
+                plusPoint = 0;
+            }
+            else
+            {
+                plusPoint = 1;
+            }
+            int attack = rand.Next(2 + plusPoint);
+            switch (attack)
+            {
+                case 1:
+                    Console.WriteLine("기습실패");
+                    Console.ReadKey();
+                    Console.WriteLine("눈앞에서 포상이 날아갔다...");
+                    OneMonthLater();
+                    break;
+
+                default:
+                    Console.WriteLine("기습성공");
+                    Console.ReadKey();
+                    Console.WriteLine("안정적으로 거수자를 제압했다.");
+                    Console.ReadKey();
+                    Console.WriteLine("포상금을 받았다.");
+                    player1._gold += 100;
+                    OneMonthLater();
+
+                    break;
+            }
+
+
+        }
+        //참호 파기
+        static void French(Enemy enemy)
+        {
+            //판 깊이. = 100cm - 적 체력
+            //남은 깊이 = 적 체력
+
+            int depth = (100 - enemy.EnemyHp) / 10;
+
+            Console.Clear();
+            Console.WriteLine();
+            Console.Write("의 남은 깊이: ");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"{enemy.EnemyHp} cm");
+            Console.ResetColor();
+            Console.WriteLine($"남은 기회: {enemy.EnemyAtk}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("=땅===------------------=====");
+
+            for (int i = 0; i <= depth; i++)
+            {
+                Console.WriteLine("     =                  =    ");
+            }
+            Console.WriteLine("     ====================");
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.WriteLine("<<삽질하려면 ENTER>>");
+            Console.WriteLine();
+            Console.ReadKey();
+
+            if (enemy.EnemyHp > 0)
+            {
+                if (enemy.EnemyAtk > 0)
+                {
+                    enemy.EnemyHp -= player1.Str;
+                    if (enemy.EnemyHp < 0)
+                    {
+                        Console.WriteLine($"땅을{player1.Str + enemy.EnemyHp}cm 만큼 팠습니다.");
+                        enemy.EnemyHp = 0;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"땅을 {player1.Str}cm 만큼 팠습니다.");
+                    }
+
+                    Console.ReadKey();
+                    enemy.EnemyAtk--;
+                    French(french);
+                }
+                else
+                {
+                    Console.WriteLine("제한 시간 내에 땅을 다 못팠다.");
+                    frenchSuccess = false;
+                }
+            }
+            else
+            {
+                Console.WriteLine("땅파기 끝");
+                frenchSuccess = true;
+            }
+
+        }
+
+
+
+        //상병 스토리- 분대장 교육
+        static void CSschool()
+        {
+            Console.Clear();
+            Console.WriteLine("어쩌다보니 분대장으로 뽑혔다.");
+            Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("분대장 교육대로 이동중...");
+            Console.ResetColor();
+            Console.ReadKey();
+            Console.WriteLine("분대장 교육대에서 받은 성적을 통해 추가 보상이 있을 예정이다.");
+            Console.ReadKey();
+            Console.WriteLine("시간이 흘러 분대장 교육이 끝났다.");
+            Console.ReadKey();
+            Console.WriteLine("당신의 성적은...?");
+            Console.ReadKey();
+            Random rand = new Random();
+            int number = rand.Next(10);
+            switch (number)
+            {
+                case 0:
+                    Console.WriteLine("1등!");
+                    Console.ReadKey();
+                    Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
+                    Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                    player1.IQ += 10;
+                    player1.Str += 10;
+                    player1.Dex += 10;
+                    player1.Luk += 10;
+                    break;
+                case 1:
+                    Console.WriteLine("2등!");
+                    Console.ReadKey();
+                    Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
+                    Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                    player1.IQ += 9;
+                    player1.Str += 9;
+                    player1.Dex += 9;
+                    player1.Luk += 9;
+                    break;
+                case 2:
+                    Console.WriteLine("3등!");
+                    Console.ReadKey();
+                    Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
+                    Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                    player1.IQ += 8;
+                    player1.Str += 8;
+                    player1.Dex += 8;
+                    player1.Luk += 8;
+                    break;
+                case 3:
+                    Console.WriteLine("4등!");
+                    Console.ReadKey();
+                    Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
+                    Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                    player1.IQ += 7;
+                    player1.Str += 7;
+                    player1.Dex += 7;
+                    player1.Luk += 7;
+                    break;
+                case 4:
+                    Console.WriteLine("5등!");
+                    Console.ReadKey();
+                    Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
+                    Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                    player1.IQ += 6;
+                    player1.Str += 6;
+                    player1.Dex += 6;
+                    player1.Luk += 6;
+                    break;
+                case 5:
+                    Console.WriteLine("6등!");
+                    Console.ReadKey();
+                    Console.WriteLine("축하합니다! 당신은 교육을 수료하셨습니다.");
+                    Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                    player1.IQ += 5;
+                    player1.Str += 5;
+                    player1.Dex += 5;
+                    player1.Luk += 5;
+                    break;
+                case 6:
+                    Console.WriteLine("7등!");
+                    Console.ReadKey();
+                    Console.WriteLine("축하합니다! 당신은 교육을 수료하셨습니다.");
+                    Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                    player1.IQ += 4;
+                    player1.Str += 4;
+                    player1.Dex += 4;
+                    player1.Luk += 4;
+                    break;
+                case 7:
+                    Console.WriteLine("8등!");
+                    Console.ReadKey();
+                    Console.WriteLine("축하합니다! 당신은 교육을 수료하셨습니다.");
+                    Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                    player1.IQ += 3;
+                    player1.Str += 3;
+                    player1.Dex += 3;
+                    player1.Luk += 3;
+                    break;
+                case 8:
+                    Console.WriteLine("9등!");
+                    Console.ReadKey();
+                    Console.WriteLine("축하합니다! 당신은 교육을 수료하셨습니다.");
+                    Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                    player1.IQ += 2;
+                    player1.Str += 2;
+                    player1.Dex += 2;
+                    player1.Luk += 2;
+                    break;
+                case 9:
+                    Console.WriteLine("10등!");
+                    Console.ReadKey();
+                    Console.WriteLine("축하합니다! 교육을 수료하셨습니다.");
+                    Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                    player1.IQ += 1;
+                    player1.Str += 1;
+                    player1.Dex += 1;
+                    player1.Luk += 1;
+                    break;
+            }
+            Console.ReadKey();
+            Console.WriteLine("당신은 녹견을 획득했다.");
+            player1.AddToInventory(greenStrap);
+            Console.ReadKey();
+            Console.WriteLine("교육이 끝나고 막사로 복귀했다.");
+
+            OneMonthLater();
+
+
+        }
+        //상병 스토리- 보스몹 초임 소대장
+        static void CSNewCommander(Character player, Enemy enemy)
+        {
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine("오늘은 새로운 소위가 임관하는 날이다.");
+            Console.ReadKey();
+            Console.WriteLine("관상부터 FM인게 보인다.");
+            Console.WriteLine("ㅈ된듯 하다.");
+            Console.ReadKey();
+            Console.WriteLine("얼마 후...");
+            Console.ReadKey();
+            Console.WriteLine($"{enemy.EnemyName}: 이봐 {player.Name} 상병. ");
+            Console.ReadKey();
+            Console.WriteLine($"상병 {player.Name}. 무슨일이십니까? ");
+            Console.ReadKey();
+            Console.WriteLine($"{enemy.EnemyName}: 배수로 작업 하러 가지.");
+            Console.ReadKey();
+            Console.WriteLine("얼마 후...");
+            Console.WriteLine("얼마 후...");
+            Console.WriteLine("얼마 후...");
+            Console.WriteLine("얼마 후...");
+            Console.WriteLine("얼마 후...");
+            Console.WriteLine("전투시작");
+            CSCommanderAttack(player1, newCommander);
+
+        }
+        static void CSCommanderAttack(Character player, Enemy enemy)
+        {
+            if (player1.Hp > 0 && enemy.EnemyHp > 0)
+            {
+                Console.Clear();
+                Console.WriteLine("================================");
+                Console.Write("소대장의 체력: ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"{enemy.EnemyHp}");
+                Console.ResetColor();
+                Console.WriteLine("");
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine($"{player.Name}의 체력: {player.Hp}");
+                Console.ResetColor();
+                Console.WriteLine("================================");
+                Console.WriteLine("이번턴에 하실 행동을 골라주세요");
+
+                Console.WriteLine("");
+                Console.WriteLine("1. 일반 공격하기");
+                Console.WriteLine("2. 스킬 사용하기");
+                Console.WriteLine("");
+
+                int input = CheckValidInput(1, 2);
+                if (input == 1)
+                {
+                    Random rand = new Random();
+                    int number = rand.Next(player.Luk);
+                    if (number <= 5) //따로 추가 스탯 없을경우 평타
+                    {
+                        enemy.EnemyHp -= player.Str;
+                        Console.WriteLine("당신의 공격!");
+                        Thread.Sleep(500);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write($"{player.Str}");
+                        Console.ResetColor();
+                        Console.WriteLine("의 데미지를 주었다.");
+                        Thread.Sleep(500);
+                        Console.WriteLine($"{enemy.EnemyName}의 공격!");
+                        Console.WriteLine($"{enemy.EnemyAtk}만큼의 데미지를 입었다.");
+                        Console.ReadKey();
+                        if (newCommander.EnemyHp <= 0)
+                        {
+                            CSCommanderDead();
+                        }
+                        CSCommanderAttack(player1, newCommander);
+
+
+                    }
+
+                    else //치명타 (luk의 추가 스탯이 많을 수록 확률이 올라감)
+                    {
+                        enemy.EnemyHp -= player.Str + player.Luk;
+                        Console.WriteLine("당신의 공격");
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        Console.WriteLine("치명타!");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("{0}", player1.Str + player.Luk);
+                        Console.ResetColor();
+                        Console.WriteLine("만큼의 데미지를 주었다.");
+                        Thread.Sleep(500);
+                        Console.WriteLine($"{enemy.EnemyName}의 공격!");
+                        Console.WriteLine($"{enemy.EnemyAtk}만큼의 데미지를 입었다.");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        if (newCommander.EnemyHp <= 0)
+                        {
+                            CSCommanderDead();
+                        }
+                        CSCommanderAttack(player1, newCommander);
+                    }
+
+                }
+                else//스킬사용하기
+                {
+                    Console.WriteLine("스킬을 사용했다.");
+                    //스킬
+                    CSCommanderAttack(player1, newCommander);
+                }
+            }
+
+        }
+
+        static void CSCommanderDead()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("소대장을 쓰러트렸다.");
+            Console.ResetColor();
+            OneMonthLater();
+        }
+        #endregion
+
+
+
+
+        #region Cursor선택 캡슐화
+        // Cursor선택 메서드
+        static int CursorChoice(ConsoleKeyInfo e, int _cursor, string[] _text, ref bool _onScene)
+
+
+        {
+            switch (e.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    _cursor--;
+                    if (_cursor < 0) _cursor = _text.Length - 1;
+                    break;
+                case ConsoleKey.DownArrow:
+                    _cursor++;
+                    if (_cursor > _text.Length - 1) _cursor = 0;
+                    break;
+                case ConsoleKey.Enter:
+                    _onScene = false;
+                    break;
+                default:
+                    break;
+            }
+            return _cursor;
+        }
+
+
+
+
+
+        #endregion
+
+        #region Text 선택지 출력 캡슐화
+        // Text 출력 캡슐화
+        static void TextChoice(int _cursor, string[] _text)
+        {
+            for (int i = 0; i < _text.Length; i++)
+            {
+                if (_cursor == i) Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(_text[i]);
+                Console.ResetColor();
+            }
+        }
+        #endregion
+
+
+
+
+
+        #region 혹한기
+        static void ColdWeatherTraining1()
+        {
+            Console.Clear();
+            Console.WriteLine("혹한기 훈련이 시작되었다.");
+            Console.WriteLine("혹한기 일정동안 px는 잠시 폐쇠한다고 한다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 다행이다 미리 준비를 해놨어");
+            Console.WriteLine($"2. 큰일이다 이번 혹한기는 살아남을 수 있을까");
+            Console.WriteLine();
             int input = CheckValidInput(1, 2);
-            if (input == 1)
+            switch (input)
             {
-                Random rand = new Random();
-                int number = rand.Next(player.Luk);
-                if (number <= 5) //따로 추가 스탯 없을경우 평타
-                {
-                    enemy.EnemyHp -= player.Str;
-                    Console.WriteLine("당신의 공격!");
-                    Thread.Sleep(500);
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write($"{player.Str}");
-                    Console.ResetColor();
-                    Console.WriteLine("의 데미지를 주었다.");
-                    Thread.Sleep(500);
-                    Console.WriteLine($"{enemy.EnemyName}의 공격!");
-                    Console.WriteLine($"{enemy.EnemyAtk}만큼의 데미지를 입었다.");
-                    Console.ReadKey();
-                    if (newCommander.EnemyHp <= 0)
-                    {
-                        CSCommanderDead();
-                    }
-                    CSCommanderAttack(player1, newCommander);
-
-
-                }
-
-                else //치명타 (luk의 추가 스탯이 많을 수록 확률이 올라감)
-                {
-                    enemy.EnemyHp -= player.Str + player.Luk;
-                    Console.WriteLine("당신의 공격");
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine("치명타!");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write("{0}", player1.Str + player.Luk);
-                    Console.ResetColor();
-                    Console.WriteLine("만큼의 데미지를 주었다.");
-                    Thread.Sleep(500);
-                    Console.WriteLine($"{enemy.EnemyName}의 공격!");
-                    Console.WriteLine($"{enemy.EnemyAtk}만큼의 데미지를 입었다.");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    if (newCommander.EnemyHp <= 0)
-                    {
-                        CSCommanderDead();
-                    }
-                    CSCommanderAttack(player1, newCommander);
-                }
-
-            }
-            else//스킬사용하기
-            {
-                Console.WriteLine("스킬을 사용했다.");
-                //스킬
-                CSCommanderAttack(player1, newCommander);
+                case 1:
+                    ColdWeatherTraining2(); //인벤토리에 장비와 음식이 구비되어 있으면 선택 가능
+                    break;
+                case 2:
+                    ColdWeatherTraining2();
+                    break;
             }
         }
-
-    }
-
-    private static void CSCommanderDead()
-    {
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("소대장을 쓰러트렸다.");
-        Console.ResetColor();
-        OneMonthLater();
-    }
-    #endregion
-
-
-
-
-    #region Cursor선택 캡슐화
-    // Cursor선택 메서드
-    static int CursorChoice(ConsoleKeyInfo e, int _cursor, string[] _text, ref bool _onScene)
-
-
-    {
-        switch (e.Key)
+        static void ColdWeatherTraining2()
         {
-            case ConsoleKey.UpArrow:
-                _cursor--;
-                if (_cursor < 0) _cursor = _text.Length - 1;
-                break;
-            case ConsoleKey.DownArrow:
-                _cursor++;
-                if (_cursor > _text.Length - 1) _cursor = 0;
-                break;
-            case ConsoleKey.Enter:
-                _onScene = false;
-                break;
-            default:
-                break;
-        }
-        return _cursor;
-    }
-
-
-
-
-
-    #endregion
-
-    #region Text 선택지 출력 캡슐화
-    // Text 출력 캡슐화
-    static void TextChoice(int _cursor, string[] _text)
-    {
-        for (int i = 0; i < _text.Length; i++)
-        {
-            if (_cursor == i) Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(_text[i]);
-            Console.ResetColor();
-        }
-    }
-    #endregion
-
-
-
-
-    static int workCount = 0;
-    static int Perfection = 0;
-    #region 혹한기
-    static void ColdWeatherTraining1()
-    {
-        Console.Clear();
-        Console.WriteLine("혹한기 훈련이 시작되었다.");
-        Console.WriteLine("혹한기 일정동안 px는 잠시 폐쇠한다고 한다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 다행이다 미리 준비를 해놨어");
-        Console.WriteLine($"2. 큰일이다 이번 혹한기는 살아남을 수 있을까");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTraining2(); //인벤토리에 장비와 음식이 구비되어 있으면 선택 가능
-                break;
-            case 2:
-                ColdWeatherTraining2();
-                break;
-        }
-    }
-    static void ColdWeatherTraining2()
-    {
-        Console.Clear();
-        Console.WriteLine("뒷산에 24인용 텐트로 중대 본부를 설치해야한다.");
-        Console.WriteLine("우리 중대장님이 힘이 없는건가, 땅 밑에 바위가 많은 곳을 배정받았다.");
-        Console.WriteLine("바위를 깨야한다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 경계근무라고 이빨친 뒤 작업에서 빠진다.");
-        Console.WriteLine($"2. 간부님들도 많은데 내가 빠지기엔 눈치 보인다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTrainingBattle1(player1.Dex); //덱스를 기반으로한 확률 높으면 행보관 피하고 바로 불침번으로 넘어감
-                break;
-            case 2:
-                ColdWeatherTraining3(); //지옥의 작업 시작
-                break;
-        }
-    }
-    static void ColdWeatherTrainingBattle1(int stat)
-    {
-        bool eventOccurred = EventOccur(player1.CalculateProbability(stat));
-        if (eventOccurred)
-        {
-            Console.WriteLine("행보관님에게 걸렸다.");
-        }
-        else
-        {
-            Console.WriteLine("개꿀 일과 빼먹었다.");
-            Console.WriteLine("press any Key");
-
-        }
-
-        //행보관님과 배틀
-    }
-    static void ColdWeatherTraining3()
-    {
-        Console.Clear();
-        Console.WriteLine("행보관님이 곡괭이를 들고 땅을 내리치고 있다.");
-        Console.WriteLine("옆에선 소대장님이 철조망을 치려고 병사들을 부르고 있다.");
-        Console.WriteLine("누굴 도와야 할까");
-        Console.WriteLine();
-        Console.WriteLine($"1. 행보관님을 도와 바위를 깬다.");
-        Console.WriteLine($"2. 소대장님과 같이 철조망을 친다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTrainingNCORoot();
-                break;
-            case 2:
-                ColdWeatherTrainingNCORoot();
-                break;
-        }
-    }
-
-    static void ColdWeatherTrainingNCORoot()
-    {
-        Console.Clear();
-        Console.WriteLine("행보관님께서 손 다친다며 장갑을 주셨고 곡괭이를 넘겨 받아 바위를 깨기 시작했다.");
-        Console.WriteLine("곡괭이질 몇번하니 힘이 빠지기 시작했다. 내가 힘이 빠지는게 보이자");
-        Console.WriteLine("행보관님께서 다시 교대를 하자고 하신다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 이 바위까지만 제가 깨겠습니다.");
-        Console.WriteLine($"2. 행보관님께 바로 곡괭이를 드린다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTrainingNCORoot1();
-                break;
-            case 2:
-                ColdWeatherTrainingNCORoot2();
-                break;
-        }
-    }
-
-    static void ColdWeatherTrainingNCORoot1()
-    {
-        Console.Clear();
-        Console.WriteLine("내가 곡괭이질 하는 동안 행보관님께서 막사에 다녀오셨다.");
-        Console.WriteLine("막사에 다녀온 행보관님께서 착암기를 가져오셨다.");
-        Console.WriteLine("역시 행보관님이야");
-        Console.WriteLine();
-        Console.WriteLine($"1. 착암기로 돌을 부순다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 1);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTraining5();
-                break;
-
-        }
-    }
-    static void ColdWeatherTrainingNCORoot2()
-    {
-        Console.Clear();
-        Console.WriteLine("행보관님과 번갈아 곡괭이 질을 하기 시작했다.");
-        Console.WriteLine("오랜 작업으로 힘이 많이 빠졌다.");
-        Console.WriteLine("병장인데 이런 고생을 해야하나");
-        Console.WriteLine();
-        Console.WriteLine($"1. 소대장님한테 붙을걸 그랬다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 1);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTraining5();
-                break;
-        }
-    }
-    static void ColdWeatherTrainingCORoot()
-    {
-        Console.Clear();
-        Console.WriteLine("여기가 사람이 많아서 더 쉬워보인다.");
-        Console.WriteLine("2단3열 윤형 철조망을 쳐야한다.");
-        Console.WriteLine("소대장님이 나서서 뭔가를 하려고 한다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 가만히 지켜본다.");
-        Console.WriteLine($"2. 소대장님을 도와준다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTrainingCORoot1();
-                break;
-            case 2:
-                ColdWeatherTrainingCORoot1();
-                break;
-        }
-    }
-    static void ColdWeatherTrainingCORoot1()
-    {
-        Console.Clear();
-        //Console.WriteLine("소대장님이 사고를 쳤다.");
-        //Console.WriteLine("철조망이 서로 얽혀서 모양이 이쁘지 않게 되었다.");
-
-        Console.WriteLine("1단에 두개의 철조망을 깔고 2단에 한개의 철조망을 올려야한다. ");
-        Console.WriteLine();
-        Console.WriteLine($"1. 가만히 지켜본다.");
-        Console.WriteLine($"2. 같이 작업을 시작한다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTraining5();
-                break;
-            case 2:
-                ColdWeatherTraining5();
-                break;
-        }
-    }
-
-    static void ColdWeatherTraining4()
-    {
-        Console.Clear();
-        Console.WriteLine("숙영하기 위해 D형 텐트를 쳐야한다.");
-        Console.WriteLine("숙영하기 위해 D형 텐트를 쳐야한다.");
-        Console.WriteLine("옆에선 소대장님이 철조망을 치려고 병사들을 부르고 있다.");
-        Console.WriteLine("누굴 도와야 할까");
-        Console.WriteLine();
-        Console.WriteLine($"1. 행보관님을 도와 바위를 깬다.");
-        Console.WriteLine($"2. 소대장님과 같이 철조망을 친다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTrainingNCORoot();
-                break;
-            case 2:
-                ColdWeatherTrainingCORoot();
-                break;
-        }
-    }
-
-    static void ColdWeatherTraining5()
-    {
-        Console.Clear();
-        Console.WriteLine("오후 일과가 끝났다.");
-        Console.WriteLine("숙영을 하기 떄문에 저녁식사 추진 후 바로 취침이다.");
-        Console.WriteLine("그래서 불침번 근무가 많아졌기에 나도 들어가야한다.");
-        Console.WriteLine();
-        Console.WriteLine($"??? : 김굳건 병장님 일어나셔야합니다.");
-        Console.WriteLine("불침번이 내 차례까지 왔다.");
-        Console.WriteLine("후임에게 인원체크를 시키고 구석에 쪼그려 앉았다.");
-        Console.WriteLine("그러자 숲속에서 소리가 들려온다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 무시한다.");
-        Console.WriteLine($"2. 경계한다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTrainingBattle2(); //데미지 받고 시작
-                break;
-            case 2:
-                ColdWeatherTrainingBattle2(); //데미지 받지 않고 시작
-                break;
-        }
-    }
-    static void ColdWeatherTrainingBattle2()
-    {
-        //고라니와 배틀
-    }
-
-    static void ColdWeatherTraining6()
-    {
-        //혹한기 훈련 끝
-        Console.Clear();
-        Console.WriteLine("오후 일과가 끝났다.");
-        Console.WriteLine("숙영을 하기 떄문에 저녁식사 추진 후 바로 취침이다.");
-        Console.WriteLine("그래서 불침번 근무가 많아졌기에 나도 들어가야한다.");
-        Console.WriteLine();
-        Console.WriteLine($"??? : 김굳건 병장님 일어나셔야합니다.");
-        Console.WriteLine("불침번이 내 차례까지 왔다.");
-        Console.WriteLine("후임에게 인원체크를 시키고 구석에 쪼그려 앉았다.");
-        Console.WriteLine("그러자 숲속에서 소리가 들려온다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 무시한다.");
-        Console.WriteLine($"2. 경계한다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTrainingBattle2(); //데미지 받고 시작
-                break;
-            case 2:
-                ColdWeatherTrainingBattle2(); //데미지 받지 않고 시작
-                break;
-        }
-    }
-    #endregion
-    #region 작업
-    static void HardWork()
-    {
-        workCount++;
-        Console.Clear();
-        Console.WriteLine("아침에 행정반을 가니 행보관님계서 두가지 선택권을 주셨다.");
-        Console.WriteLine("하나는 행보관님과 공구리를 치는것이고 하나는 보급병과 창고정리를 하는 것이다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 행보관님과 공구리 작업");
-        Console.WriteLine($"2. 보급병과 창고정리");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                CementWork1();
-                break;
-            case 2:
-                WarehouseWokr1();
-                break;
-        }
-    }
-
-    static void CementWork1()
-    {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("시멘트 포대를 옮겨야 한다.");
-        Console.WriteLine("말년에는 떨어지는 낙엽도 조심하라고 하는데 나에게는 너무 가혹한 일이다.");
-        Console.WriteLine("나와 같이 배정받은 후임들이 보인다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 후임들에게 시키고 관리 감독을 한다");
-        Console.WriteLine($"2. 후임들과 함께 포대를 옮긴다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                workCount += 1;
-                Perfection += 1;
-                CementWork2();
-                break;
-            case 2:
-                workCount += 1;
-                Perfection += 3;
-                CementWork2();
-                break;
-        }
-    }
-    static void CementWork2()
-    {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("시멘트를 물과 섞어야한다.");
-        Console.WriteLine("옆에는 교회가 있고 군종병이 청소를 한다고 문을 열어뒀다.");
-        Console.WriteLine("주변을 둘러보니 간부는 보이지 않는다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 교회에 들어가서 한숨 잔다.");
-        Console.WriteLine("2. 후임들을 믿을 수 없다 직접 시멘트를 만든다.");
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                workCount += 2;
-                Perfection = 1; //확률 넣어야함
-                CementWork3();
-                break;
-            case 2:
-                workCount += 1;
-                Perfection += 2;
-                CementWork3();
-                break;
-        }
-    }
-    static void CementWork3()
-    {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
-        Console.WriteLine("하지만 점심 먹고 슬 잠이 쏟아진다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 생활관에 숨어서 계속 잠을 잔다.");
-        Console.WriteLine("2. 후임들을 통솔하고 작업하러 떠난다.");
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                workCount += 3;
-                Perfection += 3; //확률 넣어야함
-                CementWorkLoop();
-                break;
-            case 2:
-                workCount += 1;
-                Perfection += 3;
-                CementWorkLoop();
-                break;
-        }
-
-    }
-    static void CementWork4()
-    {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("후임들이 곤란해 하는 것 같다.");
-        Console.WriteLine("도와주면 쉽게 끝낼 수 있을 것 같다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 계속 지켜본다.");
-        Console.WriteLine("2. 후임들에게 시범을 보여준다.");
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                workCount += 1;
-                Perfection += 2;
-                CementWorkLoop();
-                break;
-            case 2:
-                workCount += 1;
-                Perfection += 1; //확률로 마이너스
-                CementWorkLoop();
-                break;
-        }
-
-    }
-    static void CementWork5()
-    {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
-        Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 계속 지켜본다");
-        Console.WriteLine("2. 후임들을 도와 작업을 마무리한다");
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                workCount += 1;
-                Perfection += 3;
-                CementWorkLoop();
-                break;
-            case 2:
-                workCount += 1;
-                Perfection += 1;
-                CementWorkLoop();
-                break;
-        }
-
-    }
-    static void CementWorkLoop()
-    {
-        Random random = new Random();
-        if (workCount < 9)
-        {
-            if (Perfection < 10)
+            Console.Clear();
+            Console.WriteLine("뒷산에 24인용 텐트로 중대 본부를 설치해야한다.");
+            Console.WriteLine("우리 중대장님이 힘이 없는건가, 땅 밑에 바위가 많은 곳을 배정받았다.");
+            Console.WriteLine("바위를 깨야한다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 경계근무라고 이빨친 뒤 작업에서 빠진다.");
+            Console.WriteLine($"2. 간부님들도 많은데 내가 빠지기엔 눈치 보인다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
             {
-                int randomChoice = random.Next(0, 2);
+                case 1:
+                    ColdWeatherTrainingBattle1(player1.Dex); //덱스를 기반으로한 확률 높으면 행보관 피하고 바로 불침번으로 넘어감
+                    break;
+                case 2:
+                    ColdWeatherTraining3(); //지옥의 작업 시작
+                    break;
+            }
+        }
+        static void ColdWeatherTrainingBattle1(int stat)
+        {
+            bool eventOccurred = EventOccur(player1.CalculateProbability(stat));
+            if (eventOccurred)
+            {
+                Console.WriteLine("행보관님에게 걸렸다.");
+            }
+            else
+            {
+                Console.WriteLine("개꿀 일과 빼먹었다.");
+                Console.WriteLine("press any Key");
 
-                if (randomChoice == 0)
+            }
+
+            //행보관님과 배틀
+        }
+        static void ColdWeatherTraining3()
+        {
+            Console.Clear();
+            Console.WriteLine("행보관님이 곡괭이를 들고 땅을 내리치고 있다.");
+            Console.WriteLine("옆에선 소대장님이 철조망을 치려고 병사들을 부르고 있다.");
+            Console.WriteLine("누굴 도와야 할까");
+            Console.WriteLine();
+            Console.WriteLine($"1. 행보관님을 도와 바위를 깬다.");
+            Console.WriteLine($"2. 소대장님과 같이 철조망을 친다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    ColdWeatherTrainingNCORoot();
+                    break;
+                case 2:
+                    ColdWeatherTrainingNCORoot();
+                    break;
+            }
+        }
+
+        static void ColdWeatherTrainingNCORoot()
+        {
+            Console.Clear();
+            Console.WriteLine("행보관님께서 손 다친다며 장갑을 주셨고 곡괭이를 넘겨 받아 바위를 깨기 시작했다.");
+            Console.WriteLine("곡괭이질 몇번하니 힘이 빠지기 시작했다. 내가 힘이 빠지는게 보이자");
+            Console.WriteLine("행보관님께서 다시 교대를 하자고 하신다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 이 바위까지만 제가 깨겠습니다.");
+            Console.WriteLine($"2. 행보관님께 바로 곡괭이를 드린다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    ColdWeatherTrainingNCORoot1();
+                    break;
+                case 2:
+                    ColdWeatherTrainingNCORoot2();
+                    break;
+            }
+        }
+
+        static void ColdWeatherTrainingNCORoot1()
+        {
+            Console.Clear();
+            Console.WriteLine("내가 곡괭이질 하는 동안 행보관님께서 막사에 다녀오셨다.");
+            Console.WriteLine("막사에 다녀온 행보관님께서 착암기를 가져오셨다.");
+            Console.WriteLine("역시 행보관님이야");
+            Console.WriteLine();
+            Console.WriteLine($"1. 착암기로 돌을 부순다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 1);
+            switch (input)
+            {
+                case 1:
+                    ColdWeatherTraining5();
+                    break;
+
+            }
+        }
+        static void ColdWeatherTrainingNCORoot2()
+        {
+            Console.Clear();
+            Console.WriteLine("행보관님과 번갈아 곡괭이 질을 하기 시작했다.");
+            Console.WriteLine("오랜 작업으로 힘이 많이 빠졌다.");
+            Console.WriteLine("병장인데 이런 고생을 해야하나");
+            Console.WriteLine();
+            Console.WriteLine($"1. 소대장님한테 붙을걸 그랬다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 1);
+            switch (input)
+            {
+                case 1:
+                    ColdWeatherTraining5();
+                    break;
+            }
+        }
+        static void ColdWeatherTrainingCORoot()
+        {
+            Console.Clear();
+            Console.WriteLine("여기가 사람이 많아서 더 쉬워보인다.");
+            Console.WriteLine("2단3열 윤형 철조망을 쳐야한다.");
+            Console.WriteLine("소대장님이 나서서 뭔가를 하려고 한다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 가만히 지켜본다.");
+            Console.WriteLine($"2. 소대장님을 도와준다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    ColdWeatherTrainingCORoot1();
+                    break;
+                case 2:
+                    ColdWeatherTrainingCORoot1();
+                    break;
+            }
+        }
+        static void ColdWeatherTrainingCORoot1()
+        {
+            Console.Clear();
+            //Console.WriteLine("소대장님이 사고를 쳤다.");
+            //Console.WriteLine("철조망이 서로 얽혀서 모양이 이쁘지 않게 되었다.");
+
+            Console.WriteLine("1단에 두개의 철조망을 깔고 2단에 한개의 철조망을 올려야한다. ");
+            Console.WriteLine();
+            Console.WriteLine($"1. 가만히 지켜본다.");
+            Console.WriteLine($"2. 같이 작업을 시작한다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    ColdWeatherTraining5();
+                    break;
+                case 2:
+                    ColdWeatherTraining5();
+                    break;
+            }
+        }
+
+        static void ColdWeatherTraining4()
+        {
+            Console.Clear();
+            Console.WriteLine("숙영하기 위해 D형 텐트를 쳐야한다.");
+            Console.WriteLine("숙영하기 위해 D형 텐트를 쳐야한다.");
+            Console.WriteLine("옆에선 소대장님이 철조망을 치려고 병사들을 부르고 있다.");
+            Console.WriteLine("누굴 도와야 할까");
+            Console.WriteLine();
+            Console.WriteLine($"1. 행보관님을 도와 바위를 깬다.");
+            Console.WriteLine($"2. 소대장님과 같이 철조망을 친다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    ColdWeatherTrainingNCORoot();
+                    break;
+                case 2:
+                    ColdWeatherTrainingCORoot();
+                    break;
+            }
+        }
+
+        static void ColdWeatherTraining5()
+        {
+            Console.Clear();
+            Console.WriteLine("오후 일과가 끝났다.");
+            Console.WriteLine("숙영을 하기 떄문에 저녁식사 추진 후 바로 취침이다.");
+            Console.WriteLine("그래서 불침번 근무가 많아졌기에 나도 들어가야한다.");
+            Console.WriteLine();
+            Console.WriteLine($"??? : 김굳건 병장님 일어나셔야합니다.");
+            Console.WriteLine("불침번이 내 차례까지 왔다.");
+            Console.WriteLine("후임에게 인원체크를 시키고 구석에 쪼그려 앉았다.");
+            Console.WriteLine("그러자 숲속에서 소리가 들려온다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 무시한다.");
+            Console.WriteLine($"2. 경계한다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    ColdWeatherTrainingBattle2(); //데미지 받고 시작
+                    break;
+                case 2:
+                    ColdWeatherTrainingBattle2(); //데미지 받지 않고 시작
+                    break;
+            }
+        }
+        static void ColdWeatherTrainingBattle2()
+        {
+            //고라니와 배틀
+        }
+
+        static void ColdWeatherTraining6()
+        {
+            //혹한기 훈련 끝
+            Console.Clear();
+            Console.WriteLine("오후 일과가 끝났다.");
+            Console.WriteLine("숙영을 하기 떄문에 저녁식사 추진 후 바로 취침이다.");
+            Console.WriteLine("그래서 불침번 근무가 많아졌기에 나도 들어가야한다.");
+            Console.WriteLine();
+            Console.WriteLine($"??? : 김굳건 병장님 일어나셔야합니다.");
+            Console.WriteLine("불침번이 내 차례까지 왔다.");
+            Console.WriteLine("후임에게 인원체크를 시키고 구석에 쪼그려 앉았다.");
+            Console.WriteLine("그러자 숲속에서 소리가 들려온다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 무시한다.");
+            Console.WriteLine($"2. 경계한다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    ColdWeatherTrainingBattle2(); //데미지 받고 시작
+                    break;
+                case 2:
+                    ColdWeatherTrainingBattle2(); //데미지 받지 않고 시작
+                    break;
+            }
+        }
+        #endregion
+        #region 작업
+
+
+        static void HardWork()
+        {
+            workCount++;
+            Console.Clear();
+            Console.WriteLine("아침에 행정반을 가니 행보관님계서 두가지 선택권을 주셨다.");
+            Console.WriteLine("하나는 행보관님과 공구리를 치는것이고 하나는 보급병과 창고정리를 하는 것이다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 행보관님과 공구리 작업");
+            Console.WriteLine($"2. 보급병과 창고정리");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    CementWork1();
+                    break;
+                case 2:
+                    WarehouseWokr1();
+                    break;
+            }
+        }
+
+        static void CementWork1()
+        {
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("시멘트 포대를 옮겨야 한다.");
+            Console.WriteLine("말년에는 떨어지는 낙엽도 조심하라고 하는데 나에게는 너무 가혹한 일이다.");
+            Console.WriteLine("나와 같이 배정받은 후임들이 보인다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 후임들에게 시키고 관리 감독을 한다");
+            Console.WriteLine($"2. 후임들과 함께 포대를 옮긴다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    workCount += 1;
+                    Perfection += 1;
+                    CementWork2();
+                    break;
+                case 2:
+                    workCount += 1;
+                    Perfection += 3;
+                    CementWork2();
+                    break;
+            }
+        }
+        static void CementWork2()
+        {
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("시멘트를 물과 섞어야한다.");
+            Console.WriteLine("옆에는 교회가 있고 군종병이 청소를 한다고 문을 열어뒀다.");
+            Console.WriteLine("주변을 둘러보니 간부는 보이지 않는다.");
+            Console.WriteLine();
+            Console.WriteLine("1. 교회에 들어가서 한숨 잔다.");
+            Console.WriteLine("2. 후임들을 믿을 수 없다 직접 시멘트를 만든다.");
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    workCount += 2;
+                    Perfection = 1; //확률 넣어야함
+                    CementWork3();
+                    break;
+                case 2:
+                    workCount += 1;
+                    Perfection += 2;
+                    CementWork3();
+                    break;
+            }
+        }
+        static void CementWork3()
+        {
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
+            Console.WriteLine("하지만 점심 먹고 슬 잠이 쏟아진다.");
+            Console.WriteLine();
+            Console.WriteLine("1. 생활관에 숨어서 계속 잠을 잔다.");
+            Console.WriteLine("2. 후임들을 통솔하고 작업하러 떠난다.");
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    workCount += 3;
+                    Perfection += 3; //확률 넣어야함
+                    CementWorkLoop();
+                    break;
+                case 2:
+                    workCount += 1;
+                    Perfection += 3;
+                    CementWorkLoop();
+                    break;
+            }
+
+        }
+        static void CementWork4()
+        {
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("후임들이 곤란해 하는 것 같다.");
+            Console.WriteLine("도와주면 쉽게 끝낼 수 있을 것 같다.");
+            Console.WriteLine();
+            Console.WriteLine("1. 계속 지켜본다.");
+            Console.WriteLine("2. 후임들에게 시범을 보여준다.");
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    workCount += 1;
+                    Perfection += 2;
+                    CementWorkLoop();
+                    break;
+                case 2:
+                    workCount += 1;
+                    Perfection += 1; //확률로 마이너스
+                    CementWorkLoop();
+                    break;
+            }
+
+        }
+        static void CementWork5()
+        {
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
+            Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
+            Console.WriteLine();
+            Console.WriteLine("1. 계속 지켜본다");
+            Console.WriteLine("2. 후임들을 도와 작업을 마무리한다");
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    workCount += 1;
+                    Perfection += 3;
+                    CementWorkLoop();
+                    break;
+                case 2:
+                    workCount += 1;
+                    Perfection += 1;
+                    CementWorkLoop();
+                    break;
+            }
+
+        }
+        static void CementWorkLoop()
+        {
+            Random random = new Random();
+            if (workCount < 9)
+            {
+                if (Perfection < 10)
                 {
-                    CementWork4();
+                    int randomChoice = random.Next(0, 2);
+
+                    if (randomChoice == 0)
+                    {
+                        CementWork4();
+                    }
+                    else
+                    {
+                        CementWork5();
+                    }
                 }
                 else
                 {
-                    CementWork5();
+                    Console.Clear();
+                    Console.WriteLine("작업이 완료되었다.");
+                    Console.WriteLine($"개인정비까지 {9 - workCount}시간 남았으니 휴식하자");
+                    Console.WriteLine("능력치 상승 & 스트레스 감소");
+                    Perfection = 0;
+                    workCount = 0;
+                }
+
+            }
+            else
+            {
+                if (Perfection >= 10)
+                {
+                    Console.Clear();
+                    Console.WriteLine("작업이 완료되었다.");
+                    Console.WriteLine($"개인정비까지 {9}시간 남았으니 휴식하자");
+                    Console.WriteLine("능력치 상승 & 스트레스 감소");
+                    Perfection = 0;
+                    workCount = 0;
+                }
+                else if (Perfection < 10 && Perfection >= 7)
+                {
+                    Perfection = 0;
+                    workCount = 0;
+                    Console.Clear();
+                    Console.WriteLine("일과가 마무리 되었다. 작업물이 살짝 아쉽지만 완벽한 가라는 진짜랬다.");
+                    Console.WriteLine("들키지만 않으면 아무렴 어떠한가");
+                    Console.WriteLine("능력치 상승 & 스트레스 감소");
+                }
+                else
+                {
+                    Perfection = 0;
+                    workCount = 0;
+                    Console.Clear();
+                    Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
+                    Console.WriteLine("시작하고 가만히 있었겄만 결과가 터무니 없다.");
+                    Console.WriteLine("개인정비 시간때 행보관님과 공구리 작업을 치게 되었다.");
+                    Console.WriteLine("능력치 상승 & 스트레스 상승");
                 }
             }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("작업이 완료되었다.");
-                Console.WriteLine($"개인정비까지 {9 - workCount}시간 남았으니 휴식하자");
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
-                Perfection = 0;
-                workCount = 0;
-            }
-
         }
-        else
+        static void WarehouseWokr1()
         {
-            if (Perfection >= 10)
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("보급병이 창고 현황판을 뽑고 있다.");
+            Console.WriteLine("그 동안 창고 열쇠를 챙기고 출발할 준비를 하자.");
+            Console.WriteLine("중대장님에게 상단키를 받아야한다. 중대장님이랑 마주치기 껄끄러운데...");
+            Console.WriteLine();
+            Console.WriteLine($"1. 후임에게 시킨다.");
+            Console.WriteLine($"2. 직접 상단키를 받아 창고 열쇠를 챙긴다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
             {
-                Console.Clear();
-                Console.WriteLine("작업이 완료되었다.");
-                Console.WriteLine($"개인정비까지 {9}시간 남았으니 휴식하자");
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
-                Perfection = 0;
-                workCount = 0;
-            }
-            else if (Perfection < 10 && Perfection >= 7)
-            {
-                Perfection = 0;
-                workCount = 0;
-                Console.Clear();
-                Console.WriteLine("일과가 마무리 되었다. 작업물이 살짝 아쉽지만 완벽한 가라는 진짜랬다.");
-                Console.WriteLine("들키지만 않으면 아무렴 어떠한가");
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
-            }
-            else
-            {
-                Perfection = 0;
-                workCount = 0;
-                Console.Clear();
-                Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
-                Console.WriteLine("시작하고 가만히 있었겄만 결과가 터무니 없다.");
-                Console.WriteLine("개인정비 시간때 행보관님과 공구리 작업을 치게 되었다.");
-                Console.WriteLine("능력치 상승 & 스트레스 상승");
+                case 1:
+                    workCount += 1;
+                    Perfection += 1; //일정 확률로 진행도 workcount +1
+                    WarehouseWokr2();
+                    break;
+                case 2:
+                    workCount += 1;
+                    Perfection += 1;
+                    WarehouseWokr2();
+                    break;
             }
         }
-    }
-    static void WarehouseWokr1()
-    {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("보급병이 창고 현황판을 뽑고 있다.");
-        Console.WriteLine("그 동안 창고 열쇠를 챙기고 출발할 준비를 하자.");
-        Console.WriteLine("중대장님에게 상단키를 받아야한다. 중대장님이랑 마주치기 껄끄러운데...");
-        Console.WriteLine();
-        Console.WriteLine($"1. 후임에게 시킨다.");
-        Console.WriteLine($"2. 직접 상단키를 받아 창고 열쇠를 챙긴다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                workCount += 1;
-                Perfection += 1; //일정 확률로 진행도 workcount +1
-                WarehouseWokr2();
-                break;
-            case 2:
-                workCount += 1;
-                Perfection += 1;
-                WarehouseWokr2();
-                break;
-        }
-    }
 
-    static void WarehouseWokr2()
-    {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        //workcount가 2일때 후임이 안들고왔다고 알림
-        Console.WriteLine("한겨울의 컨테이너 한기가 느껴진다.");
-        Console.WriteLine("창고 문을 열자 먼지가 날리고 냄새가 난다.");
-        Console.WriteLine("보급병이 창고 물건을 다 꺼내서 재고파악을 하려고 한다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 후임에게 시키고 간이 막사에서 한숨 잔다.");
-        Console.WriteLine($"2. A급 장비가 있는지 궁금하다. 같이 작업을 시작한다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        static void WarehouseWokr2()
         {
-            case 1:
-                workCount += 2;
-                Perfection += 1;
-                WarehouseWokr3();
-                break;
-            case 2:
-                workCount += 1;
-                Perfection += 2; //확률로 A급 장비 얻을 수 있음
-                WarehouseWokr3();
-                break;
-        }
-    }
-
-    static void WarehouseWokr3()
-    {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
-        Console.WriteLine("한기가 느껴졌던 컨테이너도 오후가 되니 열을 뿜고 있었고.");
-        Console.WriteLine("날이 풀려 몸이 따뜻해지고 슬 잠이 쏟아지기 시작한다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 오후에도 뭔 일이 있겠냐 간이 막사에서 한숨 잔다.");
-        Console.WriteLine("2. 할 일이 많이 남아 보인다. 같이 작업을 시작한다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                workCount += 2;
-                Perfection += 1;
-                WarehouseWokr4();
-                break;
-            case 2:
-                workCount += 1;
-                Perfection += 2; //확률로 A급 장비 얻을 수 있음
-                WarehouseWokr4();
-                break;
-        }
-    }
-
-    static void WarehouseWokr4()
-    {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("재고가 안맞는것 같다.");
-        Console.WriteLine("보급병은 그걸 또 다시 세고 있다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 계속 지켜본다.");
-        Console.WriteLine("2. 보급병에게 가라의 정석을 알려준다.");
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                workCount += 1;
-                Perfection += 3; //확률로 낮아질 수 있음
-                WarehouseWorkLoop();
-                break;
-            case 2:
-                workCount += 1;
-                Perfection += 1;
-                WarehouseWorkLoop();
-                break;
-        }
-    }
-    static void WarehouseWokr5()
-    {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
-        Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 계속 지켜본다");
-        Console.WriteLine("2. 후임들을 도와 작업을 마무리한다");
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                workCount += 1;
-                Perfection += 2; //확률로 낮아질 수 있음
-                WarehouseWorkLoop();
-                break;
-            case 2:
-                workCount += 1;
-                Perfection += 1; //확률로 A급 장비 얻을 수 있음
-                WarehouseWorkLoop();
-                break;
-        }
-    }
-
-    static void WarehouseWorkLoop()
-    {
-        Random random = new Random();
-        if (workCount < 9)
-        {
-            if (Perfection < 10)
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            //workcount가 2일때 후임이 안들고왔다고 알림
+            Console.WriteLine("한겨울의 컨테이너 한기가 느껴진다.");
+            Console.WriteLine("창고 문을 열자 먼지가 날리고 냄새가 난다.");
+            Console.WriteLine("보급병이 창고 물건을 다 꺼내서 재고파악을 하려고 한다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 후임에게 시키고 간이 막사에서 한숨 잔다.");
+            Console.WriteLine($"2. A급 장비가 있는지 궁금하다. 같이 작업을 시작한다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
             {
-                int randomChoice = random.Next(0, 2);
+                case 1:
+                    workCount += 2;
+                    Perfection += 1;
+                    WarehouseWokr3();
+                    break;
+                case 2:
+                    workCount += 1;
+                    Perfection += 2; //확률로 A급 장비 얻을 수 있음
+                    WarehouseWokr3();
+                    break;
+            }
+        }
 
-                if (randomChoice == 0)
-                {
+        static void WarehouseWokr3()
+        {
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
+            Console.WriteLine("한기가 느껴졌던 컨테이너도 오후가 되니 열을 뿜고 있었고.");
+            Console.WriteLine("날이 풀려 몸이 따뜻해지고 슬 잠이 쏟아지기 시작한다.");
+            Console.WriteLine();
+            Console.WriteLine("1. 오후에도 뭔 일이 있겠냐 간이 막사에서 한숨 잔다.");
+            Console.WriteLine("2. 할 일이 많이 남아 보인다. 같이 작업을 시작한다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    workCount += 2;
+                    Perfection += 1;
                     WarehouseWokr4();
+                    break;
+                case 2:
+                    workCount += 1;
+                    Perfection += 2; //확률로 A급 장비 얻을 수 있음
+                    WarehouseWokr4();
+                    break;
+            }
+        }
+
+        static void WarehouseWokr4()
+        {
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("재고가 안맞는것 같다.");
+            Console.WriteLine("보급병은 그걸 또 다시 세고 있다.");
+            Console.WriteLine();
+            Console.WriteLine("1. 계속 지켜본다.");
+            Console.WriteLine("2. 보급병에게 가라의 정석을 알려준다.");
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    workCount += 1;
+                    Perfection += 3; //확률로 낮아질 수 있음
+                    WarehouseWorkLoop();
+                    break;
+                case 2:
+                    workCount += 1;
+                    Perfection += 1;
+                    WarehouseWorkLoop();
+                    break;
+            }
+        }
+        static void WarehouseWokr5()
+        {
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
+            Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
+            Console.WriteLine();
+            Console.WriteLine("1. 계속 지켜본다");
+            Console.WriteLine("2. 후임들을 도와 작업을 마무리한다");
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    workCount += 1;
+                    Perfection += 2; //확률로 낮아질 수 있음
+                    WarehouseWorkLoop();
+                    break;
+                case 2:
+                    workCount += 1;
+                    Perfection += 1; //확률로 A급 장비 얻을 수 있음
+                    WarehouseWorkLoop();
+                    break;
+            }
+        }
+
+        static void WarehouseWorkLoop()
+        {
+            Random random = new Random();
+            if (workCount < 9)
+            {
+                if (Perfection < 10)
+                {
+                    int randomChoice = random.Next(0, 2);
+
+                    if (randomChoice == 0)
+                    {
+                        WarehouseWokr4();
+                    }
+                    else
+                    {
+                        WarehouseWokr5();
+                    }
                 }
                 else
                 {
-                    WarehouseWokr5();
+                    Console.Clear();
+                    Console.WriteLine("작업이 완료되었다.");
+                    Console.WriteLine($"개인정비까지 {9 - workCount}시간 남았으니 휴식하자");
+                    Console.WriteLine("능력치 상승 & 스트레스 감소");
+                    Perfection = 0;
+                    workCount = 0;
+                }
+
+            }
+            else
+            {
+                if (Perfection >= 10)
+                {
+                    Console.Clear();
+                    Console.WriteLine("작업이 완료되었다.");
+                    Console.WriteLine($"개인정비까지 {9}시간 남았으니 휴식하자");
+                    Console.WriteLine("능력치 상승 & 스트레스 감소");
+                    Perfection = 0;
+                    workCount = 0;
+                }
+                else if (Perfection < 10 && Perfection >= 7)
+                {
+                    Perfection = 0;
+                    workCount = 0;
+                    Console.Clear();
+                    Console.WriteLine("일과가 마무리 되었다. 작업물이 살짝 아쉽지만 완벽한 가라는 진짜랬다.");
+                    Console.WriteLine("들키지만 않으면 아무렴 어떠한가");
+                    Console.WriteLine("능력치 상승 & 스트레스 감소");
+                }
+                else
+                {
+                    Perfection = 0;
+                    workCount = 0;
+                    Console.Clear();
+                    Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
+                    Console.WriteLine("시작하고 가만히 있었겄만 결과가 터무니 없다.");
+                    Console.WriteLine("개인정비 시간때 행보관님과 공구리 작업을 치게 되었다.");
+                    Console.WriteLine("능력치 상승 & 스트레스 상승");
                 }
             }
-            else
-            {
-                Console.Clear();
-                Console.WriteLine("작업이 완료되었다.");
-                Console.WriteLine($"개인정비까지 {9 - workCount}시간 남았으니 휴식하자");
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
-                Perfection = 0;
-                workCount = 0;
-            }
-
         }
-        else
+        #endregion
+        #region 말출
+        static void LastLeave1()
         {
-            if (Perfection >= 10)
+            Console.Clear();
+            Console.WriteLine("말년휴가를 나오게 되었다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 일단 집으로 간다.");
+            Console.WriteLine($"2. 친구들과 연락을 한다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
             {
-                Console.Clear();
-                Console.WriteLine("작업이 완료되었다.");
-                Console.WriteLine($"개인정비까지 {9}시간 남았으니 휴식하자");
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
-                Perfection = 0;
-                workCount = 0;
-            }
-            else if (Perfection < 10 && Perfection >= 7)
-            {
-                Perfection = 0;
-                workCount = 0;
-                Console.Clear();
-                Console.WriteLine("일과가 마무리 되었다. 작업물이 살짝 아쉽지만 완벽한 가라는 진짜랬다.");
-                Console.WriteLine("들키지만 않으면 아무렴 어떠한가");
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
-            }
-            else
-            {
-                Perfection = 0;
-                workCount = 0;
-                Console.Clear();
-                Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
-                Console.WriteLine("시작하고 가만히 있었겄만 결과가 터무니 없다.");
-                Console.WriteLine("개인정비 시간때 행보관님과 공구리 작업을 치게 되었다.");
-                Console.WriteLine("능력치 상승 & 스트레스 상승");
+                case 1:
+                    LastLeave2();
+                    break;
+                case 2:
+                    LastLeave2();
+                    break;
             }
         }
-    }
-    #endregion
-    #region 말출
-    static void LastLeave1()
-    {
-        Console.Clear();
-        Console.WriteLine("말년휴가를 나오게 되었다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 일단 집으로 간다.");
-        Console.WriteLine($"2. 친구들과 연락을 한다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        static void LastLeave2()
         {
-            case 1:
-                LastLeave2();
-                break;
-            case 2:
-                LastLeave2();
-                break;
+            Console.Clear();
+            //아무도 연락되지 않음 그래서 혼자서 번화가로 나옴
+            Console.WriteLine("번화가로 나오게 되었다.");
+            Console.WriteLine("내 앞으로 이상형의 여성분이 지나간다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 말을 건다.");
+            Console.WriteLine($"2. 말을 걸지 않는다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    //여성분이 불쾌하게 처다봄
+                    LastLeave3();
+                    break;
+                case 2:
+                    LastLeave3();
+                    break;
+            }
         }
-    }
-    static void LastLeave2()
-    {
-        Console.Clear();
-        //아무도 연락되지 않음 그래서 혼자서 번화가로 나옴
-        Console.WriteLine("번화가로 나오게 되었다.");
-        Console.WriteLine("내 앞으로 이상형의 여성분이 지나간다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 말을 건다.");
-        Console.WriteLine($"2. 말을 걸지 않는다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        static void LastLeave3()
         {
-            case 1:
-                //여성분이 불쾌하게 처다봄
-                LastLeave3();
-                break;
-            case 2:
-                LastLeave3();
-                break;
+            Console.Clear();
+            //아무도 연락되지 않음 그래서 혼자서 번화가로 나옴
+            Console.WriteLine("여성분의 남자친구와 눈이 마주쳤다.");
+            Console.WriteLine("그리고 나를 밀쳐냈다.");
+            Console.WriteLine("군바리가 누구한테 찝쩍대는거야!");
+            Console.WriteLine();
+            Console.WriteLine($"1. 억울하다 싸운다.");
+            Console.WriteLine($"2. 사람 잘못봤습니다 죄송합니다.");
+            Console.WriteLine();
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    LastLeaveBattle1();
+                    break;
+                case 2:
+                    LastLeave4();
+                    break;
+            }
         }
-    }
-    static void LastLeave3()
-    {
-        Console.Clear();
-        //아무도 연락되지 않음 그래서 혼자서 번화가로 나옴
-        Console.WriteLine("여성분의 남자친구와 눈이 마주쳤다.");
-        Console.WriteLine("그리고 나를 밀쳐냈다.");
-        Console.WriteLine("군바리가 누구한테 찝쩍대는거야!");
-        Console.WriteLine();
-        Console.WriteLine($"1. 억울하다 싸운다.");
-        Console.WriteLine($"2. 사람 잘못봤습니다 죄송합니다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        static void LastLeaveBattle1()
         {
-            case 1:
-                LastLeaveBattle1();
-                break;
-            case 2:
-                LastLeave4();
-                break;
+            Console.Clear();
+            //남자와 배틀
+            //지면 경찰서에 끌려가서 행보관한테 복귀엔딩
+            //이기면 집으로 돌가는 엔딩
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    LastLeaveBattle2(); //이김
+                    break;
+                case 2:
+                    LastLeave4(); //짐
+                    break;
+            }
         }
-    }
-    static void LastLeaveBattle1()
-    {
-        Console.Clear();
-        //남자와 배틀
-        //지면 경찰서에 끌려가서 행보관한테 복귀엔딩
-        //이기면 집으로 돌가는 엔딩
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        static void LastLeaveBattle2()
         {
-            case 1:
-                LastLeaveBattle2(); //이김
-                break;
-            case 2:
-                LastLeave4(); //짐
-                break;
+            Console.Clear();
+            //남자와 배틀
+            //지면 경찰서에 끌려가서 행보관한테 복귀엔딩
+            //이기면 집으로 돌가는 엔딩
+            int input = CheckValidInput(1, 2);
+            switch (input)
+            {
+                case 1:
+                    LastLeave3();
+                    break;
+                case 2:
+                    LastLeave3();
+                    break;
+            }
         }
-    }
-    static void LastLeaveBattle2()
-    {
-        Console.Clear();
-        //남자와 배틀
-        //지면 경찰서에 끌려가서 행보관한테 복귀엔딩
-        //이기면 집으로 돌가는 엔딩
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        static void LastLeave4()
         {
-            case 1:
-                LastLeave3();
-                break;
-            case 2:
-                LastLeave3();
-                break;
+            Console.Clear();
+            //이 상황에 질려서 집에서 말년 보내는 엔딩
+            Console.WriteLine("밖은 위험하다 그냥 집에서 빈둥거리며 보내야겠다.");
         }
-    }
-    static void LastLeave4()
-    {
-        Console.Clear();
-        //이 상황에 질려서 집에서 말년 보내는 엔딩
-        Console.WriteLine("밖은 위험하다 그냥 집에서 빈둥거리며 보내야겠다.");
-    }
-    #endregion
-    #region 확률 구현
-    static bool EventOccur(double probability)
-    {
-        Random random = new Random();
-        return random.NextDouble() < probability;
-    }
-
-    #endregion
-
-    #region px로 가기
-    static void PX()
-    {
-        Console.Clear();
-
-        Console.WriteLine("                               _----_        ");
-        Console.WriteLine("                              | _  _ |       ");
-        Console.WriteLine("                              |  __  |       ");
-        Console.WriteLine("                              ,'----'.       ");
-        Console.WriteLine("                             |        |      ");
-        Console.WriteLine(" -------------------------------------------- ");
-        Console.WriteLine("                                           ");
-        Console.WriteLine("   _____  __   __                        ");
-        Console.WriteLine("  | ___ | | | / /                     ");
-        Console.WriteLine("  | |_/ /  | V /                      ");
-        Console.WriteLine("  |  __/   /   |                      ");
-        Console.WriteLine("  | |     / /| |                      ");
-        Console.WriteLine("  |_|    /_/  |_|                    ");
-        Console.WriteLine(" -------------------------------------------- ");
-        Console.WriteLine();
-        Console.WriteLine(" 이곳은 PX입니다.");
-        Console.WriteLine(" 장비와 회복아이템을 살 수 있습니다.");
-        Console.WriteLine();
-
-        Console.WriteLine($" 현재 소지금: {player1._gold}G"); //소지금 표시
-        Console.WriteLine("1. 장비코너");
-        Console.WriteLine("2. 음식코너");
-        Console.WriteLine("0. 막사");
-
-
-        int input = CheckValidInput(0, 2);
-        switch (input)
+        #endregion
+        #region 확률 구현
+        static bool EventOccur(double probability)
         {
-            case 0:
-                //막사로
-                Home();
-                break;
-            case 1:
-                // 상점에서 아이템을 구매하는 메서드 호출
-                EquipPx();
-                break;
-
-            case 2:
-                // 상점에서 아이템을 구매하는 메서드 호출
-                FoodPx();
-                break;
-
+            Random random = new Random();
+            return random.NextDouble() < probability;
         }
-    }
+
+        #endregion
+
+        #region px로 가기
+        static void PX()
+        {
+            Console.Clear();
+
+            Console.WriteLine("                               _----_        ");
+            Console.WriteLine("                              | _  _ |       ");
+            Console.WriteLine("                              |  __  |       ");
+            Console.WriteLine("                              ,'----'.       ");
+            Console.WriteLine("                             |        |      ");
+            Console.WriteLine(" -------------------------------------------- ");
+            Console.WriteLine("                                           ");
+            Console.WriteLine("   _____  __   __                        ");
+            Console.WriteLine("  | ___ | | | / /                     ");
+            Console.WriteLine("  | |_/ /  | V /                      ");
+            Console.WriteLine("  |  __/   /   |                      ");
+            Console.WriteLine("  | |     / /| |                      ");
+            Console.WriteLine("  |_|    /_/  |_|                    ");
+            Console.WriteLine(" -------------------------------------------- ");
+            Console.WriteLine();
+            Console.WriteLine(" 이곳은 PX입니다.");
+            Console.WriteLine(" 장비와 회복아이템을 살 수 있습니다.");
+            Console.WriteLine();
+
+            Console.WriteLine($" 현재 소지금: {player1._gold}G"); //소지금 표시
+            Console.WriteLine("1. 장비코너");
+            Console.WriteLine("2. 음식코너");
+            Console.WriteLine("0. 막사");
 
 
-    //상점(PX)
-    static void EquipPx()
-    {
-        //군장점입니다.
-        List<Weapon> weapons = new List<Weapon>
+            int input = CheckValidInput(0, 2);
+            switch (input)
+            {
+                case 0:
+                    //막사로
+                    Home();
+                    break;
+                case 1:
+                    // 상점에서 아이템을 구매하는 메서드 호출
+                    EquipPx();
+                    break;
+
+                case 2:
+                    // 상점에서 아이템을 구매하는 메서드 호출
+                    FoodPx();
+                    break;
+
+            }
+        }
+
+
+        //상점(PX)
+        static void EquipPx()
+        {
+            //군장점입니다.
+            List<Weapon> weapons = new List<Weapon>
         {
             new Weapon("야전삽", 50, "전투용 삽", 10, 5, 3, 2),
             new Weapon("K2", 200, "국산 소총", 20, 10, 5, 3),
@@ -2538,7 +2708,7 @@ internal class Program
             new Weapon("현무 극초음속 순항 미사일", 1000, "최첨단 미사일", 100, 50, 30, 10),
             new Weapon("마음의편지", 9999, "최강의 무기", 999, 999, 999, 999)
         };                                                                                                           // 능력치들은 밸런스에맞게 조정해야됨
-        List<Armor> armors = new List<Armor>
+            List<Armor> armors = new List<Armor>
         {
             new Armor("생활복", 50, "평범한 옷", 5, 10),
             new Armor("로카티", 150, "강화된 방어복", 15, 20),
@@ -2548,57 +2718,57 @@ internal class Program
             new Armor("개구리 전투복", 120, "개구리 가죽으로 만든 방어복", 12, 18),
             new Armor("특전사 이준호 전투복", 9999, "특전사 이준호님의 전투복", 999, 999)
         };
-        Console.WriteLine("군장점 코너");
-        Console.WriteLine("=====================================================================================");
-        //반복문을 이용한 아이템 목록출력
-        Console.WriteLine("무기 목록");
-        for (int i = 0; i < weapons.Count; i++)
-        {
-            var weapon = weapons[i];
+            Console.WriteLine("군장점 코너");
+            Console.WriteLine("=====================================================================================");
+            //반복문을 이용한 아이템 목록출력
+            Console.WriteLine("무기 목록");
+            for (int i = 0; i < weapons.Count; i++)
+            {
+                var weapon = weapons[i];
+                Console.WriteLine("------------------------------------------------------------------");
+                Console.WriteLine($" {i + 1}. {weapon.ItemName} \t| 가격: {weapon.ItemGold}G \t| 아이템 설명: {weapon.ItemDescription} ");
+            }
+
+            // 방어구 목록 출력
+            Console.WriteLine("방어구 목록");
+            for (int i = 0; i < armors.Count; i++)
+            {
+                var armor = armors[i];
+                Console.WriteLine("------------------------------------------------------------------");
+                Console.WriteLine($" {i + 1}. {armor.ItemName} \t| 가격: {armor.ItemGold}G \t| 아이템 설명: {armor.ItemDescription} ");
+            }
+
             Console.WriteLine("------------------------------------------------------------------");
-            Console.WriteLine($" {i + 1}. {weapon.ItemName} \t| 가격: {weapon.ItemGold}G \t| 아이템 설명: {weapon.ItemDescription} ");
+            Console.WriteLine("=====================================================================================");
+            Console.WriteLine();
+            Console.WriteLine(" 1. 아이템 구매하기");
+
+            Console.WriteLine();
+            Console.WriteLine(" 0. 뒤로가기");
+            Console.Write(">>");
+
+            int input = CheckValidInput(0, 2);
+            switch (input)
+            {
+                case 0:
+                    //px입구로
+                    PX();
+                    break;
+                case 1:
+                    // 상점에서 아이템을 구매하는 메서드 호출
+                    BuyItem(player1);
+                    break;
+
+            }
         }
 
-        // 방어구 목록 출력
-        Console.WriteLine("방어구 목록");
-        for (int i = 0; i < armors.Count; i++)
+
+        //음식(PX)
+        static void FoodPx()
         {
-            var armor = armors[i];
-            Console.WriteLine("------------------------------------------------------------------");
-            Console.WriteLine($" {i + 1}. {armor.ItemName} \t| 가격: {armor.ItemGold}G \t| 아이템 설명: {armor.ItemDescription} ");
-        }
+            //상점입니다.
 
-        Console.WriteLine("------------------------------------------------------------------");
-        Console.WriteLine("=====================================================================================");
-        Console.WriteLine();
-        Console.WriteLine(" 1. 아이템 구매하기");
-
-        Console.WriteLine();
-        Console.WriteLine(" 0. 뒤로가기");
-        Console.Write(">>");
-
-        int input = CheckValidInput(0, 2);
-        switch (input)
-        {
-            case 0:
-                //px입구로
-                PX();
-                break;
-            case 1:
-                // 상점에서 아이템을 구매하는 메서드 호출
-                BuyItem(player1);
-                break;
-
-        }
-    }
-
-
-    //음식(PX)
-    static void FoodPx()
-    {
-        //상점입니다.
-
-        List<Food> foods = new List<Food>
+            List<Food> foods = new List<Food>
         {
              new Food("건빵", 5, 10, 20, "긴급 상황을 위한 비상식량"),
              new Food("전투식량", 10, 15, 30, "체력과 공격력을 강화하는 식사"),
@@ -2608,129 +2778,130 @@ internal class Program
              new Food("특급 식사", 15, 20, 50, "전투에 최적화된 특별한 식사"),
              new Food("야전식량", 12, 18, 40, "야외 전투에 적합한 식사")
         };
-        Console.WriteLine();
-        Console.WriteLine("식재료 코너");
-        Console.WriteLine("=====================================================================================");
-        //반복문을 이용한 아이템 목록출력
-        for (int i = 0; i < foods.Count; i++)
-        {
-            var food = foods[i];
+            Console.WriteLine();
+            Console.WriteLine("식재료 코너");
+            Console.WriteLine("=====================================================================================");
+            //반복문을 이용한 아이템 목록출력
+            for (int i = 0; i < foods.Count; i++)
+            {
+                var food = foods[i];
+                Console.WriteLine("------------------------------------------------------------------");
+                Console.WriteLine($" {i + 1}. {food.ItemName} \t| 가격: {food.ItemGold}G \t| 아이템 설명: {food.ItemDescription} ");
+            }
             Console.WriteLine("------------------------------------------------------------------");
-            Console.WriteLine($" {i + 1}. {food.ItemName} \t| 가격: {food.ItemGold}G \t| 아이템 설명: {food.ItemDescription} ");
-        }
-        Console.WriteLine("------------------------------------------------------------------");
-        Console.WriteLine("=====================================================================================");
-        Console.WriteLine();
-        Console.WriteLine(" 1. 아이템 구매하기");
-
-        Console.WriteLine();
-        Console.WriteLine(" 0. 뒤로가기");
-        Console.Write(">>");
-
-        int input = CheckValidInput(0, 2);
-        switch (input)
-        {
-            case 0:
-                //px입구
-                PX();
-                break;
-            case 1:
-                // 상점에서 아이템을 구매하는 메서드 호출
-                BuyFood(player1);
-                break;
-
-        }
-    }
-    #endregion
-
-
-    #region 아이템 구매 메소드
-    //구매한 아이템 인벤토리로 옮기기
-    static void BuyItem(Character player)
-    {
-        Console.Clear();
-        Console.WriteLine(" 구매할 아이템을 선택하세요:");
-        Console.WriteLine($" 현재 소지금: {player1._gold}");
-        Console.WriteLine();
-        Console.WriteLine("=====================================================================================");
-        Console.WriteLine();
-        for (int i = 0; i < items.Count; i++)
-        {
-            var item = items[i];
-            Console.WriteLine($" {i + 1}. {item.ItemName} \t| 가격: {item.ItemGold}G");
+            Console.WriteLine("=====================================================================================");
             Console.WriteLine();
-        }
-        Console.WriteLine("=====================================================================================");
+            Console.WriteLine(" 1. 아이템 구매하기");
 
-        Console.WriteLine();
-
-        //1~7의 숫자를 입력하면 0~6번째의 아이템을 구매
-        int itemIndex = CheckValidInput(1, 7) - 1;
-
-        Item selectedItem = items[itemIndex]; // 선택한 아이템 가져오기
-
-        // 플레이어의 골드가 아이템 가격보다 많은지 확인
-        if (player.Gold >= selectedItem.ItemGold)
-        {
-            player.Gold -= selectedItem.ItemGold; // 골드 차감
-            player.AddToInventory(selectedItem); // 인벤토리에 아이템 추가
-            items.Remove(selectedItem);//선택한 아이템 제거
-            Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
-        }
-        else
-        {
-            Console.WriteLine(" 돈이 부족합니다!");
-        }
-
-        Console.WriteLine(" Press Anykey to go Back.");
-        Console.Write(">>");
-        Console.ReadKey();
-        PX(); // 다시 상점으로 돌아가기
-
-    }
-    //구매한 아이템 인벤토리로 옮기기
-    static void BuyFood(Character player)
-    {
-        Console.Clear();
-        Console.WriteLine(" 구매할 아이템을 선택하세요:");
-        Console.WriteLine($" 현재 소지금: {player1._gold}");
-
-        Console.WriteLine("=====================================================================================");
-        Console.WriteLine();
-        for (int i = 0; i < foods.Count; i++)
-        {
-            var food = items[i];
-            Console.WriteLine($" {i + 1}. {food.ItemName} \t| 가격: {food.ItemGold}G");
             Console.WriteLine();
+            Console.WriteLine(" 0. 뒤로가기");
+            Console.Write(">>");
+
+            int input = CheckValidInput(0, 2);
+            switch (input)
+            {
+                case 0:
+                    //px입구
+                    PX();
+                    break;
+                case 1:
+                    // 상점에서 아이템을 구매하는 메서드 호출
+                    BuyFood(player1);
+                    break;
+
+            }
         }
-        Console.WriteLine("=====================================================================================");
-        Console.WriteLine();
+        #endregion
 
-        //1~7의 숫자를 입력하면 0~6번째의 아이템을 구매
-        int itemIndex = CheckValidInput(1, 7) - 1;
 
-        Item selectedItem = items[itemIndex]; // 선택한 아이템 가져오기
-
-        // 플레이어의 골드가 아이템 가격보다 많은지 확인
-        if (player.Gold >= selectedItem.ItemGold)
+        #region 아이템 구매 메소드
+        //구매한 아이템 인벤토리로 옮기기
+        static void BuyItem(Character player)
         {
-            player.Gold -= selectedItem.ItemGold; // 골드 차감
-            player.AddToInventory(selectedItem); // 인벤토리에 아이템 추가
-            items.Remove(selectedItem);//선택한 아이템 제거
-            Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
-        }
-        else
-        {
-            Console.WriteLine(" 돈이 부족합니다!");
-        }
+            Console.Clear();
+            Console.WriteLine(" 구매할 아이템을 선택하세요:");
+            Console.WriteLine($" 현재 소지금: {player1._gold}");
+            Console.WriteLine();
+            Console.WriteLine("=====================================================================================");
+            Console.WriteLine();
+            for (int i = 0; i < items.Count; i++)
+            {
+                var item = items[i];
+                Console.WriteLine($" {i + 1}. {item.ItemName} \t| 가격: {item.ItemGold}G");
+                Console.WriteLine();
+            }
+            Console.WriteLine("=====================================================================================");
 
-        Console.WriteLine(" Press Anykey to go Back.");
-        Console.Write(">>");
-        Console.ReadKey();
-        PX(); // 다시 상점으로 돌아가기
+            Console.WriteLine();
+
+            //1~7의 숫자를 입력하면 0~6번째의 아이템을 구매
+            int itemIndex = CheckValidInput(1, 7) - 1;
+
+            Item selectedItem = items[itemIndex]; // 선택한 아이템 가져오기
+
+            // 플레이어의 골드가 아이템 가격보다 많은지 확인
+            if (player.Gold >= selectedItem.ItemGold)
+            {
+                player.Gold -= selectedItem.ItemGold; // 골드 차감
+                player.AddToInventory(selectedItem); // 인벤토리에 아이템 추가
+                items.Remove(selectedItem);//선택한 아이템 제거
+                Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
+            }
+            else
+            {
+                Console.WriteLine(" 돈이 부족합니다!");
+            }
+
+            Console.WriteLine(" Press Anykey to go Back.");
+            Console.Write(">>");
+            Console.ReadKey();
+            PX(); // 다시 상점으로 돌아가기
+
+        }
+        //구매한 아이템 인벤토리로 옮기기
+        static void BuyFood(Character player)
+        {
+            Console.Clear();
+            Console.WriteLine(" 구매할 아이템을 선택하세요:");
+            Console.WriteLine($" 현재 소지금: {player1._gold}");
+
+            Console.WriteLine("=====================================================================================");
+            Console.WriteLine();
+            for (int i = 0; i < foods.Count; i++)
+            {
+                var food = items[i];
+                Console.WriteLine($" {i + 1}. {food.ItemName} \t| 가격: {food.ItemGold}G");
+                Console.WriteLine();
+            }
+            Console.WriteLine("=====================================================================================");
+            Console.WriteLine();
+
+            //1~7의 숫자를 입력하면 0~6번째의 아이템을 구매
+            int itemIndex = CheckValidInput(1, 7) - 1;
+
+            Item selectedItem = items[itemIndex]; // 선택한 아이템 가져오기
+
+            // 플레이어의 골드가 아이템 가격보다 많은지 확인
+            if (player.Gold >= selectedItem.ItemGold)
+            {
+                player.Gold -= selectedItem.ItemGold; // 골드 차감
+                player.AddToInventory(selectedItem); // 인벤토리에 아이템 추가
+                items.Remove(selectedItem);//선택한 아이템 제거
+                Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
+            }
+            else
+            {
+                Console.WriteLine(" 돈이 부족합니다!");
+            }
+
+            Console.WriteLine(" Press Anykey to go Back.");
+            Console.Write(">>");
+            Console.ReadKey();
+            PX(); // 다시 상점으로 돌아가기
+
+        }
+        #endregion
+
 
     }
-    #endregion
-
-
-}
+    
