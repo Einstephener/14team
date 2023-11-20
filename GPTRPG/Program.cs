@@ -12,7 +12,7 @@ using System.Drawing;
 
 internal class Program
 {
-    private static List<Weapon> weapons = new List<Weapon>
+    private static List<Weapon> weapons = new List<Weapon> //이름, 가격, 설명, 힘, 민첩, 지능, 운
         {
             new Weapon("야전삽", 50, "전투용 삽", 10, 5, 3, 2),
             new Weapon("K2", 200, "국산 소총", 20, 10, 5, 3),
@@ -28,7 +28,7 @@ internal class Program
         };
 
     // 능력치들은 밸런스에맞게 조정해야됨
-    private static List<Armor> armors = new List<Armor>
+    private static List<Armor> armors = new List<Armor> //이름, 가격, 설명, 정신력, 체력
         {
             new Armor("생활복", 50, "평범한 옷", 5, 10),
             new Armor("로카티", 150, "강화된 방어복", 15, 20),
@@ -140,10 +140,6 @@ internal class Program
         enemys.Add(newCommander);
         enemys.Add(senior);
 
-
-
-
-
     }
 
     static int CheckValidInput(int min, int max)
@@ -172,9 +168,12 @@ internal class Program
         //시작화면
         Console.ForegroundColor = ConsoleColor.Red;
 
-        Console.WriteLine("                                                                                ");
-        Console.WriteLine("                         Press Any Key to start the game.                       ");
-        Console.WriteLine("                                                                                ");
+        Console.WriteLine();
+        Console.WriteLine();
+        Console.WriteLine("                                   군대 RPG                                   ");        
+        Console.WriteLine();
+        Console.WriteLine();
+        Console.WriteLine("난이도 설정");
         Console.Write("                                                                              >>");
 
         Console.ReadKey();
@@ -308,8 +307,8 @@ internal class Program
                 Overnight();
                 break;
             //상병
-            case 9:            //9개월
-                CStoryKCTC(player1);
+            case 9:            //9개월 
+                CStoryPhysicalExamination(player1);
                 break;
             case 10:            //10개월
                 CSDefcon(player1);
@@ -318,13 +317,13 @@ internal class Program
                 CSschool();
                 break;
             case 12:            //12개월
-                CSNewCommander(player1, newCommander);
+                CStoryKCTC(player1);
                 break;
             case 13:            //13개월
                 CSTest();
                 break;
             case 14:            //14개월
-                CStoryPhysicalExamination(player1);
+                CSNewCommander(player1, newCommander);
                 break;
             //병장
             case 15:            //15개월
@@ -1273,7 +1272,7 @@ internal class Program
 
         // hitCount(명중 횟수)에 따른 보상 로직 작성.
         // 1~5 폐급, 6~8 평균, 9~10 특등사수 
-
+        OneMonthLater();
     }
     // Shooting 처리 메서드
     static int ShootingEvent(int input, int _hitCount, int _cursor)
@@ -1362,6 +1361,7 @@ internal class Program
                 Console.WriteLine("체력이 50증가합니다.");
                 Console.ResetColor();
                 player1.Hp += 50;
+                OneMonthLater();
                 break; //나가기 
 
             }
@@ -1379,6 +1379,7 @@ internal class Program
                 }
                 else
                 {
+                    OneMonthLater();
                     break;// 나가기 (이전화면)
                 }
             }
@@ -1438,6 +1439,7 @@ internal class Program
                     Console.ResetColor();
                     player1.Str += 10;
                     isValidInput = false;
+                    OneMonthLater();
                     break;
                 case "2":
                     Console.Clear();
@@ -1457,6 +1459,7 @@ internal class Program
                     Console.WriteLine("정신력 능력치가 10 상승하였습니다.");
                     player1.Mind += 10;
                     isValidInput = false;
+                    OneMonthLater();
                     break;
                 case "3":
                     Console.Clear();
@@ -1485,6 +1488,7 @@ internal class Program
                     Console.ResetColor();
                     player1.Mind -= 10;
                     isValidInput = false;
+                    OneMonthLater();
                     break;
 
                 default:
@@ -1577,47 +1581,55 @@ internal class Program
         int cursor = 0;
         bool onScene = true;
 
+        Console.Clear();
+        Console.WriteLine("상병 신검 날이 되었다.");
+        Console.ReadKey();
+        Console.WriteLine("국군 병원으로 가는 버스에 탔다.");
+        Console.ReadKey();
+        Console.WriteLine("...");
+        Console.ReadKey();
+        Console.WriteLine("병원에 도착했다.");
+        Console.ReadKey();
+        Console.WriteLine("잠시 대기 후 신체검사를 시작했다.");
+        Console.ReadKey();
+        Console.WriteLine("...");
+        Console.ReadKey();
+        Console.WriteLine("========================");
+        Console.WriteLine($"이름: {player.Name}");
+        Console.WriteLine("체중: 70.3kg");
+        Console.WriteLine("키: 175.4cm");
+        Console.WriteLine("...");
+        Console.WriteLine("========================");
+        Console.ReadKey();
+
+        // 화면 초기화
+        Console.Clear();
+
         string[] text = { "1. 몰래 탈출해 치킨을 먹는다.", "2. 얌전히 부대로 가서 짬밥을 먹는다." };
         double successPercent = (double)player.Dex / (5 + player.Dex) * 100;
+        int showPercent = (int)successPercent;
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine("상병 신검 날이 되었다.");
-            Console.ReadKey();
-            Console.WriteLine("국군 병원으로 가는 버스에 탔다.");
-            Console.ReadKey();
-            Console.WriteLine("...");
-            Console.ReadKey();
-            Console.WriteLine("병원에 도착했다.");
-            Console.ReadKey();
-            Console.WriteLine("잠시 대기 후 신체검사를 시작했다.");
-            Console.ReadKey();
-            Console.WriteLine("...");
-            Console.ReadKey();
-            Console.WriteLine("========================");
-            Console.WriteLine($"이름: {player.Name}");
-            Console.WriteLine("체중: 70.3kg");
-            Console.WriteLine("키: 175.4cm");
-            Console.WriteLine("...");
-            Console.WriteLine("========================");
-            Console.ReadKey();
-
             Console.WriteLine("상검이 끝나고 국군병원 근처에서 몰래 치킨을 먹으려 한다.");
-            Console.ReadKey();
-            Console.WriteLine($"시도해볼까?(성공확률 {successPercent}%)");
+
+            Console.WriteLine($"몰래 빠져나가볼까?(성공확률 {showPercent}%)");
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("계속하려면 enter.");
             Console.ResetColor();
-            Console.ReadKey();
 
+
+            // Text[] Output
             TextChoice(cursor, text);
             // Key Input
             e = Console.ReadKey();
             // Cursor Index
             cursor = CursorChoice(e, cursor, text, ref onScene);
         }
+
+        int a = player.Dex;
         Random rand = new Random();
-        int chicken = rand.Next(5 + player.Dex);
+        int chicken = rand.Next(5 + a);
         switch (cursor)
         {
             case 0:
@@ -1658,7 +1670,7 @@ internal class Program
                         Console.ReadKey();
                         Console.WriteLine("정신력이 증가한다.");
                         Console.ReadKey();
-                        Console.WriteLine("체력이 회복되었다.");
+                        Console.WriteLine("체력이 증가되었다.");
                         //정신력 5 증가 체력 증가
                         player1.Mind += 5;
                         player1.Hp += 10;
@@ -1682,7 +1694,7 @@ internal class Program
                 Console.ReadKey();
                 Console.WriteLine("정신력이 감소했다.");
                 Console.ReadKey();
-                Console.WriteLine("체력이 회복되었다.");
+                Console.WriteLine("체력이 증가되었다.");
                 player1.Mind--;
                 player1.Hp += 10;
 
@@ -1698,8 +1710,8 @@ internal class Program
             default:
                 break;
         }
-
     }
+
     //상병 스토리-전준태
     static void CSDefcon(Character player)
     {
@@ -1807,7 +1819,7 @@ internal class Program
         Console.Clear();
         Console.WriteLine();
         Console.Write("의 남은 깊이: ");
-        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
         Console.WriteLine($"{enemy.EnemyHp} cm");
         Console.ResetColor();
         Console.WriteLine($"남은 기회: {enemy.EnemyAtk}");
@@ -1984,7 +1996,10 @@ internal class Program
         Console.ReadKey();
         Console.WriteLine("당신은 녹견을 획득했다.");
         player1.AddToInventoryArmor(greenStrap);
+        //녹견 스탯 적용
         greenStrap.isEquipped = true;
+        player1.Mind += greenStrap.ItemMind;
+        player1.Hp += greenStrap.ItemHp;
         Console.ReadKey();
         Console.WriteLine("교육이 끝나고 막사로 복귀했다.");
 
@@ -2058,6 +2073,7 @@ internal class Program
                     Thread.Sleep(500);
                     Console.WriteLine($"{enemy.EnemyName}의 공격!");
                     Console.WriteLine($"{enemy.EnemyAtk}만큼의 데미지를 입었다.");
+                    player.Hp -= enemy.EnemyAtk;
                     Console.ReadKey();
                     if (newCommander.EnemyHp <= 0)
                     {
@@ -2081,6 +2097,7 @@ internal class Program
                     Thread.Sleep(500);
                     Console.WriteLine($"{enemy.EnemyName}의 공격!");
                     Console.WriteLine($"{enemy.EnemyAtk}만큼의 데미지를 입었다.");
+                    player.Hp -= enemy.EnemyAtk;
                     Console.WriteLine();
                     Console.ReadKey();
                     if (newCommander.EnemyHp <= 0)
