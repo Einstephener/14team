@@ -2955,12 +2955,13 @@ internal class Program
         Console.WriteLine();
 
         Console.WriteLine($" 현재 소지금: {player1._gold}G"); //소지금 표시
-        Console.WriteLine("1. 장비코너");
-        Console.WriteLine("2. 음식코너");
+        Console.WriteLine("1. 무기코너");
+        Console.WriteLine("2. 방어구코너");
+        Console.WriteLine("3. 음식코너");
         Console.WriteLine("0. 막사");
 
 
-        int input = CheckValidInput(0, 2);
+        int input = CheckValidInput(0, 3);
         switch (input)
         {
             case 0:
@@ -2968,71 +2969,70 @@ internal class Program
                 Home();
                 break;
             case 1:
-                // 무기점 메서드 호출
-                EquipPx();
+                // 무기상점에서 아이템을 구매하는 메서드 호출
+                WeaponShop();
                 break;
 
             case 2:
-                // 음식코너 메서드 호출
+                ArmorShop();
+                break;
+            case 3:
+                // 상점에서 아이템을 구매하는 메서드 호출
                 FoodPx();
                 break;
 
         }
     }
 
-
-    //상점(PX)
-    static void EquipPx()
+    static void WeaponShop()
     {
-        //군장점입니다.
+        Console.Clear();
+        List<Weapon> weapons = new List<Weapon>
+        {
+            new Weapon("야전삽", 50, "전투용 삽", 10, 5, 3, 2),
+            new Weapon("K2", 200, "국산 소총", 20, 10, 5, 3),
+            new Weapon("AK47", 300, "돌격소총", 25, 15, 5, 1),
+            new Weapon("샷건", 150, "원거리 전투용 산탄총", 15, 5, 2, 1),
+            new Weapon("M60", 400, "무거운 기관총", 30, 5, 2, 1),
+            new Weapon("AWP", 500, "저격소총", 40, 5, 2, 1),
+            new Weapon("판처파우스트", 600, "고급 소총", 50, 20, 10, 5),
+            new Weapon("발칸", 450, "군용 소총", 35, 15, 8, 3),
+            new Weapon("K-9자주포", 700, "대형 포탄 발사기", 60, 10, 5, 2),
+            new Weapon("현무 극초음속 순항 미사일", 1000, "최첨단 미사일", 100, 50, 30, 10),
+            new Weapon("마음의편지", 9999, "최강의 무기", 999, 999, 999, 999)
+        };
 
-        Console.WriteLine("군장점 코너");
-        Console.WriteLine("=====================================================================================");
-        //반복문을 이용한 아이템 목록출력
         Console.WriteLine("무기 목록");
         for (int i = 0; i < weapons.Count; i++)
         {
             var weapon = weapons[i];
-            Console.WriteLine("------------------------------------------------------------------");
-            Console.WriteLine($" {i + 1}. {weapon.ItemName} \t| 가격: {weapon.ItemGold}G \t| 아이템 설명: {weapon.ItemDescription} ");
+            Console.WriteLine($"{i + 1}. {weapon.ItemName} \t| 가격: {weapon.ItemGold}G \t| 아이템 설명: {weapon.ItemDescription}");
+
+            //구매기능, 인벤토리와 연결기능 구현
         }
 
-        // 방어구 목록 출력
+    }
+    static void ArmorShop()
+    {
+        Console.Clear();
+        List<Armor> armors = new List<Armor>
+        {
+            new Armor("생활복", 50, "평범한 옷", 5, 10),
+            new Armor("로카티", 150, "강화된 방어복", 15, 20),
+            new Armor("화생방 보호의", 200, "생화학적 위협으로부터 보호하는 의복", 20, 25),
+            new Armor("깔깔이", 100, "특수 재료로 만든 방어복", 10, 15),
+            new Armor("신형 전투복", 300, "최신형 전투용 갑옷", 25, 30),
+            new Armor("개구리 전투복", 120, "개구리 가죽으로 만든 방어복", 12, 18),
+            new Armor("특전사 이준호 전투복", 9999, "특전사 이준호님의 전투복", 999, 999)
+        };
+
         Console.WriteLine("방어구 목록");
         for (int i = 0; i < armors.Count; i++)
         {
             var armor = armors[i];
-            Console.WriteLine("------------------------------------------------------------------");
-            Console.WriteLine($" {i + 1}. {armor.ItemName} \t| 가격: {armor.ItemGold}G \t| 아이템 설명: {armor.ItemDescription} ");
+            Console.WriteLine($"{i + 1}. {armor.ItemName} \t| 가격: {armor.ItemGold}G \t| 아이템 설명: {armor.ItemDescription}");
         }
-
-        Console.WriteLine("------------------------------------------------------------------");
-        Console.WriteLine("=====================================================================================");
-        Console.WriteLine();
-        Console.WriteLine(" 1. 무기 구매하기");
-        Console.WriteLine(" 2. 방어구 구매하기");
-
-        Console.WriteLine();
-        Console.WriteLine(" 0. 뒤로가기");
-        Console.Write(">>");
-
-        int input = CheckValidInput(0, 2);
-        switch (input)
-        {
-            case 0:
-                //px입구로
-                PX();
-                break;
-            case 1:
-                // 상점에서 무기를 구매하는 메서드 호출
-                BuyWeapon(player1);
-                break;
-            case 2:
-                // 상점에서 방어구를 구매하는 메서드 호출
-                BuyArmor(player1);
-                break;
-
-        }
+        //구매기능, 인벤토리와 연결기능 구현
     }
 
 
