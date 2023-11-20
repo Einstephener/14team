@@ -598,49 +598,76 @@ internal class Program
         }
     }
     #endregion
-
-    //이등병 스토리
+ //이등병 스토리//
     static void Basic(Character player)
     {
         Console.Clear();
 
         Console.WriteLine("드디어 훈련병 생활이 끝났군");
         Console.ReadKey();
-        Console.Write("이제 자대에서 열심히 해보자!");
+        Console.WriteLine("이제 자대에서 열심히 해보자!");
         Console.ReadKey();
-        Console.WriteLine("");
         Console.WriteLine("자대배치 후 첫 아침점호 시간이다");
-        Console.WriteLine("");
         Console.ReadKey();
         Console.WriteLine("긴장한 상태로 열을 맞춰서있다..");
         Console.ReadKey();
         Console.WriteLine("그때 한 선임이 \"굳건이 군화 닦았어 ? \"");
         Console.ReadKey();
-        Console.WriteLine("");
-        Console.WriteLine("그 순간 머리가 하애졌다..");
-        Console.WriteLine("");
-
-        Random Shoes = new Random();
-        int number = Shoes.Next(2);
-        if (number == 0)
-        {
-            Console.WriteLine("네 닦았습니다!");
-            Console.WriteLine("아무일도 일어나지 않았다");
-        }
-        else
-        {
-            player1.Hp -= 30;
-            Console.WriteLine("");
-            Console.WriteLine("아 미쳐 닦지 못했습니다..");
-            Console.WriteLine("하.. 아침부터 큰일이네;; ");
-            Console.WriteLine("체력이 30 감소했습니다.");
-        }
-        // 만약 굳건이가 군화를 닦았다면 아무일도 일어나지 않는다
-        // 굳건이가 군화를 안닦았다면 -hp  확률 50%
-
-        OneMonthLater();
-
+        Console.WriteLine("굳건이:옙. 닦았습니다.");
+        Console.ReadKey();
+        Console.WriteLine("맞선임:진짜? 확인해봐서 안닦였으면 뒤진다.");
+        Console.ReadKey();
+        Console.WriteLine("맞선임:이거 봐봐. 이게 닦은거야?");
+        Console.ReadKey();
+        Console.WriteLine("굳건이:죄.. 죄송합니다.");
+        Console.ReadKey();
+        Console.WriteLine("맞선임:너 점호끝나고 보자");
+        Console.ReadKey();
+        Console.WriteLine("<점호 후 막사 뒷편 창고>");
+        Console.ReadKey();
+        Console.WriteLine("맞선임: 너 왜 군화 닦앗다고 거짓말쳐?? ");
+        Console.ReadKey();
+        Console.WriteLine("굳건이: 아 당황해서 잘못말한것 같습니다..");
+        Console.ReadKey();
+        Console.WriteLine("맞선임: (발로 정강이를 까며)그렇다고 거짓말을 쳐? 라떼는 말이야 하.. 아니다")
+        Console.ReadKey();
+        Console.WriteLine("굳건이: 근데 때리는건 너무 하지 않습니까? ")
+        Console.ReadKey();
+        Console.WriteLine("맞선임: 머라고??(머리를 때리려 손을 들면서)")
+        Console.ReadKey();
+        Console.WriteLine("그때 굳건이가 맞선임의 손을 막으면서 맞짱이 시작되었다..!!")
+        Console.ReadKey();
+        Console.WriteLine("싸움을 하실려면 아무키나 눌러주세요");
+        Console.ReadKey();
+     
+        SeniorFight(player, senior);
     }
+    //맞선임 보스전
+    bool Fight = true;
+
+    static void SeniorFight(Character player, Enemy enemy)
+    {
+            while(Fight)
+            {
+                enemy.EnemyHp -=player.Str; //플레이어가 맞선임 공격
+                if(enemy.EnemyHp<=0)
+                {
+                    Console.WriteLine("맞선임과의 맞짱에서 승리했습니다");
+                    Console.WriteLine($"남은 체력:{player.Hp}");
+                    break;
+                }
+                player.Hp -= enemy.EnemyAtk;//맞선임이 플레이어 공격
+                if(player1.Hp<=0)
+                {
+                    Console.WriteLine("맞선임과의 맞짱에서 패배했습니다");
+                    break;
+                }
+            }
+            Console.WriteLine("후.. 군생활 힘드네");
+            OneMonthLater();
+    }
+    
+
 
     static void Basicstory(Character player)
     {
