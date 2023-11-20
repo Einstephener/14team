@@ -293,7 +293,7 @@ internal class Program
                 FStoryRangerTraining();
                 break;
             case 4:            //4개월
-                FStoryPullSecurity();
+                FStoryPullSecurity(player1, );
                 break;
             case 5:            //5개월
                 HundredDaysvacationScene();
@@ -571,7 +571,7 @@ internal class Program
         
         Console.WriteLine("============================================================================");
         Console.WriteLine();
-        Console.WriteLine(" 장착/해제를 원하는 아이템을 입력해주세요.");
+        Console.WriteLine(" 섭취할 음식을 입력해주세요.");
         Console.WriteLine();
         Console.WriteLine(" 0. 뒤로가기");
         Console.Write(">>");
@@ -593,6 +593,10 @@ internal class Program
         }
     }
 
+    static void EatFood()
+    {
+        
+    }
     #endregion
 
     #region 일과 ( 상시 이벤트 )
@@ -2942,10 +2946,10 @@ internal class Program
         Console.WriteLine("                             |        |      ");
         Console.WriteLine(" -------------------------------------------- ");
         Console.WriteLine("                                           ");
-        Console.WriteLine("   _____  __   __                        ");
-        Console.WriteLine("  | ___ | | | / /                     ");
-        Console.WriteLine("  | |_/ /  | V /                      ");
-        Console.WriteLine("  |  __/   /   |                      ");
+        Console.WriteLine("   _____  __    __                        ");
+        Console.WriteLine("  | ___ | | |  / /                     ");
+        Console.WriteLine("  | |_/ /  | |/ /                      ");
+        Console.WriteLine("  |  __/   /   /                      ");
         Console.WriteLine("  | |     / /| |                      ");
         Console.WriteLine("  |_|    /_/  |_|                    ");
         Console.WriteLine(" -------------------------------------------- ");
@@ -2969,70 +2973,81 @@ internal class Program
                 Home();
                 break;
             case 1:
-                // 무기상점에서 아이템을 구매하는 메서드 호출
+                // 무기상점
                 WeaponShop();
                 break;
 
             case 2:
+                // 방어구상점
                 ArmorShop();
                 break;
             case 3:
-                // 상점에서 아이템을 구매하는 메서드 호출
+                // 음식상점
                 FoodPx();
                 break;
 
         }
     }
-
+    //무기코너
     static void WeaponShop()
     {
         Console.Clear();
-        List<Weapon> weapons = new List<Weapon>
-        {
-            new Weapon("야전삽", 50, "전투용 삽", 10, 5, 3, 2),
-            new Weapon("K2", 200, "국산 소총", 20, 10, 5, 3),
-            new Weapon("AK47", 300, "돌격소총", 25, 15, 5, 1),
-            new Weapon("샷건", 150, "원거리 전투용 산탄총", 15, 5, 2, 1),
-            new Weapon("M60", 400, "무거운 기관총", 30, 5, 2, 1),
-            new Weapon("AWP", 500, "저격소총", 40, 5, 2, 1),
-            new Weapon("판처파우스트", 600, "고급 소총", 50, 20, 10, 5),
-            new Weapon("발칸", 450, "군용 소총", 35, 15, 8, 3),
-            new Weapon("K-9자주포", 700, "대형 포탄 발사기", 60, 10, 5, 2),
-            new Weapon("현무 극초음속 순항 미사일", 1000, "최첨단 미사일", 100, 50, 30, 10),
-            new Weapon("마음의편지", 9999, "최강의 무기", 999, 999, 999, 999)
-        };
 
         Console.WriteLine("무기 목록");
+        Console.WriteLine("=====================================================================================");
         for (int i = 0; i < weapons.Count; i++)
         {
             var weapon = weapons[i];
             Console.WriteLine($"{i + 1}. {weapon.ItemName} \t| 가격: {weapon.ItemGold}G \t| 아이템 설명: {weapon.ItemDescription}");
+            Console.WriteLine($"\t|힘:{weapon.ItemStr} \t|민첩:{weapon.ItemDex} \t|지능:{weapon.ItemIq} \t|운:{weapon.ItemLuk} ");
+        }
+        Console.WriteLine("=====================================================================================");
+        Console.WriteLine("1. 구매하기");
+        Console.WriteLine("0. 뒤로가기");
+        int input = CheckValidInput(0, 1);
+        switch (input)
+        {
+            case 0:
+                //px입구
+                PX();
+                break;
+            case 1:
+                // 상점에서 아이템을 구매하는 메서드 호출
+                BuyWeapon(player1);
+                break;
 
-            //구매기능, 인벤토리와 연결기능 구현
         }
 
+        
     }
+    //방어구코너
     static void ArmorShop()
     {
         Console.Clear();
-        List<Armor> armors = new List<Armor>
-        {
-            new Armor("생활복", 50, "평범한 옷", 5, 10),
-            new Armor("로카티", 150, "강화된 방어복", 15, 20),
-            new Armor("화생방 보호의", 200, "생화학적 위협으로부터 보호하는 의복", 20, 25),
-            new Armor("깔깔이", 100, "특수 재료로 만든 방어복", 10, 15),
-            new Armor("신형 전투복", 300, "최신형 전투용 갑옷", 25, 30),
-            new Armor("개구리 전투복", 120, "개구리 가죽으로 만든 방어복", 12, 18),
-            new Armor("특전사 이준호 전투복", 9999, "특전사 이준호님의 전투복", 999, 999)
-        };
-
         Console.WriteLine("방어구 목록");
+        Console.WriteLine("=====================================================================================");
         for (int i = 0; i < armors.Count; i++)
         {
             var armor = armors[i];
             Console.WriteLine($"{i + 1}. {armor.ItemName} \t| 가격: {armor.ItemGold}G \t| 아이템 설명: {armor.ItemDescription}");
+            Console.WriteLine($"\t |정신력:{armor.ItemMind} \t|체력 증가량: {armor.ItemHp} ");
         }
-        //구매기능, 인벤토리와 연결기능 구현
+        Console.WriteLine("=====================================================================================");
+        Console.WriteLine("1. 구매하기");
+        Console.WriteLine("0. 뒤로가기");
+         int input = CheckValidInput(0, 1);
+        switch (input)
+        {
+            case 0:
+                //px입구
+                PX();
+                break;
+            case 1:
+                // 상점에서 아이템을 구매하는 메서드 호출
+                BuyArmor(player1);
+                break;
+
+        }
     }
 
 
@@ -3050,6 +3065,7 @@ internal class Program
             var food = foods[i];
             Console.WriteLine("------------------------------------------------------------------");
             Console.WriteLine($" {i + 1}. {food.ItemName} \t| 가격: {food.ItemGold}G \t| 아이템 설명: {food.ItemDescription} ");
+            Console.WriteLine($"\t \t|증가하는 체력량{food.ItemHp} \t|");
         }
         Console.WriteLine("------------------------------------------------------------------");
         Console.WriteLine("=====================================================================================");
@@ -3107,6 +3123,13 @@ internal class Program
         {
             player.Gold -= selectedItem.ItemGold; // 골드 차감
             player.AddToInventoryWeapon(selectedItem); // 인벤토리에 아이템 추가
+
+            selectedItem.isEquipped = true; //구매시 자동 장착
+            player.Str += selectedItem.ItemStr;//장착 후 힘 증가
+            player.Dex += selectedItem.ItemDex; //장착 후 민첩 증가
+            player.IQ += selectedItem.ItemIq; //장착 후 지능 증가
+            player.Luk += selectedItem.ItemLuk; //장착 후 민첩 증가
+            
             weapons.Remove(selectedItem);//선택한 아이템 제거
             Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
         }
@@ -3150,7 +3173,12 @@ internal class Program
         if (player.Gold >= selectedItem.ItemGold)
         {
             player.Gold -= selectedItem.ItemGold; // 골드 차감
-            player.AddToInventoryArmor(selectedItem); // 인벤토리에 아이템 추가
+            player.AddToInventoryArmor(selectedItem); // 인벤토리에 아이템 추가            
+
+            selectedItem.isEquipped = true; //구매시 자동 장착
+            player.Hp += selectedItem.ItemHp;//장착 후 체력 증가
+            player.Mind += selectedItem.ItemMind; //장착 후 정신력 증가
+            
             armors.Remove(selectedItem);//선택한 아이템 제거
             Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
         }

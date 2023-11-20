@@ -4,7 +4,7 @@ public class Food
     public string ItemName { get; } //아이템 이름
     public int ItemStr { get; } //아이템 공격력
        
-    public int ItemHp { get; } //아이템 방어
+    public int ItemHp { get; } //아이템 체력
     public int ItemGold { get; } //아이템 가격
     public string ItemDescription { get; } //아이템 상세설명
 
@@ -41,7 +41,7 @@ public class Weapon : Item    // 무기 클래스 (아이템을 상속받음)
     public int ItemDex { get; } // 민첩성
     public int ItemIq { get; } // 지능
     public int ItemLuk { get; } // 행운
-    public bool isEquipped{get; set;}//장착여부
+    public bool isEquipped{get; set;} //장착여부
 
     public Weapon(string itemName, int itemGold, string itemDescription, int itemStr, int itemDex, int itemIq, int itemLuk, bool isEquipped = false)
         : base(itemName, itemGold, itemDescription)
