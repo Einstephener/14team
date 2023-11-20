@@ -52,7 +52,27 @@ internal class Program
              new Food("야전식량", 12, 18, 40, "야외 전투에 적합한 식사")
         };
     //몬스터 리스트
-    private static List<Enemy> enemys = new List<Enemy>();
+    private static List<Enemy> enemys = new List<Enemy>
+        {
+            new Enemy("초임 소위", 100, 100),
+            new Enemy("참호", 5, 100),
+            new Enemy("맞선임", 4, 10),
+            new Enemy("멧돼지", 50, 100),
+            new Enemy("고라니", 50, 100)
+        };
+
+    private static Enemy FindEnemyByName(string enemyName)
+    {
+        return enemys.Find(m=>m.EnemyName==enemyName);
+    }
+
+    private static Enemy wildBoar = FindEnemyByName("멧돼지");
+    private static Enemy waterDeer = FindEnemyByName("고라니");
+    private static Enemy newCommander = FindEnemyByName("초임 소위");
+    private static Enemy french = FindEnemyByName("참호");
+    private static Enemy senior = FindEnemyByName("맞선임");
+
+    
 
     //아이템들 선언
 
@@ -61,9 +81,9 @@ internal class Program
 
     //몬스터들 선언
 
-    private static Enemy newCommander;
-    private static Enemy french;
-    private static Enemy senior; //맞선임 선언
+    //private static Enemy newCommander;
+    //private static Enemy french;
+    //private static Enemy senior; //맞선임 선언
 
     //캐릭터 선언
     private static Character player1;
@@ -131,14 +151,15 @@ internal class Program
 
 
 
-        newCommander = new Enemy("초임 소위", 100, 100);
-        french = new Enemy("참호", 5, 100);
-        senior = new Enemy("맞선임", 4, 10);
+        //newCommander = new Enemy("초임 소위", 100, 100);
+        //french = new Enemy("참호", 5, 100);
+        //senior = new Enemy("맞선임", 4, 10);
+
 
         //몬스터 추가
-        enemys.Add(french);
-        enemys.Add(newCommander);
-        enemys.Add(senior);
+        //enemys.Add(french);
+        //enemys.Add(newCommander);
+        //enemys.Add(senior);
 
 
 
@@ -293,7 +314,7 @@ internal class Program
                 FStoryRangerTraining();
                 break;
             case 4:            //4개월
-                FStoryPullSecurity();
+                FStoryPullSecurity(player1, wildBoar, waterDeer);
                 break;
             case 5:            //5개월
                 HundredDaysvacationScene();
@@ -490,7 +511,11 @@ internal class Program
         for (int i = 0; i < player.InventoryWeapon.Count; i++)
         {
             var weapon = player.InventoryWeapon[i];
+            string equippedStatus = weapon.isEquipped ? "[E]" : ""; // 아이템이 장착되었는지 여부에 따라 [E] 표시 추가 없으면 공백
             Console.Write($"{i + 1}. ");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write($"{equippedStatus}");
+            Console.ResetColor();
             Console.WriteLine($" \t {weapon.ItemName} \t | {weapon.ItemDescription}"); //무기 부가 정보
             Console.WriteLine();
         }
@@ -506,7 +531,7 @@ internal class Program
         int input = CheckValidInput(0, player.InventoryWeapon.Count);
         if (input > 0)
         {
-
+            player.EquipWeapon(input);
             Console.WriteLine();
             Console.WriteLine("Press AnyKey");
             Console.ReadKey();
@@ -529,7 +554,11 @@ internal class Program
         for (int i = 0; i < player.InventoryArmor.Count; i++)
         {
             var armor = player.InventoryArmor[i];
+            string equippedStatus = armor.isEquipped ? "[E]" : ""; // 아이템이 장착되었는지 여부에 따라 [E] 표시 추가 없으면 공백
             Console.Write($"{i + 1}. ");
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write($"{equippedStatus}");
+            Console.ResetColor();
             Console.WriteLine($" \t {armor.ItemName} \t | {armor.ItemDescription}"); //방어구 부가 정보
             Console.WriteLine();
         }
@@ -543,6 +572,7 @@ internal class Program
         int input = CheckValidInput(0, player.InventoryArmor.Count);
         if (input > 0)
         {
+            player.EquipArmor(input);
             Console.WriteLine();
             Console.WriteLine("Press AnyKey");
             Console.ReadKey();
@@ -571,7 +601,7 @@ internal class Program
 
         Console.WriteLine("============================================================================");
         Console.WriteLine();
-        Console.WriteLine(" 장착/해제를 원하는 아이템을 입력해주세요.");
+        Console.WriteLine(" 섭취할 음식을 입력해주세요.");
         Console.WriteLine();
         Console.WriteLine(" 0. 뒤로가기");
         Console.Write(">>");
@@ -593,6 +623,10 @@ internal class Program
         }
     }
 
+    static void EatFood()
+    {
+        
+    }
     #endregion
 
     #region 일과 ( 상시 이벤트 )
@@ -1282,7 +1316,7 @@ internal class Program
     }
 
    //일병 스토리 - 경계근무
-    static void FStoryPullSecurity(Character player1, Enemy enemy1, Enemy enemy2)
+    static void FStoryPullSecurity(Character player1, Enemy wildBoar, Enemy waterDeer)
     {
         int cursor = 0;
         bool onScene = true;
@@ -1293,14 +1327,14 @@ internal class Program
         Console.ReadKey();
         Console.WriteLine("저 앞 풀숲에서 부스럭거리는 소리가 난다.");
         Console.ReadKey();
-        Console.WriteLine($"야생의 {enemy1.EnemyName}와 {enemy2.EnemyName}가 나타났다!");
+        Console.WriteLine($"야생의 {wildBoar.EnemyName}와 {waterDeer.EnemyName}가 나타났다!");
         Console.ReadKey();
         Console.WriteLine("전투 시작!");
         Console.WriteLine();
-        while (player1.Hp > 0 && (enemy1.EnemyHp > 0 || enemy2.EnemyHp > 0))
+        while (player1.Hp > 0 && (wildBoar.EnemyHp > 0 || waterDeer.EnemyHp > 0))
         {
             //내 턴
-            Console.WriteLine($"{enemy1.EnemyName}: HP {enemy1.EnemyHp}, {enemy2.EnemyName}: HP {enemy2.EnemyHp}");
+            Console.WriteLine($"{wildBoar.EnemyName}: HP {wildBoar.EnemyHp}, {waterDeer.EnemyName}: HP {waterDeer.EnemyHp}");
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine($"{player1.Name}: HP {player1.Hp}");
@@ -1315,76 +1349,74 @@ internal class Program
             switch (actionChoice)
             {
                 case 1:
-                    AttackAction(player1, enemy1, enemy2);
+                    AttackAction(player1, wildBoar, waterDeer);
                     break;
                 case 2:
-                    SkillAction(player1, enemy1, enemy2);
+                    SkillAction(player1, wildBoar, waterDeer);
                     break;
             }
 
             //몬스터 턴
-            if (enemy1.EnemyHp > 0)
+            if (wildBoar.EnemyHp > 0)
             {
-                Console.WriteLine($"{enemy1.EnemyName}의 공격!");
-                int enemyDamage1 = enemy1.EnemyAtk;
+                Console.WriteLine($"{wildBoar.EnemyName}의 공격!");
+                int enemyDamage1 = wildBoar.EnemyAtk;
                 player1.Hp -= enemyDamage1;
-                Console.WriteLine($"{enemy1.EnemyName}이(가) 플레이어에게 {enemyDamage1}의 데미지를 입혔습니다.");
+                Console.WriteLine($"{wildBoar.EnemyName}이(가) 플레이어에게 {enemyDamage1}의 데미지를 입혔습니다.");
             }
 
-            if (enemy2.EnemyHp > 0)
+            if (waterDeer.EnemyHp > 0)
             {
-                Console.WriteLine($"{enemy2.EnemyName}의 공격!");
-                int enemyDamage2 = enemy2.EnemyAtk;
+                Console.WriteLine($"{waterDeer.EnemyName}의 공격!");
+                int enemyDamage2 = waterDeer.EnemyAtk;
                 player1.Hp -= enemyDamage2;
-                Console.WriteLine($"{enemy2.EnemyName}이(가) 플레이어에게 {enemyDamage2}의 데미지를 입혔습니다.");
+                Console.WriteLine($"{waterDeer.EnemyName}이(가) 플레이어에게 {enemyDamage2}의 데미지를 입혔습니다.");
             }
         }
 
         //전투 결과
-        DisplayResult(player1.Hp, enemy1.EnemyHp, enemy2.EnemyHp);
-        OneMonthLater();
+        DisplayResult(player1.Hp, wildBoar, waterDeer);
 
     }
     //공격선택
-    private static void AttackAction(Character player1, Enemy enemy1, Enemy enemy2)
+    private static void AttackAction(Character player1, params Enemy[] enemies)
     {
         Console.WriteLine("어떤 몬스터를 공격하시겠습니까?");
-        Console.WriteLine("1. " + enemy1.EnemyName);
-        Console.WriteLine("2. " + enemy2.EnemyName);
-
-        int targetChoice = CheckValidInput(1, 2);
-
-        switch (targetChoice)
+        for (int i = 0; i<enemies.Length;i++)
         {
-            case 1:
-                int playerDamage1 = player1.Attack();
-                enemy1.EnemyHp -= playerDamage1;
-                Console.WriteLine($"플레이어가 {enemy1.EnemyName}에게 {playerDamage1}의 데미지를 입혔습니다.");
-                break;
-            case 2:
-                int playerDamage2 = player1.Attack();
-                enemy2.EnemyHp -= playerDamage2;
-                Console.WriteLine($"플레이어가 {enemy2.EnemyName}에게 {playerDamage2}의 데미지를 입혔습니다.");
-                break;
+            Console.WriteLine($"{i+1}. {enemies[i].EnemyName}");
         }
+
+        int targetChoice = CheckValidInput(1, enemies.Length);
+
+        int playerDamage = player1.Attack();
+        enemies[targetChoice - 1].EnemyHp -= playerDamage;
+        Console.WriteLine($"플레이어가 {enemies[targetChoice - 1].EnemyName}에게 {playerDamage}의 데미지를 입혔습니다.");
     }
-    private static void SkillAction(Character player1, Enemy enemy1, Enemy enemy2)
+    private static void SkillAction(Character player1, params Enemy[] enemies)
     {
         // 스킬 추가하고 여기에 구현
         Console.WriteLine("스킬 낫띵");
     }
 
-    private static void DisplayResult(int playerHp, int enemyHp1, int enemyHp2)
+    private static void DisplayResult(int playerHp, params Enemy[] enemies)
     {
         if (playerHp <= 0)
         {
             Console.WriteLine("전투에서 패배했습니다. 게임 오버!");
+            Console.ReadKey();
             Home();
             return;
         }
         else
         {
             Console.WriteLine("적을 격파했습니다. 전투에서 승리!");
+            // 몬스터별 보상 처리
+            foreach (var enemy in enemies)
+            {
+                //player1.Gold += enemy.GoldReward;
+                // 경험치 또는 다른 보상 처리도 추가 가능
+            }
             Console.ReadLine();
             OneMonthLater();
             //보상 아이템? 스텟?
@@ -3261,10 +3293,10 @@ internal class Program
         Console.WriteLine("                             |        |      ");
         Console.WriteLine(" -------------------------------------------- ");
         Console.WriteLine("                                           ");
-        Console.WriteLine("   _____  __   __                        ");
-        Console.WriteLine("  | ___ | | | / /                     ");
-        Console.WriteLine("  | |_/ /  | V /                      ");
-        Console.WriteLine("  |  __/   /   |                      ");
+        Console.WriteLine("   _____  __    __                        ");
+        Console.WriteLine("  | ___ | | |  / /                     ");
+        Console.WriteLine("  | |_/ /  | |/ /                      ");
+        Console.WriteLine("  |  __/   /   /                      ");
         Console.WriteLine("  | |     / /| |                      ");
         Console.WriteLine("  |_|    /_/  |_|                    ");
         Console.WriteLine(" -------------------------------------------- ");
@@ -3288,70 +3320,81 @@ internal class Program
                 Home();
                 break;
             case 1:
-                // 무기상점에서 아이템을 구매하는 메서드 호출
+                // 무기상점
                 WeaponShop();
                 break;
 
             case 2:
+                // 방어구상점
                 ArmorShop();
                 break;
             case 3:
-                // 상점에서 아이템을 구매하는 메서드 호출
+                // 음식상점
                 FoodPx();
                 break;
 
         }
     }
-
+    //무기코너
     static void WeaponShop()
     {
         Console.Clear();
-        List<Weapon> weapons = new List<Weapon>
-        {
-            new Weapon("야전삽", 50, "전투용 삽", 10, 5, 3, 2),
-            new Weapon("K2", 200, "국산 소총", 20, 10, 5, 3),
-            new Weapon("AK47", 300, "돌격소총", 25, 15, 5, 1),
-            new Weapon("샷건", 150, "원거리 전투용 산탄총", 15, 5, 2, 1),
-            new Weapon("M60", 400, "무거운 기관총", 30, 5, 2, 1),
-            new Weapon("AWP", 500, "저격소총", 40, 5, 2, 1),
-            new Weapon("판처파우스트", 600, "고급 소총", 50, 20, 10, 5),
-            new Weapon("발칸", 450, "군용 소총", 35, 15, 8, 3),
-            new Weapon("K-9자주포", 700, "대형 포탄 발사기", 60, 10, 5, 2),
-            new Weapon("현무 극초음속 순항 미사일", 1000, "최첨단 미사일", 100, 50, 30, 10),
-            new Weapon("마음의편지", 9999, "최강의 무기", 999, 999, 999, 999)
-        };
 
         Console.WriteLine("무기 목록");
+        Console.WriteLine("=====================================================================================");
         for (int i = 0; i < weapons.Count; i++)
         {
             var weapon = weapons[i];
             Console.WriteLine($"{i + 1}. {weapon.ItemName} \t| 가격: {weapon.ItemGold}G \t| 아이템 설명: {weapon.ItemDescription}");
+            Console.WriteLine($"\t|힘:{weapon.ItemStr} \t|민첩:{weapon.ItemDex} \t|지능:{weapon.ItemIq} \t|운:{weapon.ItemLuk} ");
+        }
+        Console.WriteLine("=====================================================================================");
+        Console.WriteLine("1. 구매하기");
+        Console.WriteLine("0. 뒤로가기");
+        int input = CheckValidInput(0, 1);
+        switch (input)
+        {
+            case 0:
+                //px입구
+                PX();
+                break;
+            case 1:
+                // 상점에서 아이템을 구매하는 메서드 호출
+                BuyWeapon(player1);
+                break;
 
-            //구매기능, 인벤토리와 연결기능 구현
         }
 
+        
     }
+    //방어구코너
     static void ArmorShop()
     {
         Console.Clear();
-        List<Armor> armors = new List<Armor>
-        {
-            new Armor("생활복", 50, "평범한 옷", 5, 10),
-            new Armor("로카티", 150, "강화된 방어복", 15, 20),
-            new Armor("화생방 보호의", 200, "생화학적 위협으로부터 보호하는 의복", 20, 25),
-            new Armor("깔깔이", 100, "특수 재료로 만든 방어복", 10, 15),
-            new Armor("신형 전투복", 300, "최신형 전투용 갑옷", 25, 30),
-            new Armor("개구리 전투복", 120, "개구리 가죽으로 만든 방어복", 12, 18),
-            new Armor("특전사 이준호 전투복", 9999, "특전사 이준호님의 전투복", 999, 999)
-        };
-
         Console.WriteLine("방어구 목록");
+        Console.WriteLine("=====================================================================================");
         for (int i = 0; i < armors.Count; i++)
         {
             var armor = armors[i];
             Console.WriteLine($"{i + 1}. {armor.ItemName} \t| 가격: {armor.ItemGold}G \t| 아이템 설명: {armor.ItemDescription}");
+            Console.WriteLine($"\t |정신력:{armor.ItemMind} \t|체력 증가량: {armor.ItemHp} ");
         }
-        //구매기능, 인벤토리와 연결기능 구현
+        Console.WriteLine("=====================================================================================");
+        Console.WriteLine("1. 구매하기");
+        Console.WriteLine("0. 뒤로가기");
+         int input = CheckValidInput(0, 1);
+        switch (input)
+        {
+            case 0:
+                //px입구
+                PX();
+                break;
+            case 1:
+                // 상점에서 아이템을 구매하는 메서드 호출
+                BuyArmor(player1);
+                break;
+
+        }
     }
 
 
@@ -3369,6 +3412,7 @@ internal class Program
             var food = foods[i];
             Console.WriteLine("------------------------------------------------------------------");
             Console.WriteLine($" {i + 1}. {food.ItemName} \t| 가격: {food.ItemGold}G \t| 아이템 설명: {food.ItemDescription} ");
+            Console.WriteLine($"\t \t|증가하는 체력량{food.ItemHp} \t|");
         }
         Console.WriteLine("------------------------------------------------------------------");
         Console.WriteLine("=====================================================================================");
@@ -3425,7 +3469,7 @@ internal class Program
         if (player.Gold >= selectedItem.ItemGold)
         {
             player.Gold -= selectedItem.ItemGold; // 골드 차감
-            player.AddToInventoryWeapon(selectedItem); // 인벤토리에 아이템 추가
+            player.AddToInventoryWeapon(selectedItem); // 인벤토리에 아이템 추가            
             weapons.Remove(selectedItem);//선택한 아이템 제거
             Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
         }
@@ -3469,7 +3513,7 @@ internal class Program
         if (player.Gold >= selectedItem.ItemGold)
         {
             player.Gold -= selectedItem.ItemGold; // 골드 차감
-            player.AddToInventoryArmor(selectedItem); // 인벤토리에 아이템 추가
+            player.AddToInventoryArmor(selectedItem); // 인벤토리에 아이템 추가            
             armors.Remove(selectedItem);//선택한 아이템 제거
             Console.WriteLine($" {selectedItem.ItemName}을(를) 구매했습니다!");
         }
