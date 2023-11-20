@@ -102,7 +102,8 @@ internal class Program
         //게임이 실행되면 데이터 먼저 세팅
         GameDataSetting();
         //시작화면으로 이동
-        StartScene();
+        FStoryPullSecurity(player1, wildBoar, waterDeer);
+        //StartScene();
     }
 
     //게임 데이터 준비
@@ -1398,61 +1399,86 @@ internal class Program
    //일병 스토리 - 경계근무
     static void FStoryPullSecurity(Character player1, Enemy wildBoar, Enemy waterDeer)
     {
-
+        // Cursor 선택 설정 값
         int cursor = 0;
         bool onScene = true;
+        string[] text = { " ==공격==\n", " ==스킬==" };
         
+        // 나레이션 설정 값
+        string narrations = " \n 어두운 새벽 경계근무중... \n\n 저 앞 풀숲에서 부스럭거리는 소리가 난다. \n\n" +
+            $" 야생의 {wildBoar.EnemyName}와 {waterDeer.EnemyName}가 나타났다! \n\n 아무 키나 누르시오.";
+        char[] narration = narrations.ToCharArray();
+
+        // 나레이션 시작
         Console.Clear();
-        Console.WriteLine();
-        Console.WriteLine("어두운 새벽 경계근무중...");
+        foreach (char index in narration)
+        {
+            Console.Write(index);
+            Thread.Sleep(100);
+        }
         Console.ReadKey();
-        Console.WriteLine("저 앞 풀숲에서 부스럭거리는 소리가 난다.");
-        Console.ReadKey();
-        Console.WriteLine($"야생의 {wildBoar.EnemyName}와 {waterDeer.EnemyName}가 나타났다!");
-        Console.ReadKey();
-        Console.WriteLine("전투 시작!");
-        Console.WriteLine();
+        
+
         while (player1.Hp > 0 && (wildBoar.EnemyHp > 0 || waterDeer.EnemyHp > 0))
         {
             //내 턴
-            Console.WriteLine($"{wildBoar.EnemyName}: HP {wildBoar.EnemyHp}, {waterDeer.EnemyName}: HP {waterDeer.EnemyHp}");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine($"{player1.Name}: HP {player1.Hp}");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("플레이어의 턴입니다. 행동을 선택하세요");
-            Console.WriteLine("1. 공격");
-            Console.WriteLine("2. 스킬");
-
-            int actionChoice = CheckValidInput(1, 2);
-
-            switch (actionChoice)
+            while(onScene)
             {
-                case 1:
+                // 화면 초기화
+                Console.Clear();
+
+                Console.WriteLine($"{wildBoar.EnemyName}: HP {wildBoar.EnemyHp}, {waterDeer.EnemyName}: HP {waterDeer.EnemyHp}");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine($"{player1.Name}: HP {player1.Hp}");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine("플레이어의 턴입니다. 행동을 선택하세요\n");
+                Console.WriteLine("==============================================");
+                Console.WriteLine("");
+                // Text 배열 출력
+                TextChoice(cursor, text);
+                // Key 입력
+                e = Console.ReadKey();
+                // Cursor index
+                cursor = CursorChoice(e, cursor, text, ref onScene);
+            }
+
+            // Cursor input
+            switch (cursor)
+            {
+                case 0:
                     AttackAction(player1, wildBoar, waterDeer);
+                    Console.ReadKey();
                     break;
-                case 2:
+                case 1:
                     SkillAction(player1, wildBoar, waterDeer);
                     break;
             }
 
+            // 화면 초기화
+            Console.Clear();
             //몬스터 턴
             if (wildBoar.EnemyHp > 0)
             {
-                Console.WriteLine($"{wildBoar.EnemyName}의 공격!");
+                Console.WriteLine($" \n {wildBoar.EnemyName}의 공격!\n");
                 int enemyDamage1 = wildBoar.EnemyAtk;
                 player1.Hp -= enemyDamage1;
-                Console.WriteLine($"{wildBoar.EnemyName}이(가) 플레이어에게 {enemyDamage1}의 데미지를 입혔습니다.");
+                Console.WriteLine($" {wildBoar.EnemyName}이(가) 플레이어에게 {enemyDamage1}의 데미지를 입혔습니다.\n");
             }
 
             if (waterDeer.EnemyHp > 0)
             {
-                Console.WriteLine($"{waterDeer.EnemyName}의 공격!");
+                Console.WriteLine($" \n {waterDeer.EnemyName}의 공격!\n");
                 int enemyDamage2 = waterDeer.EnemyAtk;
                 player1.Hp -= enemyDamage2;
-                Console.WriteLine($"{waterDeer.EnemyName}이(가) 플레이어에게 {enemyDamage2}의 데미지를 입혔습니다.");
+                Console.WriteLine($" {waterDeer.EnemyName}이(가) 플레이어에게 {enemyDamage2}의 데미지를 입혔습니다.\n");
             }
+            Console.Write("\n            :::::Press any key:::::");
+            Console.ReadKey();
+            // bool값 및 Cursor값 초기화
+            onScene = true;
+            cursor = 0;
         }
 
         //전투 결과
@@ -1462,17 +1488,27 @@ internal class Program
     //공격선택
     private static void AttackAction(Character player1, params Enemy[] enemies)
     {
-        Console.WriteLine("어떤 몬스터를 공격하시겠습니까?");
-        for (int i = 0; i<enemies.Length;i++)
+        int cursor = 0;
+        bool onScene = true;
+        string[] text = new string[enemies.Length];
+        for (int i = 0; i < enemies.Length; i++)
         {
-            Console.WriteLine($"{i+1}. {enemies[i].EnemyName}");
+            text[i] += " =" + enemies[i].EnemyName + "=\n";
         }
 
-        int targetChoice = CheckValidInput(1, enemies.Length);
+        while (onScene)
+        {
+            Console.Clear();
+            Console.WriteLine("\n 어떤 몬스터를 공격하시겠습니까? \n ");
+
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
 
         int playerDamage = player1.Attack();
-        enemies[targetChoice - 1].EnemyHp -= playerDamage;
-        Console.WriteLine($"플레이어가 {enemies[targetChoice - 1].EnemyName}에게 {playerDamage}의 데미지를 입혔습니다.");
+        enemies[cursor].EnemyHp -= playerDamage;
+        Console.WriteLine($" \n 플레이어가 {enemies[cursor].EnemyName}에게 {playerDamage}의 데미지를 입혔습니다.");
     }
     private static void SkillAction(Character player1, params Enemy[] enemies)
     {
