@@ -843,42 +843,118 @@ internal class Program
                 //추가로 실패시 정신력, 체력 감소 추가해야됨
             }
         }
-
-        //switch (randomNumber)
-        //{
-        //    case 0:
-        //        Console.WriteLine("교육생들 수고 많았습니다.");
-        //        break; //성공 스텟증가
-        //    case int n when n >= 1 && n <= 6:
-        //        Console.WriteLine("목소리 크게 합니다. 다시!");
-        //        break; //실패1 정신력 체력 감소
-        //   case int n when n >= 7 && n <= 13:
-        //       Console.WriteLine("누가 마지막 구호를 외쳐! 다시!");
-        //       break; //실패2 정신력 체력 감소
-        //   case int n when n >= 14 && n <= 19:
-        //      Console.WriteLine("똑바로 합니다. 다시!");
-        //      break; //실패3 정신력 체력 감소
-        //}
     }
 
-    //일병 스토리 - 경계근무
-    static void FStoryPullSecurity()
+   //일병 스토리 - 경계근무
+    static void FStoryPullSecurity(Character player1, Enemy enemy1, Enemy enemy2)
     {
+        int cursor = 0;
+        bool onScene = true;
+        
         Console.Clear();
         Console.WriteLine();
         Console.WriteLine("어두운 새벽 경계근무중...");
         Console.ReadKey();
         Console.WriteLine("저 앞 풀숲에서 부스럭거리는 소리가 난다.");
         Console.ReadKey();
-        Console.WriteLine("야생의 고라니와 멧돼지가 나타났다!");
+        Console.WriteLine($"야생의 {enemy1.EnemyName}와 {enemy2.EnemyName}가 나타났다!");
         Console.ReadKey();
         Console.WriteLine("전투 시작!");
         Console.WriteLine();
-        Console.WriteLine("1.소리지르기");
-        Console.WriteLine("2.돌 던지기");
-        OneMonthLater();
-        //전투
+        while (player1.Hp > 0 && (enemy1.EnemyHp > 0 || enemy2.EnemyHp > 0))
+        {
+            //내 턴
+            Console.WriteLine($"{enemy1.EnemyName}: HP {enemy1.EnemyHp}, {enemy2.EnemyName}: HP {enemy2.EnemyHp}");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine($"{player1.Name}: HP {player1.Hp}");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("플레이어의 턴입니다. 행동을 선택하세요");
+            Console.WriteLine("1. 공격");
+            Console.WriteLine("2. 스킬");
 
+            int actionChoice = CheckValidInput(1, 2);
+
+            switch (actionChoice)
+            {
+                case 1:
+                    AttackAction(player1, enemy1, enemy2);
+                    break;
+                case 2:
+                    SkillAction(player1, enemy1, enemy2);
+                    break;
+            }
+
+            //몬스터 턴
+            if (enemy1.EnemyHp > 0)
+            {
+                Console.WriteLine($"{enemy1.EnemyName}의 공격!");
+                int enemyDamage1 = enemy1.EnemyAtk;
+                player1.Hp -= enemyDamage1;
+                Console.WriteLine($"{enemy1.EnemyName}이(가) 플레이어에게 {enemyDamage1}의 데미지를 입혔습니다.");
+            }
+
+            if (enemy2.EnemyHp > 0)
+            {
+                Console.WriteLine($"{enemy2.EnemyName}의 공격!");
+                int enemyDamage2 = enemy2.EnemyAtk;
+                player1.Hp -= enemyDamage2;
+                Console.WriteLine($"{enemy2.EnemyName}이(가) 플레이어에게 {enemyDamage2}의 데미지를 입혔습니다.");
+            }
+        }
+
+        //전투 결과
+        DisplayResult(player1.Hp, enemy1.EnemyHp, enemy2.EnemyHp);
+        OneMonthLater();
+
+    }
+    //공격선택
+    private static void AttackAction(Character player1, Enemy enemy1, Enemy enemy2)
+    {
+        Console.WriteLine("어떤 몬스터를 공격하시겠습니까?");
+        Console.WriteLine("1. " + enemy1.EnemyName);
+        Console.WriteLine("2. " + enemy2.EnemyName);
+
+        int targetChoice = CheckValidInput(1, 2);
+
+        switch (targetChoice)
+        {
+            case 1:
+                int playerDamage1 = player1.Attack();
+                enemy1.EnemyHp -= playerDamage1;
+                Console.WriteLine($"플레이어가 {enemy1.EnemyName}에게 {playerDamage1}의 데미지를 입혔습니다.");
+                break;
+            case 2:
+                int playerDamage2 = player1.Attack();
+                enemy2.EnemyHp -= playerDamage2;
+                Console.WriteLine($"플레이어가 {enemy2.EnemyName}에게 {playerDamage2}의 데미지를 입혔습니다.");
+                break;
+        }
+    }
+    private static void SkillAction(Character player1, Enemy enemy1, Enemy enemy2)
+    {
+        // 스킬 추가하고 여기에 구현
+        Console.WriteLine("스킬 낫띵");
+    }
+
+    private static void DisplayResult(int playerHp, int enemyHp1, int enemyHp2)
+    {
+        if (playerHp <= 0)
+        {
+            Console.WriteLine("전투에서 패배했습니다. 게임 오버!");
+            Home();
+            return;
+        }
+        else
+        {
+            Console.WriteLine("적을 격파했습니다. 전투에서 승리!");
+            Console.ReadLine();
+            OneMonthLater();
+            //보상 아이템? 스텟?
+        }
+
+        
     }
 
 

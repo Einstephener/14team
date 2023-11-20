@@ -72,6 +72,39 @@ public class Character
         return Math.Clamp(Math.Log(Value, 1.06) / 100, 0, 1);
         //로그 함수 넣은건 다른 게임들도 그렇게 되어있기도 하고 확률이 100%에 육박하면 노잼이라서 100찍으면 79% 확률
     }
+    
+    public int Attack()
+    {
+        Random rand = new Random();
+        int critRate = rand.Next(1,101);
+
+        //럭을 사용해서 치명타 확률 결정
+        int critical = Luk;
+
+        if (critRate <= critical)
+        {
+            Console.WriteLine("크리티컬!");
+            return CalculateDamage(true);
+        }
+        else
+        {
+            return CalculateDamage(false);
+        }
+    }
+
+    private int CalculateDamage(bool isCritical)
+    {
+        int baseDamage = Str;
+
+        if(isCritical)
+        {
+            return baseDamage*2;
+        }
+        else
+        {
+            return baseDamage;
+        }
+    }
 
 }
 public class Infantry : Character
