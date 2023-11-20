@@ -37,14 +37,7 @@ public class Character
 
     }
 
-      //인벤토리에 아이템 추가
-  public void AddToInventory(Item item)
-  {
-
-      //인벤토리에 아이템 추가
-      Inventory.Add(item);
-
-  }
+ 
   public void AddToInventoryFood(Food food)
   {
 
