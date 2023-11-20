@@ -648,13 +648,20 @@ internal class Program
 
         Console.Clear();
         Console.WriteLine("당신은 유격훈련에 참가했다.");
+        Console.ReadKey();
         Console.WriteLine("지옥의 PT체조가 시작됐다.");
+        Console.ReadKey();
         Console.WriteLine("\"지금부터 대답은 \'네\'가 아니라 \'악\'으로 대체합니다.\"");
+        Console.ReadKey();
         Console.WriteLine("악!");
+        Console.ReadKey();
         Console.WriteLine("\"PT체조 8번 온몸비틀기 준비!\"");
+        Console.ReadKey();
         Console.WriteLine("교관은 쉽게 갈 생각이 없는거같다 살아남자!");
+        Console.ReadKey();
         Console.WriteLine();
-        Console.WriteLine("1.유-격!");
+        Console.WriteLine("유-격!");
+        Console.ReadKey();
         //확률에 따라 성공 혹은 실패
         //실패마다 정신력, 체력 감소
         //실패시 출력멘트
@@ -665,17 +672,18 @@ internal class Program
             if (randomValue < success)
             {
                 Console.WriteLine("\"교육생들 수고 많았습니다.\"");
+                Console.ReadKey();
                 Console.WriteLine("\"본 교관 나쁜사람 아닙니다.\"");
+                Console.ReadKey();
                 Console.WriteLine("\"교육생들 막사로 가서 쉬도록합니다.\"");
+                Console.ReadKey();
                 Console.WriteLine("");
                 Console.WriteLine("지옥같은 유격훈련이 끝났다... 돌아가자.");
-                Console.WriteLine("");
-                Console.WriteLine("");
-                Console.WriteLine("  를 선택해 막사로 돌아가자");
-                //성공시 스텟증가 추가해야됨
                 Console.ReadKey();
-                Home();
-                return;
+                //성공시 스텟증가 추가해야됨
+                OneMonthLater();
+                break;
+                
             }
             else
             {
@@ -691,6 +699,7 @@ internal class Program
                 int randomIndex = random.Next(failMessages.Length);
                 Console.WriteLine(failMessages[randomIndex]);
                 success += 0.03; //실패시 성공확률 3%씩 증가
+                Console.ReadKey();
                 //추가로 실패시 정신력, 체력 감소 추가해야됨
             }
         }
@@ -718,12 +727,16 @@ internal class Program
         Console.Clear();
         Console.WriteLine();
         Console.WriteLine("어두운 새벽 경계근무중...");
+        Console.ReadKey();
         Console.WriteLine("저 앞 풀숲에서 부스럭거리는 소리가 난다.");
+        Console.ReadKey();
         Console.WriteLine("야생의 고라니와 멧돼지가 나타났다!");
+        Console.ReadKey();
         Console.WriteLine("전투 시작!");
         Console.WriteLine();
-        Console.WriteLine("1.소리지르기");
-        Console.WriteLine("2.돌 던지기");
+        Console.ReadKey();
+
+        OneMonthLater();
         //전투
 
     }
