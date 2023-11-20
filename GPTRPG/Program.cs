@@ -8,7 +8,7 @@ using System.IO;
 using System.Xml.Linq;
 using System;
 using System.Text;
-using System.Drawing; 
+using System.Drawing;
 
 internal class Program
 {
@@ -22,7 +22,7 @@ internal class Program
     //아이템들 선언
 
     private static Armor greenStrap;
-        
+
 
     //몬스터들 선언
     private static Enemy Senior;
@@ -33,6 +33,8 @@ internal class Program
     private static Character player1;
 
 
+    static int workCount = 0;
+    static int Perfection = 0;
     // ConsoleKeyInfo 선언
     static ConsoleKeyInfo e;
 
@@ -57,7 +59,7 @@ internal class Program
         player1 = new Character("", "용사", 5, 5, 5, 5, 100, 0, 5);
 
         // 아이템 정보 세팅
-        greenStrap = new Armor ("분대장 견장", 0, "분대장의 상징인 녹견", 10, 10);
+        greenStrap = new Armor("분대장 견장", 0, "분대장의 상징인 녹견", 10, 10);
 
         //리스트에 아이템들 추가
         items.Add(greenStrap);
@@ -66,9 +68,10 @@ internal class Program
 
 
         //직업 별 아이템 설정//
-        
+
+        /*
         //포병 
-        revise pin = new Item("크리크 수정핀","포병", 3, 0, 5, 2, 0, 150, 10, "사격장에서 흔히 볼수 있는 도구");// 기본템
+        revisePin = new Item("크리크 수정핀","포병", 3, 0, 5, 2, 0, 150, 10, "사격장에서 흔히 볼수 있는 도구");// 기본템
         shovel = new Item("각삽","포병", 20, 0, 0, 20, 0, 1000, 30, "지형을 수정하거나 만드는 도구 (사실 만능)");
         grain = new Item("곡갱이","포병", 35, 0, 0, 25, 0, 1600, 40, "고르지 못한 땅을 평탕화할 때 유용한 도구");
 
@@ -86,39 +89,11 @@ internal class Program
         Screwdriver = new Item(" +드라이버", "정비병", 3, 0, 5, 0, 0, 200, 10, "정비소에 가면 흔히 볼수 있는 도구");// 기본템
         Spanner = new Item(" 9/16 스페너", "정비병", 10, 0, 10, 20, 0, 1000, 30, "자주 사용하는 사이즈의 스페너");
         Hammer = new Item("오함마", "정비병", 30, 0, 25, 0, 30, 0, 1700, 40,"정비하다가 끼거나 막히면 해결해주는 해결사 도구");
-        
+        */
 
         Rank myRank = new Rank(1);
 
 
-        //몬스터들 정보 세팅
-        //맏선임
-         static void Enemy Senior()//이등병 맏선임
-         {
-            string Name = ("맏선임");
-            int Senior hp = 30;
-            int Senior atk = 5;
-         }
-         static void Fight()
-         {
-            while(true)
-            {
-                Senior.EnemyHpp -=player1.atk; //플레이어가 맡선임 공격
-                if(Senior.Hp<=0)
-                {
-                    Console.WriteLine("승리했습니다");
-                    Console.WriteLine($"남은 체력:{player1.Hp}");
-                    break;
-                }
-
-                player1.Hp -= Senior.EnemyAtk;//맡선임이 플레이어 공격
-                if(player1.Hp<=0)
-                {
-                    Console.WriteLine("패배했습니다");
-                    break;
-                }
-            }
-         }
 
         newCommander = new Enemy("초임 소위", 100, 100);
         french = new Enemy("참호", 5, 100);
@@ -296,7 +271,7 @@ internal class Program
                 break;
             //상병
             case 9:            //9개월
-                CStoryKCTC();
+                CStoryKCTC(player1);
                 break;
             case 10:            //10개월
                 CSDefcon(player1);
@@ -329,35 +304,35 @@ internal class Program
     }
 
     //한달 지나기
-     static void OneMonthLater()
- {
-     Rank.month++;
-     Console.WriteLine("");
-     Console.WriteLine("한달이 흘렀다");
-     Console.WriteLine("");
-     Console.ForegroundColor = ConsoleColor.Yellow;
-     Console.Write("월급");
-     Console.ResetColor();
-     Console.WriteLine("이 들어왔다");
-     if (Rank.month < 3)
-     {
-         player1._gold += 1000;
-     }
-     else if (Rank.month < 9) 
-     {
-         player1._gold += 1500;
-     }
-     else if(Rank.month < 15)
-     {
-         player1._gold += 2000;
-     }
-     else 
-     {
-         player1._gold += 3000;
-     }
-     Console.ReadKey();
-     Home();
- }
+    static void OneMonthLater()
+    {
+        Rank.month++;
+        Console.WriteLine("");
+        Console.WriteLine("한달이 흘렀다");
+        Console.WriteLine("");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.Write("월급");
+        Console.ResetColor();
+        Console.WriteLine("이 들어왔다");
+        if (Rank.month < 3)
+        {
+            player1._gold += 1000;
+        }
+        else if (Rank.month < 9)
+        {
+            player1._gold += 1500;
+        }
+        else if (Rank.month < 15)
+        {
+            player1._gold += 2000;
+        }
+        else
+        {
+            player1._gold += 3000;
+        }
+        Console.ReadKey();
+        Home();
+    }
 
     #region 상태창
     //상태확인
@@ -723,13 +698,20 @@ internal class Program
 
         Console.Clear();
         Console.WriteLine("당신은 유격훈련에 참가했다.");
+        Console.ReadKey();
         Console.WriteLine("지옥의 PT체조가 시작됐다.");
+        Console.ReadKey();
         Console.WriteLine("\"지금부터 대답은 \'네\'가 아니라 \'악\'으로 대체합니다.\"");
+        Console.ReadKey();
         Console.WriteLine("악!");
+        Console.ReadKey();
         Console.WriteLine("\"PT체조 8번 온몸비틀기 준비!\"");
+        Console.ReadKey();
         Console.WriteLine("교관은 쉽게 갈 생각이 없는거같다 살아남자!");
+        Console.ReadKey();
         Console.WriteLine();
-        Console.WriteLine("1.유-격!");
+        Console.WriteLine("유-격!");
+        Console.ReadKey();
         //확률에 따라 성공 혹은 실패
         //실패마다 정신력, 체력 감소
         //실패시 출력멘트
@@ -740,17 +722,18 @@ internal class Program
             if (randomValue < success)
             {
                 Console.WriteLine("\"교육생들 수고 많았습니다.\"");
+                Console.ReadKey();
                 Console.WriteLine("\"본 교관 나쁜사람 아닙니다.\"");
+                Console.ReadKey();
                 Console.WriteLine("\"교육생들 막사로 가서 쉬도록합니다.\"");
+                Console.ReadKey();
                 Console.WriteLine("");
                 Console.WriteLine("지옥같은 유격훈련이 끝났다... 돌아가자.");
-                Console.WriteLine("");
-                Console.WriteLine("");
-                Console.WriteLine("  를 선택해 막사로 돌아가자");
-                //성공시 스텟증가 추가해야됨
                 Console.ReadKey();
-                Home();
-                return;
+                //성공시 스텟증가 추가해야됨
+                OneMonthLater();
+                break;
+
             }
             else
             {
@@ -766,6 +749,7 @@ internal class Program
                 int randomIndex = random.Next(failMessages.Length);
                 Console.WriteLine(failMessages[randomIndex]);
                 success += 0.03; //실패시 성공확률 3%씩 증가
+                Console.ReadKey();
                 //추가로 실패시 정신력, 체력 감소 추가해야됨
             }
         }
@@ -793,18 +777,22 @@ internal class Program
         Console.Clear();
         Console.WriteLine();
         Console.WriteLine("어두운 새벽 경계근무중...");
+        Console.ReadKey();
         Console.WriteLine("저 앞 풀숲에서 부스럭거리는 소리가 난다.");
+        Console.ReadKey();
         Console.WriteLine("야생의 고라니와 멧돼지가 나타났다!");
+        Console.ReadKey();
         Console.WriteLine("전투 시작!");
         Console.WriteLine();
         Console.WriteLine("1.소리지르기");
         Console.WriteLine("2.돌 던지기");
+        OneMonthLater();
         //전투
 
     }
 
 
-#region 일병 - 100일 휴가
+    #region 일병 - 100일 휴가
     //일병 스토리 - 100일 휴가
     static void HundredDaysvacationScene()
     {
@@ -831,7 +819,7 @@ internal class Program
         while (onScene)
         {
             // Random Number 설정
-            randomNum = random.Next(1, 10);
+            randomNum = random.Next(1, 11);
 
             //화면 초기화
             Console.Clear();
@@ -843,23 +831,6 @@ internal class Program
             TextChoice(cursor, text);
             // Key Input
             e = Console.ReadKey();
-
-            switch (e.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    cursor--;
-                    if (cursor < 0) cursor = text.Length - 1;
-                    break;
-                case ConsoleKey.DownArrow:
-                    cursor++;
-                    if (cursor > text.Length - 1) cursor = 0;
-                    break;
-                case ConsoleKey.Enter:
-                    onScene = false;
-                    break;
-                default:
-                    break;
-            }
             // Cursor Index
             cursor = CursorChoice(e, cursor, text, ref onScene);
         }
@@ -928,7 +899,7 @@ internal class Program
     }
     #endregion
 
-#region 일병 - 사격 훈련
+    #region 일병 - 사격 훈련
     // 일병 스토리 - 사격 훈련
     static void ShootingScene()
     {
@@ -1006,8 +977,8 @@ internal class Program
 
         // hitCount(명중 횟수)에 따른 보상 로직 작성.
         // 1~5 폐급, 6~8 평균, 9~10 특등사수 
-   
 
+    }
     // Shooting 처리 메서드
     static int ShootingEvent(int input, int _hitCount, int _cursor)
     {
@@ -1025,7 +996,7 @@ internal class Program
 
         return _hitCount;
     }
-#endregion
+    #endregion
 
 
     //대민지원 일병스토리5
@@ -1081,7 +1052,8 @@ internal class Program
             Console.WriteLine("======================================================");
             Console.WriteLine($"결과: 10번에 삽질 중 {sucessCount}번 성공했습니다!");
             Console.WriteLine("======================================================");
-            Console.WriteLine("1. 결과확인하기");
+            Console.WriteLine("");
+            Console.WriteLine("결과확인하기");
             Console.ReadKey();
             Console.Clear();
 
@@ -1603,114 +1575,115 @@ internal class Program
         Console.ReadKey();
         Random rand = new Random();
         int number = rand.Next(10);
-        switch(number){
+        switch (number)
+        {
             case 0:
-            Console.WriteLine("1등!");
-            Console.ReadKey();
-            Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
-            Console.WriteLine("스탯이 전체적으로 증가합니다.");
-            player1.IQ+= 10;
-            player1.Str+= 10;
-            player1.Dex+= 10;
-            player1.Luk+= 10;
-            break;
+                Console.WriteLine("1등!");
+                Console.ReadKey();
+                Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
+                Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                player1.IQ += 10;
+                player1.Str += 10;
+                player1.Dex += 10;
+                player1.Luk += 10;
+                break;
             case 1:
-            Console.WriteLine("2등!");
-            Console.ReadKey();
-            Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
-            Console.WriteLine("스탯이 전체적으로 증가합니다.");
-            player1.IQ+= 9;
-            player1.Str+= 9;
-            player1.Dex+= 9;
-            player1.Luk+= 9;
-            break;
+                Console.WriteLine("2등!");
+                Console.ReadKey();
+                Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
+                Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                player1.IQ += 9;
+                player1.Str += 9;
+                player1.Dex += 9;
+                player1.Luk += 9;
+                break;
             case 2:
-            Console.WriteLine("3등!");
-            Console.ReadKey();
-            Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
-            Console.WriteLine("스탯이 전체적으로 증가합니다.");
-            player1.IQ+= 8;
-            player1.Str+= 8;
-            player1.Dex+= 8;
-            player1.Luk+= 8;
-            break;
+                Console.WriteLine("3등!");
+                Console.ReadKey();
+                Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
+                Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                player1.IQ += 8;
+                player1.Str += 8;
+                player1.Dex += 8;
+                player1.Luk += 8;
+                break;
             case 3:
-            Console.WriteLine("4등!");
-            Console.ReadKey();
-            Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
-            Console.WriteLine("스탯이 전체적으로 증가합니다.");
-            player1.IQ+= 7;
-            player1.Str+= 7;
-            player1.Dex+= 7;
-            player1.Luk+= 7;
-            break;
+                Console.WriteLine("4등!");
+                Console.ReadKey();
+                Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
+                Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                player1.IQ += 7;
+                player1.Str += 7;
+                player1.Dex += 7;
+                player1.Luk += 7;
+                break;
             case 4:
-            Console.WriteLine("5등!");
-            Console.ReadKey();
-            Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
-            Console.WriteLine("스탯이 전체적으로 증가합니다.");
-            player1.IQ+= 6;
-            player1.Str+= 6;
-            player1.Dex+= 6;
-            player1.Luk+= 6;
-            break;
+                Console.WriteLine("5등!");
+                Console.ReadKey();
+                Console.WriteLine("축하합니다! 당신은 우수한 성적으로 교육을 수료하셨습니다.");
+                Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                player1.IQ += 6;
+                player1.Str += 6;
+                player1.Dex += 6;
+                player1.Luk += 6;
+                break;
             case 5:
-            Console.WriteLine("6등!");
-            Console.ReadKey();
-            Console.WriteLine("축하합니다! 당신은 교육을 수료하셨습니다.");
-            Console.WriteLine("스탯이 전체적으로 증가합니다.");
-            player1.IQ+= 5;
-            player1.Str+= 5;
-            player1.Dex+= 5;
-            player1.Luk+= 5;
-            break;
+                Console.WriteLine("6등!");
+                Console.ReadKey();
+                Console.WriteLine("축하합니다! 당신은 교육을 수료하셨습니다.");
+                Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                player1.IQ += 5;
+                player1.Str += 5;
+                player1.Dex += 5;
+                player1.Luk += 5;
+                break;
             case 6:
-            Console.WriteLine("7등!");
-            Console.ReadKey();
-            Console.WriteLine("축하합니다! 당신은 교육을 수료하셨습니다.");
-            Console.WriteLine("스탯이 전체적으로 증가합니다.");
-            player1.IQ+= 4;
-            player1.Str+= 4;
-            player1.Dex+= 4;
-            player1.Luk+= 4;
-            break;
+                Console.WriteLine("7등!");
+                Console.ReadKey();
+                Console.WriteLine("축하합니다! 당신은 교육을 수료하셨습니다.");
+                Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                player1.IQ += 4;
+                player1.Str += 4;
+                player1.Dex += 4;
+                player1.Luk += 4;
+                break;
             case 7:
-            Console.WriteLine("8등!");
-            Console.ReadKey();
-            Console.WriteLine("축하합니다! 당신은 교육을 수료하셨습니다.");
-            Console.WriteLine("스탯이 전체적으로 증가합니다.");
-            player1.IQ+= 3;
-            player1.Str+= 3;
-            player1.Dex+= 3;
-            player1.Luk+= 3;
-            break;
+                Console.WriteLine("8등!");
+                Console.ReadKey();
+                Console.WriteLine("축하합니다! 당신은 교육을 수료하셨습니다.");
+                Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                player1.IQ += 3;
+                player1.Str += 3;
+                player1.Dex += 3;
+                player1.Luk += 3;
+                break;
             case 8:
-            Console.WriteLine("9등!");
-            Console.ReadKey();
-            Console.WriteLine("축하합니다! 당신은 교육을 수료하셨습니다.");
-            Console.WriteLine("스탯이 전체적으로 증가합니다.");
-            player1.IQ+= 2;
-            player1.Str+= 2;
-            player1.Dex+= 2;
-            player1.Luk+= 2;
-            break;
+                Console.WriteLine("9등!");
+                Console.ReadKey();
+                Console.WriteLine("축하합니다! 당신은 교육을 수료하셨습니다.");
+                Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                player1.IQ += 2;
+                player1.Str += 2;
+                player1.Dex += 2;
+                player1.Luk += 2;
+                break;
             case 9:
-            Console.WriteLine("10등!");
-            Console.ReadKey();
-            Console.WriteLine("축하합니다! 교육을 수료하셨습니다.");
-            Console.WriteLine("스탯이 전체적으로 증가합니다.");
-            player1.IQ+= 1;
-            player1.Str+= 1;
-            player1.Dex+= 1;
-            player1.Luk+= 1;
-            break;
+                Console.WriteLine("10등!");
+                Console.ReadKey();
+                Console.WriteLine("축하합니다! 교육을 수료하셨습니다.");
+                Console.WriteLine("스탯이 전체적으로 증가합니다.");
+                player1.IQ += 1;
+                player1.Str += 1;
+                player1.Dex += 1;
+                player1.Luk += 1;
+                break;
         }
-        Console.ReadKey();     
+        Console.ReadKey();
         Console.WriteLine("당신은 녹견을 획득했다.");
         player1.AddToInventory(greenStrap);
-        Console.ReadKey();     
+        Console.ReadKey();
         Console.WriteLine("교육이 끝나고 막사로 복귀했다.");
-        
+
         OneMonthLater();
 
 
@@ -1824,7 +1797,7 @@ internal class Program
 
     }
 
-    private static void CSCommanderDead()
+    static void CSCommanderDead()
     {
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine("소대장을 쓰러트렸다.");
@@ -1883,8 +1856,7 @@ internal class Program
 
 
 
-    static int workCount = 0;
-    static int Perfection = 0;
+
     #region 혹한기
     static void ColdWeatherTraining1()
     {
@@ -2149,6 +2121,8 @@ internal class Program
     }
     #endregion
     #region 작업
+
+
     static void HardWork()
     {
         workCount++;
