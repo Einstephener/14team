@@ -749,6 +749,9 @@ internal class Program
         "3. 본가로 간다.",
         "4. 혼자 논다."};
 
+        // 게임 시작
+        // 화면 초기화
+        Console.Clear();
 
         while (onScene)
         {
@@ -766,7 +769,6 @@ internal class Program
             // Key Input
             e = Console.ReadKey();
 
-
             switch (e.Key)
             {
                 case ConsoleKey.UpArrow:
@@ -783,11 +785,6 @@ internal class Program
                 default:
                     break;
             }
-
-            // Cursor Index
-            cursor = CursorChoice(e, cursor, text, ref onScene);
-
-
             // Cursor Index
             cursor = CursorChoice(e, cursor, text, ref onScene);
         }
@@ -852,7 +849,7 @@ internal class Program
     }
     #endregion
 
-    #region 일병 - 사격 훈련
+#region 일병 - 사격 훈련
     // 일병 스토리 - 사격 훈련
     static void ShootingScene()
     {
@@ -876,15 +873,13 @@ internal class Program
 
         Console.WriteLine("오늘은 사격훈련을 진행하겠다.");
         Console.WriteLine("");
-        Console.ReadKey();
         Console.WriteLine("한발 한발 신중하게 쏠 수 있도록 한다.");
         Console.WriteLine("");
-        Console.ReadKey();
         Console.WriteLine("탄약을 분배 받은 사수는 각자 위치로!");
         Console.WriteLine("");
-        Console.ReadKey();
         Console.WriteLine("준비된 사수는 사격 개시!");
         Console.WriteLine("");
+        Console.WriteLine("아무 키나 눌러주십시오.");
         Console.ReadKey();
 
         for (int currentWave = 1; currentWave <= totalWave; currentWave++)
@@ -944,6 +939,7 @@ internal class Program
             // 웨이브 + 1
             currentWave++;
 
+            // Scene값 초기화
             onScene = true;
         }
 
@@ -968,6 +964,7 @@ internal class Program
 
         return _hitCount;
     }
+#endregion
 
 
     //대민지원 일병스토리5
