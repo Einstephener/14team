@@ -149,22 +149,6 @@ internal class Program
 
         Rank myRank = new Rank(1);
 
-
-
-        //newCommander = new Enemy("초임 소위", 100, 100);
-        //french = new Enemy("참호", 5, 100);
-        //senior = new Enemy("맞선임", 4, 10);
-
-
-        //몬스터 추가
-        //enemys.Add(french);
-        //enemys.Add(newCommander);
-        //enemys.Add(senior);
-
-
-
-
-
     }
 
     static int CheckValidInput(int min, int max)
@@ -199,12 +183,14 @@ internal class Program
             Console.Clear();
             //시작화면
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("                                                                                ");
+            Console.WriteLine("                                                                         ");
+            Console.WriteLine("                            군대  RPG                                    ");
+            Console.WriteLine("                                                                         ");
             Console.WriteLine("                  Press Any Key to start the game.                       ");
             Console.ResetColor();
-            Console.WriteLine("                    ==========================                             ");
+            Console.WriteLine("                    ==========================                           ");
 
-            Console.WriteLine("                                                                              ");
+            Console.WriteLine("                                                                         ");
 
 
             // Text[] Output
