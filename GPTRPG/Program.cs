@@ -41,6 +41,7 @@ internal class Program
 
         };
 
+
     //아이템 리스트
     private static List<Food> foods = new List<Food> // 체력, 가격
         {
@@ -78,6 +79,11 @@ internal class Program
     //아이템들 선언
 
     private static Armor greenStrap;
+    private static Armor ShoulderSleeve1;
+    private static Armor ShoulderSleeve2;
+    private static Armor ShoulderSleeve3;
+    private static Armor ShoulderSleeve4;
+
 
     //캐릭터 선언
     private static Character player1;
@@ -122,27 +128,12 @@ internal class Program
 
         //직업 별 아이템 설정//
 
-        /*
-        //포병 
-        revisePin = new Item("크리크 수정핀","포병", 3, 0, 5, 2, 0, 150, 10, "사격장에서 흔히 볼수 있는 도구");// 기본템
-        shovel = new Item("각삽","포병", 20, 0, 0, 20, 0, 1000, 30, "지형을 수정하거나 만드는 도구 (사실 만능)");
-        grain = new Item("곡갱이","포병", 35, 0, 0, 25, 0, 1600, 40, "고르지 못한 땅을 평탕화할 때 유용한 도구");
 
-        //보병
-        broom = new Item("빗자루", "보병", 3 ,0, 0, 5, 0, 0, 200, 10, "부대에서 흔히 볼수 있는 도구"); // 기본템
-        buttstock = new Item("개머리판","보병", 10, 5, 0, 5, 0, 1000, 30, "머리보다 단단한 개머리판");
-        sword = new Item("대검","보병", 30, 5, 0, 10, 0 , 0, 1500, 40, "근무중에 흔히 볼 수 있는 대검")
-
-        //운전병
-        wiper = new Item("부러진 와이퍼", "운전병", 3, 0, 0, 5, 0, 200, 10, "운전병 창고에서 흔히 볼수 있는 도구");// 기본템
-        chain = new Item("미끄럼 방지체인","운전병", 15, 0, 0, 10, 0 ,1200, 30, "겨울에 볼수 있는 길고 단단한 체인");
-        lever = new Item("지렛대", "운전병", 30, 0, 0, 20, 0, 1500, 40, "정비할 때 자주쓰이는 도구");
-
-        //정비병 무기
-        Screwdriver = new Item(" +드라이버", "정비병", 3, 0, 5, 0, 0, 200, 10, "정비소에 가면 흔히 볼수 있는 도구");// 기본템
-        Spanner = new Item(" 9/16 스페너", "정비병", 10, 0, 10, 20, 0, 1000, 30, "자주 사용하는 사이즈의 스페너");
-        Hammer = new Item("오함마", "정비병", 30, 0, 25, 0, 30, 0, 1700, 40,"정비하다가 끼거나 막히면 해결해주는 해결사 도구");
-        */
+        //직업 별 사단 마크
+        ShoulderSleeve1 = new Armor("제2기갑여단 마크", 0,  "포병 사단 마크", 10, 10);// 기본템
+        ShoulderSleeve2 = new Armor("제17보병사단 마크", 0, "보병 사단 마크", 10, 10);// 기본템
+        ShoulderSleeve3 = new Armor("제1수송교육연대 마크", 0, "야수교 마크", 10, 10);// 기본템
+        ShoulderSleeve4 = new Armor("육군종합정비창 마크", 0, "정비대대 마크", 10, 10);// 기본템템
 
         Rank myRank = new Rank(1);
 
@@ -165,7 +156,7 @@ internal class Program
         }
     }
 
-    #region 굳건이 시작화면
+    #region 시작화면
 
     //시작화면
     static void StartScene()
@@ -299,20 +290,44 @@ internal class Program
                 //보병 전직
                 player1 = new Infantry(player.Name, "보병", 5, 5, 5, 5, 100, 0, 5);
                 Console.WriteLine(" 보병을 선택했다.");
+                //사단마크 획득
+                player1.AddToInventoryArmor(ShoulderSleeve2);
+                //사단마크 스탯 적용
+                ShoulderSleeve2.isEquipped = true;
+                player1.Mind += ShoulderSleeve2.ItemMind;
+                player1.Hp += ShoulderSleeve2.ItemHp;
                 break;
             case 1:
                 //포병 전직
                 player1 = new Artillery(player.Name, "포병", 5, 5, 5, 5, 100, 0, 5);
+                //사단마크 획득
+                player1.AddToInventoryArmor(ShoulderSleeve1);
+                //사단마크 스탯 적용
+                ShoulderSleeve1.isEquipped = true;
+                player1.Mind += ShoulderSleeve1.ItemMind;
+                player1.Hp += ShoulderSleeve1.ItemHp;
                 Console.WriteLine(" 포병을 선택했다.");
                 break;
             case 2:
                 //운전병 전직
                 player1 = new Transportation(player.Name, "운전병", 5, 5, 5, 5, 100, 0, 5);
+                //사단마크 획득
+                player1.AddToInventoryArmor(ShoulderSleeve3);
+                //사단마크 스탯 적용
+                ShoulderSleeve3.isEquipped = true;
+                player1.Mind += ShoulderSleeve3.ItemMind;
+                player1.Hp += ShoulderSleeve3.ItemHp;
                 Console.WriteLine(" 운전병을 선택했다.");
                 break;
             case 3:
                 //정비병 전직
                 player1 = new Maintenence(player.Name, "정비병", 5, 5, 5, 5, 100, 0, 5);
+                //사단마크 획득
+                player1.AddToInventoryArmor(ShoulderSleeve4);
+                //사단마크 스탯 적용
+                ShoulderSleeve4.isEquipped = true;
+                player1.Mind += ShoulderSleeve4.ItemMind;
+                player1.Hp += ShoulderSleeve4.ItemHp;
                 Console.WriteLine(" 정비병을 선택했다.");
                 break;
             default:
