@@ -271,7 +271,7 @@ internal class Program
         foreach (char index in texs)
         {
             Console.Write(index);
-            Thread.Sleep(100);
+            Thread.Sleep(80);
         }
         player.Name = Console.ReadLine();
 
@@ -1273,10 +1273,7 @@ internal class Program
     {
         
         // 텍스트 설정 값
-        string texts = "\n 드디어 훈련병 생활이 끝났군 \n\n 이제 자대에서 열심히 해보자! \n\n" +
-            " 자대배치 후 첫 아침점호 시간이다 \n\n 긴장한 상태로 열을 맞춰서있다.. \n\n 그때 한 선임이 \"굳건이 군화 닦았어 ? \"" +
-            " 옙. 닦았습니다. \n\n 진짜? 확인해봐서 안닦였으면 뒤진다. \n\n 이거 봐봐. 이게 닦은거야? \n\n 죄.. 죄송합니다. \n\n" +
-            " 너 점호끝나고 보자\n\n <점호 후 막사 뒷편 창고>";
+        string texts = "\n 드디어 훈련병 생활이 끝났군 \n\n 이제 자대에서 열심히 해보자!";
         char[] text = texts.ToCharArray();
 
 
@@ -1286,38 +1283,35 @@ internal class Program
         foreach (char index in texts)
         {
             Console.Write(index);
-            Thread.Sleep(100);
+            Thread.Sleep(80);
         }
-        
+        Console.WriteLine(" >>");
+        Console.ReadKey();
+
+        Console.Clear();
+        Console.WriteLine();           
+        Console.WriteLine("자대배치 후 첫 아침점호 시간이다");
+        Console.ReadKey();
+        Console.WriteLine("긴장한 상태로 열을 맞춰서있다..");
+        Console.ReadKey();
+        Console.WriteLine($"그때 한 선임이 \"너 군화 닦았어 ?\" 라고 물어본다.");
+        Console.ReadKey();
+        Console.WriteLine("옙. 닦았습니다.");
+        Console.ReadKey();
+        Console.WriteLine("\"진짜? 확인해봐서 안닦였으면 뒤진다\"");
+        Console.ReadKey();
+        Console.WriteLine("\"이거 봐봐. 이게 닦은거야?\"");
+        Console.ReadKey();
+        Console.WriteLine("죄.. 죄송합니다.");
+        Console.ReadKey();
+        Console.WriteLine("\"너 점호끝나고 보자\"");
+        Console.ReadKey();
         Console.WriteLine("");//맞선임:~~대충 대사
         Console.WriteLine("");//대충 전투시작
 
         SeniorFight(player1, senior);
 
         OneMonthLater();
-        /*
-        Random Shoes = new Random();
-        int number = Shoes.Next(2);
-        if (number == 0)
-        {
-            Console.WriteLine("네 닦았습니다!");
-            Console.WriteLine("아무일도 일어나지 않았다");
-        }
-        else
-        {
-            player1.Hp -= 30;
-            Console.WriteLine("");
-            Console.WriteLine("아 미쳐 닦지 못했습니다..");
-            Console.WriteLine("하.. 아침부터 큰일이네;; ");
-            Console.WriteLine("체력이 30 감소했습니다.");
-        }
-        // 만약 굳건이가 군화를 닦았다면 아무일도 일어나지 않는다
-        // 굳건이가 군화를 안닦았다면 -hp  확률 50%
-        */
-
-
-
-
     }
     //맞선임 보스전
 
@@ -1473,7 +1467,7 @@ internal class Program
         foreach (char index in narration)
         {
             Console.Write(index);
-            Thread.Sleep(100);
+            Thread.Sleep(80);
         }
         Console.ReadKey();
         
