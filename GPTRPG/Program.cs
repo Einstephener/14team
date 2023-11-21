@@ -36,10 +36,7 @@ internal class Program
             new Armor("깔깔이", 100, "특수 재료로 만든 방어복", 10, 15),
             new Armor("신형 전투복", 300, "최신형 전투용 갑옷", 25, 30),
             new Armor("개구리 전투복", 120, "개구리 가죽으로 만든 방어복", 12, 18),
-            new Armor("특전사 이준호 전투복", 9999, "특전사 이준호님의 전투복", 999, 999),
-            new Armor("AAA급 모포", 0, "전설의 병장 김굳건의 모포", 50, 30),
-            new Armor("AAA급 장구류", 0, "전설의 병장 김굳건의 장구류", 50, 30),
-            new Armor("AAA급 군화", 0, "전설의 병장 김굳건의 군화", 50, 30)
+            new Armor("특전사 이준호 전투복", 9999, "특전사 이준호님의 전투복", 999, 999)
         };
 
     //아이템 리스트
@@ -89,7 +86,7 @@ internal class Program
     static int Perfection = 0;
     static double Rate = 0;
     static double Coins = 0;
-    static double Mileages = 0;
+    static double Mileages = 500;
     static int GrahpCount = 0;
     // ConsoleKeyInfo 선언
     static ConsoleKeyInfo e;
@@ -116,7 +113,6 @@ internal class Program
 
         // 녹견 세팅
         greenStrap = new Armor("분대장 견장", 0, "분대장의 상징인 녹견", 10, 10);
-
         //리스트에 아이템들 추가
 
 
