@@ -1531,7 +1531,8 @@ internal class Program
         BattleScene(player1, wildBoar, waterDeer);
     }
 
-    static void BattleScene(Character player1, Enemy wildBoar, Enemy waterDeer)
+    //전투 메서드
+    static void BattleScene(Character player1, params Enemy[] enemies)
     {
         // Cursor 선택 설정 값
         int cursor = 0;
