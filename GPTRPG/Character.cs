@@ -11,6 +11,7 @@ public class Character
     public int Hp { get; set; } //캐릭터 체력
     public int Mind { get; set; } //캐릭터 정신력
     public int _gold; //소유 골드
+    public List<Skill> Skills { get; set; }
 
     public int Gold //골드 증감
     {
@@ -34,7 +35,7 @@ public class Character
         Hp = hp;
         _gold = gold;
         Mind = mind;
-
+        Skills = new List<Skill>();
     }
     
 
@@ -179,6 +180,7 @@ public class Infantry : Character
     public Infantry(string name, string job, int str, int dex, int iq, int luk, int hp, int gold, int mind)
         : base(name, "보병", str, dex, iq, luk, hp, gold, mind)
     {
+        Skills.Add(new CoordinationBarrageSkill());
     }
 }
 
@@ -187,6 +189,7 @@ public class Artillery : Character
     public Artillery(string name, string job, int str, int dex, int iq, int luk, int hp, int gold, int mind)
             : base(name, "포병", str, dex, iq, luk, hp, gold, mind)
     {
+        Skills.Add(new ArmorPiercerSkill());
     }
 }
 
@@ -195,6 +198,7 @@ public class Transportation : Character
     public Transportation(string name, string job, int str, int dex, int iq, int luk, int hp, int gold, int mind)
         : base(name, "운전병", str, dex, iq, luk, hp, gold, mind)
     {
+        Skills.Add(new K_511AttackSkill());
     }
 }
 
@@ -203,6 +207,7 @@ public class Maintenence : Character
     public Maintenence(string name, string job, int str, int dex, int iq, int luk, int hp, int gold, int mind)
         : base(name, "정비병", str, dex, iq, luk, hp, gold, mind)
     {
+        Skills.Add(new fuckSkill());
     }
 }
 
