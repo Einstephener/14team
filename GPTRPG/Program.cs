@@ -1,4 +1,4 @@
-﻿using System.Data;
+using System.Data;
 using System.Diagnostics;
 using System.Numerics;
 using System.Reflection.Emit;
@@ -118,7 +118,7 @@ internal class Program
         player1 = new Character("", "용사", 5, 5, 5, 5, 100, 100, 0, 5);
 
         // 녹견 세팅
-        greenStrap = new Armor("분대장 견장", 0, "분대장의 상징인 녹견", 10, 10,"효과설명");
+        greenStrap = new Armor("분대장 견장", 0, "분대장의 상징인 녹견", 10, 10, "체력+10, 정신력+10");
         //리스트에 아이템들 추가
 
 
@@ -129,10 +129,10 @@ internal class Program
 
 
         //직업 별 사단 마크
-        ShoulderSleeve1 = new Armor("제2기갑여단 마크", 0,  "포병 사단 마크", 10, 10,"효과설명");// 기본템
-        ShoulderSleeve2 = new Armor("제17보병사단 마크", 0, "보병 사단 마크", 10, 10, "효과설명");// 기본템
-        ShoulderSleeve3 = new Armor("제1수송교육연대 마크", 0, "야수교 마크", 10, 10, "효과설명");// 기본템
-        ShoulderSleeve4 = new Armor("육군종합정비창 마크", 0, "정비대대 마크", 10, 10, "효과설명");// 기본템템
+        ShoulderSleeve1 = new Armor("제2기갑여단 마크", 0, "포병 사단 마크", 10, 10, "체력+10, 정신력+10");// 기본템
+        ShoulderSleeve2 = new Armor("제17보병사단 마크", 0, "보병 사단 마크", 10, 10, "체력+10, 정신력+10");// 기본템
+        ShoulderSleeve3 = new Armor("제1수송교육연대 마크", 0, "야수교 마크", 10, 10, "체력+10, 정신력+10");// 기본템
+        ShoulderSleeve4 = new Armor("육군종합정비창 마크", 0, "정비대대 마크", 10, 10, "체력+10, 정신력+10");// 기본템템
 
         Rank myRank = new Rank(1);
 
@@ -306,7 +306,7 @@ internal class Program
                 ShoulderSleeve1.isEquipped = true;
                 player1.Mind += ShoulderSleeve1.ItemMind;
                 player1.MaxHp += ShoulderSleeve1.ItemHp;
-                player1.Hp += ShoulderSleeve1.ItemHp;               
+                player1.Hp += ShoulderSleeve1.ItemHp;
                 Console.WriteLine(" 포병을 선택했다.");
                 break;
             case 2:
@@ -361,7 +361,7 @@ internal class Program
         // 화면 초기화
 
 
-        while(onScene)
+        while (onScene)
         {
             // 계급 설정
             Rank.SetRank();
@@ -566,36 +566,36 @@ internal class Program
         Console.WriteLine(" [관물대]");
         Console.WriteLine($"\t\t\t\t\t\t[소지금:{player1._gold}G]");
         Console.WriteLine();
-        Console.WriteLine("========================");
-        Console.Write("|        ");
+        Console.WriteLine(" ========================");
+        Console.Write(" |        ");
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.Write("weapon");
         Console.ResetColor();
         Console.WriteLine("        |");
-        Console.WriteLine("|======================|");
-        Console.WriteLine("|--------------|       |");
-        Console.WriteLine("|              |     | |");
-        Console.WriteLine("|              |       |");
-        Console.Write("|              |  ");
+        Console.WriteLine(" |======================|");
+        Console.WriteLine(" |--------------|       |");
+        Console.WriteLine(" |              |     | |");
+        Console.WriteLine(" |              |       |");
+        Console.Write(" |              |  ");
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.Write("food");
         Console.ResetColor();
         Console.WriteLine(" |");
-        Console.WriteLine("|              |       |");
-        Console.WriteLine("|              |=======|");
-        Console.Write("|    ");
+        Console.WriteLine(" |              |       |");
+        Console.WriteLine(" |              |=======|");
+        Console.Write(" |    ");
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.Write("armor");
         Console.ResetColor();
         Console.WriteLine("     |       |");
-        Console.WriteLine("|              |       |");
-        Console.WriteLine("|              |       |");
-        Console.WriteLine("|              |=======|");
-        Console.WriteLine("|              |       |");
-        Console.WriteLine("|              |=======|");
-        Console.WriteLine("|              |   -   |");
-        Console.WriteLine("========================");
-        Console.WriteLine("|                      |");
+        Console.WriteLine(" |              |       |");
+        Console.WriteLine(" |              |       |");
+        Console.WriteLine(" |              |=======|");
+        Console.WriteLine(" |              |       |");
+        Console.WriteLine(" |              |=======|");
+        Console.WriteLine(" |              |   -   |");
+        Console.WriteLine(" ========================");
+        Console.WriteLine(" |                      |");
 
         Console.WriteLine();
         Console.WriteLine("1. 무기 확인하기");
@@ -758,8 +758,8 @@ internal class Program
     {
         Console.WriteLine($"{food.ItemName}을 사용했습니다.");
         Console.WriteLine();
-        player1.Hp += food.ItemHp;     
-        if(player1.Hp >= player1.MaxHp)
+        player1.Hp += food.ItemHp;
+        if (player1.Hp >= player1.MaxHp)
         {
             player1.Hp = player1.MaxHp;
         }
@@ -1298,7 +1298,7 @@ internal class Program
     //이등병 스토리
     static void Basic(Character player)
     {
-        
+
         // 텍스트 설정 값
         string texts = "\n 드디어 훈련병 생활이 끝났군 \n\n 이제 자대에서 열심히 해보자!";
         char[] text = texts.ToCharArray();
@@ -1316,7 +1316,7 @@ internal class Program
         Console.ReadKey();
 
         Console.Clear();
-        Console.WriteLine();           
+        Console.WriteLine();
         Console.WriteLine("자대배치 후 첫 아침점호 시간이다");
         Console.ReadKey();
         Console.WriteLine("긴장한 상태로 열을 맞춰서있다..");
@@ -1495,7 +1495,7 @@ internal class Program
         int cursor = 0;
         bool onScene = true;
         string[] text = { " ==공격==\n", " ==스킬==" };
-        
+
         // 나레이션 설정 값
         string narrations = " \n 어두운 새벽 경계근무중... \n\n 저 앞 풀숲에서 부스럭거리는 소리가 난다. \n\n" +
             $" 야생의 {wildBoar.EnemyName}와 {waterDeer.EnemyName}가 나타났다! \n\n 아무 키나 누르시오.";
@@ -1509,12 +1509,12 @@ internal class Program
             Thread.Sleep(80);
         }
         Console.ReadKey();
-        
+
 
         while (player1.Hp > 0 && (wildBoar.EnemyHp > 0 || waterDeer.EnemyHp > 0))
         {
             //내 턴
-            while(onScene)
+            while (onScene)
             {
                 //체력이 음수인 경우 0으로 처리
                 if (wildBoar.EnemyHp < 0)
@@ -1553,7 +1553,7 @@ internal class Program
                 // Cursor index
                 cursor = CursorChoice(e, cursor, text, ref onScene);
 
-                
+
             }
 
             // Cursor input
@@ -1645,7 +1645,7 @@ internal class Program
 
                     if (e.Key == ConsoleKey.Enter)
                     {
-                        Console.Clear() ;
+                        Console.Clear();
                         int playerDamage = player1.Attack();
                         enemies[cursor].EnemyHp -= playerDamage;
                         Console.WriteLine($" \n 플레이어가 {enemies[cursor].EnemyName}에게 {playerDamage}의 데미지를 입혔습니다.");
@@ -1662,7 +1662,7 @@ internal class Program
                 cursor = (cursor + 1) % enemies.Length;
             }
         }
-        
+
 
     }
 
@@ -1694,7 +1694,7 @@ internal class Program
         }
     }
     //스킬을 사용할 몬스터 선택
-    private static void MonsterSelection(Character player1, Skill skill ,Enemy[] enemies)
+    private static void MonsterSelection(Character player1, Skill skill, Enemy[] enemies)
     {
         Console.Clear();
         Console.WriteLine($"{skill.Name} 를 사용합니다.");
@@ -1704,11 +1704,11 @@ internal class Program
         bool targetSelection = true;
         string[] targetText = new string[enemies.Length];
 
-        for (int i = 0; i< enemies.Length; i++)
+        for (int i = 0; i < enemies.Length; i++)
         {
             targetText[i] += " =" + enemies[i].EnemyName + "=\n";
         }
-        
+
         while (targetSelection)
         {
             Console.Clear();
@@ -1732,7 +1732,7 @@ internal class Program
                     skill.Execute(player1, enemies[targetCursor]);
 
                     //스킬 사용 후 정신력 체크
-                    if(player1.Mind < skill.MindCost)
+                    if (player1.Mind < skill.MindCost)
                     {
                         //정식력 부족한 경우
                         break;
@@ -1743,16 +1743,16 @@ internal class Program
                         Console.ReadKey();
                         targetSelection = false;
                     }
-                    
+
                 }
             }
-            
+
 
             targetCursor = CursorChoice(e, targetCursor, targetText, ref targetSelection);
 
 
         }
-        
+
 
     }
     
@@ -2352,7 +2352,7 @@ internal class Program
                         player1.Mind--;
                         player1.Hp -= 10;
                         player1.MaxHp -= 10;
-                        
+
 
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine(" 계속하려면 enter.");
@@ -2439,7 +2439,7 @@ internal class Program
             Console.WriteLine(" 아슬아슬했지만 안정적으로 물자를 다 옮기는데 성공했다.");
             Console.ReadKey();
             Console.WriteLine(" 반복된 노동으로 체력이 10 오른다.");
-            player.Hp += 10;         
+            player.Hp += 10;
             player.MaxHp += 10;
 
             OneMonthLater();
@@ -2469,7 +2469,7 @@ internal class Program
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine(" (성공적으로 참호를 파면 거수자를 잡을 확률이 올라감) ");
         Console.ResetColor();
-        
+
         //땅파기
         French(french);
         Console.WriteLine(" \"거수자 발견시 보고하고. 알지? 위장한 간부 잡으면 포상인거?\"");
@@ -4934,23 +4934,21 @@ internal class Program
         }
 
 
-
     }
     //방어구코너
     static void ArmorShop()
     {
         Console.Clear();
         Console.WriteLine("방어구 목록");
-        Console.WriteLine("============================================================================================================");
-        ConsoleTable buyArmorTable = new ConsoleTable("순서", "이름", "가격", "설명", "효과");
+        Console.WriteLine("=====================================================================================");
         for (int i = 0; i < armors.Count; i++)
         {
-            var item = armors[i];
-            buyArmorTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}");
+            var armor = armors[i];
+            Console.WriteLine($"{i + 1}. {armor.ItemName} \t| 가격: {armor.ItemGold}G \t| 아이템 설명: {armor.ItemDescription}");
+            Console.WriteLine($"\t |정신력:{armor.ItemMind} \t|체력 증가량: {armor.ItemHp} ");
         }
-        buyArmorTable.Write();
-        Console.WriteLine("============================================================================================================");
-        Console.WriteLine("1. 구매하러가기");
+        Console.WriteLine("=====================================================================================");
+        Console.WriteLine("1. 구매하기");
         Console.WriteLine("0. 뒤로가기");
         int input = CheckValidInput(0, 1);
         switch (input)
@@ -4972,8 +4970,8 @@ internal class Program
     static void FoodPx()
     {
         //상점입니다.
-
-        Console.WriteLine(Console.Clear);
+        Console.Clear();
+        Console.WriteLine();
         Console.WriteLine("식재료 코너");
         Console.WriteLine("=====================================================================================");
         ConsoleTable buyWeaponTable = new ConsoleTable("순서", "이름", "가격", "설명", "효과");
