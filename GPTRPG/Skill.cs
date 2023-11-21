@@ -8,12 +8,17 @@ public class Skill
     public virtual void Execute(Character caster, Enemy target)
     {
         int damage = CalculateDamage(caster);
-        Console.WriteLine("{스킬이름} 을 사용해 {타겟} 에게 {damage}의 데미지를 입혔습니다.");
+        Console.WriteLine("{Name} 을 사용해 {target.EnemyName} 에게 {damage}의 데미지를 입혔습니다.");
     }
     public virtual int CalculateDamage(Character caster)
     {
         //기본데미지 설정
         return 0;
+    }
+
+    public bool CanUseSkill(Character caster)
+    {
+        return caster.Mind >= MindCost;
     }
 }
 
@@ -29,11 +34,18 @@ public class ArmorPiercerSkill : Skill
 
     public override void Execute(Character caster, Enemy target)
     {
-        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
+        
 
         int damage = CalculateDamage(caster);
-
-        Console.WriteLine($"{damage}의 데미지를 입혔습니다.");
+        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
+        if (target.EnemyHp <= 0)
+        {
+            Console.WriteLine($"{target.EnemyName} 이(가) 사망했습니다!");
+        }
+        else
+        {
+            Console.WriteLine($"{caster.Name}이(가) {target.EnemyName}에게 {damage}의 데미지를 입혔습니다.");
+        }
         target.EnemyHp -= damage;
     }
 
@@ -59,15 +71,28 @@ public class CoordinationBarrageSkill : Skill
 
     public override void Execute(Character caster, Enemy target)
     {
+        if (!CanUseSkill(caster))
+        {
+            Console.WriteLine("정신력이 부족합니다.");
+            Console.ReadKey();
+            return;
+        }
         for (int i = 0; i < 5; i++)
         {
             int damage = CalculateDamage(caster);
-            
-
-            Console.WriteLine($"{caster.Name}이(가) {target.EnemyName}에게 {damage}의 데미지를 입혔습니다.");
+            Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
+            if (target.EnemyHp <= 0)
+            {
+                Console.WriteLine($"{target.EnemyName} 이(가) 사망했습니다!");
+            }
+            else
+            {
+                Console.WriteLine($"{caster.Name}이(가) {target.EnemyName}에게 {damage}의 데미지를 입혔습니다.");
+            }
             target.EnemyHp -= damage;
 
         }
+        caster.Mind -= MindCost;
     }
 
     //데미지 계산
@@ -92,11 +117,17 @@ public class K_511AttackSkill : Skill
 
     public override void Execute(Character caster, Enemy target)
     {
-        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
 
         int damage = CalculateDamage(caster);
-
-        Console.WriteLine($"{damage}의 데미지를 입혔습니다.");
+        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
+        if (target.EnemyHp <= 0)
+        {
+            Console.WriteLine($"{target.EnemyName} 이(가) 사망했습니다!");
+        }
+        else
+        {
+            Console.WriteLine($"{caster.Name}이(가) {target.EnemyName}에게 {damage}의 데미지를 입혔습니다.");
+        }
         target.EnemyHp -= damage;
 
     }
@@ -123,11 +154,17 @@ public class fuckSkill : Skill
 
     public override void Execute(Character caster, Enemy target)
     {
-        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
 
         int damage = CalculateDamage(caster);
-
-        Console.WriteLine($"{damage}의 데미지를 입혔습니다.");
+        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
+        if (target.EnemyHp <= 0)
+        {
+            Console.WriteLine($"{target.EnemyName} 이(가) 사망했습니다!");
+        }
+        else
+        {
+            Console.WriteLine($"{caster.Name}이(가) {target.EnemyName}에게 {damage}의 데미지를 입혔습니다.");
+        }
         target.EnemyHp -= damage;
 
     }
