@@ -2584,109 +2584,149 @@ internal class Program
         Console.ReadKey();
         Console.WriteLine($" {enemy.EnemyName}: 이봐 {player.Name} 상병. ");
         Console.ReadKey();
-        Console.WriteLine($" 상병 {player.Name}. 무슨일이십니까? ");
+        Console.WriteLine($" 상병 {player.Name}. 무슨일이십니까, 소대장님?");
         Console.ReadKey();
         Console.WriteLine($" {enemy.EnemyName}: 배수로 작업 하러 가지.");
         Console.ReadKey();
         Console.WriteLine(" 얼마 후...");
-        Console.WriteLine(" 얼마 후...");
-        Console.WriteLine(" 얼마 후...");
-        Console.WriteLine(" 얼마 후...");
-        Console.WriteLine(" 얼마 후...");
+        Console.ReadKey();
+        Console.WriteLine($" {enemy.EnemyName}: 나 업무처리하러 잠깐 올라갔다 올께. 끝나면 검사맡고 가.");
+        Console.ReadKey();
+        Console.WriteLine(" 옙. 다녀오십쇼");
+        Console.ReadKey();
+        Console.WriteLine(" 하지만 소대장은 석식 시간전까지 오지 않았다...");
+        Console.ReadKey();
+        Console.WriteLine(" 에이, 까먹은거 아냐?");
+        Console.ReadKey();
+        Console.WriteLine(" 막사로 올라가보니 이미 퇴근했다고 한다.");
+        Console.ReadKey();
+        Console.WriteLine(" 내가 이럴줄 알았다. 배수로 잡업은 내일 마무리하지 뭐.");
+        Console.ReadKey();
+        Console.WriteLine(" 다음날.");
+        Console.ReadKey();
+        Console.WriteLine($" {enemy.EnemyName}: 자네 왜 어제 배수로 작업을 끝내고 오지 않았지? ");
+        Console.ReadKey();
+        Console.WriteLine(" 아니, 소대장님이 먼저 퇴근하지 않으셨습니까?");
+        Console.ReadKey();
+        Console.WriteLine($" {enemy.EnemyName}:이...이게 지금 말대꾸 하는거야!!!");
+        Console.ReadKey();
+        Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine(" 전투시작");
+        Console.ReadKey();
+        Console.ResetColor();
         CSCommanderAttack(player1, newCommander);
 
     }
+
+    // 소대장과의 전투
     static void CSCommanderAttack(Character player, Enemy enemy)
     {
-        if (player1.Hp > 0 && enemy.EnemyHp > 0)
+        int cursor = 0;
+        bool onScene = true;
+        string[] text = { " ==공격==\n", " ==스킬==" };
+
+        while (player.Hp > 0 && enemy.EnemyHp > 0 )
         {
+            //내 턴
+            while (onScene)
+            {
+                // 화면 초기화
+                Console.Clear();
+
+                Console.WriteLine($" {enemy.EnemyName}: HP {enemy.EnemyHp}");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine($" {player.Name}: HP {player.Hp}");
+                Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine(" 행동을 선택하세요\n");
+                Console.WriteLine("==============================================");
+                Console.WriteLine("");
+                // Text 배열 출력
+                TextChoice(cursor, text);
+                // Key 입력
+                e = Console.ReadKey();
+                // Cursor index
+                cursor = CursorChoice(e, cursor, text, ref onScene);
+            }
+
+            Random rand = new Random();
+            int number = rand.Next(player.Luk); //랜덤 변수
+            if (number <= 5) //따로 추가 스탯 없을경우 평타
+            {
+                // Cursor input
+                switch (cursor)
+                {
+                    case 0:                                       
+                        AttackAction(player1, newCommander);
+                        Console.ReadKey();
+                        break;
+                    case 1:
+                        SkillAction(player1, newCommander);
+                        break;
+                }
+            }
+            else //치명타 (luk의 추가 스탯이 많을 수록 확률이 올라감)
+            {
+                switch (cursor)
+                {
+                    case 0:
+                        int Origin = player.Str;
+                        player.Str += player.Str;
+                        AttackAction(player1, newCommander);
+                        Console.ReadKey();
+                        break;
+                    case 1:
+                        SkillAction(player1, newCommander);
+                        break;
+                }
+                
+            }
+
+
+            // 화면 초기화
             Console.Clear();
-            Console.WriteLine("================================");
-            Console.Write(" 소대장의 체력: ");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{enemy.EnemyHp}");
-            Console.ResetColor();
-            Console.WriteLine("");
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine($" {player.Name}의 체력: {player.Hp}");
-            Console.ResetColor();
-            Console.WriteLine("================================");
-            Console.WriteLine(" 이번턴에 하실 행동을 골라주세요");
-
-            Console.WriteLine("");
-            Console.WriteLine(" 1. 일반 공격하기");
-            Console.WriteLine(" 2. 스킬 사용하기");
-            Console.WriteLine("");
-
-            int input = CheckValidInput(1, 2);
-            if (input == 1)
+            //몬스터 턴
+            if (enemy.EnemyHp > 0)
             {
-                Random rand = new Random();
-                int number = rand.Next(player.Luk);
-                if (number <= 5) //따로 추가 스탯 없을경우 평타
-                {
-                    enemy.EnemyHp -= player.Str;
-                    Console.WriteLine(" 당신의 공격!");
-                    Thread.Sleep(500);
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write($" {player.Str}");
-                    Console.ResetColor();
-                    Console.WriteLine("의 데미지를 주었다.");
-                    Thread.Sleep(500);
-                    Console.WriteLine($" {enemy.EnemyName}의 공격!");
-                    Console.WriteLine($" {enemy.EnemyAtk}만큼의 데미지를 입었다.");
-                    player.Hp -= enemy.EnemyAtk;
-                    Console.ReadKey();
-                    if (newCommander.EnemyHp <= 0)
-                    {
-                        CSCommanderDead();
-                    }
-                    CSCommanderAttack(player1, newCommander);
-
-
-                }
-
-                else //치명타 (luk의 추가 스탯이 많을 수록 확률이 올라감)
-                {
-                    enemy.EnemyHp -= player.Str + player.Luk;
-                    Console.WriteLine(" 당신의 공격");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(" 치명타!");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write(" {0}", player1.Str + player.Luk);
-                    Console.ResetColor();
-                    Console.WriteLine("만큼의 데미지를 주었다.");
-                    Thread.Sleep(500);
-                    Console.WriteLine($" {enemy.EnemyName}의 공격!");
-                    Console.WriteLine($" {enemy.EnemyAtk}만큼의 데미지를 입었다.");
-                    player.Hp -= enemy.EnemyAtk;
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    if (newCommander.EnemyHp <= 0)
-                    {
-                        CSCommanderDead();
-                    }
-                    CSCommanderAttack(player1, newCommander);
-                }
-
+                Console.WriteLine($" \n {enemy.EnemyName}의 공격!\n");
+                int enemyDamage1 = enemy.EnemyAtk;
+                player.Hp -= enemyDamage1;
+                Console.WriteLine($" {enemy.EnemyName}이(가) 플레이어에게 {enemyDamage1}의 데미지를 입혔습니다.\n");
             }
-            else//스킬사용하기
-            {
-                Console.WriteLine(" 스킬을 사용했다.");
-                //스킬
-                CSCommanderAttack(player1, newCommander);
-            }
+
+            Console.Write("\n            :::::Press any key:::::");
+            Console.ReadKey();
+            // bool값 및 Cursor값 초기화
+            onScene = true;
+            cursor = 0;
         }
 
+        //소대장과의 전투 결과
+        CSCommanderDead(player1, newCommander);
     }
 
-    static void CSCommanderDead()
+
+    //소대장과의 전투 결과
+    static void CSCommanderDead(Character player, Enemy enemy)
     {
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine(" 소대장을 쓰러트렸다.");
-        Console.ResetColor();
-        OneMonthLater();
+        if (player.Hp <= 0)
+        {
+            Console.WriteLine("전투에서 패배했습니다. 게임 오버!");
+            Console.ReadKey();
+            Home();
+            return;
+        }
+        else
+        {
+            Console.WriteLine(" 소대장을 격파했습니다. 전투에서 승리!");
+            Console.WriteLine(" 하극상으로 처벌을 받습니다.");
+            Console.WriteLine(" 하지만 더이상 소대장이 당신을 건들이지 않습니다.");
+            
+            Console.ReadKey();
+            OneMonthLater();
+            
+        }
     }
     #endregion
 

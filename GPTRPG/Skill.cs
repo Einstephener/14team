@@ -33,7 +33,7 @@ public class ArmorPiercerSkill : Skill
 
         int damage = CalculateDamage(caster);
 
-        Console.WriteLine("${damage}의 데미지를 입혔습니다.");
+        Console.WriteLine($"{damage}의 데미지를 입혔습니다.");
         target.EnemyHp -= damage;
     }
 
@@ -96,7 +96,7 @@ public class K_511AttackSkill : Skill
 
         int damage = CalculateDamage(caster);
 
-        Console.WriteLine("${damage}의 데미지를 입혔습니다.");
+        Console.WriteLine($"{damage}의 데미지를 입혔습니다.");
         target.EnemyHp -= damage;
 
     }
@@ -127,7 +127,7 @@ public class fuckSkill : Skill
 
         int damage = CalculateDamage(caster);
 
-        Console.WriteLine("${damage}의 데미지를 입혔습니다.");
+        Console.WriteLine($"{damage}의 데미지를 입혔습니다.");
         target.EnemyHp -= damage;
 
     }
