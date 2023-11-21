@@ -339,21 +339,7 @@ internal class Program
         bool onScene = true;
 
         // 화면 초기화
-        Console.Clear();
-        Console.WriteLine();
-        Console.ForegroundColor = ConsoleColor.Green;
-        Console.WriteLine("막사");
-        Console.ResetColor();
-        Console.WriteLine($" 계급: {Rank.rank} 이름: {player1.Name}");
-        Console.WriteLine($" 군생활 {Rank.month}개월 째");
-        Console.WriteLine(" 무엇을 할 것인가?");
-        Console.WriteLine();
-        Console.WriteLine("1. 스토리 진행하기");
-        Console.WriteLine("2. 일과하기");
-        Console.WriteLine("3. 인벤토리");
-        Console.WriteLine("4. 상태확인");
-        Console.WriteLine("5. PX가기");
-        Console.WriteLine("6. 인터넷도박");
+
 
         while(onScene)
         {
@@ -3841,6 +3827,7 @@ internal class Program
                 break;
             case 1:
                 //나가기
+                Home();
                 break;
             default:
                 break;
@@ -3884,6 +3871,7 @@ internal class Program
                 break;
             case 3:
                 //나가기
+                GambleDisplay();
                 break;
             default:
                 break;
@@ -3893,6 +3881,7 @@ internal class Program
     static void CoinCharge()
     {
         Console.Clear();
+        Console.WriteLine();
         Console.WriteLine($"Gold : {player1.Gold}");
         Console.WriteLine($"COIN : {Coins} 마일리지 : {Mileages}");
         Console.WriteLine($"충천 수수료 : 5% 마일리지 10.00% 지급");
@@ -3927,6 +3916,7 @@ internal class Program
                 ChargeCoins = input * 0.95;
                 ChargeMileages = input * 0.1;
                 Console.Clear();
+                Console.WriteLine();
                 Console.WriteLine($"{input}원을 충전하시면 코인 {ChargeCoins}개와 {ChargeMileages} 마일리지를 지급합니다");
                 Console.WriteLine("충전하시겠습니까?");
                 Console.WriteLine();
@@ -3941,7 +3931,8 @@ internal class Program
                     player1.Gold -= input;
                     Coins += ChargeCoins;
                     Mileages += ChargeMileages;
-                    Console.WriteLine("충전이 완료되어습니다.");
+                    Console.WriteLine();
+                    Console.WriteLine("충전이 완료되었습니다.");
                     Console.WriteLine("Press any key to continue");
                     Console.ReadKey();
                     GamebleMain();
@@ -3955,6 +3946,7 @@ internal class Program
         }
         else
         {
+            Console.WriteLine();
             Console.WriteLine("잘못된 입력입니다. 100골드 단위로 올바른 금액을 입력해주세요.");
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
@@ -3998,6 +3990,7 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
+            Console.WriteLine();
             Console.WriteLine($"COIN : {Coins} 마일리지 : {Mileages}");
             Console.WriteLine("다시하시겠습니까?");
             TextChoice(cursor, text);
@@ -4024,6 +4017,7 @@ internal class Program
         while (evenodd)
         {
             Console.Clear();
+            Console.WriteLine();
             Console.WriteLine($"COIN : {Coins} 마일리지 : {Mileages}");
             Console.WriteLine("배당 1.8배 | 마틴 가능");
             Console.WriteLine("홀짝 게임에 오신걸 환영합니다!");
@@ -4033,6 +4027,7 @@ internal class Program
             int input;
             if (!int.TryParse(Console.ReadLine(), out input))
             {
+                Console.WriteLine();
                 Console.WriteLine("유효하지 않은 입력입니다.");
                 Console.WriteLine("Press any key to continue");
                 Console.ReadKey();
@@ -4061,6 +4056,7 @@ internal class Program
                     case 0:
                         if (RanNum % 2 != 0)
                         {
+                            Console.WriteLine();
                             Console.WriteLine("맞췄습니다.");
                             Console.WriteLine("홀입니다.");
                             Console.WriteLine($"{input} * 1.8배인 {input * 1.8}을 받으셨습니다.");
@@ -4071,6 +4067,7 @@ internal class Program
                         }
                         else
                         {
+                            Console.WriteLine();
                             Console.WriteLine("틀렸습니다.");
                             Console.WriteLine("짝입니다.");
                             Console.WriteLine("Press any Key to continue");
@@ -4081,6 +4078,7 @@ internal class Program
                     case 1:
                         if (RanNum % 2 == 0)
                         {
+                            Console.WriteLine();
                             Console.WriteLine("틀렸습니다.");
                             Console.WriteLine("홀입니다.");
                             Console.WriteLine("Press any Key to continue");
@@ -4089,6 +4087,7 @@ internal class Program
                         }
                         else
                         {
+                            Console.WriteLine();
                             Console.WriteLine("맞췄습니다.");
                             Console.WriteLine("짝입니다.");
                             Console.WriteLine($"{input} * 1.8배인 {input * 1.8}을 받으셨습니다.");
@@ -4104,6 +4103,7 @@ internal class Program
             }
             else
             {
+                Console.WriteLine();
                 Console.WriteLine("잘못된 입력입니다. 10골드 단위로 올바른 금액을 입력해주세요.");
                 Console.WriteLine("Press any key to continue");
                 Console.ReadKey();
@@ -4117,6 +4117,7 @@ internal class Program
                 while (onScene)
                 {
                     Console.Clear();
+                    Console.WriteLine();
                     Console.WriteLine("다시 배팅하시겠습니까?");
                     Console.WriteLine();
 
@@ -4147,6 +4148,7 @@ internal class Program
         while (evenodd)
         {
             Console.Clear();
+            Console.WriteLine();
             Console.WriteLine($"COIN : {Coins} 마일리지 : {Mileages}");
             Console.WriteLine("그래프 게임에 오신걸 환영합니다!");
             Console.WriteLine("최소 단위 10코인");
@@ -4155,6 +4157,7 @@ internal class Program
             int input;
             if (!int.TryParse(Console.ReadLine(), out input))
             {
+                Console.WriteLine();
                 Console.WriteLine("유효하지 않은 입력입니다.");
                 Console.WriteLine("Press any key to continue");
                 Console.ReadKey();
@@ -4171,6 +4174,7 @@ internal class Program
                 while (onScene)
                 {
                     Console.Clear();
+                    Console.WriteLine();
                     Console.WriteLine($"{input}");
                     Console.WriteLine($"수익률 : {Rate}");
                     TextChoice(cursor, text);
@@ -4185,6 +4189,7 @@ internal class Program
                         break;
                     case 1:
                         Coins += (input * Rate);
+                        Console.WriteLine();
                         Console.WriteLine("게임이 종료되었습니다.");
                         Console.WriteLine($"원금 : {input}Coin 수익률 : {Rate:F2}%");
                         Console.WriteLine($"수익 : {input * Rate}");
@@ -4198,6 +4203,7 @@ internal class Program
             }
             else
             {
+                Console.WriteLine();
                 Console.WriteLine("잘못된 입력입니다. 10골드 단위로 올바른 금액을 입력해주세요.");
                 Console.WriteLine("Press any key to continue");
                 Console.ReadKey();
@@ -4211,6 +4217,7 @@ internal class Program
                 while (onScene)
                 {
                     Console.Clear();
+                    Console.WriteLine();
                     Console.WriteLine("다시 배팅하시겠습니까?");
                     Console.WriteLine();
 
@@ -4245,6 +4252,7 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
+            Console.WriteLine();
             Console.WriteLine($"{Value}");
             Console.WriteLine($"수익률 : {Rate:F2}%");
             TextChoice(cursor, text);
@@ -4259,6 +4267,7 @@ internal class Program
                 break;
             case 1:
                 Coins += (Value * Rate) % 1;
+                Console.WriteLine();
                 Console.WriteLine("게임이 종료되었습니다.");
                 Console.WriteLine($"원금 : {Value}Coin 수익률 : {Rate:F2}%");
                 Console.WriteLine($"수익 : {Value * Rate / 100:F0}");
