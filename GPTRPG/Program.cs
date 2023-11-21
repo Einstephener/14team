@@ -38,7 +38,7 @@ internal class Program
             new Armor("신형 전투복", 300, "최신형 전투용 갑옷", 25, 30),
             new Armor("개구리 전투복", 120, "개구리 가죽으로 만든 방어복", 12, 18),
             new Armor("특전사 이준호 전투복", 9999, "특전사 이준호님의 전투복", 999, 999)
->>>>>>> b2ef07139cd92366d039577efa50bad9c2722e6e
+
         };
 
     //아이템 리스트
@@ -918,19 +918,18 @@ internal class Program
             Thread.Sleep(10);
         }
         Console.Clear();
-        Console.WriteLine("완주 완료!!");
-        Console.WriteLine("보상 계산중.... 잠시만 기다려주십시오.");
+        Console.WriteLine("\n 완주 완료!!");
+        Console.WriteLine("\n 보상 계산중.... 잠시만 기다려주십시오.");
         Thread.Sleep(2000);
 
-        Console.ReadKey();
-        Console.WriteLine("남은 시간 : {0}", time.ToString("F"));
-        Console.WriteLine("");
-        Console.WriteLine(">> Press the Any key to proceed <<");
-        Console.ReadKey(true);
-
-        // 남은 시간에 따른 보상 및 씬이동 로직 추가예정
-        // Home Scene이동
+        Console.WriteLine("\n 남은 시간 : {0}", time.ToString("F"));
+        Console.WriteLine("\n 남은 시간에 따른 보상 ( 보상목록 )");
+        Console.WriteLine("\n >> Press the \"TAP\" key to proceed <<");
+        //선입력 방지 메서드
+        InputPrevention();
         Home();
+        // 남은 시간에 따른 보상 및 씬이동 로직 추가예정
+
     }
     #endregion
 
@@ -1035,13 +1034,13 @@ internal class Program
         Console.WriteLine("");
         Console.WriteLine(" 보기를 외워서 알맞은 키를 순서대로 누십시오!");
         Console.WriteLine("");
-        Console.WriteLine(" 남은 시간이 끝나면 시작되며 보기가 사라집니다.");
+        Console.WriteLine(" 남은 시간이 끝나면 보기가 사라집니다.");
 
         // 타이머 표시
         while (time >= 0)
         {
             Console.SetCursorPosition(0, 8);
-            Console.WriteLine($"남은 시간 : {time:F}");
+            Console.WriteLine($"\n 남은 시간 : {time:F}");
             time -= 0.01f;
             Thread.Sleep(10);
         }
@@ -1049,8 +1048,14 @@ internal class Program
         // 화면 초기화
         Console.Clear();
 
+        Console.WriteLine("\n 시작하려면 \"Tap키\" 를 눌러주세요.");
+        // 선입력 방지
+        InputPrevention();
+
+        Console.Clear();
+
         // 입력 로직
-        Console.WriteLine(" 알맞는 키를 입력하시오.");
+        Console.WriteLine("\n 알맞는 키를 입력하시오.");
         while (sequence < 10)
         {
             e = Console.ReadKey(true);
@@ -1079,9 +1084,11 @@ internal class Program
         }
 
         Console.WriteLine("");
-        Console.WriteLine("총 맞춘 횟수 : {0}", hitCount);
+        Console.WriteLine("\n 총 맞춘 횟수 : {0}", hitCount);
+        Console.WriteLine("\n 보상 ( 보상 ) 을 지급합니다.");
+        Console.WriteLine("\n 진행하려면 \"Tap키\" 를 눌러주세요.");
 
-        Console.ReadKey();
+        InputPrevention();
         // 맞춘 횟수에 맞는 보상 지급 로직 추가
         // 메인화면 이동
         Home();
@@ -1178,21 +1185,20 @@ internal class Program
 
             if (i == 5)
             {
-                Console.WriteLine("");
-                Console.WriteLine(" 총 성공 횟수 : {0} ", hitCount);
-                Console.WriteLine(" 횟수에 맞게 보상을 지급합니다!");
+                Console.WriteLine("\n 총 성공 횟수 : {0} ", hitCount);
+                Console.WriteLine("\n 횟수에 맞게 보상을 지급합니다!");
             }
             else
             {
                 // 대기시간
-                Console.WriteLine("");
-                Console.WriteLine(" 현재 라운드 {0} / {1}   성공 횟수 : {2} ", i, 5, hitCount);
-                Console.WriteLine(" 잠시후 다시 시작합니다!");
-                Thread.Sleep(1000);
+                Console.WriteLine("\n 현재 라운드 {0} / {1}   성공 횟수 : {2} ", i, 5, hitCount);
+                Console.WriteLine("\n 다음 웨이브를 시작하려면 \"Tap키\" 를 눌러주세요!");
+                InputPrevention();
             }
         }
-
-        Console.ReadKey();
+        Console.WriteLine("\n 보상 (보상)을 지급합니다.");
+        Console.WriteLine("\n 진행하려면 \"Tap키\" 를 눌러주세요.");
+        InputPrevention();
         // hitCount 횟수에 맞는 보상 지급
         // 메인화면 이동
         Home();
@@ -2736,6 +2742,26 @@ internal class Program
             if (_cursor == i) Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(_text[i]);
             Console.ResetColor();
+        }
+    }
+    #endregion
+
+    #region 선입력 방지
+    static void InputPrevention()
+    {
+        bool inputPrevent = true;
+
+        while (inputPrevent)
+        {
+            e = Console.ReadKey(true);
+            switch (e.Key)
+            {
+                case ConsoleKey.Tab:
+                    inputPrevent = false;
+                    break;
+                default:
+                    break;
+            }
         }
     }
     #endregion
