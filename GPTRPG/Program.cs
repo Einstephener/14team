@@ -1557,7 +1557,7 @@ internal class Program
                 Console.WriteLine($"{waterDeer.EnemyName}: HP {waterDeer.EnemyHp}");
                 Console.WriteLine("");
                 Console.WriteLine("");
-                Console.WriteLine($"{player1.Name}: HP {player1.Hp}");
+                Console.WriteLine($"{player1.Name}: HP {player1.Hp} 정신력 {player1.Mind}");
                 Console.WriteLine("");
                 Console.WriteLine("");
                 Console.WriteLine("플레이어의 턴입니다. 행동을 선택하세요\n");
@@ -1626,7 +1626,7 @@ internal class Program
         }
 
         //전투 결과
-        DisplayResult(player1.Hp, wildBoar, waterDeer);
+        DisplayResult(player1, wildBoar, waterDeer);
 
     }
     //공격선택 메서드
@@ -1774,9 +1774,9 @@ internal class Program
     }
 
     //보상 처리
-    private static void DisplayResult(int playerHp, params Enemy[] enemies)
+    private static void DisplayResult(Character player1, params Enemy[] enemies)
     {
-        if (playerHp <= 0)
+        if (player1.Hp <= 0)
         {
             Console.WriteLine("전투에서 패배했습니다. 게임 오버!");
             Console.ReadKey();
@@ -1785,13 +1785,15 @@ internal class Program
         }
         else
         {
-            Console.WriteLine("적을 격파했습니다. 전투에서 승리!");
+            Console.WriteLine("적을 처치했습니다. 승리!");
             // 몬스터별 보상 처리
             foreach (var enemy in enemies)
             {
                 //player1.Gold += enemy.GoldReward;
                 // 경험치 또는 다른 보상 처리도 추가 가능
             }
+            player1.Mind += 30;
+            player1.Gold += 1000;
             Console.ReadLine();
             OneMonthLater();
             //보상 아이템? 스텟?
