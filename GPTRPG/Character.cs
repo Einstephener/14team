@@ -143,6 +143,7 @@ public class Character
         //로그 함수 넣은건 다른 게임들도 그렇게 되어있기도 하고 확률이 100%에 육박하면 노잼이라서 100찍으면 79% 확률
     }
 
+    //공격력 메서드
     public int Attack()
     {
         Random rand = new Random();
@@ -174,6 +175,15 @@ public class Character
         {
             return baseDamage;
         }
+    }
+
+    //회피여부 메서드
+    public bool CheckEvade()
+    {
+        Random random = new Random();
+        int evadeRate = random.Next(1, 101);
+
+        return evadeRate <= Dex;
     }
 
 }

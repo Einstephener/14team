@@ -431,7 +431,7 @@ internal class Program
                 break;
             //일병
             case 3:            //3개월
-                FStoryRangerTraining();
+                FStoryRangerTraining(player1);
                 break;
             case 4:            //4개월
                 FStoryPullSecurity(player1, wildBoar, waterDeer);
@@ -1410,7 +1410,7 @@ internal class Program
 
 
     //일병 스토리 - 유격
-    static void FStoryRangerTraining()
+    static void FStoryRangerTraining(Character player)
     {
 
         Random random = new Random();
@@ -1443,6 +1443,7 @@ internal class Program
 
             if (randomValue < success)
             {
+                Console.Clear();
                 Console.WriteLine("");
                 Console.WriteLine(" \"교육생들 수고 많았습니다.\"");
                 Console.WriteLine("");
@@ -1475,7 +1476,12 @@ internal class Program
                 };
                 int randomIndex = random.Next(failMessages.Length);
                 Console.WriteLine(failMessages[randomIndex]);
+                Console.WriteLine("Hp - 2");
+                Console.WriteLine("정신력 - 2");
+                Console.WriteLine("");
                 success += 0.03; //실패시 성공확률 3%씩 증가
+                player.Hp -= 2;
+                player.Mind -= 2;
                 Console.ReadKey();
                 //추가로 실패시 정신력, 체력 감소 추가해야됨
             }
@@ -1568,17 +1574,32 @@ internal class Program
             if (wildBoar.EnemyHp > 0)
             {
                 Console.WriteLine($" \n {wildBoar.EnemyName}의 공격!\n");
-                int enemyDamage1 = wildBoar.EnemyAtk;
-                player1.Hp -= enemyDamage1;
-                Console.WriteLine($" {wildBoar.EnemyName}이(가) 플레이어에게 {enemyDamage1}의 데미지를 입혔습니다.\n");
+
+                if (player1.CheckEvade())
+                {
+                    Console.WriteLine("공격을 회피했습니다!");
+                }
+                else
+                {
+                    int enemyDamage1 = wildBoar.EnemyAtk;
+                    player1.Hp -= enemyDamage1;
+                    Console.WriteLine($" {wildBoar.EnemyName}이(가) 플레이어에게 {enemyDamage1}의 데미지를 입혔습니다.\n");
+                }
             }
 
             if (waterDeer.EnemyHp > 0)
             {
                 Console.WriteLine($" \n {waterDeer.EnemyName}의 공격!\n");
-                int enemyDamage2 = waterDeer.EnemyAtk;
-                player1.Hp -= enemyDamage2;
-                Console.WriteLine($" {waterDeer.EnemyName}이(가) 플레이어에게 {enemyDamage2}의 데미지를 입혔습니다.\n");
+                if (player1.CheckEvade())
+                {
+                    Console.WriteLine("공격을 회피했습니다!");
+                }
+                else
+                {
+                    int enemyDamage2 = waterDeer.EnemyAtk;
+                    player1.Hp -= enemyDamage2;
+                    Console.WriteLine($" {waterDeer.EnemyName}이(가) 플레이어에게 {enemyDamage2}의 데미지를 입혔습니다.\n");
+                }
             }
             Console.Write("\n            :::::Press any key:::::");
             Console.ReadKey();
@@ -1735,6 +1756,7 @@ internal class Program
 
     }
     
+    //보상 처리
     private static void DisplayResult(int playerHp, params Enemy[] enemies)
     {
         if (playerHp <= 0)
