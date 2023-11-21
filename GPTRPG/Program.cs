@@ -4723,24 +4723,12 @@ internal class Program
                     Console.WriteLine();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    LastLeaveBattle1();
+                    MGBattle(player1, muscleguy);
                 }
                 break;
             default:
                 break;
         }
-
-    }
-    static void LastLeaveBattle1()
-    {
-        Console.Clear();
-        Console.WriteLine("미구현 ㅈㅅ ㅎㅎ;");
-        Console.WriteLine("press any Key to continue");
-        Console.ReadKey();
-        Home();
-        //남자와 배틀
-        //지면 경찰서에 끌려가서 행보관한테 복귀엔딩
-        //이기면 집으로 돌가는 엔딩
 
     }
     static void MGBattle(Character player, Enemy enemy)
