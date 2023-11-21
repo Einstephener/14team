@@ -10,6 +10,7 @@ using System;
 using System.Text;
 using System.Drawing;
 using ConsoleTables;
+using Newtonsoft.Json.Linq;
 
 internal class Program
 {
@@ -59,7 +60,8 @@ internal class Program
             new Enemy("참호", 5, 100),
             new Enemy("맞선임", 4, 10),
             new Enemy("멧돼지", 3, 30),
-            new Enemy("고라니", 2, 30)
+            new Enemy("고라니", 2, 30),
+        new Enemy("행보관", 30, 500)
         };
 
     private static Enemy FindEnemyByName(string enemyName)
@@ -72,7 +74,7 @@ internal class Program
     private static Enemy newCommander = FindEnemyByName("초임 소위");
     private static Enemy french = FindEnemyByName("참호");
     private static Enemy senior = FindEnemyByName("맞선임");
-
+    private static Enemy masterSergent = FindEnemyByName("행보관");
 
 
     //아이템들 선언
@@ -94,6 +96,7 @@ internal class Program
     static double Coins = 0;
     static double Mileages = 500;
     static int GrahpCount = 0;
+    static int turn = 0;
     // ConsoleKeyInfo 선언
     static ConsoleKeyInfo e;
 
@@ -1343,14 +1346,14 @@ internal class Program
         Console.ReadKey();
 
         SeniorFight(player, senior);
-       }
+    }
     //맞선임 보스전
-    
+
 
     static void SeniorFight(Character player, Enemy enemy)
     {
         while (true)
-            {
+        {
             enemy.EnemyHp -= player.Str; //플레이어가 맞선임 공격
             if (enemy.EnemyHp <= 0)
             {
@@ -1762,7 +1765,7 @@ internal class Program
 
 
     }
-    
+
     //보상 처리
     private static void DisplayResult(int playerHp, params Enemy[] enemies)
     {
@@ -2974,7 +2977,7 @@ internal class Program
                 if (eventOccurred)
                 {
                     Console.WriteLine("행보관님에게 걸렸다.");
-                    ColdWeatherTrainingBattle1();
+                    NCOBattle(player1, masterSergent);
                     Console.WriteLine("press any Key to continue");
                 }
                 else
@@ -2992,13 +2995,301 @@ internal class Program
                 break;
         }
     }
-    static void ColdWeatherTrainingBattle1()
+
+    static void NCOBattle(Character player, Enemy enemy)
     {
-        Console.WriteLine("미구현 ㅈㅅ ㅎㅎ;;");
-        Console.WriteLine("press and key to continue");
-        Console.ReadKey();
-        ColdWeatherTraining3();
-        //행보관님과 배틀
+        int cursor = 0;
+        bool onScene = true;
+        string[] text = { "일반 공격", "스킬 공격", "회피" };
+        while (onScene)
+        {
+            if (player.Hp > 0 && enemy.EnemyHp > 0)
+            {
+
+                Console.Clear();
+                Console.WriteLine($"{enemy.EnemyName}");
+                Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine($"{player.Name}");
+                Console.WriteLine($"남은 체력 : {player.Hp}");
+                Console.WriteLine();
+            }
+            else if (player.Hp <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("행보관님한테 져버렸다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("정신을 차리니 모르는 천장이 있다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("의무대에 누워있구나");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("press any Key to continue");
+                Console.ReadKey();
+                turn = 0;
+                Home();
+            }
+            else
+            {
+                Console.Clear();
+                Console.Write("행보관님을 쓰러뜨렸다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.Write("나머지 훈련 열외를 받아냈다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("press any Key to continue");
+                Console.ReadKey();
+                turn = 0;
+                Home();
+            }
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (eventOccurred)
+                {
+                    Console.Clear();
+                    turn++;
+                    Console.WriteLine($"{enemy.EnemyName}");
+                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                    Console.ReadKey();
+                    Console.WriteLine();
+                    Console.WriteLine("일반 공격!!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("치명타가 들어갔다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{player1.Str * 2}의 데미지");
+                    Console.WriteLine();
+                    enemy.EnemyHp -= player1.Str * 2;
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    EnemyTurn(turn);
+                }
+                else
+                {
+                    Console.Clear();
+
+                    turn++;
+                    Console.WriteLine($"{enemy.EnemyName}");
+                    Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("일반 공격!!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("평범한 공격이었다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{player1.Str}의 데미지");
+                    Console.WriteLine();
+                    enemy.EnemyHp -= player1.Str;
+                    Console.ReadKey();
+                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    EnemyTurn(turn);
+                }
+                break;
+            case 1:
+                bool _eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (_eventOccurred)
+                {
+                    Console.Clear();
+                    enemy.EnemyHp -= player1.Str * 4;
+                    turn++;
+                    Console.WriteLine($"{enemy.EnemyName}");
+                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("스킬 공격!!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("치명타가 들어갔다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("사실 미구현 ㅈㅅ ㅎㅎ;; 그냥 일반 공격 2배 데미지");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{player1.Str * 2}의 데미지");
+                    enemy.EnemyHp -= player1.Str * 2;
+                    Console.ReadKey();
+                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    EnemyTurn(turn);
+                }
+                else
+                {
+                    Console.Clear();
+                    enemy.EnemyHp -= player1.Str * 2;
+                    turn++;
+                    Console.WriteLine($"{enemy.EnemyName}");
+                    Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("스킬 공격!!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("평범한 공격이었다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("사실 미구현 ㅈㅅ ㅎㅎ;; 그냥 일반 공격 2배 데미지");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{player1.Str}의 데미지");
+                    enemy.EnemyHp -= player1.Str;
+                    Console.ReadKey();
+                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    EnemyTurn(turn);
+                }
+                break;
+            case 2:
+                bool __eventOccurred = EventOccur(player1.CalculateProbability(player1.Dex));
+                if (__eventOccurred)
+                {
+                    Console.Clear();
+                    turn = -1;
+                    Console.WriteLine($"{enemy.EnemyName}");
+                    Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("회피!!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("회피에 성공했다!!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("행보관님이 공격의 반동으로 고통스러워 한다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{(int)(player1.Str / 2)}의 데미지");
+                    Console.WriteLine();
+                    enemy.EnemyHp -= (int)(player1.Str / 2);
+                    Console.ReadKey();
+                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("행보관님이 2턴 그로기 상태에 빠짐");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    EnemyTurn(turn);
+                }
+                else
+                {
+                    Console.Clear();
+                    turn++;
+                    Console.WriteLine($"{enemy.EnemyName}");
+                    Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("회피!!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("회피에 실패했다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("상대 턴으로 넘어갑니다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    EnemyTurn(turn);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    static void EnemyTurn(int Value)
+    {
+        if (Value > 0)
+        {
+            bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Dex));
+            if (eventOccurred)
+            {
+                Console.Clear();
+                Console.WriteLine($"{player1.Name}");
+                Console.WriteLine($"현재 체력 : {player1.Hp}");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("행보관님이 오른손을 들어올렸다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("익숙한 공격이군 타이밍에 맞춰 막는다!");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine($"{(int)(masterSergent.EnemyAtk / 2)}의 데미지");
+                Console.WriteLine();
+                player1.Hp -= (int)(masterSergent.EnemyAtk / 2);
+                Console.ReadKey();
+                Console.WriteLine($"남은 체력 : {player1.Hp}");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("press any Key to continue");
+                Console.ReadKey();
+                NCOBattle(player1, masterSergent);
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine($"{player1.Name}");
+                Console.WriteLine($"현재 체력 : {player1.Hp}");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("행보관님이 오른손을 들어올렸다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("익숙한 공격이군 타이밍에 맞춰 막는다!");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("행보관님의 왼손이 나의 복부에 들왔다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine($"{(int)(masterSergent.EnemyAtk)}의 데미지");
+                Console.WriteLine();
+                player1.Hp -= (int)(masterSergent.EnemyAtk);
+                Console.ReadKey();
+                Console.WriteLine($"남은 체력 : {player1.Hp}");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("press any Key to continue");
+                Console.ReadKey();
+                NCOBattle(player1, masterSergent);
+            }
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("행보관님이 그로기에 걸려 허우적대고 있다..");
+            Console.WriteLine();
+            Console.ReadKey();
+            Console.WriteLine("press any Key to continue");
+            Console.ReadKey();
+            NCOBattle(player1, masterSergent);
+        }
     }
     static void ColdWeatherTraining3()
     {
@@ -4850,7 +5141,7 @@ internal class Program
                 break;
         }
     }
-
+    #endregion
 
 
     //엔딩씬//
@@ -4858,188 +5149,188 @@ internal class Program
     //해피엔딩//
     static void HappyEndingScene()
     {
-    Console.Clear();
-                                                                                 
-    Console.WriteLine("");                                                                            
-    Console.WriteLine("                 ██╗  ██╗ █████╗ ██████╗ ██████╗ ██╗   ██╗    ███████╗███╗   ██╗██████╗ ██╗███╗   ██╗ ██████╗    ");
-    Console.WriteLine("                 ██║  ██║██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝    ██╔════╝████╗  ██║██╔══██╗██║████╗  ██║██╔════╝    "); 
-    Console.WriteLine("                 ███████║███████║██████╔╝██████╔╝ ╚████╔╝     █████╗  ██╔██╗ ██║██║  ██║██║██╔██╗ ██║██║  ███╗   ");
-    Console.WriteLine("                 ██╔══██║██╔══██║██╔═══╝ ██╔═══╝   ╚██╔╝      ██╔══╝  ██║╚██╗██║██║  ██║██║██║╚██╗██║██║   ██║   ");
-    Console.WriteLine("                 ██║  ██║██║  ██║██║     ██║        ██║       ███████╗██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝   ");
-    Console.WriteLine("                 ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝        ╚═╝       ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝    ");
-    Console.WriteLine("");
+        Console.Clear();
 
-    
-    Console.WriteLine(" 오늘은 전역 날이다.");
-    Console.ReadKey();
-    Console.WriteLine(" 상꺽 이후로 기상나팔소리보다 일찍 일어났다");
-    Console.ReadKey();
-    Console.WriteLine(" 현재시간은 6시 20분 ");
-    Console.ReadKey();
-    Console.WriteLine(" 일어나서 기분좋게 샤워하러 간다");
-    Console.ReadKey();
-    Console.WriteLine(" 샤워하는 도중에 기상나팔 소리가 들린다");
-    Console.ReadKey();
-    Console.WriteLine(" 원래 기상나팔소리가 이렇게 경쾌했나?라는 생각을 18개월만에 했다");
-    Console.ReadKey();
-    Console.WriteLine(" 샤워를 마치고 로션을 바른 후에 창밖을 바라보는데");
-    Console.ReadKey();
-    Console.WriteLine(" 세상이 이렇게 아름다울 수가 없다");
-    Console.ReadKey();
-    Console.WriteLine(" 옷갈아입고 아침점호하러 나가야겠다");
-    Console.ReadKey();
-    Console.WriteLine(" 근데 옷을 갈아입는데 어제한 멍석말이 때문에 온몸이 아프다");
-    Console.ReadKey();
-    Console.WriteLine(" 그래도 꾸역꾸역 아침점호를 나갔다 오늘은 전역 날이니까 ㅎㅎ");
-    Console.ReadKey();
-    Console.WriteLine(" 점호를 하는데 오늘따라 보급관님이 잘생겨보인다 확실히 제정신은 아닌듯하다");
-    Console.ReadKey();
-    Console.WriteLine(" 점호를 마치고 전역복과 전역모를 입고 전역 신고를 한 후에 대대장님과 면담을 하고");
-    Console.ReadKey();
-    Console.WriteLine(" 경례와 함께 모든 전역과정을 마쳤다");
-    Console.ReadKey();
-    Console.WriteLine( "이제 후임들과 인사를 나누고 덕담을 나눈다");
-    Console.ReadKey();
-    Console.WriteLine(" (후임들이 모여서) 개부럽네 형 사회에서 보자 고생했어!");
-    Console.ReadKey();
-    Console.WriteLine(" 여기서 내가 해줄 수 있는 덕담은 그래 고맙고 오늘도 ㅈ뱅이 쳐~");
-    Console.ReadKey();
-    Console.WriteLine(" 아 그리고 생활관에 내 물품들 있는데 알아서 가져가거나 남은거 처리해줘");
-    Console.ReadKey();
-    Console.WriteLine(" 이 덕담은 나름 역사가 깊은 전역 덕담이다");
-    Console.ReadKey();
-    Console.WriteLine(" 후임들과 사진까지 찍고 이제 위병소 밖으로 걸어나간다!!");
-    Console.ReadKey();
-    Console.WriteLine(" 위병소까지 걸어가는데 마치 내가 세상의 주인공이 된것 같다");
-     Console.ReadKey();
-    Console.WriteLine(" 지금 누가와도 다 이길자신있다는 마인드다");
-     Console.ReadKey();
-    Console.WriteLine(" 그리고 위병소 밖으로 나오면서");
-     Console.ReadKey();
-    Console.WriteLine(" 이제 드디어 전역이다!!!!!!!!!!!!!!!!!!! 소리치고");
-    Console.ReadKey();
-    Console.WriteLine(" 하늘을 보니 세상이 이렇게 아름다울 수가 없다 냄새, 공기, 구름, 근무중인 짬지후임까지 세상이 아름답다");
-    Console.ReadKey();
-    Console.WriteLine(" ");
-    Console.WriteLine(" 길었던 군생활도 드디어 끝이났다!!!");
-    Console.WriteLine(" ");
-    Console.ReadKey();
-                                                                                                                       
-  
-                                                                                 
+        Console.WriteLine("");
+        Console.WriteLine("                 ██╗  ██╗ █████╗ ██████╗ ██████╗ ██╗   ██╗    ███████╗███╗   ██╗██████╗ ██╗███╗   ██╗ ██████╗    ");
+        Console.WriteLine("                 ██║  ██║██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝    ██╔════╝████╗  ██║██╔══██╗██║████╗  ██║██╔════╝    ");
+        Console.WriteLine("                 ███████║███████║██████╔╝██████╔╝ ╚████╔╝     █████╗  ██╔██╗ ██║██║  ██║██║██╔██╗ ██║██║  ███╗   ");
+        Console.WriteLine("                 ██╔══██║██╔══██║██╔═══╝ ██╔═══╝   ╚██╔╝      ██╔══╝  ██║╚██╗██║██║  ██║██║██║╚██╗██║██║   ██║   ");
+        Console.WriteLine("                 ██║  ██║██║  ██║██║     ██║        ██║       ███████╗██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝   ");
+        Console.WriteLine("                 ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝        ╚═╝       ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝    ");
+        Console.WriteLine("");
+
+
+        Console.WriteLine(" 오늘은 전역 날이다.");
+        Console.ReadKey();
+        Console.WriteLine(" 상꺽 이후로 기상나팔소리보다 일찍 일어났다");
+        Console.ReadKey();
+        Console.WriteLine(" 현재시간은 6시 20분 ");
+        Console.ReadKey();
+        Console.WriteLine(" 일어나서 기분좋게 샤워하러 간다");
+        Console.ReadKey();
+        Console.WriteLine(" 샤워하는 도중에 기상나팔 소리가 들린다");
+        Console.ReadKey();
+        Console.WriteLine(" 원래 기상나팔소리가 이렇게 경쾌했나?라는 생각을 18개월만에 했다");
+        Console.ReadKey();
+        Console.WriteLine(" 샤워를 마치고 로션을 바른 후에 창밖을 바라보는데");
+        Console.ReadKey();
+        Console.WriteLine(" 세상이 이렇게 아름다울 수가 없다");
+        Console.ReadKey();
+        Console.WriteLine(" 옷갈아입고 아침점호하러 나가야겠다");
+        Console.ReadKey();
+        Console.WriteLine(" 근데 옷을 갈아입는데 어제한 멍석말이 때문에 온몸이 아프다");
+        Console.ReadKey();
+        Console.WriteLine(" 그래도 꾸역꾸역 아침점호를 나갔다 오늘은 전역 날이니까 ㅎㅎ");
+        Console.ReadKey();
+        Console.WriteLine(" 점호를 하는데 오늘따라 보급관님이 잘생겨보인다 확실히 제정신은 아닌듯하다");
+        Console.ReadKey();
+        Console.WriteLine(" 점호를 마치고 전역복과 전역모를 입고 전역 신고를 한 후에 대대장님과 면담을 하고");
+        Console.ReadKey();
+        Console.WriteLine(" 경례와 함께 모든 전역과정을 마쳤다");
+        Console.ReadKey();
+        Console.WriteLine("이제 후임들과 인사를 나누고 덕담을 나눈다");
+        Console.ReadKey();
+        Console.WriteLine(" (후임들이 모여서) 개부럽네 형 사회에서 보자 고생했어!");
+        Console.ReadKey();
+        Console.WriteLine(" 여기서 내가 해줄 수 있는 덕담은 그래 고맙고 오늘도 ㅈ뱅이 쳐~");
+        Console.ReadKey();
+        Console.WriteLine(" 아 그리고 생활관에 내 물품들 있는데 알아서 가져가거나 남은거 처리해줘");
+        Console.ReadKey();
+        Console.WriteLine(" 이 덕담은 나름 역사가 깊은 전역 덕담이다");
+        Console.ReadKey();
+        Console.WriteLine(" 후임들과 사진까지 찍고 이제 위병소 밖으로 걸어나간다!!");
+        Console.ReadKey();
+        Console.WriteLine(" 위병소까지 걸어가는데 마치 내가 세상의 주인공이 된것 같다");
+        Console.ReadKey();
+        Console.WriteLine(" 지금 누가와도 다 이길자신있다는 마인드다");
+        Console.ReadKey();
+        Console.WriteLine(" 그리고 위병소 밖으로 나오면서");
+        Console.ReadKey();
+        Console.WriteLine(" 이제 드디어 전역이다!!!!!!!!!!!!!!!!!!! 소리치고");
+        Console.ReadKey();
+        Console.WriteLine(" 하늘을 보니 세상이 이렇게 아름다울 수가 없다 냄새, 공기, 구름, 근무중인 짬지후임까지 세상이 아름답다");
+        Console.ReadKey();
+        Console.WriteLine(" ");
+        Console.WriteLine(" 길었던 군생활도 드디어 끝이났다!!!");
+        Console.WriteLine(" ");
+        Console.ReadKey();
+
+
+
     }
 
     static void BadEnding()
     {
-    Console.Clear();
+        Console.Clear();
 
-    Console.WriteLine("");
-    Console.WriteLine("                  ██████╗  █████╗ ██████╗     ███████╗███╗   ██╗██████╗ ██╗███╗   ██╗ ██████╗     ");
-    Console.WriteLine("                  ██╔══██╗██╔══██╗██╔══██╗    ██╔════╝████╗  ██║██╔══██╗██║████╗  ██║██╔════╝     ");
-    Console.WriteLine("                  ██████╔╝███████║██║  ██║    █████╗  ██╔██╗ ██║██║  ██║██║██╔██╗ ██║██║  ███╗    ");
-    Console.WriteLine("                  ██╔══██╗██╔══██║██║  ██║    ██╔══╝  ██║╚██╗██║██║  ██║██║██║╚██╗██║██║   ██║    ");
-    Console.WriteLine("                  ██████╔╝██║  ██║██████╔╝    ███████╗██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝    ");
-    Console.WriteLine("                  ╚═════╝ ╚═╝  ╚═╝╚═════╝     ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝     ");
-    Console.WriteLine("");                                                                      
-                                                                            
-   Console.WriteLine(" 오늘은 전역날이다");
-   Console.ReadKey();
-   Console.WriteLine(" 드디어 전역이네 후.. 군생활 길었다");
-   Console.ReadKey();
-   Console.WriteLine(" 어제 멍석말이 할때 엉덩이 발로 찬놈 잡아야됐는데 ");
-   Console.ReadKey();
-   Console.WriteLine(" 아.. 엉덩이에 피멍들었네");
-   Console.ReadKey();                                                      
-   Console.WriteLine(" 그래도 전역날이니까 기분좋게 마무리하고 집에가자");
-   Console.ReadKey();
-   Console.WriteLine(" 현재시간 6시 40분 샤워나 하러 가야겠다");
-   Console.ReadKey();
-   Console.WriteLine(" 어차피 샤훠 10분컷이니까 딱 샤워하고 옷갈아입고 나가면 딱 좋네");
-   Console.ReadKey();
-   Console.WriteLine(" (샤워를 하는중..)");
-   Console.ReadKey();
-   Console.WriteLine(" 기분좋게 노래부르며서 양치를 하는데 갑자기 칫솔이 부러졌다..");
-   Console.ReadKey();
-   Console.WriteLine(" 하.. 갑자기 불길하게 칫솔이 부러지냐");
-   Console.ReadKey();
-   Console.WriteLine(" 그래도 오늘 전역하는 날이니까 너무 의미부여하지말자 ");
-   Console.ReadKey();
-   Console.WriteLine(" 샤워를 마치고 대충 전역복을 갈아입고 기분좋게 마지막 아침점호를 나선다~");
-   Console.ReadKey();
-   Console.WriteLine(" 오늘은 마치 내가 세상의 주인공이 된 것처럼 두려움이 없다");
-   Console.ReadKey();
-   Console.WriteLine(" 점호를 하는데 갑자기 보급관님이 내얼굴을 보면서 피식 웃는다");
-   Console.ReadKey();
-   Console.WriteLine(" (마음속으로) 왜 웃는거지? 그렇게 전문하사 해달라고 사정을 하시더니");
-   Console.ReadKey();
-   Console.WriteLine(" 그렇게 아침점호가 끝나고 알동기들과 전역과정 수료까지 마쳤는데");
-   Console.ReadKey();
-   Console.WriteLine(" 갑자기 대대장님이 대장실로 들어오라고 하신다");
-   Console.ReadKey();
-   Console.WriteLine(" ㅎㅎ 나를 위한 이벤트인가? 하고 따라 들어왔는데 대장님실에 간부님들이 다 모여있다..");
-   Console.ReadKey();
-   Console.WriteLine(" 그러고선 갑자기 전문하사 수여식을 진행한다... 이게 뭐지?? 깜짝 이벤트인가??");
-   Console.ReadKey();
-   Console.WriteLine(" 너무 당황해서 보급관님께 이 상황이 어떻게 된건지 설명을 해달라고 했다.");
-   Console.ReadKey();
-   Console.WriteLine(" (보급관): 아 너가 전문하사 안할 줄 알고 미리 너희 부모님과 상의해서 결정했어 ");
-   Console.ReadKey();
-   Console.WriteLine(" 예? 그게 무슨 말이죠? 에이 거짓말치지마요 아니아니 거짓말치지 마십쇼");
-   Console.ReadKey();
-   Console.WriteLine("");
-   Console.ReadKey();
-   Console.WriteLine(" (보급관 랩퍼 빙의하며)");
-   Console.ReadKey();
-   Console.WriteLine(" (보급관): 이미 다 얘기 끝났고 공문도 올렸고 수여식까지 했으니까 이제 너는 오늘부로 전문하사야");
-   Console.ReadKey();
-   Console.WriteLine(" (보급관): 부모님이 아직 정신개조가 덜된것 같다고 정신차리면 나오라고 하시네");
-   Console.ReadKey();
-   Console.WriteLine(" (보급관): 사회나가서 하고싶은 일도 없다면서 그리고 친구들한테 돈도 많이 빌려서 평판도 안좋다고 다 들었다");
-   Console.ReadKey();
-   Console.WriteLine(" (보급관): 어디 빠져나갈 생각하지 말고 같이 아침먹고 일과나 하자 오늘 연병장에 잡초가 많이 자랐더라");
-   Console.ReadKey();
-   Console.WriteLine(" (보급관): 아 그리고 부모님께서 원활히 협조를 잘해주셔서 한달에 한번 달팽이 크림 보내주기로 했단다~~");
-   Console.ReadKey();
-   Console.WriteLine(" 하.. 세상 아무도 믿지 말랬는데 오늘 제대로 느낀다..");
-   Console.ReadKey();
-   Console.WriteLine(" 근데 맞는 말을 하셔서 여기서 빠져나갈 수 있게 반박할 수가 없다...");
-   Console.ReadKey();
-   Console.WriteLine(" (대대장님): 전문하사가 된걸 축하한다!! 너는 이제 자랑스러운 군인이 되어야된다");
-   Console.ReadKey();
-   Console.WriteLine(" (울먹이며)옙 감사합니다!! 오늘부로 병장이 아닌 전문하사로 임무를 잘 수행하겠습니다!!");
-   Console.ReadKey();
-   Console.WriteLine(" (보급관) 이제 수료식도 했으니 연병장 잡초나 뽑으러 가자~ ㅎㅎ)");
-   Console.ReadKey();
-   Console.WriteLine(" (표정관리 실패하며)넵 장갑좀 가져오갰습니다!!");
-   Console.ReadKey();
-   Console.WriteLine(" 그러곤 몰래 분대폰으로 엄마한테 전화를 걸어봤지만 전화를 받지 않는다..");
-   Console.ReadKey();
-   Console.WriteLine(" 아빠한테도 전화를 걸어봤지만 전화를 받지 않는다...");
-   Console.ReadKey();
-   Console.WriteLine(" 그 자리에서 폰을 붙잡고 실성을 한다");
-   Console.ReadKey();
-   Console.WriteLine(" 세상은 이렇게 잔인한 거였다..");
-   Console.ReadKey();
-   Console.WriteLine(" 그러곤 방송으로 보급관님이 행정반으로 나를 부른다..");
-   Console.ReadKey();
-   Console.WriteLine(" 그래 나 오늘부로 전문하사지...? ");
-   Console.ReadKey();
-   Console.WriteLine(" 또한번 실성을 하고 이제 현실을 인정하고 작업에 나섰다");
-   Console.ReadKey();
-   Console.WriteLine(" 네~ 보급관님 갑니다~~");
-   Console.ReadKey();
-   Console.WriteLine(" 해는 쨍쨍했지만 내눈에는 세상이 어두워 보였다...");
-   Console.ReadKey();
+        Console.WriteLine("");
+        Console.WriteLine("                  ██████╗  █████╗ ██████╗     ███████╗███╗   ██╗██████╗ ██╗███╗   ██╗ ██████╗     ");
+        Console.WriteLine("                  ██╔══██╗██╔══██╗██╔══██╗    ██╔════╝████╗  ██║██╔══██╗██║████╗  ██║██╔════╝     ");
+        Console.WriteLine("                  ██████╔╝███████║██║  ██║    █████╗  ██╔██╗ ██║██║  ██║██║██╔██╗ ██║██║  ███╗    ");
+        Console.WriteLine("                  ██╔══██╗██╔══██║██║  ██║    ██╔══╝  ██║╚██╗██║██║  ██║██║██║╚██╗██║██║   ██║    ");
+        Console.WriteLine("                  ██████╔╝██║  ██║██████╔╝    ███████╗██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝    ");
+        Console.WriteLine("                  ╚═════╝ ╚═╝  ╚═╝╚═════╝     ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝     ");
+        Console.WriteLine("");
 
-   
+        Console.WriteLine(" 오늘은 전역날이다");
+        Console.ReadKey();
+        Console.WriteLine(" 드디어 전역이네 후.. 군생활 길었다");
+        Console.ReadKey();
+        Console.WriteLine(" 어제 멍석말이 할때 엉덩이 발로 찬놈 잡아야됐는데 ");
+        Console.ReadKey();
+        Console.WriteLine(" 아.. 엉덩이에 피멍들었네");
+        Console.ReadKey();
+        Console.WriteLine(" 그래도 전역날이니까 기분좋게 마무리하고 집에가자");
+        Console.ReadKey();
+        Console.WriteLine(" 현재시간 6시 40분 샤워나 하러 가야겠다");
+        Console.ReadKey();
+        Console.WriteLine(" 어차피 샤훠 10분컷이니까 딱 샤워하고 옷갈아입고 나가면 딱 좋네");
+        Console.ReadKey();
+        Console.WriteLine(" (샤워를 하는중..)");
+        Console.ReadKey();
+        Console.WriteLine(" 기분좋게 노래부르며서 양치를 하는데 갑자기 칫솔이 부러졌다..");
+        Console.ReadKey();
+        Console.WriteLine(" 하.. 갑자기 불길하게 칫솔이 부러지냐");
+        Console.ReadKey();
+        Console.WriteLine(" 그래도 오늘 전역하는 날이니까 너무 의미부여하지말자 ");
+        Console.ReadKey();
+        Console.WriteLine(" 샤워를 마치고 대충 전역복을 갈아입고 기분좋게 마지막 아침점호를 나선다~");
+        Console.ReadKey();
+        Console.WriteLine(" 오늘은 마치 내가 세상의 주인공이 된 것처럼 두려움이 없다");
+        Console.ReadKey();
+        Console.WriteLine(" 점호를 하는데 갑자기 보급관님이 내얼굴을 보면서 피식 웃는다");
+        Console.ReadKey();
+        Console.WriteLine(" (마음속으로) 왜 웃는거지? 그렇게 전문하사 해달라고 사정을 하시더니");
+        Console.ReadKey();
+        Console.WriteLine(" 그렇게 아침점호가 끝나고 알동기들과 전역과정 수료까지 마쳤는데");
+        Console.ReadKey();
+        Console.WriteLine(" 갑자기 대대장님이 대장실로 들어오라고 하신다");
+        Console.ReadKey();
+        Console.WriteLine(" ㅎㅎ 나를 위한 이벤트인가? 하고 따라 들어왔는데 대장님실에 간부님들이 다 모여있다..");
+        Console.ReadKey();
+        Console.WriteLine(" 그러고선 갑자기 전문하사 수여식을 진행한다... 이게 뭐지?? 깜짝 이벤트인가??");
+        Console.ReadKey();
+        Console.WriteLine(" 너무 당황해서 보급관님께 이 상황이 어떻게 된건지 설명을 해달라고 했다.");
+        Console.ReadKey();
+        Console.WriteLine(" (보급관): 아 너가 전문하사 안할 줄 알고 미리 너희 부모님과 상의해서 결정했어 ");
+        Console.ReadKey();
+        Console.WriteLine(" 예? 그게 무슨 말이죠? 에이 거짓말치지마요 아니아니 거짓말치지 마십쇼");
+        Console.ReadKey();
+        Console.WriteLine("");
+        Console.ReadKey();
+        Console.WriteLine(" (보급관 랩퍼 빙의하며)");
+        Console.ReadKey();
+        Console.WriteLine(" (보급관): 이미 다 얘기 끝났고 공문도 올렸고 수여식까지 했으니까 이제 너는 오늘부로 전문하사야");
+        Console.ReadKey();
+        Console.WriteLine(" (보급관): 부모님이 아직 정신개조가 덜된것 같다고 정신차리면 나오라고 하시네");
+        Console.ReadKey();
+        Console.WriteLine(" (보급관): 사회나가서 하고싶은 일도 없다면서 그리고 친구들한테 돈도 많이 빌려서 평판도 안좋다고 다 들었다");
+        Console.ReadKey();
+        Console.WriteLine(" (보급관): 어디 빠져나갈 생각하지 말고 같이 아침먹고 일과나 하자 오늘 연병장에 잡초가 많이 자랐더라");
+        Console.ReadKey();
+        Console.WriteLine(" (보급관): 아 그리고 부모님께서 원활히 협조를 잘해주셔서 한달에 한번 달팽이 크림 보내주기로 했단다~~");
+        Console.ReadKey();
+        Console.WriteLine(" 하.. 세상 아무도 믿지 말랬는데 오늘 제대로 느낀다..");
+        Console.ReadKey();
+        Console.WriteLine(" 근데 맞는 말을 하셔서 여기서 빠져나갈 수 있게 반박할 수가 없다...");
+        Console.ReadKey();
+        Console.WriteLine(" (대대장님): 전문하사가 된걸 축하한다!! 너는 이제 자랑스러운 군인이 되어야된다");
+        Console.ReadKey();
+        Console.WriteLine(" (울먹이며)옙 감사합니다!! 오늘부로 병장이 아닌 전문하사로 임무를 잘 수행하겠습니다!!");
+        Console.ReadKey();
+        Console.WriteLine(" (보급관) 이제 수료식도 했으니 연병장 잡초나 뽑으러 가자~ ㅎㅎ)");
+        Console.ReadKey();
+        Console.WriteLine(" (표정관리 실패하며)넵 장갑좀 가져오갰습니다!!");
+        Console.ReadKey();
+        Console.WriteLine(" 그러곤 몰래 분대폰으로 엄마한테 전화를 걸어봤지만 전화를 받지 않는다..");
+        Console.ReadKey();
+        Console.WriteLine(" 아빠한테도 전화를 걸어봤지만 전화를 받지 않는다...");
+        Console.ReadKey();
+        Console.WriteLine(" 그 자리에서 폰을 붙잡고 실성을 한다");
+        Console.ReadKey();
+        Console.WriteLine(" 세상은 이렇게 잔인한 거였다..");
+        Console.ReadKey();
+        Console.WriteLine(" 그러곤 방송으로 보급관님이 행정반으로 나를 부른다..");
+        Console.ReadKey();
+        Console.WriteLine(" 그래 나 오늘부로 전문하사지...? ");
+        Console.ReadKey();
+        Console.WriteLine(" 또한번 실성을 하고 이제 현실을 인정하고 작업에 나섰다");
+        Console.ReadKey();
+        Console.WriteLine(" 네~ 보급관님 갑니다~~");
+        Console.ReadKey();
+        Console.WriteLine(" 해는 쨍쨍했지만 내눈에는 세상이 어두워 보였다...");
+        Console.ReadKey();
 
 
-   
-                                                                            
-                                                                            
-                                                    
+
+
+
+
+
+
     }
-    #endregion
+
     #region px로 가기
     static void PX()
     {
