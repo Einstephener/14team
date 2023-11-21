@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 
 internal class Program
 {
+    #region 셋팅
     private static List<Weapon> weapons = new List<Weapon> //이름, 가격, 설명, 힘, 민첩, 지능, 운, 효과
         {
             new Weapon("야전삽", 1000, "군대 보급 삽", 10, 5, 3, 2,"공격+10 민첩+5 지능+3 운+2 상승"),
@@ -103,6 +104,7 @@ internal class Program
     static ConsoleKeyInfo e;
 
     static bool frenchSuccess;
+    #endregion
     //시작
     static void Main(string[] args)
     {
@@ -1840,10 +1842,10 @@ internal class Program
         int randomNum = 0;
 
         // 선택지 Text
-        string[] text = {"1. 여자친구를 만나러 간다.",
-        "2. 친구들을 만나러 간다.",
-        "3. 본가로 간다.",
-        "4. 혼자 논다."};
+        string[] text = {"\n 여자친구를 만나러 간다.",
+        "\n 친구들을 만나러 간다.",
+        "\n 본가로 간다.",
+        "\n 혼자 논다."};
 
         // 게임 시작
         // 화면 초기화
@@ -1857,8 +1859,11 @@ internal class Program
             //화면 초기화
             Console.Clear();
 
-            Console.WriteLine("드디어 100일 휴가를 나왔다!");
-            Console.WriteLine("어떤 일을 먼저 해볼까?");
+            Console.WriteLine("");
+            Console.WriteLine("l =========================== l");
+            Console.WriteLine("l 드디어 100일 휴가를 나왔다! l");
+            Console.WriteLine("l 어떤 일을 먼저 해볼까?      l");
+            Console.WriteLine("l =========================== |");
 
             // Text[] Output
             TextChoice(cursor, text);
@@ -1876,28 +1881,28 @@ internal class Program
         {
             case 0:
                 // 여자친구 만나러
-                OneHundredDaysEvent(randomNum, "여자친구가 다른 남자와 다정하게 걷고 있다...",
-                "여자친구와 즐거운 시간을 보냈다.",
-                "나는 여자친구가 없다...");
+                OneHundredDaysEvent(randomNum, "\n 여자친구가 다른 남자와 다정하게 걷고 있다...\n",
+                "\n 여자친구와 즐거운 시간을 보냈다.\n",
+                "\n 나는 여자친구가 없다...\n");
                 break;
             case 1:
                 // 친구들 만나러
-                OneHundredDaysEvent(randomNum, "오랜만에 친구들과 술 한잔하며 이야기했다.",
-                "친구들과 Pc방에 가서 시간 가는 줄 모르고 놀았다.",
-                "나는 친구가 없다...");
+                OneHundredDaysEvent(randomNum, "\n 오랜만에 친구들과 술 한잔하며 이야기했다.\n",
+                "\n 친구들과 Pc방에 가서 시간 가는 줄 모르고 놀았다.\n",
+                "\n 나는 친구가 없다...\n");
 
                 break;
             case 2:
                 // 본가로 간다
-                OneHundredDaysEvent(randomNum, "오랜만에 집에 왔건만 군대에서 뭐했냐며 잔소리만 들었다...",
-                "가족들과 오랜만에 식사하며 좋은 시간을 보냈다.",
-                "내가 오는 줄 몰랐나..? 아무도 없다...");
+                OneHundredDaysEvent(randomNum, "\n 오랜만에 집에 왔건만 군대에서 뭐했냐며 잔소리만 들었다...\n",
+                "\n 가족들과 오랜만에 식사하며 좋은 시간을 보냈다.\n",
+                "\n 내가 오는 줄 몰랐나..? 아무도 없다...\n");
                 break;
             case 3:
                 // 혼자 논다
-                OneHundredDaysEvent(randomNum, "혼자 즐겁게 놀았다. 진짜 즐거운 거 맞다, 아마도..",
-                "여기저기 구경 다니며 신나게 놀았다.",
-                "생활관에 있을 때가 더 나은 거 같다 너무 외롭다..");
+                OneHundredDaysEvent(randomNum, "\n 혼자 즐겁게 놀았다. 진짜 즐거운 거 맞다, 아마도..\n",
+                "\n 여기저기 구경 다니며 신나게 놀았다.\n",
+                "\n 생활관에 있을 때가 더 나은 거 같다 너무 외롭다..\n");
                 break;
             default:
                 break;
@@ -1942,27 +1947,26 @@ internal class Program
         int totalWave = 10;
         int hitCount = 0;
 
+        // 나레이션 Text 설정
+        string narration = "\n 오늘은 사격훈련을 진행하겠다. \n \n 한발 한발 신중하게 쏠 수 있도록 한다. \n" +
+            "\n 탄약을 분배 받은 사수는 각자 위치로! \n \n 준비된 사수는 사격 개시! \n \n :::아무 키나 눌러주십시오:::";
+        char[] narrations = narration.ToCharArray();
+
         // 선택지 Text
-        string[] text = { "1. 머리 조준", "2. 몸통 조준", "3. 바닥 경계선 조준" };
+        string[] text = { "\n 머리 조준", "\n 몸통 조준", "\n 바닥 경계선 조준" };
 
         // 초기 씬 셋팅값
         int cursor = 0;
         bool onScene = true;
         Console.Clear();
-        Console.WriteLine("오늘은 사격훈련을 진행하겠다.");
-        Console.WriteLine("");
+        
+        foreach(char index in narrations)
+        {
+            Console.Write(index);
+            Thread.Sleep(100);
+        }
         Console.ReadKey();
-        Console.WriteLine("한발 한발 신중하게 쏠 수 있도록 한다.");
-        Console.WriteLine("");
-        Console.ReadKey();
-        Console.WriteLine("탄약을 분배 받은 사수는 각자 위치로!");
-        Console.WriteLine("");
-        Console.ReadKey();
-        Console.WriteLine("준비된 사수는 사격 개시!");
-        Console.WriteLine("");
-        Console.WriteLine(":::아무 키나 눌러주십시오:::");
-        Console.ReadKey();
-
+        
         for (int currentWave = 1; currentWave <= totalWave; currentWave++)
         {
             // cursor위치 초기화
@@ -1977,12 +1981,12 @@ internal class Program
                 // 화면 초기화
                 Console.Clear();
 
-                Console.WriteLine(" 현재 사격 시도 : {0} / {1}   명중 횟수 : {2}", currentWave, totalWave, hitCount);
-                Console.WriteLine("");
-                Console.WriteLine("사격 거리 : {0}m ", distance[num]);
-                Console.WriteLine("");
-                Console.WriteLine("어디를 조준하고 사격할까?");
-                Console.WriteLine("");
+                Console.Write("\n 현재 사격 시도 : {0} / {1}   명중 횟수 : {2}", currentWave, totalWave, hitCount);
+                Console.Write("\n\n");
+                Console.Write("\n 사격 거리 : {0}m", distance[num]);
+                Console.Write("\n\n");
+                Console.Write("\n 어디를 조준하고 사격할까?\n");
+                Console.Write("\n ===========================================\n");
 
                 // Text[] Output
                 TextChoice(cursor, text);
@@ -1992,10 +1996,6 @@ internal class Program
                 cursor = CursorChoice(e, cursor, text, ref onScene);
 
             }
-
-            // 화면 지우기
-            Console.Clear();
-
             // 사격 로직 및 명중 횟수++
             hitCount = ShootingEvent(num, hitCount, cursor);
 
@@ -2012,13 +2012,19 @@ internal class Program
     {
         if (input == _cursor)
         {
-            Console.WriteLine("명중!!!");
+            Console.SetCursorPosition(27,4);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("==명중==");
+            Console.ResetColor();
             _hitCount++;
             Console.ReadKey();
         }
         else
         {
-            Console.WriteLine("빗나갔다...");
+            Console.SetCursorPosition(27, 4);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("==빗나갔다==");
+            Console.ResetColor();
             Console.ReadKey();
         }
 
