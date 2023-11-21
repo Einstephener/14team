@@ -5,7 +5,7 @@ public class Skill
     public string Name{ get; protected set;}
     public int MindCost{get; protected set;}
 
-    public virtual void Execute(Character caster, Character target)
+    public virtual void Execute(Character caster, Enemy target)
     {
         int damage = CalculateDamage(caster);
         Console.WriteLine("{스킬이름} 을 사용해 {타겟} 에게 {damage}의 데미지를 입혔습니다.");
@@ -27,13 +27,14 @@ public class ArmorPiercerSkill : Skill
 
     }
 
-    public override void Execute(Character caster, Character target)
+    public override void Execute(Character caster, Enemy target)
     {
-        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.Name}에게 사용");
+        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
 
         int damage = CalculateDamage(caster);
 
         Console.WriteLine("${damage}의 데미지를 입혔습니다.");
+        target.EnemyHp -= damage;
     }
 
     //데미지 계산
@@ -56,14 +57,16 @@ public class CoordinationBarrageSkill : Skill
 
     }
 
-    public override void Execute(Character caster, Character target)
+    public override void Execute(Character caster, Enemy target)
     {
         for (int i = 0; i < 5; i++)
         {
             int damage = CalculateDamage(caster);
             
 
-            Console.WriteLine($"{caster.Name}이(가) {target.Name}에게 {damage}의 데미지를 입혔습니다.");
+            Console.WriteLine($"{caster.Name}이(가) {target.EnemyName}에게 {damage}의 데미지를 입혔습니다.");
+            target.EnemyHp -= damage;
+
         }
     }
 
@@ -71,7 +74,7 @@ public class CoordinationBarrageSkill : Skill
     public override int CalculateDamage(Character caster)
     {
         //특정 스텟에 기반한 데미지 계산
-        int damage = caster.Dex*2;
+        int damage = caster.Str*2;
 
         return damage;
     }
@@ -87,20 +90,22 @@ public class K_511AttackSkill : Skill
 
     }
 
-    public override void Execute(Character caster, Character target)
+    public override void Execute(Character caster, Enemy target)
     {
-        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.Name}에게 사용");
+        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
 
         int damage = CalculateDamage(caster);
 
         Console.WriteLine("${damage}의 데미지를 입혔습니다.");
+        target.EnemyHp -= damage;
+
     }
 
     //데미지 계산
     public override int CalculateDamage(Character caster)
     {
         //특정 스텟에 기반한 데미지 계산
-        int damage = caster.Luk*2;
+        int damage = caster.Str*2;
 
         return damage;
     }
@@ -116,20 +121,22 @@ public class fuckSkill : Skill
 
     }
 
-    public override void Execute(Character caster, Character target)
+    public override void Execute(Character caster, Enemy target)
     {
-        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.Name}에게 사용");
+        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
 
         int damage = CalculateDamage(caster);
 
         Console.WriteLine("${damage}의 데미지를 입혔습니다.");
+        target.EnemyHp -= damage;
+
     }
 
     //데미지 계산
     public override int CalculateDamage(Character caster)
     {
         //특정 스텟에 기반한 데미지 계산
-        int damage = caster.IQ*2;
+        int damage = caster.Str*2;
 
         return damage;
     }

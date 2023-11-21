@@ -57,8 +57,8 @@ internal class Program
             new Enemy("초임 소위", 100, 100),
             new Enemy("참호", 5, 100),
             new Enemy("맞선임", 4, 10),
-            new Enemy("멧돼지", 50, 100),
-            new Enemy("고라니", 50, 100)
+            new Enemy("멧돼지", 3, 30),
+            new Enemy("고라니", 2, 30)
         };
 
     private static Enemy FindEnemyByName(string enemyName)
@@ -1378,20 +1378,21 @@ internal class Program
 
 
         Console.Clear();
-        Console.WriteLine("당신은 유격훈련에 참가했다.");
+        Console.WriteLine("");
+        Console.WriteLine(" 당신은 유격훈련에 참가했다.");
         Console.ReadKey();
-        Console.WriteLine("지옥의 PT체조가 시작됐다.");
+        Console.WriteLine(" 지옥의 PT체조가 시작됐다.");
         Console.ReadKey();
-        Console.WriteLine("\"지금부터 대답은 \'네\'가 아니라 \'악\'으로 대체합니다.\"");
+        Console.WriteLine(" \"지금부터 대답은 \'네\'가 아니라 \'악\'으로 대체합니다.\"");
         Console.ReadKey();
-        Console.WriteLine("악!");
+        Console.WriteLine(" 악!");
         Console.ReadKey();
-        Console.WriteLine("\"PT체조 8번 온몸비틀기 준비!\"");
+        Console.WriteLine(" \"PT체조 8번 온몸비틀기 준비!\"");
         Console.ReadKey();
-        Console.WriteLine("교관은 쉽게 갈 생각이 없는거같다 살아남자!");
+        Console.WriteLine(" 교관은 쉽게 갈 생각이 없는거같다 살아남자!");
         Console.ReadKey();
         Console.WriteLine();
-        Console.WriteLine("유-격!");
+        Console.WriteLine(" 유-격!");
         Console.ReadKey();
         //확률에 따라 성공 혹은 실패
         //실패마다 정신력, 체력 감소
@@ -1402,14 +1403,14 @@ internal class Program
 
             if (randomValue < success)
             {
-                Console.WriteLine("\"교육생들 수고 많았습니다.\"");
+                Console.WriteLine(" \"교육생들 수고 많았습니다.\"");
                 Console.ReadKey();
-                Console.WriteLine("\"본 교관 나쁜사람 아닙니다.\"");
+                Console.WriteLine(" \"본 교관 나쁜사람 아닙니다.\"");
                 Console.ReadKey();
-                Console.WriteLine("\"교육생들 막사로 가서 쉬도록합니다.\"");
+                Console.WriteLine(" \"교육생들 막사로 가서 쉬도록합니다.\"");
                 Console.ReadKey();
                 Console.WriteLine("");
-                Console.WriteLine("지옥같은 유격훈련이 끝났다... 돌아가자.");
+                Console.WriteLine(" 지옥같은 유격훈련이 끝났다... 돌아가자.");
                 Console.ReadKey();
                 //성공시 스텟증가 추가해야됨
                 OneMonthLater();
@@ -1420,12 +1421,12 @@ internal class Program
             {
                 //실패문구 랜덤생성
                 string[] failMessages ={
-                    "목소리 크게 합니다. 다시!",
-                    "누가 마지막 구호를 외쳐! 다시!",
-                    "자세 똑바로 합니다. 다시!",
-                    "누가 한숨쉬었습니까. 다시!",
-                    "목소리가 작습니다. 다시!",
-                    "교관 실망시킬겁니까. 다시!"
+                    " 목소리 크게 합니다. 다시!",
+                    " 누가 마지막 구호를 외쳐! 다시!",
+                    " 자세 똑바로 합니다. 다시!",
+                    " 누가 한숨쉬었습니까. 다시!",
+                    " 목소리가 작습니다. 다시!",
+                    " 교관 실망시킬겁니까. 다시!"
                 };
                 int randomIndex = random.Next(failMessages.Length);
                 Console.WriteLine(failMessages[randomIndex]);
@@ -1525,7 +1526,7 @@ internal class Program
         DisplayResult(player1.Hp, wildBoar, waterDeer);
 
     }
-    //공격선택
+    //공격선택 메서드
     private static void AttackAction(Character player1, params Enemy[] enemies)
     {
         int cursor = 0;
@@ -1550,12 +1551,69 @@ internal class Program
         enemies[cursor].EnemyHp -= playerDamage;
         Console.WriteLine($" \n 플레이어가 {enemies[cursor].EnemyName}에게 {playerDamage}의 데미지를 입혔습니다.");
     }
+
+    //스킬사용 메서드
     private static void SkillAction(Character player1, params Enemy[] enemies)
     {
-        // 스킬 추가하고 여기에 구현
-        Console.WriteLine("스킬 낫띵");
-    }
+        int skillcursor = 0;
+        bool skillSelection = true;
+        string[] skilltext = new string[player1.Skills.Count];
+        for (int i = 0; i < player1.Skills.Count; i++)
+        {
+            skilltext[i] += " =" + player1.Skills[i].Name + "=\n";
+        }
 
+        while (skillSelection)
+        {
+            Console.Clear();
+            Console.WriteLine("\n 어떤 스킬을 사용하시겠습니까? \n ");
+
+            TextChoice(skillcursor, skilltext);
+            e = Console.ReadKey();
+            skillcursor = CursorChoice(e, skillcursor, skilltext, ref skillSelection);
+
+            if (e.Key == ConsoleKey.Enter)
+            {
+                MonsterSelection(player1, player1.Skills[skillcursor], enemies);
+                skillSelection = false;
+            }
+        }
+    }
+    //스킬을 사용할 몬스터 선택
+    private static void MonsterSelection(Character player1, Skill skill ,Enemy[] enemies)
+    {
+        Console.Clear();
+        Console.WriteLine($"{skill.Name} 를 사용합니다.");
+
+
+        int targetCursor = 0;
+        bool targetSelection = true;
+        string[] targetText = new string[enemies.Length];
+
+        for (int i = 0; i< enemies.Length; i++)
+        {
+            targetText[i] += " =" + enemies[i].EnemyName + "=\n";
+        }
+        
+        while (targetSelection)
+        {
+            Console.Clear();
+            Console.WriteLine("\n 어떤 몬스터를 공격하시겠습니까? \n");
+
+            TextChoice(targetCursor, targetText);
+            e = Console.ReadKey();
+            targetCursor = CursorChoice(e, targetCursor, targetText, ref targetSelection);
+
+            if(e.Key == ConsoleKey.Enter)
+            {
+                skill.Execute(player1, enemies[targetCursor]);
+                Console.ReadKey();
+                targetSelection = false;
+            }
+        }
+
+    }
+    
     private static void DisplayResult(int playerHp, params Enemy[] enemies)
     {
         if (playerHp <= 0)
