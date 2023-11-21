@@ -37,14 +37,15 @@ public class ArmorPiercerSkill : Skill
         
 
         int damage = CalculateDamage(caster);
-        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
+        Console.WriteLine("");
+        Console.WriteLine($" {caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
         if (target.EnemyHp <= 0)
         {
-            Console.WriteLine($"{target.EnemyName} 이(가) 사망했습니다!");
+            Console.WriteLine($" {target.EnemyName} 이(가) 사망했습니다!");
         }
         else
         {
-            Console.WriteLine($"{caster.Name}이(가) {target.EnemyName}에게 {damage}의 데미지를 입혔습니다.");
+            Console.WriteLine($" {caster.Name}이(가) {target.EnemyName}에게 {damage}의 데미지를 입혔습니다.");
         }
         target.EnemyHp -= damage;
     }
@@ -80,14 +81,15 @@ public class CoordinationBarrageSkill : Skill
         for (int i = 0; i < 5; i++)
         {
             int damage = CalculateDamage(caster);
-            Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
+            Console.WriteLine("");
+            Console.WriteLine($" {caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
             if (target.EnemyHp <= 0)
             {
-                Console.WriteLine($"{target.EnemyName} 이(가) 사망했습니다!");
+                Console.WriteLine($" {target.EnemyName} 이(가) 사망했습니다!");
             }
             else
             {
-                Console.WriteLine($"{caster.Name}이(가) {target.EnemyName}에게 {damage}의 데미지를 입혔습니다.");
+                Console.WriteLine($" {caster.Name}이(가) {target.EnemyName}에게 {damage}의 데미지를 입혔습니다.");
             }
             target.EnemyHp -= damage;
 
@@ -119,14 +121,15 @@ public class K_511AttackSkill : Skill
     {
 
         int damage = CalculateDamage(caster);
-        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
+        Console.WriteLine("");
+        Console.WriteLine($" {caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
         if (target.EnemyHp <= 0)
         {
-            Console.WriteLine($"{target.EnemyName} 이(가) 사망했습니다!");
+            Console.WriteLine($" {target.EnemyName} 이(가) 사망했습니다!");
         }
         else
         {
-            Console.WriteLine($"{caster.Name}이(가) {target.EnemyName}에게 {damage}의 데미지를 입혔습니다.");
+            Console.WriteLine($" {caster.Name}이(가) {target.EnemyName}에게 {damage}의 데미지를 입혔습니다.");
         }
         target.EnemyHp -= damage;
 
@@ -156,14 +159,15 @@ public class fuckSkill : Skill
     {
 
         int damage = CalculateDamage(caster);
-        Console.WriteLine($"{caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
+        Console.WriteLine("");
+        Console.WriteLine($" {caster.Name}의 {Name} 스킬을 {target.EnemyName}에게 사용");
         if (target.EnemyHp <= 0)
         {
-            Console.WriteLine($"{target.EnemyName} 이(가) 사망했습니다!");
+            Console.WriteLine($" {target.EnemyName} 이(가) 사망했습니다!");
         }
         else
         {
-            Console.WriteLine($"{caster.Name}이(가) {target.EnemyName}에게 {damage}의 데미지를 입혔습니다.");
+            Console.WriteLine($" {caster.Name}이(가) {target.EnemyName}에게 {damage}의 데미지를 입혔습니다.");
         }
         target.EnemyHp -= damage;
 

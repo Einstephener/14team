@@ -154,7 +154,8 @@ public class Character
 
         if (critRate <= critical)
         {
-            Console.WriteLine("크리티컬!");
+            Console.WriteLine("");
+            Console.WriteLine(" 크리티컬!");
             return CalculateDamage(true);
         }
         else

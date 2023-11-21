@@ -1444,6 +1444,7 @@ internal class Program
             Thread.Sleep(50);
         }
         Console.ReadKey();
+        
 
 
         
@@ -1471,8 +1472,8 @@ internal class Program
                 Console.WriteLine(" 지옥같은 유격훈련이 끝났다... 돌아가자.");
                 Console.WriteLine("");
                 Console.ReadKey();
-                Console.WriteLine("힘이 10 증가했다.");
-                Console.WriteLine("정신력이 50 증가했다.");
+                Console.WriteLine(" 힘이 10 증가했다.");
+                Console.WriteLine(" 정신력이 50 증가했다.");
                 player.Str += 10;
                 player.Mind += 50;
                 Console.ReadKey();
@@ -1494,11 +1495,13 @@ internal class Program
                     " 교관 실망시킬겁니까. 다시!"
                 };
                 int randomIndex = random.Next(failMessages.Length);
+                Console.WriteLine("");
                 Console.WriteLine(failMessages[randomIndex]);
                 player.Hp -= 2;
                 player.Mind -= 2;
-                Console.WriteLine($"Hp : {player.Hp}");
-                Console.WriteLine($"정신력 : {player.Mind}");
+                Console.WriteLine("");
+                Console.WriteLine($" Hp : {player.Hp}");
+                Console.WriteLine($" 정신력 : {player.Mind}");
                 Console.WriteLine("");
                 success += 0.03; //실패시 성공확률 3%씩 증가
                 Console.ReadKey();
@@ -1510,10 +1513,7 @@ internal class Program
     //일병 스토리 - 경계근무
     static void FStoryPullSecurity(Character player1, Enemy wildBoar, Enemy waterDeer)
     {
-        // Cursor 선택 설정 값
-        int cursor = 0;
-        bool onScene = true;
-        string[] text = { " ==공격==\n", " ==스킬==" };
+        
 
         // 나레이션 설정 값
         string narrations = " \n 어두운 새벽 경계근무중... \n\n 저 앞 풀숲에서 부스럭거리는 소리가 난다. \n\n" +
@@ -1528,7 +1528,15 @@ internal class Program
             Thread.Sleep(80);
         }
         Console.ReadKey();
+        BattleScene(player1, wildBoar, waterDeer);
+    }
 
+    static void BattleScene(Character player1, Enemy wildBoar, Enemy waterDeer)
+    {
+        // Cursor 선택 설정 값
+        int cursor = 0;
+        bool onScene = true;
+        string[] text = { " ==공격==\n", " ==스킬==" };
 
         while (player1.Hp > 0 && (wildBoar.EnemyHp > 0 || waterDeer.EnemyHp > 0))
         {
@@ -1552,19 +1560,19 @@ internal class Program
                 }
                 // 화면 초기화
                 Console.Clear();
-
+                Console.WriteLine("");
                 Console.ForegroundColor = (wildBoar.EnemyHp <= 0 ? ConsoleColor.DarkGray : ConsoleColor.White);
-                Console.WriteLine($"{wildBoar.EnemyName}: HP {wildBoar.EnemyHp}");
+                Console.WriteLine($" {wildBoar.EnemyName}: HP {wildBoar.EnemyHp}");
                 Console.ForegroundColor = (waterDeer.EnemyHp <= 0 ? ConsoleColor.DarkGray : ConsoleColor.White);
-                Console.WriteLine($"{waterDeer.EnemyName}: HP {waterDeer.EnemyHp}");
+                Console.WriteLine($" {waterDeer.EnemyName}: HP {waterDeer.EnemyHp}");
                 Console.ResetColor();
                 Console.WriteLine("");
                 Console.WriteLine("");
-                Console.WriteLine($"{player1.Name}: HP {player1.Hp} 정신력 {player1.Mind}");
+                Console.WriteLine($" {player1.Name}: HP {player1.Hp} 정신력 {player1.Mind}");
                 Console.WriteLine("");
                 Console.WriteLine("");
-                Console.WriteLine("플레이어의 턴입니다. 행동을 선택하세요\n");
-                Console.WriteLine("==============================================");
+                Console.WriteLine(" 플레이어의 턴입니다. 행동을 선택하세요\n");
+                Console.WriteLine(" ==============================================");
                 Console.WriteLine("");
                 // Text 배열 출력
                 TextChoice(cursor, text);
@@ -1583,8 +1591,9 @@ internal class Program
                     AttackAction(player1, wildBoar, waterDeer);
                     Console.ReadKey();
                     break;
-                case 1:
+                case 1:                    
                     SkillAction(player1, wildBoar, waterDeer);
+                    Console.ReadKey();
                     break;
             }
 
@@ -1593,11 +1602,12 @@ internal class Program
             //몬스터 턴
             if (wildBoar.EnemyHp > 0)
             {
+                Console.WriteLine("");
                 Console.WriteLine($" \n {wildBoar.EnemyName}의 공격!\n");
 
                 if (player1.CheckEvade())
                 {
-                    Console.WriteLine("공격을 회피했습니다!");
+                    Console.WriteLine(" 공격을 회피했습니다!");
                 }
                 else
                 {
@@ -1609,10 +1619,11 @@ internal class Program
 
             if (waterDeer.EnemyHp > 0)
             {
+                Console.WriteLine("");
                 Console.WriteLine($" \n {waterDeer.EnemyName}의 공격!\n");
                 if (player1.CheckEvade())
                 {
-                    Console.WriteLine("공격을 회피했습니다!");
+                    Console.WriteLine(" 공격을 회피했습니다!");
                 }
                 else
                 {
@@ -1646,6 +1657,7 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
+            Console.WriteLine("");
             Console.WriteLine("\n 어떤 몬스터를 공격하시겠습니까? \n ");
 
             TextChoice(cursor, text);
@@ -1668,6 +1680,7 @@ internal class Program
                         Console.Clear();
                         int playerDamage = player1.Attack();
                         enemies[cursor].EnemyHp -= playerDamage;
+                        Console.WriteLine("");
                         Console.WriteLine($" \n 플레이어가 {enemies[cursor].EnemyName}에게 {playerDamage}의 데미지를 입혔습니다.");
                         onScene = false;
                     }
@@ -1700,6 +1713,7 @@ internal class Program
         while (skillSelection)
         {
             Console.Clear();
+            Console.WriteLine("");
             Console.WriteLine("\n 어떤 스킬을 사용하시겠습니까? \n ");
 
             TextChoice(skillcursor, skilltext);
@@ -1717,6 +1731,7 @@ internal class Program
     private static void MonsterSelection(Character player1, Skill skill, Enemy[] enemies)
     {
         Console.Clear();
+        Console.WriteLine("");
         Console.WriteLine($"{skill.Name} 를 사용합니다.");
 
 
@@ -1732,6 +1747,7 @@ internal class Program
         while (targetSelection)
         {
             Console.Clear();
+            Console.WriteLine("");
             Console.WriteLine("\n 어떤 몬스터를 공격하시겠습니까? \n");
 
             TextChoice(targetCursor, targetText);
@@ -1755,7 +1771,7 @@ internal class Program
                     if (player1.Mind < skill.MindCost)
                     {
                         //정식력 부족한 경우
-                        break;
+                        BattleScene(player1, wildBoar, waterDeer);          
                     }
                     else
                     {
