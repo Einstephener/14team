@@ -12,6 +12,7 @@ using System.Drawing;
 
 internal class Program
 {
+    // Consoletable 사용. 번호입력
     private static List<Weapon> weapons = new List<Weapon> //이름, 가격, 설명, 힘, 민첩, 지능, 운
         {
             new Weapon("야전삽", 50, "전투용 삽", 10, 5, 3, 2),
@@ -37,19 +38,19 @@ internal class Program
             new Armor("신형 전투복", 300, "최신형 전투용 갑옷", 25, 30),
             new Armor("개구리 전투복", 120, "개구리 가죽으로 만든 방어복", 12, 18),
             new Armor("특전사 이준호 전투복", 9999, "특전사 이준호님의 전투복", 999, 999)
+>>>>>>> b2ef07139cd92366d039577efa50bad9c2722e6e
         };
 
     //아이템 리스트
-
-    private static List<Food> foods = new List<Food>
+    private static List<Food> foods = new List<Food> // 체력, 가격
         {
-             new Food("건빵", 10, 20, "긴급 상황을 위한 비상식량"),
-             new Food("전투식량", 15, 30, "맛은 없지만 체력이 충분히 올라가는 식사"),
-             new Food("감자", 5, 15, "체력 회복을 위한 탄수화물 보충"),
-             new Food("단백질 바", 7, 18, "체력을 위한 단백질 섭취"),                                   // 능력치들은 밸런스에맞게 조정해야됨
-             new Food("야간식량", 12, 25, "야간에 먹는 음식, 체력 회복"),
-             new Food("특급 식사", 20, 50, "전투에 최적화된 특별한 식사"),
-             new Food("야전식량", 18, 40, "야외 전투에 적합한 식사")
+             new Food("건빵", 20, 200, "긴급 상황을 위한 비상식량"),
+             new Food("전투식량", 30, 300, "맛은 없지만 체력이 충분히 올라가는 식사"),
+             new Food("감자", 10, 150, "체력 회복을 위한 탄수화물 보충"),
+             new Food("단백질 바", 15, 180, "체력을 위한 단백질 섭취"),                                   // 능력치들은 밸런스에맞게 조정해야됨
+             new Food("야간식량", 25, 250, "야간에 먹는 음식, 체력 회복"),
+             new Food("특급 식사", 40, 500, "전투에 최적화된 특별한 식사"),
+             new Food("야전식량", 36, 400, "야외 전투에 적합한 식사")
         };
     //몬스터 리스트
     private static List<Enemy> enemys = new List<Enemy>
@@ -323,6 +324,7 @@ internal class Program
         Console.WriteLine("");
         Console.WriteLine(" press any key to continue");
         Console.ReadKey();
+        //나레이션
         Home();
 
     }
@@ -556,14 +558,14 @@ internal class Program
         Console.WriteLine("|--------------|       |");
         Console.WriteLine("|              |     | |");
         Console.WriteLine("|              |       |");
-        Console.WriteLine("|              |  ");
+        Console.Write("|              |  ");
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.Write("food");
         Console.ResetColor();
         Console.WriteLine(" |");
         Console.WriteLine("|              |       |");
         Console.WriteLine("|              |=======|");
-        Console.WriteLine("|    ");
+        Console.Write("|    ");
         Console.ForegroundColor = ConsoleColor.Magenta;
         Console.Write("armor");
         Console.ResetColor();
@@ -610,6 +612,7 @@ internal class Program
     //무기 인벤
     static void DisplayWeapon(Character player)
     {
+        Console.Clear();
         Console.WriteLine("무기");
         Console.WriteLine("============================================================================");
         //인벤토리 리스트에 있는 아이템들 나열
@@ -653,6 +656,7 @@ internal class Program
     //방어구 인벤
     static void DisplayArmor(Character player)
     {
+        Console.Clear();
         Console.WriteLine("방어구");
         Console.WriteLine("============================================================================");
         //인벤토리 리스트에 있는 아이템들 나열
@@ -693,6 +697,7 @@ internal class Program
     //음식 인벤
     static void DisplayFood(Character player)
     {
+        Console.Clear();
         Console.WriteLine("음식");
         Console.WriteLine("============================================================================");
         //인벤토리 리스트에 있는 아이템들 나열
@@ -2436,6 +2441,7 @@ internal class Program
     static void CSschool()
     {
         Console.Clear();
+        Console.WriteLine();
         Console.WriteLine(" 어쩌다보니 분대장으로 뽑혔다.");
         Console.ReadKey();
         Console.ForegroundColor = ConsoleColor.Green;
