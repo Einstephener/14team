@@ -116,7 +116,7 @@ internal class Program
         Console.Title = "K-Army";
 
         // 캐릭터 정보 세팅
-        player1 = new Character("", "용사", 5, 5, 5, 5, 100, 0, 5);
+        player1 = new Character("", "용사", 5, 5, 5, 5, 100, 100, 0, 5);
 
         // 녹견 세팅
         greenStrap = new Armor("분대장 견장", 0, "분대장의 상징인 녹견", 10, 10);
@@ -288,45 +288,49 @@ internal class Program
         {
             case 0:
                 //보병 전직
-                player1 = new Infantry(player.Name, "보병", 5, 5, 5, 5, 100, 0, 5);
+                player1 = new Infantry(player.Name, "보병", 5, 5, 5, 5, 100, 100, 0, 5);
                 Console.WriteLine(" 보병을 선택했다.");
                 //사단마크 획득
                 player1.AddToInventoryArmor(ShoulderSleeve2);
                 //사단마크 스탯 적용
                 ShoulderSleeve2.isEquipped = true;
                 player1.Mind += ShoulderSleeve2.ItemMind;
+                player1.MaxHp += ShoulderSleeve2.ItemHp;
                 player1.Hp += ShoulderSleeve2.ItemHp;
                 break;
             case 1:
                 //포병 전직
-                player1 = new Artillery(player.Name, "포병", 5, 5, 5, 5, 100, 0, 5);
+                player1 = new Artillery(player.Name, "포병", 5, 5, 5, 5, 100, 100, 0, 5);
                 //사단마크 획득
                 player1.AddToInventoryArmor(ShoulderSleeve1);
                 //사단마크 스탯 적용
                 ShoulderSleeve1.isEquipped = true;
                 player1.Mind += ShoulderSleeve1.ItemMind;
-                player1.Hp += ShoulderSleeve1.ItemHp;
+                player1.MaxHp += ShoulderSleeve1.ItemHp;
+                player1.Hp += ShoulderSleeve1.ItemHp;               
                 Console.WriteLine(" 포병을 선택했다.");
                 break;
             case 2:
                 //운전병 전직
-                player1 = new Transportation(player.Name, "운전병", 5, 5, 5, 5, 100, 0, 5);
+                player1 = new Transportation(player.Name, "운전병", 5, 5, 5, 5, 100, 100, 0, 5);
                 //사단마크 획득
                 player1.AddToInventoryArmor(ShoulderSleeve3);
                 //사단마크 스탯 적용
                 ShoulderSleeve3.isEquipped = true;
                 player1.Mind += ShoulderSleeve3.ItemMind;
+                player1.MaxHp += ShoulderSleeve3.ItemHp;
                 player1.Hp += ShoulderSleeve3.ItemHp;
                 Console.WriteLine(" 운전병을 선택했다.");
                 break;
             case 3:
                 //정비병 전직
-                player1 = new Maintenence(player.Name, "정비병", 5, 5, 5, 5, 100, 0, 5);
+                player1 = new Maintenence(player.Name, "정비병", 5, 5, 5, 5, 100, 100, 0, 5);
                 //사단마크 획득
                 player1.AddToInventoryArmor(ShoulderSleeve4);
                 //사단마크 스탯 적용
                 ShoulderSleeve4.isEquipped = true;
                 player1.Mind += ShoulderSleeve4.ItemMind;
+                player1.MaxHp += ShoulderSleeve4.ItemHp;
                 player1.Hp += ShoulderSleeve4.ItemHp;
                 Console.WriteLine(" 정비병을 선택했다.");
                 break;
@@ -663,8 +667,8 @@ internal class Program
         }
         else
         {
-            //막사로 돌아가기
-            Home();
+            //관물대로 돌아가기
+            DisplayInventory(player1);
         }
     }
 
@@ -705,8 +709,8 @@ internal class Program
         }
         else
         {
-            //막사로 돌아가기
-            Home();
+            //관물대로 돌아가기
+            DisplayInventory(player1);
         }
     }
     //음식 인벤
@@ -734,8 +738,11 @@ internal class Program
         int input = CheckValidInput(0, player.InventoryFood.Count);
         if (input > 0)
         {
-
+            var food = player.InventoryFood[input - 1];
+            var selectedItem = player.InventoryFood[input - 1];
+            EatFood(food);
             Console.WriteLine();
+            player.InventoryFood.Remove(selectedItem);//선택한 아이템 제거
             Console.WriteLine("Press AnyKey");
             Console.ReadKey();
             //인벤토리창 새로고침
@@ -743,14 +750,21 @@ internal class Program
         }
         else
         {
-            //막사로 돌아가기
-            Home();
+            //관물대로 돌아가기
+            DisplayInventory(player1);
         }
     }
 
-    static void EatFood()
+    static void EatFood(Food food)
     {
-
+        Console.WriteLine($"{food.ItemName}을 사용했습니다.");
+        Console.WriteLine();
+        player1.Hp += food.ItemHp;     
+        if(player1.Hp >= player1.MaxHp)
+        {
+            player1.Hp = player1.MaxHp;
+        }
+        Console.WriteLine("체력이 회복되었습니다.");
     }
     #endregion
 
@@ -1941,7 +1955,7 @@ internal class Program
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("체력이 50증가합니다.");
                 Console.ResetColor();
-                player1.Hp += 50;
+                player1.MaxHp += 50;
                 OneMonthLater();
                 break; //나가기 
 
@@ -2110,6 +2124,7 @@ internal class Program
         Console.ReadKey();
         Console.WriteLine(" 개고생을 했더니 체력이 늘어난것 같다.");
         player.Hp += 20;
+        player.MaxHp += 20;
         Console.ReadKey();
         OneMonthLater();
     }
@@ -2234,6 +2249,8 @@ internal class Program
                         //정신력 1 감소, 체력 감소
                         player1.Mind--;
                         player1.Hp -= 10;
+                        player1.MaxHp -= 10;
+                        
 
                         Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine(" 계속하려면 enter.");
@@ -2254,6 +2271,7 @@ internal class Program
                         //정신력 5 증가 체력 증가
                         player1.Mind += 5;
                         player1.Hp += 10;
+                        player1.MaxHp += 10;
                         player1.Gold -= 100;
 
                         Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -2277,6 +2295,7 @@ internal class Program
                 Console.WriteLine(" 체력이 증가되었다.");
                 player1.Mind--;
                 player1.Hp += 10;
+                player1.MaxHp += 10;
 
 
                 Console.ForegroundColor = ConsoleColor.DarkRed;
@@ -2318,7 +2337,8 @@ internal class Program
             Console.WriteLine(" 아슬아슬했지만 안정적으로 물자를 다 옮기는데 성공했다.");
             Console.ReadKey();
             Console.WriteLine(" 반복된 노동으로 체력이 10 오른다.");
-            player.Hp += 10;
+            player.Hp += 10;         
+            player.MaxHp += 10;
 
             OneMonthLater();
         }
@@ -2587,6 +2607,7 @@ internal class Program
         greenStrap.isEquipped = true;
         player1.Mind += greenStrap.ItemMind;
         player1.Hp += greenStrap.ItemHp;
+        player1.MaxHp += greenStrap.ItemHp;
         Console.ReadKey();
         Console.WriteLine(" 교육이 끝나고 막사로 복귀했다.");
 

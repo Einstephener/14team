@@ -9,6 +9,7 @@ public class Character
     public int IQ { get; set; } //캐릭터 지능
     public int Luk { get; set; } //캐릭터 운
     public int Hp { get; set; } //캐릭터 체력
+    public int MaxHp { get; set; } //캐릭터 체력
     public int Mind { get; set; } //캐릭터 정신력
     public int _gold; //소유 골드
     public List<Skill> Skills { get; set; }
@@ -24,7 +25,7 @@ public class Character
     public List<Armor> InventoryArmor { get; } = new List<Armor>(); // 인벤토리 리스트 추가
     public List<Weapon> InventoryWeapon { get; } = new List<Weapon>(); // 인벤토리 리스트 추가
 
-    public Character(string name, string job, int str, int dex, int iq, int luk, int hp, int gold, int mind)
+    public Character(string name, string job, int str, int dex, int iq, int luk, int hp, int maxHp, int gold, int mind)
     {
         Name = name;
         Job = job;
@@ -33,6 +34,7 @@ public class Character
         IQ = iq;
         Luk = luk;
         Hp = hp;
+        MaxHp = maxHp;
         _gold = gold;
         Mind = mind;
         Skills = new List<Skill>();
@@ -113,7 +115,7 @@ public class Character
                 
                 //착용된 아이템의 스탯을 캐릭터 스탯에 적용                
                 Mind += item.ItemMind;
-                Hp += item.ItemHp;
+                MaxHp += item.ItemHp;
             }
             else
             {
@@ -122,7 +124,7 @@ public class Character
                 
                 //착용 해제된 아이템의 스탯을 캐릭터 스탯에 적용                
                 Mind -= item.ItemMind;
-                Hp -= item.ItemHp;
+                MaxHp -= item.ItemHp;
             }
         }
         else
@@ -177,8 +179,8 @@ public class Character
 }
 public class Infantry : Character
 {
-    public Infantry(string name, string job, int str, int dex, int iq, int luk, int hp, int gold, int mind)
-        : base(name, "보병", str, dex, iq, luk, hp, gold, mind)
+    public Infantry(string name, string job, int str, int dex, int iq, int luk, int hp, int maxHp, int gold, int mind)
+        : base(name, "보병", str, dex, iq, luk, hp, maxHp, gold, mind)
     {
         Skills.Add(new CoordinationBarrageSkill());
     }
@@ -186,8 +188,8 @@ public class Infantry : Character
 
 public class Artillery : Character
 {
-    public Artillery(string name, string job, int str, int dex, int iq, int luk, int hp, int gold, int mind)
-            : base(name, "포병", str, dex, iq, luk, hp, gold, mind)
+    public Artillery(string name, string job, int str, int dex, int iq, int luk, int hp, int maxHp, int gold, int mind)
+            : base(name, "포병", str, dex, iq, luk, hp, maxHp, gold, mind)
     {
         Skills.Add(new ArmorPiercerSkill());
     }
@@ -195,8 +197,8 @@ public class Artillery : Character
 
 public class Transportation : Character
 {
-    public Transportation(string name, string job, int str, int dex, int iq, int luk, int hp, int gold, int mind)
-        : base(name, "운전병", str, dex, iq, luk, hp, gold, mind)
+    public Transportation(string name, string job, int str, int dex, int iq, int luk, int hp, int maxHp, int gold, int mind)
+        : base(name, "운전병", str, dex, iq, luk, hp, maxHp, gold, mind)
     {
         Skills.Add(new K_511AttackSkill());
     }
@@ -204,8 +206,8 @@ public class Transportation : Character
 
 public class Maintenence : Character
 {
-    public Maintenence(string name, string job, int str, int dex, int iq, int luk, int hp, int gold, int mind)
-        : base(name, "정비병", str, dex, iq, luk, hp, gold, mind)
+    public Maintenence(string name, string job, int str, int dex, int iq, int luk, int hp, int maxHp, int gold, int mind)
+        : base(name, "정비병", str, dex, iq, luk, hp, maxHp, gold, mind)
     {
         Skills.Add(new fuckSkill());
     }
