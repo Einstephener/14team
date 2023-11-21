@@ -1430,24 +1430,21 @@ internal class Program
         Random random = new Random();
         double success = 0.01; //초기 성공 확률 1%
 
+        // 나레이션 설정 값
+        string narrations = " \n ...훈련의 꽃 유격훈련이 시작됬다. \n\n \"지금부터 대답은 '네'가 아니라 '악'으로 대체합니다.\" \n\n 악! \n\n \"PT체조 8번 온몸비틀기 준비!\" \n\n 교관은 쉽게 갈 생각이 없는거같다 살아남자!";
+        char[] narration = narrations.ToCharArray();
 
+        // 나레이션 시작
         Console.Clear();
-        Console.WriteLine("");
-        Console.WriteLine(" 당신은 유격훈련에 참가했다.");
+        foreach (char index in narration)
+        {
+            Console.Write(index);
+            Thread.Sleep(50);
+        }
         Console.ReadKey();
-        Console.WriteLine(" 지옥의 PT체조가 시작됐다.");
-        Console.ReadKey();
-        Console.WriteLine(" \"지금부터 대답은 \'네\'가 아니라 \'악\'으로 대체합니다.\"");
-        Console.ReadKey();
-        Console.WriteLine(" 악!");
-        Console.ReadKey();
-        Console.WriteLine(" \"PT체조 8번 온몸비틀기 준비!\"");
-        Console.ReadKey();
-        Console.WriteLine(" 교관은 쉽게 갈 생각이 없는거같다 살아남자!");
-        Console.ReadKey();
-        Console.WriteLine();
-        Console.WriteLine(" 유-격!");
-        Console.ReadKey();
+
+
+        
         //확률에 따라 성공 혹은 실패
         //실패마다 정신력, 체력 감소
         //실패시 출력멘트
@@ -1472,6 +1469,11 @@ internal class Program
                 Console.WriteLine(" 지옥같은 유격훈련이 끝났다... 돌아가자.");
                 Console.WriteLine("");
                 Console.ReadKey();
+                Console.WriteLine("힘이 10 증가했다.");
+                Console.WriteLine("정신력이 50 증가했다.");
+                player.Str += 10;
+                player.Mind += 50;
+                Console.ReadKey();
                 //성공시 스텟증가 추가해야됨
                 OneMonthLater();
                 break;
@@ -1479,6 +1481,7 @@ internal class Program
             }
             else
             {
+                Console.Clear();
                 //실패문구 랜덤생성
                 string[] failMessages ={
                     " 목소리 크게 합니다. 다시!",
@@ -1490,12 +1493,12 @@ internal class Program
                 };
                 int randomIndex = random.Next(failMessages.Length);
                 Console.WriteLine(failMessages[randomIndex]);
-                Console.WriteLine("Hp - 2");
-                Console.WriteLine("정신력 - 2");
-                Console.WriteLine("");
-                success += 0.03; //실패시 성공확률 3%씩 증가
                 player.Hp -= 2;
                 player.Mind -= 2;
+                Console.WriteLine($"Hp : {player.Hp}");
+                Console.WriteLine($"정신력 : {player.Mind}");
+                Console.WriteLine("");
+                success += 0.03; //실패시 성공확률 3%씩 증가
                 Console.ReadKey();
                 //추가로 실패시 정신력, 체력 감소 추가해야됨
             }
