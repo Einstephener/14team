@@ -41,17 +41,17 @@ internal class Program
             new Armor("특전사 이준호 전투복", 99999, "특전사 이준호님의 전투복", 999, 999,"체력+999 정신력+999 상승")
         };
 
-    //아이템 리스트
+   
 
-    private static List<Food> foods = new List<Food>
+    private static List<Food> foods = new List<Food>      //HP회복, 가격
         {
-             new Food("건빵", 10, 20, "긴급 상황을 위한 비상식량",""),
-             new Food("전투식량", 15, 30, "맛은 없지만 체력이 충분히 올라가는 식사",""),
-             new Food("감자", 5, 15, "체력 회복을 위한 탄수화물 보충",""),
-             new Food("단백질 바", 7, 18, "체력을 위한 단백질 섭취",""),                                   // 능력치들은 밸런스에맞게 조정해야됨
-             new Food("야간식량", 12, 25, "야간에 먹는 음식, 체력 회복",""),
-             new Food("특급 식사", 20, 50, "전투에 최적화된 특별한 식사",""),
-             new Food("야전식량", 18, 40, "야외 전투에 적합한 식사","")
+             new Food("건빵", 10, 20, "건푸레이크 주레시피","HP 10만큼 회복합니다."),
+             new Food("전투식량", 15, 30, "전투시 빠르게 먹을수있는 식량","HP 15만큼 회복합니다."),
+             new Food("감자", 20, 35, "체력 회복을 위한 탄수화물 보충","HP 20만큼 회복합니다."),
+             new Food("단백질 바", 30, 40, "체력을 위한 단백질 섭취","HP 30만큼 회복합니다."),                                  
+             new Food("야간식량", 40, 50, "야간에 몰래먹는 음식","HP 40만큼 회복합니다."),
+             new Food("특급 식사", 50, 60, "전투에 최적화된 특별한 식사","HP 50만큼 회복합니다."),
+             new Food("분대회식", 100, 100, "PX 파티","HP 100만큼 회복합니다.")
         };
     //몬스터 리스트
     private static List<Enemy> enemys = new List<Enemy>
@@ -6112,14 +6112,15 @@ internal class Program
         Console.Clear();
         Console.WriteLine("방어구 목록");
         Console.WriteLine("=====================================================================================");
+        ConsoleTable buyWeaponTable = new ConsoleTable("순서", "이름", "가격", "설명", "효과");
         for (int i = 0; i < armors.Count; i++)
         {
-            var armor = armors[i];
-            Console.WriteLine($"{i + 1}. {armor.ItemName} \t| 가격: {armor.ItemGold}G \t| 아이템 설명: {armor.ItemDescription}");
-            Console.WriteLine($"\t |정신력:{armor.ItemMind} \t|체력 증가량: {armor.ItemHp} ");
+            var item = armors[i];
+            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}");
         }
+        buyWeaponTable.Write();
         Console.WriteLine("=====================================================================================");
-        Console.WriteLine("1. 구매하기");
+        Console.WriteLine("1. 구매하러가기");
         Console.WriteLine("0. 뒤로가기");
         int input = CheckValidInput(0, 1);
         switch (input)
@@ -6143,7 +6144,7 @@ internal class Program
         //상점입니다.
         Console.Clear();
         Console.WriteLine();
-        Console.WriteLine("식재료 코너");
+        Console.WriteLine("음식 코너");
         Console.WriteLine("=====================================================================================");
         ConsoleTable buyWeaponTable = new ConsoleTable("순서", "이름", "가격", "설명", "효과");
         for (int i = 0; i < foods.Count; i++)
