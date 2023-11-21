@@ -63,7 +63,7 @@ internal class Program
 
     private static Enemy FindEnemyByName(string enemyName)
     {
-        return enemys.Find(m=>m.EnemyName==enemyName);
+        return enemys.Find(m => m.EnemyName == enemyName);
     }
 
     private static Enemy wildBoar = FindEnemyByName("멧돼지");
@@ -72,7 +72,7 @@ internal class Program
     private static Enemy french = FindEnemyByName("참호");
     private static Enemy senior = FindEnemyByName("맞선임");
 
-    
+
 
     //아이템들 선언
 
@@ -84,6 +84,9 @@ internal class Program
     private static int howhard;
     static int workCount = 0;
     static int Perfection = 0;
+    static double Rate = 0;
+    static double Coins = 0;
+    static double Mileages = 0;
     // ConsoleKeyInfo 선언
     static ConsoleKeyInfo e;
 
@@ -331,7 +334,7 @@ internal class Program
     {
         Rank.SetRank();
         // 커서 초기화 값
-        string[] text = { " =스토리 진행=", " =일과 진행=", " =인벤토리=", " =상태 확인=", " =PX 가기=" };
+        string[] text = { " =스토리 진행=", " =일과 진행=", " =인벤토리=", " =상태 확인=", " =PX 가기=", " =인터넷 도박=" };
         int cursor = 0;
         bool onScene = true;
 
@@ -350,6 +353,7 @@ internal class Program
         Console.WriteLine("3. 인벤토리");
         Console.WriteLine("4. 상태확인");
         Console.WriteLine("5. PX가기");
+        Console.WriteLine("6. 인터넷도박");
 
         while(onScene)
         {
@@ -400,6 +404,10 @@ internal class Program
             case 4:
                 //px
                 PX();
+                break;
+            case 5:
+                //px
+                GambleDisplay();
                 break;
         }
     }
@@ -455,10 +463,13 @@ internal class Program
                 break;
             //병장
             case 15:            //15개월
+                ColdWeatherTraining1();
                 break;
             case 16:            //16개월
+                HardWork();
                 break;
             case 17:            //17개월
+                LastLeave1();
                 break;
             case 18:            //18개월
                 break;
@@ -588,7 +599,8 @@ internal class Program
         Console.WriteLine();
         Console.WriteLine("0. 뒤로가기");
         int input = CheckValidInput(0, 3);
-        switch (input) {
+        switch (input)
+        {
             case 0:
                 Home();
                 break;
@@ -731,7 +743,7 @@ internal class Program
 
     static void EatFood()
     {
-        
+
     }
     #endregion
 
@@ -1438,7 +1450,7 @@ internal class Program
         }
     }
 
-   //일병 스토리 - 경계근무
+    //일병 스토리 - 경계근무
     static void FStoryPullSecurity(Character player1, Enemy wildBoar, Enemy waterDeer)
     {
         // Cursor 선택 설정 값
@@ -1581,7 +1593,7 @@ internal class Program
             //보상 아이템? 스텟?
         }
 
-        
+
     }
 
 
@@ -2684,416 +2696,541 @@ internal class Program
     #region 혹한기
     static void ColdWeatherTraining1()
     {
-        Console.Clear();
-        Console.WriteLine("혹한기 훈련이 시작되었다.");
-        Console.WriteLine("혹한기 일정동안 px는 잠시 폐쇠한다고 한다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 다행이다 미리 준비를 해놨어");
-        Console.WriteLine($"2. 큰일이다 이번 혹한기는 살아남을 수 있을까");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 다행이다 미리 준비를 해놨어", "큰일이다 이번 혹한기는 살아남을 수 있을까" };
+
+        while (onScene)
         {
-            case 1:
-                ColdWeatherTraining2(); //인벤토리에 장비와 음식이 구비되어 있으면 선택 가능
+            Console.Clear();
+            Console.WriteLine("혹한기 훈련이 시작되었다.");
+            Console.WriteLine("혹한기 일정동안 px는 잠시 폐쇠한다고 한다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 다행이다 미리 준비를 해놨어");
+            Console.WriteLine($"2. 큰일이다 이번 혹한기는 살아남을 수 있을까");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                ColdWeatherTraining2(); //아무튼 보너스
                 break;
-            case 2:
+            case 1:
                 ColdWeatherTraining2();
+                break;
+            default:
                 break;
         }
     }
     static void ColdWeatherTraining2()
     {
-        Console.Clear();
-        Console.WriteLine("뒷산에 24인용 텐트로 중대 본부를 설치해야한다.");
-        Console.WriteLine("우리 중대장님이 힘이 없는건가, 땅 밑에 바위가 많은 곳을 배정받았다.");
-        Console.WriteLine("바위를 깨야한다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 경계근무라고 이빨친 뒤 작업에서 빠진다.");
-        Console.WriteLine($"2. 간부님들도 많은데 내가 빠지기엔 눈치 보인다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 경계근무라고 거짓말한 뒤 작업에서 빠진다.", "2. 간부님들도 많은데 내가 빠지기엔 눈치 보인다." };
+        while (onScene)
         {
-            case 1:
-                ColdWeatherTrainingBattle1(player1.Dex); //덱스를 기반으로한 확률 높으면 행보관 피하고 바로 불침번으로 넘어감
+            Console.Clear();
+            Console.WriteLine("혹한기 훈련이 시작되었다.");
+            Console.WriteLine("혹한기 일정동안 px는 잠시 폐쇠한다고 한다.");
+            Console.WriteLine();
+            Console.WriteLine($"1. 다행이다 미리 준비를 해놨어");
+            Console.WriteLine($"2. 큰일이다 이번 혹한기는 살아남을 수 있을까");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Dex));
+                if (eventOccurred)
+                {
+                    Console.WriteLine("행보관님에게 걸렸다.");
+                    ColdWeatherTrainingBattle1();
+                    Console.WriteLine("press any Key to continue");
+                }
+                else
+                {
+                    Console.WriteLine("개꿀 일과 빼먹었다.");
+                    Console.WriteLine("press and key to continue");
+                    Console.ReadKey();
+                    ColdWeatherTraining4();
+                }
                 break;
-            case 2:
-                ColdWeatherTraining3(); //지옥의 작업 시작
+            case 1:
+                ColdWeatherTraining3();
+                break;
+            default:
                 break;
         }
     }
-    static void ColdWeatherTrainingBattle1(int stat)
+    static void ColdWeatherTrainingBattle1()
     {
-        bool eventOccurred = EventOccur(player1.CalculateProbability(stat));
-        if (eventOccurred)
-        {
-            Console.WriteLine("행보관님에게 걸렸다.");
-        }
-        else
-        {
-            Console.WriteLine("개꿀 일과 빼먹었다.");
-            Console.WriteLine("press any Key");
-
-        }
-
+        Console.WriteLine("미구현 ㅈㅅ ㅎㅎ;;");
+        Console.WriteLine("press and key to continue");
+        Console.ReadKey();
+        ColdWeatherTraining3();
         //행보관님과 배틀
     }
     static void ColdWeatherTraining3()
     {
-        Console.Clear();
-        Console.WriteLine("행보관님이 곡괭이를 들고 땅을 내리치고 있다.");
-        Console.WriteLine("옆에선 소대장님이 철조망을 치려고 병사들을 부르고 있다.");
-        Console.WriteLine("누굴 도와야 할까");
-        Console.WriteLine();
-        Console.WriteLine($"1. 행보관님을 도와 바위를 깬다.");
-        Console.WriteLine($"2. 소대장님과 같이 철조망을 친다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 행보관님을 도와 바위를 깬다.", "2. 소대장님과 같이 철조망을 친다." };
+
+        while (onScene)
         {
+            Console.Clear();
+            Console.WriteLine("행보관님이 곡괭이를 들고 땅을 내리치고 있다.");
+            Console.WriteLine("옆에선 소대장님이 철조망을 치려고 병사들을 부르고 있다.");
+            Console.WriteLine("누굴 도와야 할까");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                ColdWeatherTrainingNCORoot();
+                break;
             case 1:
                 ColdWeatherTrainingNCORoot();
                 break;
-            case 2:
-                ColdWeatherTrainingNCORoot();
+            default:
                 break;
         }
     }
 
     static void ColdWeatherTrainingNCORoot()
     {
-        Console.Clear();
-        Console.WriteLine("행보관님께서 손 다친다며 장갑을 주셨고 곡괭이를 넘겨 받아 바위를 깨기 시작했다.");
-        Console.WriteLine("곡괭이질 몇번하니 힘이 빠지기 시작했다. 내가 힘이 빠지는게 보이자");
-        Console.WriteLine("행보관님께서 다시 교대를 하자고 하신다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 이 바위까지만 제가 깨겠습니다.");
-        Console.WriteLine($"2. 행보관님께 바로 곡괭이를 드린다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTrainingNCORoot1();
-                break;
-            case 2:
-                ColdWeatherTrainingNCORoot2();
-                break;
-        }
-    }
+        int cursor = 0;
+        bool onScene = true;
 
-    static void ColdWeatherTrainingNCORoot1()
-    {
-        Console.Clear();
-        Console.WriteLine("내가 곡괭이질 하는 동안 행보관님께서 막사에 다녀오셨다.");
-        Console.WriteLine("막사에 다녀온 행보관님께서 착암기를 가져오셨다.");
-        Console.WriteLine("역시 행보관님이야");
-        Console.WriteLine();
-        Console.WriteLine($"1. 착암기로 돌을 부순다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 1);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTraining5();
-                break;
+        string[] text = { "1. 이 바위까지만 제가 깨겠습니다.", "2. 행보관님께 바로 곡괭이를 드린다." };
 
-        }
-    }
-    static void ColdWeatherTrainingNCORoot2()
-    {
-        Console.Clear();
-        Console.WriteLine("행보관님과 번갈아 곡괭이 질을 하기 시작했다.");
-        Console.WriteLine("오랜 작업으로 힘이 많이 빠졌다.");
-        Console.WriteLine("병장인데 이런 고생을 해야하나");
-        Console.WriteLine();
-        Console.WriteLine($"1. 소대장님한테 붙을걸 그랬다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 1);
-        switch (input)
+        while (onScene)
         {
+            Console.Clear();
+            Console.WriteLine("행보관님께서 손 다친다며 장갑을 주셨고 곡괭이를 넘겨 받아 바위를 깨기 시작했다.");
+            Console.WriteLine("곡괭이질 몇번하니 힘이 빠지기 시작했다. 내가 힘이 빠지는게 보이자");
+            Console.WriteLine("행보관님께서 다시 교대를 하자고 하신다.");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                Console.Clear();
+                Console.WriteLine("내가 곡괭이질 하는 동안 행보관님께서 막사에 다녀오셨다.");
+                Console.WriteLine("막사에 다녀온 행보관님께서 착암기를 가져오셨다.");
+                Console.WriteLine("역시 행보관님이야");
+                Console.WriteLine();
+                Console.WriteLine("press and key to continue");
+                Console.ReadKey();
+                Home();
+                break;
             case 1:
-                ColdWeatherTraining5();
+                Console.Clear();
+                Console.WriteLine("행보관님과 번갈아 곡괭이 질을 하기 시작했다.");
+                Console.WriteLine("오랜 작업으로 힘이 많이 빠졌다.");
+                Console.WriteLine("소대장님한테 붙을걸 그랬나.");
+                Console.WriteLine();
+                Console.WriteLine("press and key to continue");
+                Console.ReadKey();
+                Home();
+                break;
+            default:
                 break;
         }
     }
     static void ColdWeatherTrainingCORoot()
     {
-        Console.Clear();
-        Console.WriteLine("여기가 사람이 많아서 더 쉬워보인다.");
-        Console.WriteLine("2단3열 윤형 철조망을 쳐야한다.");
-        Console.WriteLine("소대장님이 나서서 뭔가를 하려고 한다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 가만히 지켜본다.");
-        Console.WriteLine($"2. 소대장님을 도와준다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "가만히 지켜본다.", "소대장님을 도와준다." };
+
+        while (onScene)
         {
-            case 1:
-                ColdWeatherTrainingCORoot1();
+            Console.Clear();
+            Console.WriteLine("여기가 사람이 많아서 더 쉬워보인다.");
+            Console.WriteLine("2단3열 윤형 철조망을 쳐야한다.");
+            Console.WriteLine("소대장님이 일병들과 철조망 작업을 하고 있다..");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (eventOccurred)
+                {
+                    Console.WriteLine("막내가 손을 다쳤다.");
+                    Console.WriteLine("맞선임이 막내를 데리고 의무대로 빠졌다.");
+                    Console.WriteLine("나도 같이 도와야겠네");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    ColdWeatherTraining4();
+                }
+                else
+                {
+                    Console.WriteLine("개꿀 일과 빼먹었다.");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    ColdWeatherTraining4();
+                }
                 break;
-            case 2:
-                ColdWeatherTrainingCORoot1();
+            case 1:
+                ColdWeatherTraining4();
+                break;
+            default:
                 break;
         }
     }
-    static void ColdWeatherTrainingCORoot1()
-    {
-        Console.Clear();
-        //Console.WriteLine("소대장님이 사고를 쳤다.");
-        //Console.WriteLine("철조망이 서로 얽혀서 모양이 이쁘지 않게 되었다.");
-
-        Console.WriteLine("1단에 두개의 철조망을 깔고 2단에 한개의 철조망을 올려야한다. ");
-        Console.WriteLine();
-        Console.WriteLine($"1. 가만히 지켜본다.");
-        Console.WriteLine($"2. 같이 작업을 시작한다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTraining5();
-                break;
-            case 2:
-                ColdWeatherTraining5();
-                break;
-        }
-    }
-
     static void ColdWeatherTraining4()
     {
-        Console.Clear();
-        Console.WriteLine("숙영하기 위해 D형 텐트를 쳐야한다.");
-        Console.WriteLine("숙영하기 위해 D형 텐트를 쳐야한다.");
-        Console.WriteLine("옆에선 소대장님이 철조망을 치려고 병사들을 부르고 있다.");
-        Console.WriteLine("누굴 도와야 할까");
-        Console.WriteLine();
-        Console.WriteLine($"1. 행보관님을 도와 바위를 깬다.");
-        Console.WriteLine($"2. 소대장님과 같이 철조망을 친다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 무시한다.", "2. 경계한다." };
+
+        while (onScene)
         {
+            Console.Clear();
+            Console.WriteLine("오후 일과가 끝났다.");
+            Console.WriteLine("숙영을 하기 떄문에 저녁식사 추진 후 바로 취침이다.");
+            Console.WriteLine("그래서 불침번 근무가 많아졌기에 나도 들어가야한다.");
+            Console.WriteLine();
+            Console.WriteLine($"??? : 김굳건 병장님 일어나셔야합니다.");
+            Console.WriteLine("불침번이 내 차례까지 왔다.");
+            Console.WriteLine("후임에게 인원체크를 시키고 구석에 쪼그려 앉았다.");
+            Console.WriteLine("그러자 숲속에서 소리가 들려온다.");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                ColdWeatherTrainingBattle2(player1.Luk);
+                break;
             case 1:
-                ColdWeatherTrainingNCORoot();
+                ColdWeatherTrainingBattle2(player1.Dex);
                 break;
-            case 2:
-                ColdWeatherTrainingCORoot();
+            default:
                 break;
+        }
+    }
+    static void ColdWeatherTrainingBattle2(int stat)
+    {
+        bool eventOccurred = EventOccur(player1.CalculateProbability(stat));
+        if (eventOccurred)
+        {
+            Console.WriteLine("아무 일도 일어나지 않았다.");
+            Console.WriteLine();
+            Console.WriteLine("Press and key to continue");
+            Console.ReadKey();
+            ColdWeatherTraining5();
+        }
+        else
+        {
+            Console.WriteLine("야생의 고라니가 나타났다!");
+            Console.WriteLine("미구현 ㅈㅅ ㅎㅎ;;");
+            Console.ReadKey();
+            ColdWeatherTraining5();
         }
     }
 
     static void ColdWeatherTraining5()
     {
-        Console.Clear();
-        Console.WriteLine("오후 일과가 끝났다.");
-        Console.WriteLine("숙영을 하기 떄문에 저녁식사 추진 후 바로 취침이다.");
-        Console.WriteLine("그래서 불침번 근무가 많아졌기에 나도 들어가야한다.");
+        Console.WriteLine("혹한기 훈련의 마지막으로 행군이 남았다");
+        Console.WriteLine("하지만 행보관님이 병장이라고 열외를 시켜주셨다");
         Console.WriteLine();
-        Console.WriteLine($"??? : 김굳건 병장님 일어나셔야합니다.");
-        Console.WriteLine("불침번이 내 차례까지 왔다.");
-        Console.WriteLine("후임에게 인원체크를 시키고 구석에 쪼그려 앉았다.");
-        Console.WriteLine("그러자 숲속에서 소리가 들려온다.");
+        Console.WriteLine("나의 군생활 마지막 훈련인 혹한기가 끝이났다.");
         Console.WriteLine();
-        Console.WriteLine($"1. 무시한다.");
-        Console.WriteLine($"2. 경계한다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTrainingBattle2(); //데미지 받고 시작
-                break;
-            case 2:
-                ColdWeatherTrainingBattle2(); //데미지 받지 않고 시작
-                break;
-        }
-    }
-    static void ColdWeatherTrainingBattle2()
-    {
-        //고라니와 배틀
-    }
-
-    static void ColdWeatherTraining6()
-    {
+        Console.WriteLine("Press and key to continue");
+        Console.ReadKey();
+        Home();
         //혹한기 훈련 끝
-        Console.Clear();
-        Console.WriteLine("오후 일과가 끝났다.");
-        Console.WriteLine("숙영을 하기 떄문에 저녁식사 추진 후 바로 취침이다.");
-        Console.WriteLine("그래서 불침번 근무가 많아졌기에 나도 들어가야한다.");
-        Console.WriteLine();
-        Console.WriteLine($"??? : 김굳건 병장님 일어나셔야합니다.");
-        Console.WriteLine("불침번이 내 차례까지 왔다.");
-        Console.WriteLine("후임에게 인원체크를 시키고 구석에 쪼그려 앉았다.");
-        Console.WriteLine("그러자 숲속에서 소리가 들려온다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 무시한다.");
-        Console.WriteLine($"2. 경계한다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                ColdWeatherTrainingBattle2(); //데미지 받고 시작
-                break;
-            case 2:
-                ColdWeatherTrainingBattle2(); //데미지 받지 않고 시작
-                break;
-        }
     }
     #endregion
     #region 작업
-
-
     static void HardWork()
     {
         workCount++;
-        Console.Clear();
-        Console.WriteLine("아침에 행정반을 가니 행보관님계서 두가지 선택권을 주셨다.");
-        Console.WriteLine("하나는 행보관님과 공구리를 치는것이고 하나는 보급병과 창고정리를 하는 것이다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 행보관님과 공구리 작업");
-        Console.WriteLine($"2. 보급병과 창고정리");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 행보관님과 공구리 작업", "2. 보급병과 창고정리" };
+
+        while (onScene)
         {
-            case 1:
+            Console.Clear();
+            Console.WriteLine("아침에 행정반을 가니 행보관님계서 두가지 선택권을 주셨다.");
+            Console.WriteLine("하나는 행보관님과 공구리를 치는것이고 하나는 보급병과 창고정리를 하는 것이다.");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
                 CementWork1();
                 break;
-            case 2:
+            case 1:
                 WarehouseWokr1();
+                break;
+            default:
                 break;
         }
     }
 
     static void CementWork1()
     {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("시멘트 포대를 옮겨야 한다.");
-        Console.WriteLine("말년에는 떨어지는 낙엽도 조심하라고 하는데 나에게는 너무 가혹한 일이다.");
-        Console.WriteLine("나와 같이 배정받은 후임들이 보인다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 후임들에게 시키고 관리 감독을 한다");
-        Console.WriteLine($"2. 후임들과 함께 포대를 옮긴다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 후임들에게 시키고 관리 감독을 한다", "2. 후임들과 함께 포대를 옮긴다." };
+
+        while (onScene)
         {
-            case 1:
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("시멘트 포대를 옮겨야 한다.");
+            Console.WriteLine("말년에는 떨어지는 낙엽도 조심하라고 하는데 나에게는 너무 가혹한 일이다.");
+            Console.WriteLine("나와 같이 배정받은 후임들이 보인다.");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
                 workCount += 1;
                 Perfection += 1;
                 CementWork2();
                 break;
-            case 2:
+            case 1:
                 workCount += 1;
                 Perfection += 3;
                 CementWork2();
+                break;
+            default:
                 break;
         }
     }
     static void CementWork2()
     {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("시멘트를 물과 섞어야한다.");
-        Console.WriteLine("옆에는 교회가 있고 군종병이 청소를 한다고 문을 열어뒀다.");
-        Console.WriteLine("주변을 둘러보니 간부는 보이지 않는다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 교회에 들어가서 한숨 잔다.");
-        Console.WriteLine("2. 후임들을 믿을 수 없다 직접 시멘트를 만든다.");
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 교회에 들어가서 한숨 잔다.", "2. 후임들을 믿을 수 없다 직접 시멘트를 만든다." };
+
+        while (onScene)
         {
-            case 1:
-                workCount += 2;
-                Perfection = 1; //확률 넣어야함
-                CementWork3();
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("시멘트를 물과 섞어야한다.");
+            Console.WriteLine("옆에는 교회가 있고 군종병이 청소를 한다고 문을 열어뒀다.");
+            Console.WriteLine("주변을 둘러보니 간부는 보이지 않는다.");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (eventOccurred)
+                {
+                    workCount += 2;
+                    Perfection += 1;
+                    Console.WriteLine("자는 동안 느려도 일이 진행되었다.");
+                    Console.WriteLine("오전일과를 통으로 빼먹었다.");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    CementWork3();
+                }
+                else
+                {
+                    workCount += 3;
+                    Perfection = 0;
+                    Console.WriteLine("후임들이 일을 망쳤다.");
+                    Console.WriteLine("시멘트부터 다시 챙겨와야 겠다.");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    CementWork3();
+                }
                 break;
-            case 2:
+            case 1:
                 workCount += 1;
                 Perfection += 2;
                 CementWork3();
+                break;
+            default:
                 break;
         }
     }
     static void CementWork3()
     {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
-        Console.WriteLine("하지만 점심 먹고 슬 잠이 쏟아진다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 생활관에 숨어서 계속 잠을 잔다.");
-        Console.WriteLine("2. 후임들을 통솔하고 작업하러 떠난다.");
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 생활관에 숨어서 계속 잠을 잔다.", "2. 후임들을 통솔하고 작업하러 떠난다." };
+
+        while (onScene)
         {
-            case 1:
-                workCount += 3;
-                Perfection += 3; //확률 넣어야함
-                CementWorkLoop();
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
+            Console.WriteLine("하지만 점심 먹고나니 잠이 쏟아진다.");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (eventOccurred)
+                {
+                    workCount += 3;
+                    Perfection += 2;
+                    Console.WriteLine("자는 동안 느려도 일이 진행되었다.");
+                    Console.WriteLine("오후 일과 절반을 보내버렸다.");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    CementWorkLoop();
+                }
+                else
+                {
+                    workCount += 1;
+                    Perfection += 2;
+                    Console.WriteLine("행보관님께 걸렸다.");
+                    Console.WriteLine("작업모를 못챙겨서 잠깐 들어왔다고 거짓말을 한다.");
+                    Console.WriteLine("행보관님한테 몇대 맞고 작업장으로 복귀한다");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    CementWorkLoop();
+                }
                 break;
-            case 2:
+            case 1:
                 workCount += 1;
                 Perfection += 3;
                 CementWorkLoop();
                 break;
+            default:
+                break;
         }
-
     }
     static void CementWork4()
     {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("후임들이 곤란해 하는 것 같다.");
-        Console.WriteLine("도와주면 쉽게 끝낼 수 있을 것 같다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 계속 지켜본다.");
-        Console.WriteLine("2. 후임들에게 시범을 보여준다.");
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 계속 지켜본다.", "2. 후임들에게 시범을 보여준다." };
+
+        while (onScene)
         {
-            case 1:
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("후임들이 곤란해 하는 것 같다.");
+            Console.WriteLine("도와주면 쉽게 끝낼 수 있을 것 같다.");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
                 workCount += 1;
                 Perfection += 2;
                 CementWorkLoop();
                 break;
-            case 2:
-                workCount += 1;
-                Perfection += 1; //확률로 마이너스
-                CementWorkLoop();
+            case 1:
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (eventOccurred)
+                {
+                    workCount += 1;
+                    Perfection += 1;
+                    Console.WriteLine("아무 일도 일어나지 않았다.");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    CementWorkLoop();
+                }
+                else
+                {
+                    workCount += 1;
+                    Perfection -= 1;
+                    Console.WriteLine("후임들이 일을 망쳤다");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    CementWorkLoop();
+                }
+                break;
+            default:
                 break;
         }
-
     }
     static void CementWork5()
     {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
-        Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 계속 지켜본다");
-        Console.WriteLine("2. 후임들을 도와 작업을 마무리한다");
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 계속 지켜본다.", "2. 후임들을 도와 작업을 마무리한다" };
+
+        while (onScene)
         {
-            case 1:
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
+            Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
                 workCount += 1;
                 Perfection += 3;
                 CementWorkLoop();
                 break;
-            case 2:
+            case 1:
                 workCount += 1;
                 Perfection += 1;
                 CementWorkLoop();
                 break;
+            default:
+                break;
         }
-
     }
     static void CementWorkLoop()
     {
@@ -3158,131 +3295,272 @@ internal class Program
     }
     static void WarehouseWokr1()
     {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("보급병이 창고 현황판을 뽑고 있다.");
-        Console.WriteLine("그 동안 창고 열쇠를 챙기고 출발할 준비를 하자.");
-        Console.WriteLine("중대장님에게 상단키를 받아야한다. 중대장님이랑 마주치기 껄끄러운데...");
-        Console.WriteLine();
-        Console.WriteLine($"1. 후임에게 시킨다.");
-        Console.WriteLine($"2. 직접 상단키를 받아 창고 열쇠를 챙긴다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 후임에게 시킨다.", "2. 직접 상단키를 받아 창고 열쇠를 챙긴다." };
+
+        while (onScene)
         {
-            case 1:
-                workCount += 1;
-                Perfection += 1; //일정 확률로 진행도 workcount +1
-                WarehouseWokr2();
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("보급병이 창고 현황판을 뽑고 있다.");
+            Console.WriteLine("그 동안 창고 열쇠를 챙기고 출발할 준비를 하자.");
+            Console.WriteLine("중대장님에게 상단키를 받아야한다. 중대장님이랑 마주치기 껄끄러운데...");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (eventOccurred)
+                {
+                    workCount += 1;
+                    Perfection += 1;
+                    Console.WriteLine("아무 일도 일어나지 않았다.");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    WarehouseWokr2();
+                }
+                else
+                {
+                    workCount += 2;
+                    Perfection += 0;
+                    Console.WriteLine("후임이 창고 열쇠가 아닌 무기고 열쇠를 가져왔다.");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    WarehouseWokr2();
+                }
                 break;
-            case 2:
+            case 1:
                 workCount += 1;
                 Perfection += 1;
                 WarehouseWokr2();
                 break;
+            default:
+                break;
         }
     }
-
     static void WarehouseWokr2()
     {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        //workcount가 2일때 후임이 안들고왔다고 알림
-        Console.WriteLine("한겨울의 컨테이너 한기가 느껴진다.");
-        Console.WriteLine("창고 문을 열자 먼지가 날리고 냄새가 난다.");
-        Console.WriteLine("보급병이 창고 물건을 다 꺼내서 재고파악을 하려고 한다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 후임에게 시키고 간이 막사에서 한숨 잔다.");
-        Console.WriteLine($"2. A급 장비가 있는지 궁금하다. 같이 작업을 시작한다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 후임에게 시키고 간이 막사에서 한숨 잔다.", "2. A급 장비가 있는지 궁금하다. 같이 작업을 시작한다." };
+
+        while (onScene)
         {
-            case 1:
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("한겨울의 컨테이너 한기가 느껴진다.");
+            Console.WriteLine("창고 문을 열자 먼지가 날리고 냄새가 난다.");
+            Console.WriteLine("보급병이 창고 물건을 다 꺼내서 재고파악을 하려고 한다.");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
                 workCount += 2;
                 Perfection += 1;
                 WarehouseWokr3();
                 break;
-            case 2:
-                workCount += 1;
-                Perfection += 2; //확률로 A급 장비 얻을 수 있음
-                WarehouseWokr3();
+
+            case 1:
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (eventOccurred)
+                {
+                    workCount += 1;
+                    Perfection += 2;
+                    Console.WriteLine("우리 중대에 전설같은 존재인 김굳건 병장의 AAA급 모포를 발견했다.");
+                    //아이템 획득
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    WarehouseWokr3();
+                }
+                else
+                {
+                    workCount += 1;
+                    Perfection += 2;
+                    WarehouseWokr3();
+                }
+                break;
+            default:
                 break;
         }
     }
 
     static void WarehouseWokr3()
     {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
-        Console.WriteLine("한기가 느껴졌던 컨테이너도 오후가 되니 열을 뿜고 있었고.");
-        Console.WriteLine("날이 풀려 몸이 따뜻해지고 슬 잠이 쏟아지기 시작한다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 오후에도 뭔 일이 있겠냐 간이 막사에서 한숨 잔다.");
-        Console.WriteLine("2. 할 일이 많이 남아 보인다. 같이 작업을 시작한다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 오후에도 뭔 일이 있겠냐 간이 막사에서 한숨 잔다.", "2. 할 일이 많이 남아 보인다. 같이 작업을 시작한다." };
+
+        while (onScene)
         {
-            case 1:
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
+            Console.WriteLine("한기가 느껴졌던 컨테이너도 오후가 되니 열을 뿜고 있었고.");
+            Console.WriteLine("날이 풀려 몸이 따뜻해지고 슬 잠이 쏟아지기 시작한다.");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
                 workCount += 2;
                 Perfection += 1;
                 WarehouseWokr4();
                 break;
-            case 2:
-                workCount += 1;
-                Perfection += 2; //확률로 A급 장비 얻을 수 있음
-                WarehouseWokr4();
+
+            case 1:
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (eventOccurred)
+                {
+                    workCount += 1;
+                    Perfection += 2;
+                    Console.WriteLine("우리 중대에 전설같은 존재인 김굳건 병장의 AAA급 군화를 발견했다.");
+                    //아이템 획득
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    workCount += 1;
+                    Perfection += 2;
+                    WarehouseWokr4();
+                }
+                break;
+            default:
                 break;
         }
     }
 
     static void WarehouseWokr4()
     {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("재고가 안맞는것 같다.");
-        Console.WriteLine("보급병은 그걸 또 다시 세고 있다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 계속 지켜본다.");
-        Console.WriteLine("2. 보급병에게 가라의 정석을 알려준다.");
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 계속 지켜본다.", "2. 보급병에게 가라의 정석을 알려준다." };
+
+        while (onScene)
         {
-            case 1:
-                workCount += 1;
-                Perfection += 3; //확률로 낮아질 수 있음
-                WarehouseWorkLoop();
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("재고가 안맞는것 같다.");
+            Console.WriteLine("보급병은 그걸 또 다시 세고 있다.");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (eventOccurred)
+                {
+                    workCount += 1;
+                    Perfection += 2;
+                    WarehouseWorkLoop();
+                }
+                else
+                {
+                    workCount += 2;
+                    Perfection += 2;
+                    Console.WriteLine("멍청한데 부지런하다니 지옥이다.");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    WarehouseWorkLoop();
+                }
+
                 break;
-            case 2:
+
+            case 1:
                 workCount += 1;
                 Perfection += 1;
                 WarehouseWorkLoop();
+                break;
+            default:
                 break;
         }
     }
     static void WarehouseWokr5()
     {
-        Console.Clear();
-        Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
-        Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
-        Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
-        Console.WriteLine();
-        Console.WriteLine("1. 계속 지켜본다");
-        Console.WriteLine("2. 후임들을 도와 작업을 마무리한다");
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 계속 지켜본다", "2. 후임들을 도와 작업을 마무리한다" };
+
+        while (onScene)
         {
-            case 1:
-                workCount += 1;
-                Perfection += 2; //확률로 낮아질 수 있음
-                WarehouseWorkLoop();
+            Console.Clear();
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
+            Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (eventOccurred)
+                {
+                    workCount += 1;
+                    Perfection += 1; //확률로 낮아질 수 있음
+                    WarehouseWorkLoop();
+                }
+                else
+                {
+                    workCount += 1;
+                    Perfection += 0;
+                    Console.WriteLine("후임이 같은 상자를 계속 열고 닫고 있다.");
+                    Console.WriteLine("오늘안에 끝나긴 글렀다.");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    WarehouseWorkLoop();
+                }
                 break;
-            case 2:
-                workCount += 1;
-                Perfection += 1; //확률로 A급 장비 얻을 수 있음
-                WarehouseWorkLoop();
+
+            case 1:
+                bool eventOccurred_ = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (eventOccurred_)
+                {
+                    workCount += 1;
+                    Perfection += 1;
+                    WarehouseWorkLoop();
+                }
+                else
+                {
+                    workCount += 1;
+                    Perfection += 1;
+                    Console.WriteLine("우리 중대에 전설같은 존재인 김굳건 병장의 AAA급 장구류를 발견했다.");
+                    //아이템 획득
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    WarehouseWorkLoop();
+                }
+                break;
+            default:
                 break;
         }
     }
@@ -3352,106 +3630,171 @@ internal class Program
     #region 말출
     static void LastLeave1()
     {
-        Console.Clear();
-        Console.WriteLine("말년휴가를 나오게 되었다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 일단 집으로 간다.");
-        Console.WriteLine($"2. 친구들과 연락을 한다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 일단 집으로 간다.", "2. 친구들과 연락을 한다." };
+
+        while (onScene)
         {
-            case 1:
+            Console.Clear();
+            Console.WriteLine("말년휴가를 나오게 되었다.");
+            Console.WriteLine("가족들을 놀래켜주려고 아무한테도 말을 하지 않았다.");
+            Console.WriteLine("친구들과 먼저 밥이나 한끼할까?");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                Console.WriteLine("집에 아무도 없다");
+                Console.WriteLine("엄마에게 전화하니 날 빼고 가족여행을 갔다고 한다.");
+                Console.WriteLine("미리 말 못한 내 잘못이지");
+                Console.WriteLine();
+                Console.WriteLine("press any Key to continue");
+                Console.ReadKey();
                 LastLeave2();
                 break;
-            case 2:
-                LastLeave2();
+
+            case 1:
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (eventOccurred)
+                {
+                    Console.WriteLine("전화기가 꺼져있다.");
+                    Console.WriteLine("인스타에 들어가니 입대했다고 한다.");
+                    Console.WriteLine("ㅋㅋ ㅈ뺑이쳐라");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    LastLeave2();
+                }
+                else
+                {
+                    Console.WriteLine("친구에게 전화했더니 바쁘다고 끊어라고 한다.");
+                    Console.WriteLine("인스타그램에 들어가니 학생회를 하고 있었고");
+                    Console.WriteLine("오늘 새터가 있는 날이라고 한다.");
+                    Console.WriteLine("신입생들과 친해지게 나도 좀 불러주지");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    LastLeave2();
+                }
+                break;
+            default:
                 break;
         }
     }
     static void LastLeave2()
     {
-        Console.Clear();
-        //아무도 연락되지 않음 그래서 혼자서 번화가로 나옴
-        Console.WriteLine("번화가로 나오게 되었다.");
-        Console.WriteLine("내 앞으로 이상형의 여성분이 지나간다.");
-        Console.WriteLine();
-        Console.WriteLine($"1. 말을 건다.");
-        Console.WriteLine($"2. 말을 걸지 않는다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 말을 건다.", "2. 말을 걸지 않는다." };
+
+        while (onScene)
         {
-            case 1:
-                //여성분이 불쾌하게 처다봄
+            Console.Clear();
+            Console.WriteLine("번화가로 나오게 되었다.");
+            Console.WriteLine("내 앞으로 이상형의 여성분이 지나간다.");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                Console.WriteLine("말을 거니 여성분이 불쾌하게 나를 보고 있다.");
+                Console.WriteLine("너무 군인처럼 보였나? 나 말년 병장인데?");
+                Console.WriteLine("press any Key to continue");
+                Console.ReadKey();
                 LastLeave3();
                 break;
-            case 2:
+
+            case 1:
+                Console.WriteLine("아직 민간인도 아닌데 뭔 작업이냐");
+                Console.WriteLine("갈길이나 가자");
+                Console.WriteLine("press any Key to continue");
+                Console.ReadKey();
                 LastLeave3();
+                break;
+            default:
                 break;
         }
     }
     static void LastLeave3()
     {
-        Console.Clear();
-        //아무도 연락되지 않음 그래서 혼자서 번화가로 나옴
-        Console.WriteLine("여성분의 남자친구와 눈이 마주쳤다.");
-        Console.WriteLine("그리고 나를 밀쳐냈다.");
-        Console.WriteLine("군바리가 누구한테 찝쩍대는거야!");
-        Console.WriteLine();
-        Console.WriteLine($"1. 억울하다 싸운다.");
-        Console.WriteLine($"2. 사람 잘못봤습니다 죄송합니다.");
-        Console.WriteLine();
-        int input = CheckValidInput(1, 2);
-        switch (input)
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "1. 억울하다 싸운다.", "2. 사람 잘못봤습니다 죄송합니다." };
+
+        while (onScene)
         {
-            case 1:
+            Console.Clear();
+            Console.WriteLine("여성분의 남자친구와 눈이 마주쳤다.");
+            Console.WriteLine("그리고 나를 밀쳐냈다.");
+            Console.WriteLine("??? : 군바리가 누구한테 찝쩍대는거야!");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
                 LastLeaveBattle1();
                 break;
-            case 2:
-                LastLeave4();
+
+            case 1:
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Dex));
+                if (eventOccurred)
+                {
+                    Console.WriteLine("겨우 빠져나왔다.");
+                    Console.WriteLine("요즘 거리가 흉흉한것 같다.");
+                    Console.WriteLine("집이나 가자");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    LastLeave4();
+                }
+                else
+                {
+                    Console.WriteLine("붙잡혔다.");
+                    Console.WriteLine("맞고만 있을 순 없지");
+                    Console.WriteLine();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    LastLeaveBattle1();
+                }
+                break;
+            default:
                 break;
         }
+
     }
     static void LastLeaveBattle1()
     {
         Console.Clear();
+        Console.WriteLine("미구현 ㅈㅅ ㅎㅎ;");
+        Console.WriteLine("press any Key to continue");
+        Console.ReadKey();
+        Home();
         //남자와 배틀
         //지면 경찰서에 끌려가서 행보관한테 복귀엔딩
         //이기면 집으로 돌가는 엔딩
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                LastLeaveBattle2(); //이김
-                break;
-            case 2:
-                LastLeave4(); //짐
-                break;
-        }
-    }
-    static void LastLeaveBattle2()
-    {
-        Console.Clear();
-        //남자와 배틀
-        //지면 경찰서에 끌려가서 행보관한테 복귀엔딩
-        //이기면 집으로 돌가는 엔딩
-        int input = CheckValidInput(1, 2);
-        switch (input)
-        {
-            case 1:
-                LastLeave3();
-                break;
-            case 2:
-                LastLeave3();
-                break;
-        }
+
     }
     static void LastLeave4()
     {
         Console.Clear();
         //이 상황에 질려서 집에서 말년 보내는 엔딩
         Console.WriteLine("밖은 위험하다 그냥 집에서 빈둥거리며 보내야겠다.");
+        Console.WriteLine("press any Key to continue");
+        Console.ReadKey();
+        Home();
     }
     #endregion
     #region 확률 구현
@@ -3463,6 +3806,471 @@ internal class Program
 
     #endregion
 
+    #region 도박
+    static void GambleDisplay()
+    {
+        int cursor = 0;
+        bool onScene = true;
+        string[] text = { "---------입장---------", "--------나가기--------" };
+
+        Console.WriteLine();
+        Console.WriteLine();
+
+        while (onScene)
+        {
+            Console.Clear();
+
+            Console.WriteLine("※14boonran.com※");
+            Console.WriteLine("※일사분란※");
+            Console.WriteLine("선충전, 후입금");
+            Console.WriteLine("§첫충EVENT§");
+            Console.WriteLine("충전금액 X 10.00% 마일리지");
+            Console.WriteLine("☆즉★시☆지★급☆");
+            Console.WriteLine("홀짝, 그래프 상시 운영");
+            Console.WriteLine("마틴 가능 | 즉시 출금 가능");
+            Console.WriteLine();
+
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                GamebleMain();
+                break;
+            case 1:
+                //나가기
+                break;
+            default:
+                break;
+        }
+    }
+
+    static void GamebleMain()
+    {
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "---------홀짝---------", "--------그래프--------", "--------충전/환전--------", "--------나가기--------" };
+
+        while (onScene)
+        {
+            Console.Clear();
+            Console.WriteLine($"COIN : {Coins} 마일리지 : {Mileages}");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                EvenOdd();
+                break;
+            case 1:
+                GraphGambleDisplay();
+                break;
+            case 2:
+                CoinCharge();
+                break;
+            case 3:
+                //나가기
+                break;
+            default:
+                break;
+        }
+    }
+
+    static void CoinCharge()
+    {
+        Console.Clear();
+        Console.WriteLine($"Gold : {player1.Gold}");
+        Console.WriteLine($"COIN : {Coins} 마일리지 : {Mileages}");
+        Console.WriteLine($"충천 수수료 : 5% 마일리지 10.00% 지급");
+        Console.WriteLine("100 Gold 단위로 충전 가능");
+        Console.WriteLine();
+        Console.WriteLine("충전하실 금액을 입력해주세요");
+        double ChargeCoins = 0;
+        double ChargeMileages = 0;
+
+        int input;
+        if (!int.TryParse(Console.ReadLine(), out input))
+        {
+            Console.WriteLine("유효하지 않은 입력입니다.");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            CoinCharge();
+        }
+
+        if (input <= player1.Gold && input % 100 == 0 && input != 0)
+        {
+            int cursor = 0;
+            bool onScene = true;
+            string[] text = { "---------예---------", "--------아니오--------" };
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            while (onScene)
+            {
+                Console.Clear();
+
+                ChargeCoins = input * 0.95;
+                ChargeMileages = input * 0.1;
+                Console.Clear();
+                Console.WriteLine($"{input}원을 충전하시면 코인 {ChargeCoins}개와 {ChargeMileages} 마일리지를 지급합니다");
+                Console.WriteLine("충전하시겠습니까?");
+                Console.WriteLine();
+
+                TextChoice(cursor, text);
+                e = Console.ReadKey();
+                cursor = CursorChoice(e, cursor, text, ref onScene);
+            }
+            switch (cursor)
+            {
+                case 0:
+                    player1.Gold -= input;
+                    Coins += ChargeCoins;
+                    Mileages += ChargeMileages;
+                    Console.WriteLine("충전이 완료되어습니다.");
+                    Console.WriteLine("Press any key to continue");
+                    Console.ReadKey();
+                    GamebleMain();
+                    break;
+                case 1:
+                    GamebleMain();
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            Console.WriteLine("잘못된 입력입니다. 100골드 단위로 올바른 금액을 입력해주세요.");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+            int cursor = 0;
+            bool onScene = true;
+            string[] text = { "---------네---------", "--------아니오--------" };
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            while (onScene)
+            {
+                Console.Clear();
+                Console.WriteLine("다시 충전하시겠습니까?");
+                Console.WriteLine();
+
+                TextChoice(cursor, text);
+                e = Console.ReadKey();
+                cursor = CursorChoice(e, cursor, text, ref onScene);
+            }
+            switch (cursor)
+            {
+                case 0:
+                    EvenOdd();
+                    break;
+                case 1:
+                    GamebleMain();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    static void PlayAgain()
+    {
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "---------다시---------", "--------나가기--------" };
+
+        while (onScene)
+        {
+            Console.Clear();
+            Console.WriteLine($"COIN : {Coins} 마일리지 : {Mileages}");
+            Console.WriteLine("다시하시겠습니까?");
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                CoinCharge();
+                break;
+            case 1:
+                GamebleMain();
+                break;
+            default:
+                break;
+        }
+    }
+
+    static void EvenOdd()
+    {
+        bool evenodd = true;
+
+        while (evenodd)
+        {
+            Console.Clear();
+            Console.WriteLine($"COIN : {Coins} 마일리지 : {Mileages}");
+            Console.WriteLine("배당 1.8배 | 마틴 가능");
+            Console.WriteLine("홀짝 게임에 오신걸 환영합니다!");
+            Console.WriteLine("최소 단위 10코인");
+            Console.WriteLine("배팅할 금액을 입력해 주세요.(마일리지 먼저 차감됩니다.)");
+
+            int input;
+            if (!int.TryParse(Console.ReadLine(), out input))
+            {
+                Console.WriteLine("유효하지 않은 입력입니다.");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+                EvenOdd();
+            }
+            if (input <= Mileages + Coins && input % 10 == 0 && input != 0)
+            {
+                Random random = new Random();
+                int RanNum = random.Next(1, 11);
+                int cursor = 0;
+                bool onScene = true;
+                Coins -= input;
+
+                string[] text = { "---------홀---------", "--------짝--------" };
+
+                while (onScene)
+                {
+                    Console.Clear();
+                    TextChoice(cursor, text);
+                    e = Console.ReadKey();
+                    cursor = CursorChoice(e, cursor, text, ref onScene);
+                }
+
+                switch (cursor)
+                {
+                    case 0:
+                        if (RanNum % 2 != 0)
+                        {
+                            Console.WriteLine("맞췄습니다.");
+                            Console.WriteLine("홀입니다.");
+                            Console.WriteLine($"{input} * 1.8배인 {input * 1.8}을 받으셨습니다.");
+                            Coins += input * 1.8;
+                            Console.WriteLine("Press any Key to continue");
+                            Console.ReadKey();
+                            PlayAgain();
+                        }
+                        else
+                        {
+                            Console.WriteLine("틀렸습니다.");
+                            Console.WriteLine("짝입니다.");
+                            Console.WriteLine("Press any Key to continue");
+                            Console.ReadKey();
+                            PlayAgain();
+                        }
+                        break;
+                    case 1:
+                        if (RanNum % 2 == 0)
+                        {
+                            Console.WriteLine("틀렸습니다.");
+                            Console.WriteLine("홀입니다.");
+                            Console.WriteLine("Press any Key to continue");
+                            Console.ReadKey();
+                            PlayAgain();
+                        }
+                        else
+                        {
+                            Console.WriteLine("맞췄습니다.");
+                            Console.WriteLine("짝입니다.");
+                            Console.WriteLine($"{input} * 1.8배인 {input * 1.8}을 받으셨습니다.");
+                            Coins += input * 1.8;
+                            Console.WriteLine("Press any Key to continue");
+                            Console.ReadKey();
+                            PlayAgain();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다. 10골드 단위로 올바른 금액을 입력해주세요.");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+                int cursor = 0;
+                bool onScene = true;
+                string[] text = { "---------네---------", "--------아니오--------" };
+
+                Console.WriteLine();
+                Console.WriteLine();
+
+                while (onScene)
+                {
+                    Console.Clear();
+                    Console.WriteLine("다시 배팅하시겠습니까?");
+                    Console.WriteLine();
+
+                    TextChoice(cursor, text);
+                    e = Console.ReadKey();
+                    cursor = CursorChoice(e, cursor, text, ref onScene);
+                }
+                switch (cursor)
+                {
+                    case 0:
+                        EvenOdd();
+                        break;
+                    case 1:
+                        GamebleMain();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+
+    static void GraphGambleDisplay()
+    {
+        bool evenodd = true;
+        Rate = 0;
+
+        while (evenodd)
+        {
+            Console.Clear();
+            Console.WriteLine($"COIN : {Coins} 마일리지 : {Mileages}");
+            Console.WriteLine("그래프 게임에 오신걸 환영합니다!");
+            Console.WriteLine("최소 단위 10코인");
+            Console.WriteLine("배팅할 금액을 입력해 주세요.(마일리지 먼저 차감됩니다.)");
+
+            int input;
+            if (!int.TryParse(Console.ReadLine(), out input))
+            {
+                Console.WriteLine("유효하지 않은 입력입니다.");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+                GraphGambleDisplay();
+            }
+            if (input <= Mileages + Coins && input % 10 == 0 && input != 0)
+            {
+                int cursor = 0;
+                bool onScene = true;
+                Coins -= input;
+
+                string[] text = { "---------GO---------", "--------STOP--------" };
+
+                while (onScene)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"{input}");
+                    Console.WriteLine($"수익률 : {Rate}");
+                    TextChoice(cursor, text);
+                    e = Console.ReadKey();
+                    cursor = CursorChoice(e, cursor, text, ref onScene);
+                }
+
+                switch (cursor)
+                {
+                    case 0:
+                        GraphGamble(input);
+                        break;
+                    case 1:
+                        Coins += (input * Rate);
+                        Console.WriteLine("게임이 종료되었습니다.");
+                        Console.WriteLine($"원금 : {input}Coin 수익률 : {Rate:F2}%");
+                        Console.WriteLine($"수익 : {input * Rate}");
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
+                        GraphGambleDisplay();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("잘못된 입력입니다. 10골드 단위로 올바른 금액을 입력해주세요.");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+                int cursor = 0;
+                bool onScene = true;
+                string[] text = { "---------네---------", "--------아니오--------" };
+
+                Console.WriteLine();
+                Console.WriteLine();
+
+                while (onScene)
+                {
+                    Console.Clear();
+                    Console.WriteLine("다시 배팅하시겠습니까?");
+                    Console.WriteLine();
+
+                    TextChoice(cursor, text);
+                    e = Console.ReadKey();
+                    cursor = CursorChoice(e, cursor, text, ref onScene);
+                }
+                switch (cursor)
+                {
+                    case 0:
+                        EvenOdd();
+                        break;
+                    case 1:
+                        GamebleMain();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+    static void GraphGamble(int Value)
+    {
+        Random random = new Random();
+        double RanRate = (random.NextDouble() * 0.2) - 0.1;
+        Rate += RanRate * 100;
+        int cursor = 0;
+        bool onScene = true;
+
+        string[] text = { "---------GO---------", "--------STOP--------" };
+
+        while (onScene)
+        {
+            Console.Clear();
+            Console.WriteLine($"{Value}");
+            Console.WriteLine($"수익률 : {Rate:F2}%");
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+
+        switch (cursor)
+        {
+            case 0:
+                GraphGamble(Value);
+                break;
+            case 1:
+                Coins += (Value * Rate) % 1;
+                Console.WriteLine("게임이 종료되었습니다.");
+                Console.WriteLine($"원금 : {Value}Coin 수익률 : {Rate:F2}%");
+                Console.WriteLine($"수익 : {Value * Rate / 100:F0}");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+                GraphGambleDisplay();
+                break;
+            default:
+                break;
+        }
+    }
+    #endregion
     #region px로 가기
     static void PX()
     {
@@ -3547,7 +4355,7 @@ internal class Program
 
         }
 
-        
+
     }
     //방어구코너
     static void ArmorShop()
@@ -3564,7 +4372,7 @@ internal class Program
         Console.WriteLine("=====================================================================================");
         Console.WriteLine("1. 구매하기");
         Console.WriteLine("0. 뒤로가기");
-         int input = CheckValidInput(0, 1);
+        int input = CheckValidInput(0, 1);
         switch (input)
         {
             case 0:
@@ -3667,7 +4475,7 @@ internal class Program
 
     }
 
-        //구매한 방어구 인벤토리로 옮기기
+    //구매한 방어구 인벤토리로 옮기기
     static void BuyArmor(Character player)
     {
         Console.Clear();
