@@ -1444,14 +1444,19 @@ internal class Program
 
             if (randomValue < success)
             {
+                Console.WriteLine("");
                 Console.WriteLine(" \"교육생들 수고 많았습니다.\"");
+                Console.WriteLine("");
                 Console.ReadKey();
                 Console.WriteLine(" \"본 교관 나쁜사람 아닙니다.\"");
+                Console.WriteLine("");
                 Console.ReadKey();
                 Console.WriteLine(" \"교육생들 막사로 가서 쉬도록합니다.\"");
+                Console.WriteLine("");
                 Console.ReadKey();
                 Console.WriteLine("");
                 Console.WriteLine(" 지옥같은 유격훈련이 끝났다... 돌아가자.");
+                Console.WriteLine("");
                 Console.ReadKey();
                 //성공시 스텟증가 추가해야됨
                 OneMonthLater();
@@ -1506,10 +1511,28 @@ internal class Program
             //내 턴
             while(onScene)
             {
+                //체력이 음수인 경우 0으로 처리
+                if (wildBoar.EnemyHp < 0)
+                {
+                    wildBoar.EnemyHp = 0;
+                }
+
+                if (waterDeer.EnemyHp < 0)
+                {
+                    waterDeer.EnemyHp = 0;
+                }
+
+                if (player1.Hp < 0)
+                {
+                    player1.Hp = 0;
+                }
                 // 화면 초기화
                 Console.Clear();
 
-                Console.WriteLine($"{wildBoar.EnemyName}: HP {wildBoar.EnemyHp}, {waterDeer.EnemyName}: HP {waterDeer.EnemyHp}");
+                Console.ForegroundColor = (wildBoar.EnemyHp <= 0 ? ConsoleColor.DarkGray : ConsoleColor.White);
+                Console.WriteLine($"{wildBoar.EnemyName}: HP {wildBoar.EnemyHp}");
+                Console.ForegroundColor = (waterDeer.EnemyHp <= 0 ? ConsoleColor.DarkGray : ConsoleColor.White);
+                Console.WriteLine($"{waterDeer.EnemyName}: HP {waterDeer.EnemyHp}");
                 Console.WriteLine("");
                 Console.WriteLine("");
                 Console.WriteLine($"{player1.Name}: HP {player1.Hp}");
@@ -1524,6 +1547,8 @@ internal class Program
                 e = Console.ReadKey();
                 // Cursor index
                 cursor = CursorChoice(e, cursor, text, ref onScene);
+
+                
             }
 
             // Cursor input
@@ -1585,12 +1610,40 @@ internal class Program
 
             TextChoice(cursor, text);
             e = Console.ReadKey();
-            cursor = CursorChoice(e, cursor, text, ref onScene);
-        }
+            //cursor = CursorChoice(e, cursor, text, ref onScene);
 
-        int playerDamage = player1.Attack();
-        enemies[cursor].EnemyHp -= playerDamage;
-        Console.WriteLine($" \n 플레이어가 {enemies[cursor].EnemyName}에게 {playerDamage}의 데미지를 입혔습니다.");
+            if (e.Key == ConsoleKey.Enter)
+            {
+                if (enemies[cursor].EnemyHp <= 0)
+                {
+                    Console.WriteLine($" {enemies[cursor].EnemyName}은(는) 이미 사망했습니다. 다른 몬스터를 선택하세요.");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    cursor = CursorChoice(e, cursor, text, ref onScene);
+
+                    if (e.Key == ConsoleKey.Enter)
+                    {
+                        Console.Clear() ;
+                        int playerDamage = player1.Attack();
+                        enemies[cursor].EnemyHp -= playerDamage;
+                        Console.WriteLine($" \n 플레이어가 {enemies[cursor].EnemyName}에게 {playerDamage}의 데미지를 입혔습니다.");
+                        onScene = false;
+                    }
+                }
+            }
+            else if (e.Key == ConsoleKey.UpArrow)
+            {
+                cursor = (cursor - 1 + enemies.Length) % enemies.Length;
+            }
+            else if (e.Key == ConsoleKey.DownArrow)
+            {
+                cursor = (cursor + 1) % enemies.Length;
+            }
+        }
+        
+
     }
 
     //스킬사용 메서드
@@ -1643,15 +1696,43 @@ internal class Program
 
             TextChoice(targetCursor, targetText);
             e = Console.ReadKey();
+
+            if (e.Key == ConsoleKey.Enter)
+            {
+
+                if (enemies[targetCursor].EnemyHp <= 0)
+                {
+                    Console.WriteLine($" {enemies[targetCursor].EnemyName}은(는) 이미 사망했습니다. 다른 몬스터를 선택하세요.");
+                    Console.ReadKey();
+                    continue;
+                }
+                else
+                {
+                    Console.Clear();
+                    skill.Execute(player1, enemies[targetCursor]);
+
+                    //스킬 사용 후 정신력 체크
+                    if(player1.Mind < skill.MindCost)
+                    {
+                        //정식력 부족한 경우
+                        break;
+                    }
+                    else
+                    {
+                        //정신력 충분한 경우
+                        Console.ReadKey();
+                        targetSelection = false;
+                    }
+                    
+                }
+            }
+            
+
             targetCursor = CursorChoice(e, targetCursor, targetText, ref targetSelection);
 
-            if(e.Key == ConsoleKey.Enter)
-            {
-                skill.Execute(player1, enemies[targetCursor]);
-                Console.ReadKey();
-                targetSelection = false;
-            }
+
         }
+        
 
     }
     
