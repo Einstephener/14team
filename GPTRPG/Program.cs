@@ -3076,7 +3076,7 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    EnemyTurn(turn);
+                    NCOTurn(turn);
                 }
                 else
                 {
@@ -3102,7 +3102,7 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    EnemyTurn(turn);
+                    NCOTurn(turn);
                 }
                 break;
             case 1:
@@ -3133,7 +3133,7 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    EnemyTurn(turn);
+                    NCOTurn(turn);
                 }
                 else
                 {
@@ -3161,7 +3161,7 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    EnemyTurn(turn);
+                    NCOTurn(turn);
                 }
                 break;
             case 2:
@@ -3195,7 +3195,7 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    EnemyTurn(turn);
+                    NCOTurn(turn);
                 }
                 else
                 {
@@ -3216,14 +3216,14 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    EnemyTurn(turn);
+                    NCOTurn(turn);
                 }
                 break;
             default:
                 break;
         }
     }
-    static void EnemyTurn(int Value)
+    static void NCOTurn(int Value)
     {
         if (Value > 0)
         {
@@ -3463,9 +3463,313 @@ internal class Program
         else
         {
             Console.WriteLine("야생의 고라니가 나타났다!");
-            Console.WriteLine("미구현 ㅈㅅ ㅎㅎ;;");
+            Console.WriteLine();
             Console.ReadKey();
-            ColdWeatherTraining5();
+            Console.WriteLine("Press and key to continue");
+            Console.ReadKey();
+            WDBattle(player1, waterDeer);
+            
+        }
+    }
+    static void WDBattle(Character player, Enemy enemy)
+    {
+        int cursor = 0;
+        bool onScene = true;
+        string[] text = { "일반 공격", "스킬 공격", "회피" };
+        while (onScene)
+        {
+            if (player.Hp > 0 && enemy.EnemyHp > 0)
+            {
+
+                Console.Clear();
+                Console.WriteLine($"{enemy.EnemyName}");
+                Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine($"{player.Name}");
+                Console.WriteLine($"남은 체력 : {player.Hp}");
+                Console.WriteLine();
+            }
+            else if (player.Hp <= 0)
+            {
+                Console.Clear();
+                Console.WriteLine("정신을 차리니 모르는 천장이 있다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("의무대에 누워있다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("고라니한테 졌구나...");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("나머지 훈련을 열외 받았다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("press any Key to continue");
+                Console.ReadKey();
+                turn = 0;
+                ColdWeatherTraining5();
+            }
+            else
+            {
+                Console.Clear();
+                Console.Write("고라니를 쓰러뜨렸다!");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.Write("후번초에게 무용담을 뽐내며 복귀한다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("press any Key to continue");
+                Console.ReadKey();
+                turn = 0;
+                Home();
+            }
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (eventOccurred)
+                {
+                    Console.Clear();
+                    turn++;
+                    Console.WriteLine($"{enemy.EnemyName}");
+                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                    Console.ReadKey();
+                    Console.WriteLine();
+                    Console.WriteLine("일반 공격!!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("치명타가 들어갔다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{player1.Str * 2}의 데미지");
+                    Console.WriteLine();
+                    enemy.EnemyHp -= player1.Str * 2;
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    WDTurn(turn);
+                }
+                else
+                {
+                    Console.Clear();
+
+                    turn++;
+                    Console.WriteLine($"{enemy.EnemyName}");
+                    Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("일반 공격!!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("평범한 공격이었다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{player1.Str}의 데미지");
+                    Console.WriteLine();
+                    enemy.EnemyHp -= player1.Str;
+                    Console.ReadKey();
+                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    WDTurn(turn);
+                }
+                break;
+            case 1:
+                bool _eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                if (_eventOccurred)
+                {
+                    Console.Clear();
+                    enemy.EnemyHp -= player1.Str * 4;
+                    turn++;
+                    Console.WriteLine($"{enemy.EnemyName}");
+                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("스킬 공격!!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("치명타가 들어갔다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("사실 미구현 ㅈㅅ ㅎㅎ;; 그냥 일반 공격 2배 데미지");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{player1.Str * 2}의 데미지");
+                    enemy.EnemyHp -= player1.Str * 2;
+                    Console.ReadKey();
+                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    WDTurn(turn);
+                }
+                else
+                {
+                    Console.Clear();
+                    enemy.EnemyHp -= player1.Str * 2;
+                    turn++;
+                    Console.WriteLine($"{enemy.EnemyName}");
+                    Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("스킬 공격!!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("평범한 공격이었다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("사실 미구현 ㅈㅅ ㅎㅎ;; 그냥 일반 공격 2배 데미지");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{player1.Str}의 데미지");
+                    enemy.EnemyHp -= player1.Str;
+                    Console.ReadKey();
+                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    WDTurn(turn);
+                }
+                break;
+            case 2:
+                bool __eventOccurred = EventOccur(player1.CalculateProbability(player1.Dex));
+                if (__eventOccurred)
+                {
+                    Console.Clear();
+                    turn = -1;
+                    Console.WriteLine($"{enemy.EnemyName}");
+                    Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("회피!!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("회피에 성공했다!!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("고라니가 공격의 반동으로 고통스러워 한다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{(int)(player1.Str / 2)}의 데미지");
+                    Console.WriteLine();
+                    enemy.EnemyHp -= (int)(player1.Str / 2);
+                    Console.ReadKey();
+                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("고라니가 2턴 그로기 상태에 빠짐");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    WDTurn(turn);
+                }
+                else
+                {
+                    Console.Clear();
+                    turn++;
+                    Console.WriteLine($"{enemy.EnemyName}");
+                    Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("회피!!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("회피에 실패했다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("상대 턴으로 넘어갑니다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    WDTurn(turn);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+    static void WDTurn(int Value)
+    {
+        if (Value > 0)
+        {
+            bool eventOccurred = EventOccur(player1.CalculateProbability(player1.IQ));
+            if (eventOccurred)
+            {
+                Console.Clear();
+                Console.WriteLine($"{player1.Name}");
+                Console.WriteLine($"현재 체력 : {player1.Hp}");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("고라니가 뒤돌았다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("뒷발로 차려는게 분명해!");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("고라니의 공격을 막아냈습니다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine($"{(int)(waterDeer.EnemyAtk / 2)}의 데미지");
+                Console.WriteLine();
+                player1.Hp -= (int)(waterDeer.EnemyAtk / 2);
+                Console.ReadKey();
+                Console.WriteLine($"남은 체력 : {player1.Hp}");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("press any Key to continue");
+                Console.ReadKey();
+                WDBattle(player1, waterDeer);
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine($"{player1.Name}");
+                Console.WriteLine($"현재 체력 : {player1.Hp}");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("고라니가 뒤돌았다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("나의 패기에 짓눌려 도망가는구나!");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("고라니의 뒷발이 내 몸에 맞았다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine($"{(int)(waterDeer.EnemyAtk)}의 데미지");
+                Console.WriteLine();
+                player1.Hp -= (int)(waterDeer.EnemyAtk);
+                Console.ReadKey();
+                Console.WriteLine($"남은 체력 : {player1.Hp}");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("press any Key to continue");
+                Console.ReadKey();
+                WDBattle(player1, waterDeer);
+            }
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("고라니가 그로기에 걸려 허우적대고 있다..");
+            Console.WriteLine();
+            Console.ReadKey();
+            Console.WriteLine("press any Key to continue");
+            Console.ReadKey();
+            WDBattle(player1, waterDeer);
         }
     }
 
