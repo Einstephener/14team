@@ -941,25 +941,29 @@ internal class Program
                 Console.ReadKey(true);
             }
             // 완주시 반복문 정지
-            if (x >= 80) break;
+            if (x >= 80)
+            {
+                Console.Clear();
+                Console.WriteLine("\n 완주 완료!!");
+                Console.WriteLine("\n 보상 계산중.... 잠시만 기다려주십시오.");
+                Thread.Sleep(2000);
+
+                Console.WriteLine("\n 남은 시간 : {0}", time.ToString("F"));
+                Console.WriteLine("\n 남은 시간에 따른 보상 ( 보상목록 )");
+                Console.WriteLine("\n >> Press the \"TAP\" key to proceed <<");
+                break;
+            }
             // 타임 오버시
             if (time <= 0)
             {
                 Console.Clear();
-                Console.WriteLine("완주 실패....");
+                Console.WriteLine("\n 완주 실패....");
+                Console.WriteLine("\n >> Press the \"TAP\" key to proceed <<");
                 Thread.Sleep(2000);
                 Home();
             }
             Thread.Sleep(10);
         }
-        Console.Clear();
-        Console.WriteLine("\n 완주 완료!!");
-        Console.WriteLine("\n 보상 계산중.... 잠시만 기다려주십시오.");
-        Thread.Sleep(2000);
-
-        Console.WriteLine("\n 남은 시간 : {0}", time.ToString("F"));
-        Console.WriteLine("\n 남은 시간에 따른 보상 ( 보상목록 )");
-        Console.WriteLine("\n >> Press the \"TAP\" key to proceed <<");
         //선입력 방지 메서드
         InputPrevention();
         Home();
@@ -1845,37 +1849,32 @@ internal class Program
                 OneHundredDaysEvent(randomNum, "여자친구가 다른 남자와 다정하게 걷고 있다...",
                 "여자친구와 즐거운 시간을 보냈다.",
                 "나는 여자친구가 없다...");
-                // Scene이동
-                OneMonthLater();
                 break;
             case 1:
                 // 친구들 만나러
                 OneHundredDaysEvent(randomNum, "오랜만에 친구들과 술 한잔하며 이야기했다.",
                 "친구들과 Pc방에 가서 시간 가는 줄 모르고 놀았다.",
                 "나는 친구가 없다...");
-                // Scene이동
-                OneMonthLater();
+
                 break;
             case 2:
                 // 본가로 간다
                 OneHundredDaysEvent(randomNum, "오랜만에 집에 왔건만 군대에서 뭐했냐며 잔소리만 들었다...",
                 "가족들과 오랜만에 식사하며 좋은 시간을 보냈다.",
                 "내가 오는 줄 몰랐나..? 아무도 없다...");
-                // Scene이동
-                OneMonthLater();
                 break;
             case 3:
                 // 혼자 논다
                 OneHundredDaysEvent(randomNum, "혼자 즐겁게 놀았다. 진짜 즐거운 거 맞다, 아마도..",
                 "여기저기 구경 다니며 신나게 놀았다.",
                 "생활관에 있을 때가 더 나은 거 같다 너무 외롭다..");
-                // Scene이동
-                OneMonthLater();
                 break;
             default:
                 break;
 
         }
+        // Scene이동
+        OneMonthLater();
     }
 
     static void OneHundredDaysEvent(int input, string one, string two, string three)
