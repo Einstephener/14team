@@ -3959,7 +3959,7 @@ internal class Program
                 GamebleMain();
                 break;
             case 1:
-                //나가기
+                Home();
                 break;
             default:
                 break;
@@ -4075,7 +4075,7 @@ internal class Program
                 CoinChargeExchange();
                 break;
             case 3:
-                //나가기
+                Home();
                 break;
             default:
                 break;
