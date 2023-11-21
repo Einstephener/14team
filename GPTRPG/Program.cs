@@ -78,13 +78,6 @@ internal class Program
 
     private static Armor greenStrap;
 
-
-    //몬스터들 선언
-
-    //private static Enemy newCommander;
-    //private static Enemy french;
-    //private static Enemy senior; //맞선임 선언
-
     //캐릭터 선언
     private static Character player1;
 
@@ -186,7 +179,6 @@ internal class Program
             Console.WriteLine("                                                                         ");
             Console.WriteLine("                            군대  RPG                                    ");
             Console.WriteLine("                                                                         ");
-            Console.WriteLine("                  Press Any Key to start the game.                       ");
             Console.ResetColor();
             Console.WriteLine("                    ==========================                           ");
 
@@ -238,9 +230,6 @@ internal class Program
                 Console.ReadKey();
                 TrainingSchool(player1);//줄거리로 이동
                 break;
-        Console.ReadKey(true);
-        Console.ResetColor();
-        TrainingSchool(player1);//줄거리로 이동
 
 
         }
