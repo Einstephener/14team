@@ -1778,6 +1778,7 @@ internal class Program
     {
         if (player1.Hp <= 0)
         {
+            Console.Clear();
             Console.WriteLine("전투에서 패배했습니다. 게임 오버!");
             Console.ReadKey();
             Home();
@@ -1785,6 +1786,7 @@ internal class Program
         }
         else
         {
+            Console.Clear();
             Console.WriteLine("적을 처치했습니다. 승리!");
             // 몬스터별 보상 처리
             foreach (var enemy in enemies)
