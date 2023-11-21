@@ -9,49 +9,48 @@ using System.Xml.Linq;
 using System;
 using System.Text;
 using System.Drawing;
+using ConsoleTables;
 
 internal class Program
 {
-    // Consoletable 사용. 번호입력
-    private static List<Weapon> weapons = new List<Weapon> //이름, 가격, 설명, 힘, 민첩, 지능, 운
+    private static List<Weapon> weapons = new List<Weapon> //이름, 가격, 설명, 힘, 민첩, 지능, 운, 효과
         {
-            new Weapon("야전삽", 50, "전투용 삽", 10, 5, 3, 2),
-            new Weapon("K2", 200, "국산 소총", 20, 10, 5, 3),
-            new Weapon("AK47", 300, "돌격소총", 25, 15, 5, 1),
-            new Weapon("샷건", 150, "원거리 전투용 산탄총", 15, 5, 2, 1),
-            new Weapon("M60", 400, "무거운 기관총", 30, 5, 2, 1),
-            new Weapon("AWP", 500, "저격소총", 40, 5, 2, 1),
-            new Weapon("판처파우스트", 600, "고급 소총", 50, 20, 10, 5),
-            new Weapon("발칸", 450, "군용 소총", 35, 15, 8, 3),
-            new Weapon("K-9자주포", 700, "대형 포탄 발사기", 60, 10, 5, 2),
-            new Weapon("현무 극초음속 순항 미사일", 1000, "최첨단 미사일", 100, 50, 30, 10),
-            new Weapon("마음의편지", 9999, "최강의 무기", 999, 999, 999, 999)
+            new Weapon("야전삽", 50, "힘+10 민첩+5 지능+3 운+2", 10, 5, 3, 2,"힘+10 민첩+5"),
+            new Weapon("K2", 200, "국산 소총", 20, 10, 5, 3,""),
+            new Weapon("AK47", 300, "돌격소총", 25, 15, 5, 1, ""),
+            new Weapon("샷건", 150, "원거리 전투용 산탄총", 15, 5, 2, 1,""),
+            new Weapon("M60", 400, "무거운 기관총", 30, 5, 2, 1,""),
+            new Weapon("AWP", 500, "저격소총", 40, 5, 2, 1,""),
+            new Weapon("판처파우스트", 600, "고급 소총", 50, 20, 10, 5,""),
+            new Weapon("발칸", 450, "군용 소총", 35, 15, 8, 3,""),
+            new Weapon("K-9자주포", 700, "대형 포탄 발사기", 60, 10, 5, 2,""),
+            new Weapon("극초음속순항미사일", 1000, "최첨단 미사일", 100, 50, 30, 10,""),
+            new Weapon("마음의편지", 9999, "최강의 무기", 999, 999, 999, 999,"")
         };
 
     // 능력치들은 밸런스에맞게 조정해야됨
-    private static List<Armor> armors = new List<Armor> //이름, 가격, 설명, 정신력, 체력
+    private static List<Armor> armors = new List<Armor> //이름, 가격, 설명, 정신력, 체력, 효과
         {
-            new Armor("생활복", 50, "평범한 옷", 5, 10),
-            new Armor("로카티", 150, "강화된 방어복", 15, 20),
-            new Armor("화생방 보호의", 200, "생화학적 위협으로부터 보호하는 의복", 20, 25),
-            new Armor("깔깔이", 100, "특수 재료로 만든 방어복", 10, 15),
-            new Armor("신형 전투복", 300, "최신형 전투용 갑옷", 25, 30),
-            new Armor("개구리 전투복", 120, "개구리 가죽으로 만든 방어복", 12, 18),
-            new Armor("특전사 이준호 전투복", 9999, "특전사 이준호님의 전투복", 999, 999)
-
+            new Armor("생활복", 50, "체력+10 정신력+5", 5, 10,""),
+            new Armor("로카티", 150, "강화된 방어복", 15, 20,""),
+            new Armor("화생방 보호의", 200, "생화학적 위협으로부터 보호하는 의복", 20, 25,""),
+            new Armor("깔깔이", 100, "특수 재료로 만든 방어복", 10, 15,""),
+            new Armor("신형 전투복", 300, "최신형 전투용 갑옷", 25, 30,""),
+            new Armor("개구리 전투복", 120, "개구리 가죽으로 만든 방어복", 12, 18,""),
+            new Armor("특전사 이준호 전투복", 9999, "특전사 이준호님의 전투복", 999, 999,"")
         };
 
-
     //아이템 리스트
-    private static List<Food> foods = new List<Food> // 체력, 가격
+
+    private static List<Food> foods = new List<Food>
         {
-             new Food("건빵", 20, 200, "긴급 상황을 위한 비상식량"),
-             new Food("전투식량", 30, 300, "맛은 없지만 체력이 충분히 올라가는 식사"),
-             new Food("감자", 10, 150, "체력 회복을 위한 탄수화물 보충"),
-             new Food("단백질 바", 15, 180, "체력을 위한 단백질 섭취"),                                   // 능력치들은 밸런스에맞게 조정해야됨
-             new Food("야간식량", 25, 250, "야간에 먹는 음식, 체력 회복"),
-             new Food("특급 식사", 40, 500, "전투에 최적화된 특별한 식사"),
-             new Food("야전식량", 36, 400, "야외 전투에 적합한 식사")
+             new Food("건빵", 10, 20, "긴급 상황을 위한 비상식량",""),
+             new Food("전투식량", 15, 30, "맛은 없지만 체력이 충분히 올라가는 식사",""),
+             new Food("감자", 5, 15, "체력 회복을 위한 탄수화물 보충",""),
+             new Food("단백질 바", 7, 18, "체력을 위한 단백질 섭취",""),                                   // 능력치들은 밸런스에맞게 조정해야됨
+             new Food("야간식량", 12, 25, "야간에 먹는 음식, 체력 회복",""),
+             new Food("특급 식사", 20, 50, "전투에 최적화된 특별한 식사",""),
+             new Food("야전식량", 18, 40, "야외 전투에 적합한 식사","")
         };
     //몬스터 리스트
     private static List<Enemy> enemys = new List<Enemy>
@@ -119,7 +118,7 @@ internal class Program
         player1 = new Character("", "용사", 5, 5, 5, 5, 100, 100, 0, 5);
 
         // 녹견 세팅
-        greenStrap = new Armor("분대장 견장", 0, "분대장의 상징인 녹견", 10, 10);
+        greenStrap = new Armor("분대장 견장", 0, "분대장의 상징인 녹견", 10, 10,"효과설명");
         //리스트에 아이템들 추가
 
 
@@ -130,10 +129,10 @@ internal class Program
 
 
         //직업 별 사단 마크
-        ShoulderSleeve1 = new Armor("제2기갑여단 마크", 0,  "포병 사단 마크", 10, 10);// 기본템
-        ShoulderSleeve2 = new Armor("제17보병사단 마크", 0, "보병 사단 마크", 10, 10);// 기본템
-        ShoulderSleeve3 = new Armor("제1수송교육연대 마크", 0, "야수교 마크", 10, 10);// 기본템
-        ShoulderSleeve4 = new Armor("육군종합정비창 마크", 0, "정비대대 마크", 10, 10);// 기본템템
+        ShoulderSleeve1 = new Armor("제2기갑여단 마크", 0,  "포병 사단 마크", 10, 10,"효과설명");// 기본템
+        ShoulderSleeve2 = new Armor("제17보병사단 마크", 0, "보병 사단 마크", 10, 10, "효과설명");// 기본템
+        ShoulderSleeve3 = new Armor("제1수송교육연대 마크", 0, "야수교 마크", 10, 10, "효과설명");// 기본템
+        ShoulderSleeve4 = new Armor("육군종합정비창 마크", 0, "정비대대 마크", 10, 10, "효과설명");// 기본템템
 
         Rank myRank = new Rank(1);
 
@@ -4885,16 +4884,19 @@ internal class Program
         Console.Clear();
 
         Console.WriteLine("무기 목록");
-        Console.WriteLine("=====================================================================================");
+        Console.WriteLine("============================================================================================================");
+        ConsoleTable buyWeaponTable = new ConsoleTable("순서", "이름", "가격", "설명", "효과");
         for (int i = 0; i < weapons.Count; i++)
         {
-            var weapon = weapons[i];
-            Console.WriteLine($"{i + 1}. {weapon.ItemName} \t| 가격: {weapon.ItemGold}G \t| 아이템 설명: {weapon.ItemDescription}");
-            Console.WriteLine($"\t|힘:{weapon.ItemStr} \t|민첩:{weapon.ItemDex} \t|지능:{weapon.ItemIq} \t|운:{weapon.ItemLuk} ");
+            var item = weapons[i];
+            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}");
         }
-        Console.WriteLine("=====================================================================================");
-        Console.WriteLine("1. 구매하기");
+        buyWeaponTable.Write();
+        Console.WriteLine("============================================================================================================");
+        Console.WriteLine("1. 구매하러가기");
         Console.WriteLine("0. 뒤로가기");
+
+
         int input = CheckValidInput(0, 1);
         switch (input)
         {
@@ -4910,21 +4912,23 @@ internal class Program
         }
 
 
+
     }
     //방어구코너
     static void ArmorShop()
     {
         Console.Clear();
         Console.WriteLine("방어구 목록");
-        Console.WriteLine("=====================================================================================");
+        Console.WriteLine("============================================================================================================");
+        ConsoleTable buyArmorTable = new ConsoleTable("순서", "이름", "가격", "설명", "효과");
         for (int i = 0; i < armors.Count; i++)
         {
-            var armor = armors[i];
-            Console.WriteLine($"{i + 1}. {armor.ItemName} \t| 가격: {armor.ItemGold}G \t| 아이템 설명: {armor.ItemDescription}");
-            Console.WriteLine($"\t |정신력:{armor.ItemMind} \t|체력 증가량: {armor.ItemHp} ");
+            var item = armors[i];
+            buyArmorTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}");
         }
-        Console.WriteLine("=====================================================================================");
-        Console.WriteLine("1. 구매하기");
+        buyArmorTable.Write();
+        Console.WriteLine("============================================================================================================");
+        Console.WriteLine("1. 구매하러가기");
         Console.WriteLine("0. 뒤로가기");
         int input = CheckValidInput(0, 1);
         switch (input)
@@ -4947,21 +4951,19 @@ internal class Program
     {
         //상점입니다.
 
-        Console.WriteLine();
+        Console.WriteLine(Console.Clear);
         Console.WriteLine("식재료 코너");
         Console.WriteLine("=====================================================================================");
-        //반복문을 이용한 아이템 목록출력
+        ConsoleTable buyWeaponTable = new ConsoleTable("순서", "이름", "가격", "설명", "효과");
         for (int i = 0; i < foods.Count; i++)
         {
-            var food = foods[i];
-            Console.WriteLine("------------------------------------------------------------------");
-            Console.WriteLine($" {i + 1}. {food.ItemName} \t| 가격: {food.ItemGold}G \t| 아이템 설명: {food.ItemDescription} ");
-            Console.WriteLine($"\t \t|증가하는 체력량{food.ItemHp} \t|");
+            var item = foods[i];
+            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}");
         }
-        Console.WriteLine("------------------------------------------------------------------");
+        buyWeaponTable.Write();
         Console.WriteLine("=====================================================================================");
         Console.WriteLine();
-        Console.WriteLine(" 1. 아이템 구매하기");
+        Console.WriteLine(" 1. 구매하러가기");
 
         Console.WriteLine();
         Console.WriteLine(" 0. 뒤로가기");
@@ -4989,17 +4991,19 @@ internal class Program
     static void BuyWeapon(Character player)
     {
         Console.Clear();
-        Console.WriteLine(" 구매할 아이템을 선택하세요:");
-        Console.WriteLine($" 현재 소지금: {player1._gold}");
         Console.WriteLine();
-        Console.WriteLine("=====================================================================================");
+        Console.WriteLine(" 구매할 아이템번호를 입력하세요");
+        Console.WriteLine($" 현재 소지금 : {player1._gold}");
         Console.WriteLine();
+
+
+        ConsoleTable buyWeaponTable = new ConsoleTable("순서", "이름", "가격", "설명", "효과");
         for (int i = 0; i < weapons.Count; i++)
         {
             var item = weapons[i];
-            Console.WriteLine($" {i + 1}. {item.ItemName} \t| 가격: {item.ItemGold}G");
-            Console.WriteLine();
+            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}");
         }
+        buyWeaponTable.Write();
         Console.WriteLine("=====================================================================================");
 
         Console.WriteLine();
@@ -5033,17 +5037,16 @@ internal class Program
     static void BuyArmor(Character player)
     {
         Console.Clear();
-        Console.WriteLine(" 구매할 아이템을 선택하세요:");
+        Console.WriteLine(" 구매할 아이템번호를 입력하세요");
         Console.WriteLine($" 현재 소지금: {player1._gold}");
         Console.WriteLine();
-        Console.WriteLine("=====================================================================================");
-        Console.WriteLine();
+        ConsoleTable buyArmorTable = new ConsoleTable("순서", "이름", "가격", "설명", "효과");
         for (int i = 0; i < armors.Count; i++)
         {
             var item = armors[i];
-            Console.WriteLine($" {i + 1}. {item.ItemName} \t| 가격: {item.ItemGold}G");
-            Console.WriteLine();
+            buyArmorTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}");
         }
+        buyArmorTable.Write();
         Console.WriteLine("=====================================================================================");
 
         Console.WriteLine();
@@ -5076,17 +5079,18 @@ internal class Program
     static void BuyFood(Character player)
     {
         Console.Clear();
-        Console.WriteLine(" 구매할 아이템을 선택하세요:");
+        Console.WriteLine(" 구매할 아이템번호를 입력하세요");
         Console.WriteLine($" 현재 소지금: {player1._gold}");
 
         Console.WriteLine("=====================================================================================");
         Console.WriteLine();
+        ConsoleTable buyWeaponTable = new ConsoleTable("순서", "이름", "가격", "설명", "효과");
         for (int i = 0; i < foods.Count; i++)
         {
-            var food = foods[i];
-            Console.WriteLine($" {i + 1}. {food.ItemName} \t| 가격: {food.ItemGold}G");
-            Console.WriteLine();
+            var item = foods[i];
+            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}");
         }
+        buyWeaponTable.Write();
         Console.WriteLine("=====================================================================================");
         Console.WriteLine();
 
