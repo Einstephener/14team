@@ -341,11 +341,12 @@ internal class Program
         }
         Console.WriteLine("");
         Console.WriteLine(" 자대로 가서도 꼭 연락해!");
-        Console.WriteLine("");
         Console.ReadKey();
         Console.WriteLine("나의 군생활은 과연 어떨까? ㅎㅎ");
+        Console.WriteLine("");
         Console.ReadKey();
         Console.WriteLine("한번 18개월 잘 버텨보자!!");
+        Console.WriteLine("");
         Console.ReadKey();
         Console.WriteLine(" press any key to continue");
         Console.ReadKey();
@@ -4858,75 +4859,37 @@ internal class Program
     //해피엔딩//
     static void HappyEndingScene()
     {
-    Console.Clear();
-                                                                                 
-    Console.WriteLine("");                                                                            
-    Console.WriteLine("                 ██╗  ██╗ █████╗ ██████╗ ██████╗ ██╗   ██╗    ███████╗███╗   ██╗██████╗ ██╗███╗   ██╗ ██████╗    ");
-    Console.WriteLine("                 ██║  ██║██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝    ██╔════╝████╗  ██║██╔══██╗██║████╗  ██║██╔════╝    "); 
-    Console.WriteLine("                 ███████║███████║██████╔╝██████╔╝ ╚████╔╝     █████╗  ██╔██╗ ██║██║  ██║██║██╔██╗ ██║██║  ███╗   ");
-    Console.WriteLine("                 ██╔══██║██╔══██║██╔═══╝ ██╔═══╝   ╚██╔╝      ██╔══╝  ██║╚██╗██║██║  ██║██║██║╚██╗██║██║   ██║   ");
-    Console.WriteLine("                 ██║  ██║██║  ██║██║     ██║        ██║       ███████╗██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝   ");
-    Console.WriteLine("                 ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝        ╚═╝       ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝    ");
-    Console.WriteLine("");
+        Console.Clear();
+        // 나레이션 설정 값
+        string narrations = " \n 오늘은 전역 날이다. \n\n 상꺽 이후로 기상나팔소리보다 일찍 일어났다. \n\n" +
+            " 현재시간은 6시 20분 \n\n 일어나서 기분좋게 샤워하러 간다. \n\n 샤워하는 도중에 기상나팔 소리가 들린다. \n\n " +
+            " 원래 기상나팔소리가 이렇게 경쾌했나?라는 생각을 18개월만에 했다 \n\n 샤워를 마치고 로션을 바른 후에 창밖을 바라보는데 \n\n 세상이 이렇게 아름다울 수가 없다. \n\n" +
+            " 옷갈아입고 아침점호하러 나가야겠다\n\n  점호를 마치고 전역복과 전역모를 입고 전역 신고를 한 후에 대대장님과 면담을 하고\n\n  경례와 함께 모든 전역과정을 마쳤다.\n\n" +
+            " (후임들이 모여서) 개부럽네 형 사회에서 보자 고생했어! \n\n 그래 고맙고 오늘도 ㅈ뱅이 쳐~ 형은 간다~ \n\n 후임들과 사진까지 찍고 이제 위병소 밖으로 걸어나간다!! \n\n" +
+            "\"이제 드디어 전역이다!!!!!!!!!!!!!!!!!!!\" \n\n 하늘을 보니 세상이 이렇게 아름다울 수가 없다 냄새, 공기, 구름, 근무중인 후임까지 세상이 아름답다 \n\n 길었던 군생활도 드디어 끝이났다. ";
+        char[] narration = narrations.ToCharArray();
 
-    
-    Console.WriteLine(" 오늘은 전역 날이다.");
-    Console.ReadKey();
-    Console.WriteLine(" 상꺽 이후로 기상나팔소리보다 일찍 일어났다");
-    Console.ReadKey();
-    Console.WriteLine(" 현재시간은 6시 20분 ");
-    Console.ReadKey();
-    Console.WriteLine(" 일어나서 기분좋게 샤워하러 간다");
-    Console.ReadKey();
-    Console.WriteLine(" 샤워하는 도중에 기상나팔 소리가 들린다");
-    Console.ReadKey();
-    Console.WriteLine(" 원래 기상나팔소리가 이렇게 경쾌했나?라는 생각을 18개월만에 했다");
-    Console.ReadKey();
-    Console.WriteLine(" 샤워를 마치고 로션을 바른 후에 창밖을 바라보는데");
-    Console.ReadKey();
-    Console.WriteLine(" 세상이 이렇게 아름다울 수가 없다");
-    Console.ReadKey();
-    Console.WriteLine(" 옷갈아입고 아침점호하러 나가야겠다");
-    Console.ReadKey();
-    Console.WriteLine(" 근데 옷을 갈아입는데 어제한 멍석말이 때문에 온몸이 아프다");
-    Console.ReadKey();
-    Console.WriteLine(" 그래도 꾸역꾸역 아침점호를 나갔다 오늘은 전역 날이니까 ㅎㅎ");
-    Console.ReadKey();
-    Console.WriteLine(" 점호를 하는데 오늘따라 보급관님이 잘생겨보인다 확실히 제정신은 아닌듯하다");
-    Console.ReadKey();
-    Console.WriteLine(" 점호를 마치고 전역복과 전역모를 입고 전역 신고를 한 후에 대대장님과 면담을 하고");
-    Console.ReadKey();
-    Console.WriteLine(" 경례와 함께 모든 전역과정을 마쳤다");
-    Console.ReadKey();
-    Console.WriteLine( "이제 후임들과 인사를 나누고 덕담을 나눈다");
-    Console.ReadKey();
-    Console.WriteLine(" (후임들이 모여서) 개부럽네 형 사회에서 보자 고생했어!");
-    Console.ReadKey();
-    Console.WriteLine(" 여기서 내가 해줄 수 있는 덕담은 그래 고맙고 오늘도 ㅈ뱅이 쳐~");
-    Console.ReadKey();
-    Console.WriteLine(" 아 그리고 생활관에 내 물품들 있는데 알아서 가져가거나 남은거 처리해줘");
-    Console.ReadKey();
-    Console.WriteLine(" 이 덕담은 나름 역사가 깊은 전역 덕담이다");
-    Console.ReadKey();
-    Console.WriteLine(" 후임들과 사진까지 찍고 이제 위병소 밖으로 걸어나간다!!");
-    Console.ReadKey();
-    Console.WriteLine(" 위병소까지 걸어가는데 마치 내가 세상의 주인공이 된것 같다");
-     Console.ReadKey();
-    Console.WriteLine(" 지금 누가와도 다 이길자신있다는 마인드다");
-     Console.ReadKey();
-    Console.WriteLine(" 그리고 위병소 밖으로 나오면서");
-     Console.ReadKey();
-    Console.WriteLine(" 이제 드디어 전역이다!!!!!!!!!!!!!!!!!!! 소리치고");
-    Console.ReadKey();
-    Console.WriteLine(" 하늘을 보니 세상이 이렇게 아름다울 수가 없다 냄새, 공기, 구름, 근무중인 짬지후임까지 세상이 아름답다");
-    Console.ReadKey();
-    Console.WriteLine(" ");
-    Console.WriteLine(" 길었던 군생활도 드디어 끝이났다!!!");
-    Console.WriteLine(" ");
-    Console.ReadKey();
-                                                                                                                       
-  
-                                                                                 
+        // 나레이션 시작
+        Console.Clear();
+        foreach (char index in narration)
+        {
+            Console.Write(index);
+            Thread.Sleep(50);
+        }
+        Console.ReadKey();
+
+        Console.WriteLine("");
+        Console.WriteLine("                 ██╗  ██╗ █████╗ ██████╗ ██████╗ ██╗   ██╗    ███████╗███╗   ██╗██████╗ ██╗███╗   ██╗ ██████╗    ");
+        Console.WriteLine("                 ██║  ██║██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝    ██╔════╝████╗  ██║██╔══██╗██║████╗  ██║██╔════╝    ");
+        Console.WriteLine("                 ███████║███████║██████╔╝██████╔╝ ╚████╔╝     █████╗  ██╔██╗ ██║██║  ██║██║██╔██╗ ██║██║  ███╗   ");
+        Console.WriteLine("                 ██╔══██║██╔══██║██╔═══╝ ██╔═══╝   ╚██╔╝      ██╔══╝  ██║╚██╗██║██║  ██║██║██║╚██╗██║██║   ██║   ");
+        Console.WriteLine("                 ██║  ██║██║  ██║██║     ██║        ██║       ███████╗██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝   ");
+        Console.WriteLine("                 ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝        ╚═╝       ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝    ");
+        Console.WriteLine("");
+
+
+        Console.WriteLine(" ");
+        Console.ReadKey();
     }
 
     static void BadEnding()
