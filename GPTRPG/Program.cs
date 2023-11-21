@@ -110,7 +110,7 @@ internal class Program
         //게임이 실행되면 데이터 먼저 세팅
         GameDataSetting();
         //시작화면으로 이동
-        ColdWeatherTraining1();
+        StartScene();
     }
 
     //게임 데이터 준비
@@ -946,25 +946,29 @@ internal class Program
                 Console.ReadKey(true);
             }
             // 완주시 반복문 정지
-            if (x >= 80) break;
+            if (x >= 80)
+            {
+                Console.Clear();
+                Console.WriteLine("\n 완주 완료!!");
+                Console.WriteLine("\n 보상 계산중.... 잠시만 기다려주십시오.");
+                Thread.Sleep(2000);
+
+                Console.WriteLine("\n 남은 시간 : {0}", time.ToString("F"));
+                Console.WriteLine("\n 남은 시간에 따른 보상 ( 보상목록 )");
+                Console.WriteLine("\n >> Press the \"TAP\" key to proceed <<");
+                break;
+            }
             // 타임 오버시
             if (time <= 0)
             {
                 Console.Clear();
-                Console.WriteLine("완주 실패....");
+                Console.WriteLine("\n 완주 실패....");
+                Console.WriteLine("\n >> Press the \"TAP\" key to proceed <<");
                 Thread.Sleep(2000);
                 Home();
             }
             Thread.Sleep(10);
         }
-        Console.Clear();
-        Console.WriteLine("\n 완주 완료!!");
-        Console.WriteLine("\n 보상 계산중.... 잠시만 기다려주십시오.");
-        Thread.Sleep(2000);
-
-        Console.WriteLine("\n 남은 시간 : {0}", time.ToString("F"));
-        Console.WriteLine("\n 남은 시간에 따른 보상 ( 보상목록 )");
-        Console.WriteLine("\n >> Press the \"TAP\" key to proceed <<");
         //선입력 방지 메서드
         InputPrevention();
         Home();
@@ -1428,24 +1432,21 @@ internal class Program
         Random random = new Random();
         double success = 0.01; //초기 성공 확률 1%
 
+        // 나레이션 설정 값
+        string narrations = " \n ...훈련의 꽃 유격훈련이 시작됬다. \n\n \"지금부터 대답은 '네'가 아니라 '악'으로 대체합니다.\" \n\n 악! \n\n \"PT체조 8번 온몸비틀기 준비!\" \n\n 교관은 쉽게 갈 생각이 없는거같다 살아남자!";
+        char[] narration = narrations.ToCharArray();
 
+        // 나레이션 시작
         Console.Clear();
-        Console.WriteLine("");
-        Console.WriteLine(" 당신은 유격훈련에 참가했다.");
+        foreach (char index in narration)
+        {
+            Console.Write(index);
+            Thread.Sleep(50);
+        }
         Console.ReadKey();
-        Console.WriteLine(" 지옥의 PT체조가 시작됐다.");
-        Console.ReadKey();
-        Console.WriteLine(" \"지금부터 대답은 \'네\'가 아니라 \'악\'으로 대체합니다.\"");
-        Console.ReadKey();
-        Console.WriteLine(" 악!");
-        Console.ReadKey();
-        Console.WriteLine(" \"PT체조 8번 온몸비틀기 준비!\"");
-        Console.ReadKey();
-        Console.WriteLine(" 교관은 쉽게 갈 생각이 없는거같다 살아남자!");
-        Console.ReadKey();
-        Console.WriteLine();
-        Console.WriteLine(" 유-격!");
-        Console.ReadKey();
+
+
+        
         //확률에 따라 성공 혹은 실패
         //실패마다 정신력, 체력 감소
         //실패시 출력멘트
@@ -1470,6 +1471,11 @@ internal class Program
                 Console.WriteLine(" 지옥같은 유격훈련이 끝났다... 돌아가자.");
                 Console.WriteLine("");
                 Console.ReadKey();
+                Console.WriteLine("힘이 10 증가했다.");
+                Console.WriteLine("정신력이 50 증가했다.");
+                player.Str += 10;
+                player.Mind += 50;
+                Console.ReadKey();
                 //성공시 스텟증가 추가해야됨
                 OneMonthLater();
                 break;
@@ -1477,6 +1483,7 @@ internal class Program
             }
             else
             {
+                Console.Clear();
                 //실패문구 랜덤생성
                 string[] failMessages ={
                     " 목소리 크게 합니다. 다시!",
@@ -1488,12 +1495,12 @@ internal class Program
                 };
                 int randomIndex = random.Next(failMessages.Length);
                 Console.WriteLine(failMessages[randomIndex]);
-                Console.WriteLine("Hp - 2");
-                Console.WriteLine("정신력 - 2");
-                Console.WriteLine("");
-                success += 0.03; //실패시 성공확률 3%씩 증가
                 player.Hp -= 2;
                 player.Mind -= 2;
+                Console.WriteLine($"Hp : {player.Hp}");
+                Console.WriteLine($"정신력 : {player.Mind}");
+                Console.WriteLine("");
+                success += 0.03; //실패시 성공확률 3%씩 증가
                 Console.ReadKey();
                 //추가로 실패시 정신력, 체력 감소 추가해야됨
             }
@@ -1552,7 +1559,7 @@ internal class Program
                 Console.WriteLine($"{waterDeer.EnemyName}: HP {waterDeer.EnemyHp}");
                 Console.WriteLine("");
                 Console.WriteLine("");
-                Console.WriteLine($"{player1.Name}: HP {player1.Hp}");
+                Console.WriteLine($"{player1.Name}: HP {player1.Hp} 정신력 {player1.Mind}");
                 Console.WriteLine("");
                 Console.WriteLine("");
                 Console.WriteLine("플레이어의 턴입니다. 행동을 선택하세요\n");
@@ -1621,7 +1628,7 @@ internal class Program
         }
 
         //전투 결과
-        DisplayResult(player1.Hp, wildBoar, waterDeer);
+        DisplayResult(player1, wildBoar, waterDeer);
 
     }
     //공격선택 메서드
@@ -1769,10 +1776,11 @@ internal class Program
     }
 
     //보상 처리
-    private static void DisplayResult(int playerHp, params Enemy[] enemies)
+    private static void DisplayResult(Character player1, params Enemy[] enemies)
     {
-        if (playerHp <= 0)
+        if (player1.Hp <= 0)
         {
+            Console.Clear();
             Console.WriteLine("전투에서 패배했습니다. 게임 오버!");
             Console.ReadKey();
             Home();
@@ -1780,13 +1788,16 @@ internal class Program
         }
         else
         {
-            Console.WriteLine("적을 격파했습니다. 전투에서 승리!");
+            Console.Clear();
+            Console.WriteLine("적을 처치했습니다. 승리!");
             // 몬스터별 보상 처리
             foreach (var enemy in enemies)
             {
                 //player1.Gold += enemy.GoldReward;
                 // 경험치 또는 다른 보상 처리도 추가 가능
             }
+            player1.Mind += 30;
+            player1.Gold += 1000;
             Console.ReadLine();
             OneMonthLater();
             //보상 아이템? 스텟?
@@ -1850,37 +1861,32 @@ internal class Program
                 OneHundredDaysEvent(randomNum, "여자친구가 다른 남자와 다정하게 걷고 있다...",
                 "여자친구와 즐거운 시간을 보냈다.",
                 "나는 여자친구가 없다...");
-                // Scene이동
-                OneMonthLater();
                 break;
             case 1:
                 // 친구들 만나러
                 OneHundredDaysEvent(randomNum, "오랜만에 친구들과 술 한잔하며 이야기했다.",
                 "친구들과 Pc방에 가서 시간 가는 줄 모르고 놀았다.",
                 "나는 친구가 없다...");
-                // Scene이동
-                OneMonthLater();
+
                 break;
             case 2:
                 // 본가로 간다
                 OneHundredDaysEvent(randomNum, "오랜만에 집에 왔건만 군대에서 뭐했냐며 잔소리만 들었다...",
                 "가족들과 오랜만에 식사하며 좋은 시간을 보냈다.",
                 "내가 오는 줄 몰랐나..? 아무도 없다...");
-                // Scene이동
-                OneMonthLater();
                 break;
             case 3:
                 // 혼자 논다
                 OneHundredDaysEvent(randomNum, "혼자 즐겁게 놀았다. 진짜 즐거운 거 맞다, 아마도..",
                 "여기저기 구경 다니며 신나게 놀았다.",
                 "생활관에 있을 때가 더 나은 거 같다 너무 외롭다..");
-                // Scene이동
-                OneMonthLater();
                 break;
             default:
                 break;
 
         }
+        // Scene이동
+        OneMonthLater();
     }
 
     static void OneHundredDaysEvent(int input, string one, string two, string three)
