@@ -167,14 +167,21 @@ public class Character
     {
         int baseDamage = Str;
 
+        double damageWithVariation = Math.Round(baseDamage * RandomRange(0.9, 1.1));
+
         if (isCritical)
         {
-            return baseDamage * 2;
+            return (int)(damageWithVariation * 2);
         }
         else
         {
-            return baseDamage;
+            return (int)damageWithVariation;
         }
+    }
+    private double RandomRange(double min, double max)
+    {
+        Random rand = new Random();
+        return min + rand.NextDouble() * (max - min);
     }
 
     //회피여부 메서드
@@ -185,6 +192,8 @@ public class Character
 
         return evadeRate <= Dex;
     }
+
+    
 
 }
 public class Infantry : Character

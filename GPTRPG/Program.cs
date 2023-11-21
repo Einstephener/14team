@@ -1557,6 +1557,7 @@ internal class Program
                 Console.WriteLine($"{wildBoar.EnemyName}: HP {wildBoar.EnemyHp}");
                 Console.ForegroundColor = (waterDeer.EnemyHp <= 0 ? ConsoleColor.DarkGray : ConsoleColor.White);
                 Console.WriteLine($"{waterDeer.EnemyName}: HP {waterDeer.EnemyHp}");
+                Console.ResetColor();
                 Console.WriteLine("");
                 Console.WriteLine("");
                 Console.WriteLine($"{player1.Name}: HP {player1.Hp} 정신력 {player1.Mind}");
