@@ -1395,8 +1395,14 @@ internal class Program
                 break;
             }
         }
+        Console.WriteLine("후.. 군생활 힘드네");
         Console.WriteLine("");
-        Console.WriteLine(" 후.. 군생활 힘드네");
+        Console.ReadKey();
+        Console.WriteLine("앞으로 어떻게 생활하지?");
+        Console.WriteLine("");
+        Console.ReadKey();
+        Console.WriteLine("걱정이 태산이네 ;;");
+        Console.WriteLine("");
         Console.ReadKey();
         OneMonthLater();
     }
@@ -1453,6 +1459,8 @@ internal class Program
             Console.WriteLine(" 군생활 어떻하냐.. 막막하네..");
             Console.ReadKey();
         }
+        Console.WriteLine("매일매일이 고비네");
+        Console.WriteLine("");
         Console.WriteLine("하루가 1년같았다..");
         Console.ReadKey();
         OneMonthLater();
@@ -5889,6 +5897,24 @@ internal class Program
 
 
     //엔딩씬//
+    static void ending()
+    {
+        Console.Clear();
+
+        if(Rank.month>=17)
+        {
+            Console.WriteLine("군생활하는데 고생했다 무사히 전역하도록");
+            HappyEndingScene();
+        }
+        else
+        {
+            Console.WriteLine("(보급관) 군생활이 장난이야? 너는 전문하사 해야겠다 ")
+            BadEndingScene();
+        }
+
+        Console.WriteLine("인생은 선택과 결정의 연속이다 !!")
+        Console.ReadKey();
+    }
 
     //해피엔딩//
     static void HappyEndingScene()
@@ -5989,7 +6015,7 @@ internal class Program
 
     }
 
-    static void BadEnding()
+    static void BadEndingScene()
     {
         Console.Clear();
 
