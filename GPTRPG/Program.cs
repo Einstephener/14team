@@ -1,4 +1,4 @@
-using System.Data;
+﻿using System.Data;
 using System.Diagnostics;
 using System.Numerics;
 using System.Reflection.Emit;
@@ -1565,13 +1565,15 @@ internal class Program
                 Console.Clear();
                 Console.WriteLine("");
                 Console.ForegroundColor = (wildBoar.EnemyHp <= 0 ? ConsoleColor.DarkGray : ConsoleColor.White);
-                Console.WriteLine($" {wildBoar.EnemyName}: HP {wildBoar.EnemyHp}");
+                Console.WriteLine($" {wildBoar.EnemyName}: HP {wildBoar.EnemyHp}  {(wildBoar.EnemyHp <= 0 ? "Dead" : "")}");
                 Console.ForegroundColor = (waterDeer.EnemyHp <= 0 ? ConsoleColor.DarkGray : ConsoleColor.White);
-                Console.WriteLine($" {waterDeer.EnemyName}: HP {waterDeer.EnemyHp}");
+                Console.WriteLine($" {waterDeer.EnemyName}: HP {waterDeer.EnemyHp}  {(waterDeer.EnemyHp <= 0 ? "Dead" : "")}");
                 Console.ResetColor();
                 Console.WriteLine("");
                 Console.WriteLine("");
-                Console.WriteLine($" {player1.Name}: HP {player1.Hp} 정신력 {player1.Mind}");
+                Console.WriteLine($" {player1.Name}");
+                Console.WriteLine($" HP : {player1.Hp}");
+                Console.WriteLine($" MIND : {player1.Mind}");
                 Console.WriteLine("");
                 Console.WriteLine("");
                 Console.WriteLine(" 플레이어의 턴입니다. 행동을 선택하세요\n");
@@ -1710,7 +1712,7 @@ internal class Program
         string[] skilltext = new string[player1.Skills.Count];
         for (int i = 0; i < player1.Skills.Count; i++)
         {
-            skilltext[i] += " =" + player1.Skills[i].Name + "=\n";
+            skilltext[i] += " =" + player1.Skills[i].Name + "=" + player1.Skills[i].MindCost + "=\n";
         }
 
         while (skillSelection)
@@ -1779,7 +1781,6 @@ internal class Program
                     else
                     {
                         //정신력 충분한 경우
-                        Console.ReadKey();
                         targetSelection = false;
                     }
 
