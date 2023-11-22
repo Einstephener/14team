@@ -100,6 +100,9 @@ internal class Program
     static double Mileages = 500;
     static int GrahpCount = 0;
     static int turn = 0;
+    static int ChargeCoins;
+    static int __sum;
+    static int ChargeMileages;
     // ConsoleKeyInfo 선언
     static ConsoleKeyInfo e;
 
@@ -3361,6 +3364,7 @@ internal class Program
             }
             else if (player.Hp <= 0)
             {
+                turn = 0;
                 Console.Clear();
                 Console.WriteLine("행보관님한테 져버렸다.");
                 Console.WriteLine();
@@ -3373,11 +3377,12 @@ internal class Program
                 Console.ReadKey();
                 Console.WriteLine("press any Key to continue");
                 Console.ReadKey();
-                turn = 0;
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
             else
             {
+                turn = 0;
                 Console.Clear();
                 Console.Write("행보관님을 쓰러뜨렸다.");
                 Console.WriteLine();
@@ -3387,8 +3392,8 @@ internal class Program
                 Console.ReadKey();
                 Console.WriteLine("press any Key to continue");
                 Console.ReadKey();
-                turn = 0;
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
             TextChoice(cursor, text);
             e = Console.ReadKey();
@@ -3700,7 +3705,7 @@ internal class Program
                 Console.WriteLine();
                 Console.WriteLine("press and key to continue");
                 Console.ReadKey();
-                Home();
+                ColdWeatherTraining4();
                 break;
             case 1:
                 Console.Clear();
@@ -3713,7 +3718,7 @@ internal class Program
                 Console.WriteLine();
                 Console.WriteLine("press and key to continue");
                 Console.ReadKey();
-                Home();
+                ColdWeatherTraining4();
                 break;
             default:
                 break;
@@ -3862,6 +3867,7 @@ internal class Program
             }
             else if (player.Hp <= 0)
             {
+                turn = 0;
                 Console.Clear();
                 Console.WriteLine("정신을 차리니 모르는 천장이 있다.");
                 Console.WriteLine();
@@ -3877,11 +3883,11 @@ internal class Program
                 Console.ReadKey();
                 Console.WriteLine("press any Key to continue");
                 Console.ReadKey();
-                turn = 0;
                 ColdWeatherTraining5();
             }
             else
             {
+                turn = 0;
                 Console.Clear();
                 Console.Write("고라니를 쓰러뜨렸다!");
                 Console.WriteLine();
@@ -3891,8 +3897,7 @@ internal class Program
                 Console.ReadKey();
                 Console.WriteLine("press any Key to continue");
                 Console.ReadKey();
-                turn = 0;
-                Home();
+                ColdWeatherTraining5();
             }
             TextChoice(cursor, text);
             e = Console.ReadKey();
@@ -4148,10 +4153,11 @@ internal class Program
         Console.WriteLine();
         Console.WriteLine("나의 군생활 마지막 훈련인 혹한기가 끝이났다.");
         Console.WriteLine();
+        Console.ReadKey();
         Console.WriteLine("Press and key to continue");
         Console.ReadKey();
-        Home();
-        //혹한기 훈련 끝
+        Console.Clear();
+        OneMonthLater();
     }
     #endregion
     #region 작업
@@ -4167,15 +4173,14 @@ internal class Program
             Console.Clear();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
             Console.WriteLine("오늘 일과는 공구리 작업이다");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("4종 창고로 올라가 시멘트 포대를 챙겨서");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("공구리 작업장까지 옮겨야 한다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("말년에는 떨어지는 낙엽도 조심하라고 하는데 나에게는 너무 가혹한 일이다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("마침 나와 같이 배정받은 후임들이 보인다.");
-            Console.ReadKey();
             Console.WriteLine();
             TextChoice(cursor, text);
             e = Console.ReadKey();
@@ -4208,10 +4213,11 @@ internal class Program
         {
             Console.Clear();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine();
             Console.WriteLine("시멘트를 물과 섞어야한다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("옆에는 교회가 있고 군종병이 청소를 한다고 문을 열어뒀다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("주변을 둘러보니 간부는 보이지 않는다.");
             Console.ReadKey();
             Console.WriteLine();
@@ -4270,10 +4276,10 @@ internal class Program
         {
             Console.Clear();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine();
             Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("하지만 점심 먹고나니 잠이 쏟아진다.");
-            Console.ReadKey();
             Console.WriteLine();
             TextChoice(cursor, text);
             e = Console.ReadKey();
@@ -4332,10 +4338,10 @@ internal class Program
         {
             Console.Clear();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine();
             Console.WriteLine("후임들이 곤란해 하는 것 같다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("도와주면 쉽게 끝낼 수 있을 것 같다.");
-            Console.ReadKey();
             Console.WriteLine();
             TextChoice(cursor, text);
             e = Console.ReadKey();
@@ -4355,6 +4361,7 @@ internal class Program
                     workCount += 1;
                     Perfection += 1;
                     Console.WriteLine("아무 일도 일어나지 않았다.");
+                    Console.ReadKey();
                     Console.WriteLine();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
@@ -4365,6 +4372,7 @@ internal class Program
                     workCount += 1;
                     Perfection -= 1;
                     Console.WriteLine("후임들이 일을 망쳤다");
+                    Console.ReadKey();
                     Console.WriteLine();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
@@ -4386,10 +4394,10 @@ internal class Program
         {
             Console.Clear();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine();
             Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
-            Console.ReadKey();
             Console.WriteLine();
             TextChoice(cursor, text);
             e = Console.ReadKey();
@@ -4431,15 +4439,22 @@ internal class Program
             }
             else
             {
-                Console.Clear();
-                Console.WriteLine("작업이 완료되었다.");
-                Console.ReadKey();
-                Console.WriteLine($"개인정비까지 {9 - workCount}시간 남았으니 휴식하자");
-                Console.ReadKey();
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
-                Console.ReadKey();
                 Perfection = 0;
                 workCount = 0;
+                Console.Clear();
+                Console.WriteLine("작업이 완료되었다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine($"개인정비까지 {9 - workCount}시간 남았으니 휴식하자");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("Press any key to contiune");
+                Console.ReadKey();
+                Console.Clear();
+                OneMonthLater();
             }
 
         }
@@ -4447,18 +4462,22 @@ internal class Program
         {
             if (Perfection >= 10)
             {
-                Console.Clear();
-                Console.WriteLine("작업이 완료되었다.");
-                Console.ReadKey();
-                Console.WriteLine($"개인정비까지 {9}시간 남았으니 휴식하자");
-                Console.ReadKey();
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
-                Console.ReadKey();
                 Perfection = 0;
                 workCount = 0;
+                Console.Clear();
+                Console.WriteLine("작업이 완료되었다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("가까스로 작업이 완료되었다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine();
+                Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
                 Console.ReadKey();
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
             else if (Perfection < 10 && Perfection >= 7)
             {
@@ -4466,14 +4485,18 @@ internal class Program
                 workCount = 0;
                 Console.Clear();
                 Console.WriteLine("일과가 마무리 되었다. 작업물이 살짝 아쉽지만 완벽한 가라는 진짜랬다.");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("들키지만 않으면 아무렴 어떠한가");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
                 Console.ReadKey();
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
             else
             {
@@ -4481,16 +4504,21 @@ internal class Program
                 workCount = 0;
                 Console.Clear();
                 Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("시작하고 가만히 있었겄만 결과가 터무니 없다.");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("개인정비 시간때 행보관님과 공구리 작업을 치게 되었다.");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("능력치 상승 & 스트레스 상승");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
                 Console.ReadKey();
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
         }
     }
@@ -4506,13 +4534,13 @@ internal class Program
             Console.Clear();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
             Console.WriteLine("오늘 일과는 2종 창고 정리이다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("보급병이 창고 현황판을 뽑고 있다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("그 동안 창고 열쇠를 챙기고 출발할 준비를 해야한다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("그러기 위해서는 중대장님에게 상단키를 받아야한다. 중대장님이랑 마주치기 껄끄러운데...");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine();
             TextChoice(cursor, text);
             e = Console.ReadKey();
@@ -4565,12 +4593,12 @@ internal class Program
         {
             Console.Clear();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine();
             Console.WriteLine("한겨울의 컨테이너 한기가 느껴진다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("창고 문을 열자 먼지가 날리고 냄새가 난다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("보급병이 창고 물건을 다 꺼내서 재고파악을 하려고 한다.");
-            Console.ReadKey();
             Console.WriteLine();
             TextChoice(cursor, text);
             e = Console.ReadKey();
@@ -4620,13 +4648,14 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}"); ;
+            Console.WriteLine();
             Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("한기가 느껴졌던 컨테이너도 오후가 되니 열을 뿜고 있었고.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("날이 풀려 몸이 따뜻해지고 슬 잠이 쏟아지기 시작한다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine();
             TextChoice(cursor, text);
             e = Console.ReadKey();
@@ -4676,10 +4705,10 @@ internal class Program
         {
             Console.Clear();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine();
             Console.WriteLine("재고가 안맞는것 같다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("보급병은 그걸 또 다시 세고 있다.");
-            Console.ReadKey();
             Console.WriteLine();
             TextChoice(cursor, text);
             e = Console.ReadKey();
@@ -4729,10 +4758,10 @@ internal class Program
         {
             Console.Clear();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+            Console.WriteLine();
             Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
-            Console.ReadKey();
+            Console.WriteLine();
             Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
-            Console.ReadKey();
             Console.WriteLine();
             TextChoice(cursor, text);
             e = Console.ReadKey();
@@ -4813,14 +4842,18 @@ internal class Program
                 workCount = 0;
                 Console.Clear();
                 Console.WriteLine("작업이 완료되었다.");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine($"개인정비까지 {9 - workCount}시간 남았으니 휴식하자");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
                 Console.ReadKey();
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
 
         }
@@ -4831,15 +4864,16 @@ internal class Program
                 Perfection = 0;
                 workCount = 0;
                 Console.Clear();
-                Console.WriteLine("작업이 완료되었다.");
-                Console.ReadKey();
-                Console.WriteLine($"개인정비까지 {9}시간 남았으니 휴식하자");
+                Console.WriteLine("가까스로 작업이 완료되었다.");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
                 Console.ReadKey();
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
             else if (Perfection < 10 && Perfection >= 7)
             {
@@ -4847,14 +4881,18 @@ internal class Program
                 workCount = 0;
                 Console.Clear();
                 Console.WriteLine("일과가 마무리 되었다. 작업물이 살짝 아쉽지만 완벽한 가라는 진짜랬다.");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("들키지만 않으면 아무렴 어떠한가");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
                 Console.ReadKey();
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
             else
             {
@@ -4863,15 +4901,20 @@ internal class Program
                 Console.Clear();
                 Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
                 Console.ReadKey();
+                Console.WriteLine();
                 Console.WriteLine("시작하고 가만히 있었겄만 결과가 터무니 없다.");
                 Console.ReadKey();
+                Console.WriteLine();
                 Console.WriteLine("개인정비 시간때 행보관님과 공구리 작업을 치게 되었다.");
                 Console.ReadKey();
-                Console.WriteLine("능력치 상승 & 스트레스 상승");
+                Console.WriteLine();
+                Console.WriteLine("능력치 상승");
                 Console.ReadKey();
+                Console.WriteLine();
                 Console.WriteLine("Press any key to contiune");
                 Console.ReadKey();
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
         }
     }
@@ -4888,7 +4931,9 @@ internal class Program
         {
             Console.Clear();
             Console.WriteLine("말년휴가를 나오게 되었다.");
+            Console.WriteLine();
             Console.WriteLine("가족들을 놀래켜주려고 아무한테도 말을 하지 않았다.");
+            Console.WriteLine();
             Console.WriteLine("친구들과 먼저 밥이나 한끼할까?");
             Console.WriteLine();
             TextChoice(cursor, text);
@@ -4899,8 +4944,13 @@ internal class Program
         {
             case 0:
                 Console.WriteLine("집에 아무도 없다");
+                Console.ReadKey();
+                Console.WriteLine();
                 Console.WriteLine("엄마에게 전화하니 날 빼고 가족여행을 갔다고 한다.");
+                Console.ReadKey();
+                Console.WriteLine();
                 Console.WriteLine("미리 말 못한 내 잘못이지");
+                Console.ReadKey();
                 Console.WriteLine();
                 Console.WriteLine("press any Key to continue");
                 Console.ReadKey();
@@ -4912,8 +4962,13 @@ internal class Program
                 if (eventOccurred)
                 {
                     Console.WriteLine("전화기가 꺼져있다.");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("인스타에 들어가니 입대했다고 한다.");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("ㅋㅋ ㅈ뺑이쳐라");
+                    Console.ReadKey();
                     Console.WriteLine();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
@@ -4922,9 +4977,16 @@ internal class Program
                 else
                 {
                     Console.WriteLine("친구에게 전화했더니 바쁘다고 끊어라고 한다.");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("인스타그램에 들어가니 학생회를 하고 있었고");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("오늘 새터가 있는 날이라고 한다.");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("신입생들과 친해지게 나도 좀 불러주지");
+                    Console.ReadKey();
                     Console.WriteLine();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
@@ -4946,6 +5008,7 @@ internal class Program
         {
             Console.Clear();
             Console.WriteLine("번화가로 나오게 되었다.");
+            Console.WriteLine();
             Console.WriteLine("내 앞으로 이상형의 여성분이 지나간다.");
             Console.WriteLine();
             TextChoice(cursor, text);
@@ -4956,7 +5019,11 @@ internal class Program
         {
             case 0:
                 Console.WriteLine("말을 거니 여성분이 불쾌하게 나를 보고 있다.");
+                Console.ReadKey();
+                Console.WriteLine();
                 Console.WriteLine("너무 군인처럼 보였나? 나 말년 병장인데?");
+                Console.ReadKey();
+                Console.WriteLine();
                 Console.WriteLine("press any Key to continue");
                 Console.ReadKey();
                 LastLeave3();
@@ -4964,7 +5031,11 @@ internal class Program
 
             case 1:
                 Console.WriteLine("아직 민간인도 아닌데 뭔 작업이냐");
+                Console.ReadKey();
+                Console.WriteLine();
                 Console.WriteLine("갈길이나 가자");
+                Console.ReadKey();
+                Console.WriteLine();
                 Console.WriteLine("press any Key to continue");
                 Console.ReadKey();
                 LastLeave3();
@@ -4984,7 +5055,9 @@ internal class Program
         {
             Console.Clear();
             Console.WriteLine("여성분의 남자친구와 눈이 마주쳤다.");
+            Console.WriteLine();
             Console.WriteLine("그리고 나를 밀쳐냈다.");
+            Console.WriteLine();
             Console.WriteLine("??? : 군바리가 누구한테 찝쩍대는거야!");
             Console.WriteLine();
             TextChoice(cursor, text);
@@ -5002,8 +5075,13 @@ internal class Program
                 if (eventOccurred)
                 {
                     Console.WriteLine("겨우 빠져나왔다.");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("요즘 거리가 흉흉한것 같다.");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("집이나 가자");
+                    Console.ReadKey();
                     Console.WriteLine();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
@@ -5012,7 +5090,10 @@ internal class Program
                 else
                 {
                     Console.WriteLine("붙잡혔다.");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("맞고만 있을 순 없지");
+                    Console.ReadKey();
                     Console.WriteLine();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
@@ -5350,7 +5431,8 @@ internal class Program
         Console.ReadKey();
         Console.WriteLine("press any Key to continue");
         Console.ReadKey();
-        Home();
+        Console.Clear();
+        OneMonthLater();
     }
     #endregion
     #region 확률 구현
@@ -5407,6 +5489,49 @@ internal class Program
                 break;
             case 1:
                 Home();
+                break;
+            default:
+                break;
+        }
+    }
+
+    static void ChargeMethod(string name)
+    {
+        int cursor = 0;
+        bool onScene = true;
+        string AB = name;
+        string[] text = { "+100", "-100", "+1000", "-1000", "-----------네-----------", "----------아니오----------" };
+
+        while (onScene)
+        {
+            Console.WriteLine($"{__sum}을 {name}하시겠습니까?");
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                __sum += 100;
+                ChargeMethod(AB);
+                break;
+            case 1:
+                __sum -= 100;
+                ChargeMethod(AB);
+                break;
+            case 2:
+                __sum += 1000;
+                ChargeMethod(AB);
+                break;
+            case 3:
+                __sum -= 1000;
+                ChargeMethod(AB);
+                break;
+            case 4:
+                Home();
+                break;
+            case 5:
+                GamebleMain();
                 break;
             default:
                 break;
@@ -5534,9 +5659,6 @@ internal class Program
         bool onScene = true;
         string[] text = { "-----------충전-----------", "-----------환전-----------" };
 
-        Console.WriteLine();
-        Console.WriteLine();
-
         while (onScene)
         {
             Console.Clear();
@@ -5552,7 +5674,9 @@ internal class Program
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"{Mileages}");
             Console.ResetColor();
+            Console.WriteLine();
             Console.WriteLine($"충전/환전소에 오신것을 환영합니다.");
+            Console.WriteLine();
             Console.WriteLine("무엇을 도와드릴까요?");
             Console.WriteLine();
             TextChoice(cursor, text);
@@ -5573,217 +5697,178 @@ internal class Program
     }
     static void CoinCharge()
     {
-        Console.Clear();
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write($"Gold : ");
-        Console.ResetColor();
-        Console.WriteLine($"{player1.Gold}");
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write($"COIN : ");
-        Console.ResetColor();
-        Console.Write($"{Coins}");
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write($"마일리지 : ");
-        Console.ResetColor();
-        Console.WriteLine($"{Mileages}");
-        Console.WriteLine($"충천 수수료 : 5% 마일리지 10.00% 지급");
-        Console.WriteLine("100 Gold 단위로 충전 가능");
-        Console.WriteLine();
-        Console.WriteLine("충전하실 금액을 입력해주세요");
-        double ChargeCoins = 0;
-        double ChargeMileages = 0;
+        int cursor = 0;
+        bool onScene = true;
 
-        int input;
-        if (!int.TryParse(Console.ReadLine(), out input))
+        if (__sum < 0)
         {
-            Console.WriteLine("유효하지 않은 입력입니다.");
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
-            CoinCharge();
+            __sum = 0;
         }
+        __sum = (int)__sum;
+        ChargeCoins = (int)(__sum * 0.95);
+        ChargeMileages = (int)(__sum * 0.05);
 
-        if (input <= player1.Gold && input % 100 == 0 && input != 0)
+        string[] text = { "--------(+100)--------", "--------(-100)--------", "--------(+1000)-------", "--------(-1000)-------", "---------충전---------", "--------나가기--------" };
+        while (onScene)
         {
-            int cursor = 0;
-            bool onScene = true;
-            string[] text = { "----------예----------", "--------아니오--------" };
-
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"Gold : ");
+            Console.ResetColor();
+            Console.WriteLine($"{player1.Gold}");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"COIN : ");
+            Console.ResetColor();
+            Console.Write($"{Coins}");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"마일리지 : ");
+            Console.ResetColor();
+            Console.WriteLine($"{Mileages}");
             Console.WriteLine();
+            Console.WriteLine($"충전 수수료 : 5% 마일리지 10.00% 지급");
             Console.WriteLine();
-
-            while (onScene)
-            {
-                Console.Clear();
-
-                ChargeCoins = input * 0.95;
-                ChargeMileages = input * 0.1;
-                Console.Clear();
-                Console.WriteLine($"{input}원을 충전하시면 코인 {ChargeCoins}개와 {ChargeMileages} 마일리지를 지급합니다");
-                Console.WriteLine("충전하시겠습니까?");
-                Console.WriteLine();
-
-                TextChoice(cursor, text);
-                e = Console.ReadKey();
-                cursor = CursorChoice(e, cursor, text, ref onScene);
-            }
-            switch (cursor)
-            {
-                case 0:
-                    player1.Gold -= input;
+            Console.WriteLine("100 Gold 단위로 충전 가능");
+            Console.WriteLine();
+            Console.WriteLine($"{__sum}골드를 충전하시면 코인 {ChargeCoins}개와 {ChargeMileages} 마일리지를 지급합니다");
+            Console.WriteLine();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                __sum += 100;
+                CoinCharge();
+                break;
+            case 1:
+                __sum -= 100;
+                CoinCharge();
+                break;
+            case 2:
+                __sum += 1000;
+                CoinCharge();
+                break;
+            case 3:
+                __sum -= 1000;
+                CoinCharge();
+                break;
+            case 4:
+                if (__sum <= player1.Gold && __sum % 100 == 0 && __sum != 0)
+                {
+                    player1.Gold -= __sum;
                     Coins += ChargeCoins;
                     Mileages += ChargeMileages;
                     Console.Clear();
                     Console.WriteLine("충전이 완료되어습니다.");
+                    Console.WriteLine();
+                    __sum = 0;
                     Console.WriteLine("Press any key to continue");
                     Console.ReadKey();
                     GamebleMain();
-                    break;
-                case 1:
-                    GamebleMain();
-                    break;
-                default:
-                    break;
-            }
-        }
-        else
-        {
-            Console.WriteLine("잘못된 입력입니다. 100골드 단위로 올바른 금액을 입력해주세요.");
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
-            int cursor = 0;
-            bool onScene = true;
-            string[] text = { "----------네----------", "--------아니오--------" };
-
-            Console.WriteLine();
-            Console.WriteLine();
-
-            while (onScene)
-            {
-                Console.Clear();
-                Console.WriteLine("다시 충전하시겠습니까?");
-                Console.WriteLine();
-
-                TextChoice(cursor, text);
-                e = Console.ReadKey();
-                cursor = CursorChoice(e, cursor, text, ref onScene);
-            }
-            switch (cursor)
-            {
-                case 0:
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("잔액이 부족하거나 잘못된 입력입니다.");
+                    Console.WriteLine();
+                    Console.WriteLine("Press any key to continue");
+                    Console.ReadKey();
                     CoinCharge();
-                    break;
-                case 1:
-                    GamebleMain();
-                    break;
-                default:
-                    break;
-            }
+                }
+                break;
+            case 5:
+                GamebleMain();
+                break;
+            default:
+                break;
         }
     }
     static void CoinExchange()
     {
-        Console.Clear();
-        Console.Write($"Gold : ");
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"{player1.Gold}");
-        Console.ResetColor();
-        Console.Write($" COIN : ");
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write($"{Coins}");
-        Console.ResetColor();
-        Console.Write($" 마일리지 : ");
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"{Mileages}");
-        Console.ResetColor();
-        Console.WriteLine($"환전 수수료 : 5% 마일리지는 환전이 불가능합니다.");
-        Console.WriteLine("1000 Gold 단위로 환전 가능");
-        Console.WriteLine();
-        Console.WriteLine("환전하실 금액을 입력해주세요");
-        double ChargeCoins = 0;
+        int cursor = 0;
+        bool onScene = true;
 
-        int input;
-        if (!int.TryParse(Console.ReadLine(), out input))
+        if (__sum < 0)
         {
-            Console.WriteLine("유효하지 않은 입력입니다.");
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
-            CoinExchange();
+            __sum = 0;
         }
+        __sum = (int)__sum;
+        ChargeCoins = (int)(__sum * 0.95);
 
-        if (input <= Coins && input % 1000 == 0 && input != 0)
+        string[] text = { "--------(+100)--------", "--------(-100)--------", "--------(+1000)-------", "--------(-1000)-------", "---------환전---------", "--------나가기--------" };
+        while (onScene)
         {
-            int cursor = 0;
-            bool onScene = true;
-            string[] text = { "----------네----------", "--------아니오--------" };
-
+            Console.Clear();
+            Console.Write($"Gold : ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"{player1.Gold}");
+            Console.ResetColor();
+            Console.Write($" COIN : ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"{Coins}");
+            Console.ResetColor();
+            Console.Write($" 마일리지 : ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"{Mileages}");
+            Console.ResetColor();
             Console.WriteLine();
+            Console.WriteLine($"환전 수수료 : 5% 마일리지는 환전이 불가능합니다.");
+            Console.WriteLine();
+            Console.WriteLine($"{__sum}코인을 환전하시면 골드 {ChargeCoins}를 입금됩니다");
             Console.WriteLine();
 
-            while (onScene)
-            {
-                Console.Clear();
-
-                ChargeCoins = input * 0.95;
-                Console.Clear();
-                Console.WriteLine($"{input}코인을 환전하시면 골드 {ChargeCoins}개 입금됩니다");
-                Console.WriteLine("환전하시겠습니까?");
-                Console.WriteLine();
-
-                TextChoice(cursor, text);
-                e = Console.ReadKey();
-                cursor = CursorChoice(e, cursor, text, ref onScene);
-            }
-            switch (cursor)
-            {
-                case 0:
-                    Coins -= input;
-                    player1.Gold += (int)ChargeCoins;
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                __sum += 100;
+                CoinExchange();
+                break;
+            case 1:
+                __sum -= 100;
+                CoinExchange();
+                break;
+            case 2:
+                __sum += 1000;
+                CoinExchange();
+                break;
+            case 3:
+                __sum -= 1000;
+                CoinExchange();
+                break;
+            case 4:
+                if (__sum <= Coins && __sum % 100 == 0 && __sum != 0)
+                {
+                    player1.Gold += __sum;
+                    Coins -= ChargeCoins;
+                    Coins -= (int)ChargeCoins;
+                    __sum = 0;
                     Console.Clear();
                     Console.WriteLine("환전이 완료되어습니다.");
+                    Console.WriteLine();
                     Console.WriteLine("Press any key to continue");
                     Console.ReadKey();
                     GamebleMain();
-                    break;
-                case 1:
-                    GamebleMain();
-                    break;
-                default:
-                    break;
-            }
-        }
-        else
-        {
-            Console.WriteLine("잘못된 입력입니다. 1000골드 단위로 올바른 금액을 입력해주세요.");
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
-            int cursor = 0;
-            bool onScene = true;
-            string[] text = { "----------네----------", "--------아니오--------" };
-
-            Console.WriteLine();
-            Console.WriteLine();
-
-            while (onScene)
-            {
-                Console.Clear();
-                Console.WriteLine("다시 환전하시겠습니까?");
-                Console.WriteLine();
-
-                TextChoice(cursor, text);
-                e = Console.ReadKey();
-                cursor = CursorChoice(e, cursor, text, ref onScene);
-            }
-            switch (cursor)
-            {
-                case 0:
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("잔액이 부족하거나 잘못된 입력입니다.");
+                    Console.WriteLine();
+                    Console.WriteLine("Press any key to continue");
+                    Console.ReadKey();
                     CoinExchange();
-                    break;
-                case 1:
-                    GamebleMain();
-                    break;
-                default:
-                    break;
-            }
+                }
+                break;
+            case 5:
+                GamebleMain();
+                break;
+            default:
+                break;
         }
     }
     static void PlayAgain()
@@ -5804,7 +5889,9 @@ internal class Program
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"{Mileages}");
             Console.ResetColor();
+            Console.WriteLine();
             Console.WriteLine("다시하시겠습니까?");
+            Console.WriteLine();
             TextChoice(cursor, text);
             e = Console.ReadKey();
             cursor = CursorChoice(e, cursor, text, ref onScene);
@@ -5824,9 +5911,17 @@ internal class Program
 
     static void EvenOdd()
     {
-        bool evenodd = true;
+        int cursor = 0;
+        bool onScene = true;
 
-        while (evenodd)
+        if (__sum < 0)
+        {
+            __sum = 0;
+        }
+        __sum = (int)__sum;
+
+        string[] text = { "--------(+100)--------", "--------(-100)--------", "--------(+1000)-------", "--------(-1000)-------", "----------홀----------", "----------짝----------", "--------나가기--------" };
+        while (onScene)
         {
             Console.Clear();
             Console.Write($"COIN : ");
@@ -5837,136 +5932,150 @@ internal class Program
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"{Mileages}");
             Console.ResetColor();
+            Console.WriteLine();
             Console.WriteLine("배당 1.8배 | 마틴 가능");
+            Console.WriteLine();
             Console.WriteLine("홀짝 게임에 오신걸 환영합니다!");
-            Console.WriteLine("최소 단위 10코인");
-            Console.WriteLine("배팅할 금액을 입력해 주세요.(마일리지 먼저 차감됩니다.)");
+            Console.WriteLine();
+            Console.WriteLine($"{__sum}코인을 배팅하시겠습니까?");
+            Console.WriteLine();
 
-            int input;
-            if (!int.TryParse(Console.ReadLine(), out input))
-            {
-                Console.WriteLine("유효하지 않은 입력입니다.");
-                Console.WriteLine("Press any key to continue");
-                Console.ReadKey();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                __sum += 100;
                 EvenOdd();
-            }
-            if (input <= Mileages + Coins && input % 10 == 0 && input != 0)
-            {
-                Random random = new Random();
-                int RanNum = random.Next(1, 11);
-                int cursor = 0;
-                bool onScene = true;
-
-                if (Mileages >= input)
+                break;
+            case 1:
+                __sum -= 100;
+                EvenOdd();
+                break;
+            case 2:
+                __sum += 1000;
+                EvenOdd();
+                break;
+            case 3:
+                __sum -= 1000;
+                EvenOdd();
+                break;
+            case 4:
+                if (__sum <= Mileages + Coins && __sum % 10 == 0 && __sum != 0)
                 {
-                    Mileages -= input;
+                    Random random = new Random();
+                    int RanNum = random.Next(1, 11);
+
+                    if (Mileages >= __sum)
+                    {
+                        Mileages -= __sum;
+                    }
+                    else
+                    {
+                        int Balance = __sum - (int)Mileages;
+                        Coins -= Balance;
+                        Mileages = 0;
+                    }
+                    if (RanNum % 2 != 0)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("맞췄습니다.");
+                        Console.WriteLine();
+                        Console.WriteLine("홀입니다.");
+                        Console.WriteLine();
+                        Console.WriteLine($"{__sum} * 1.8배인 {__sum * 1.8}을 받으셨습니다.");
+                        Console.WriteLine();
+                        Coins += __sum * 1.8;
+                        __sum = 0;
+                        Console.WriteLine("Press any Key to continue");
+                        Console.ReadKey();
+                        PlayAgain();
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("틀렸습니다.");
+                        Console.WriteLine();
+                        Console.WriteLine("짝입니다.");
+                        Console.WriteLine();
+                        Console.WriteLine("Press any Key to continue");
+                        Console.WriteLine();
+                        __sum = 0;
+                        Console.ReadKey();
+                        PlayAgain();
+                    }
                 }
-                else
+                break;
+            case 5:
+                if (__sum <= Mileages + Coins && __sum % 10 == 0 && __sum != 0)
                 {
-                    int Balance = input - (int)Mileages;
-                    Coins -= Balance;
-                    Mileages = 0;
+                    Random random = new Random();
+                    int RanNum = random.Next(1, 11);
+
+                    if (Mileages >= __sum)
+                    {
+                        Mileages -= __sum;
+                    }
+                    else
+                    {
+                        int Balance = __sum - (int)Mileages;
+                        Coins -= Balance;
+                        Mileages = 0;
+                    }
+                    if (RanNum % 2 == 0)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("틀렸습니다.");
+                        Console.WriteLine();
+                        Console.WriteLine("홀입니다.");
+                        Console.WriteLine();
+                        Console.WriteLine("Press any Key to continue");
+                        __sum = 0;
+                        Console.ReadKey();
+                        PlayAgain();
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("맞췄습니다.");
+                        Console.WriteLine();
+                        Console.WriteLine("짝입니다.");
+                        Console.WriteLine();
+                        Console.WriteLine($"{__sum} * 1.8배인 {__sum * 1.8}을 받으셨습니다.");
+                        Console.WriteLine();
+                        Coins += __sum * 1.8;
+                        __sum = 0;
+                        Console.WriteLine("Press any Key to continue");
+                        Console.ReadKey();
+                        PlayAgain();
+                    }
                 }
-
-                string[] text = { "----------홀----------", "----------짝----------" };
-
-                while (onScene)
-                {
-                    Console.Clear();
-                    TextChoice(cursor, text);
-                    e = Console.ReadKey();
-                    cursor = CursorChoice(e, cursor, text, ref onScene);
-                }
-
-                switch (cursor)
-                {
-                    case 0:
-                        if (RanNum % 2 != 0)
-                        {
-                            Console.WriteLine("맞췄습니다.");
-                            Console.WriteLine("홀입니다.");
-                            Console.WriteLine($"{input} * 1.8배인 {input * 1.8}을 받으셨습니다.");
-                            Coins += input * 1.8;
-                            Console.WriteLine("Press any Key to continue");
-                            Console.ReadKey();
-                            PlayAgain();
-                        }
-                        else
-                        {
-                            Console.WriteLine("틀렸습니다.");
-                            Console.WriteLine("짝입니다.");
-                            Console.WriteLine("Press any Key to continue");
-                            Console.ReadKey();
-                            PlayAgain();
-                        }
-                        break;
-                    case 1:
-                        if (RanNum % 2 == 0)
-                        {
-                            Console.WriteLine("틀렸습니다.");
-                            Console.WriteLine("홀입니다.");
-                            Console.WriteLine("Press any Key to continue");
-                            Console.ReadKey();
-                            PlayAgain();
-                        }
-                        else
-                        {
-                            Console.WriteLine("맞췄습니다.");
-                            Console.WriteLine("짝입니다.");
-                            Console.WriteLine($"{input} * 1.8배인 {input * 1.8}을 받으셨습니다.");
-                            Coins += input * 1.8;
-                            Console.WriteLine("Press any Key to continue");
-                            Console.ReadKey();
-                            PlayAgain();
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                Console.WriteLine("잘못된 입력입니다. 10골드 단위로 올바른 금액을 입력해주세요.");
-                Console.WriteLine("Press any key to continue");
-                Console.ReadKey();
-                int cursor = 0;
-                bool onScene = true;
-                string[] text = { "----------네----------", "--------아니오--------" };
-
-                Console.WriteLine();
-                Console.WriteLine();
-
-                while (onScene)
-                {
-                    Console.Clear();
-                    Console.WriteLine("다시 배팅하시겠습니까?");
-                    Console.WriteLine();
-
-                    TextChoice(cursor, text);
-                    e = Console.ReadKey();
-                    cursor = CursorChoice(e, cursor, text, ref onScene);
-                }
-                switch (cursor)
-                {
-                    case 0:
-                        EvenOdd();
-                        break;
-                    case 1:
-                        GamebleMain();
-                        break;
-                    default:
-                        break;
-                }
-            }
+                break;
+            case6:
+                GamebleMain();
+                break;
+            default:
+                break;
         }
     }
+
     static void GraphGambleDisplay()
     {
-        bool Graph = true;
+        int cursor = 0;
+        bool onScene = true;
         Rate = 0;
         GrahpCount = 0;
 
-        while (Graph)
+        if (__sum < 0)
+        {
+            __sum = 0;
+        }
+        __sum = (int)__sum;
+
+        string[] text = { "--------(+100)--------", "--------(-100)--------", "--------(+1000)-------", "--------(-1000)-------", "---------배팅---------", "--------나가기--------" };
+        while (onScene)
         {
             Console.Clear();
             Console.Write($"COIN : ");
@@ -5977,103 +6086,63 @@ internal class Program
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine($"{Mileages}");
             Console.ResetColor();
+            Console.WriteLine();
             Console.WriteLine("그래프 게임에 오신걸 환영합니다!");
+            Console.WriteLine();
             Console.WriteLine("10번 갱신 가능");
-            Console.WriteLine("최소 단위 100코인");
-            Console.WriteLine("배팅할 금액을 입력해 주세요.(마일리지 먼저 차감됩니다.)");
+            Console.WriteLine();
+            Console.WriteLine($"{__sum}코인을 배팅하시겠습니까?");
+            Console.WriteLine();
 
-            int input;
-            if (!int.TryParse(Console.ReadLine(), out input))
-            {
-                Console.WriteLine("유효하지 않은 입력입니다.");
-                Console.WriteLine("Press any key to continue");
-                Console.ReadKey();
+            TextChoice(cursor, text);
+            e = Console.ReadKey();
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+        }
+        switch (cursor)
+        {
+            case 0:
+                __sum += 100;
                 GraphGambleDisplay();
-            }
-            if (input <= Mileages + Coins && input % 100 == 0 && input != 0)
-            {
-                int cursor = 0;
-                bool onScene = true;
-                if (Mileages >= input)
+                break;
+            case 1:
+                __sum -= 100;
+                GraphGambleDisplay();
+                break;
+            case 2:
+                __sum += 1000;
+                GraphGambleDisplay();
+                break;
+            case 3:
+                __sum -= 1000;
+                GraphGambleDisplay();
+                break;
+            case 4:
+                if (__sum <= Mileages + Coins && __sum % 10 == 0 && __sum != 0)
                 {
-                    Mileages -= input;
-                }
-                else
-                {
-                    int Balance = input - (int)Mileages;
-                    Coins -= Balance;
-                    Mileages = 0;
-                }
+                    Random random = new Random();
+                    int RanNum = random.Next(1, 11);
 
-                string[] text = { "----------GO----------", "---------STOP---------" };
-
-                while (onScene)
-                {
-                    Console.Clear();
-                    Console.WriteLine($"{input}");
-                    Console.WriteLine($"수익률 : {Rate}");
-                    Console.WriteLine($"남은 횟수 : {10 - GrahpCount}");
-                    TextChoice(cursor, text);
-                    e = Console.ReadKey();
-                    cursor = CursorChoice(e, cursor, text, ref onScene);
+                    if (Mileages >= __sum)
+                    {
+                        Mileages -= __sum;
+                    }
+                    else
+                    {
+                        int Balance = __sum - (int)Mileages;
+                        Coins -= Balance;
+                        Mileages = 0;
+                    }
+                    GraphGamble(__sum);
                 }
-
-                switch (cursor)
-                {
-                    case 0:
-                        GrahpCount++;
-                        GraphGamble(input);
-                        break;
-                    case 1:
-                        Coins += input + (int)(input * Rate / 100);
-                        Console.WriteLine("게임이 종료되었습니다.");
-                        Console.WriteLine($"원금 : {input}Coin 수익률 : {Rate:F2}%");
-                        Console.WriteLine($"수익 : {input * Rate / 100:F0}");
-                        Console.WriteLine($" Coin : {Coins}");
-                        Console.WriteLine("Press any key to continue");
-                        Console.ReadKey();
-                        GraphGambleDisplay();
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                Console.WriteLine("잘못된 입력입니다. 100골드 단위로 올바른 금액을 입력해주세요.");
-                Console.WriteLine("Press any key to continue");
-                Console.ReadKey();
-                int cursor = 0;
-                bool onScene = true;
-                string[] text = { "----------네----------", "--------아니오--------" };
-
-                Console.WriteLine();
-                Console.WriteLine();
-
-                while (onScene)
-                {
-                    Console.Clear();
-                    Console.WriteLine("다시 배팅하시겠습니까?");
-                    Console.WriteLine();
-
-                    TextChoice(cursor, text);
-                    e = Console.ReadKey();
-                    cursor = CursorChoice(e, cursor, text, ref onScene);
-                }
-                switch (cursor)
-                {
-                    case 0:
-                        GraphGambleDisplay();
-                        break;
-                    case 1:
-                        GamebleMain();
-                        break;
-                    default:
-                        break;
-                }
-            }
+                break;
+            case 5:
+                GamebleMain();
+                break;
+            default:
+                break;
         }
     }
+
     static void GraphGamble(int Value)
     {
         Random random = new Random();
@@ -6088,13 +6157,16 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine($"{Value}");
+            Console.WriteLine($"배팅금액 : {Value}");
+            Console.WriteLine();
             Console.WriteLine($"수익률 : {Rate:F2}%");
-            Console.WriteLine($"남은 횟수 : {10 - GrahpCount}");
+            Console.WriteLine();
+            Console.WriteLine($"남은 횟수 : {9 - GrahpCount}");
+            Console.WriteLine();
             TextChoice(cursor, text);
             e = Console.ReadKey();
             cursor = CursorChoice(e, cursor, text, ref onScene);
-            if (GrahpCount >= 10)
+            if (GrahpCount == 9)
             {
                 cursor = 1;
                 break;
@@ -6107,12 +6179,18 @@ internal class Program
                 GraphGamble(Value);
                 break;
             case 1:
+                Console.Clear();
                 Coins += Value + (int)(Value * (Rate / 100));
                 Console.WriteLine("게임이 종료되었습니다.");
-                Console.WriteLine($"원금 : {Value}Coin 수익률 : {Rate:F2}%");
+                Console.WriteLine();
+                Console.WriteLine($"배팅금액 : {Value}코인 | 수익률 : {Rate:F2}%");
+                Console.WriteLine();
                 Console.WriteLine($"수익 : {Value * Rate / 100:F0}");
-                Console.WriteLine($" Coin : {Coins}");
+                Console.WriteLine();
+                Console.WriteLine($"보유코인 : {Coins}");
+                Console.WriteLine();
                 Console.WriteLine("Press any key to continue");
+                __sum = 0;
                 Console.ReadKey();
                 GraphGambleDisplay();
                 break;
