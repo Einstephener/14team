@@ -6454,13 +6454,13 @@ internal class Program
         Console.Clear();
 
         Console.WriteLine("");
-        Console.WriteLine("#   #    #    ####   ####   #   #  #####  #   #  ####    ###   #   #   ###  ");
-        Console.WriteLine("#   #   # #   #   #  #   #  #   #  #      #   #   #  #    #    #   #  #   # ");
-        Console.WriteLine("#   #  #   #  #   #  #   #   # #   #      ##  #   #  #    #    ##  #  #     ");
-        Console.WriteLine("#####  #   #  ####   ####     #    ####   # # #   #  #    #    # # #  #     ");
-        Console.WriteLine("#   #  #####  #      #        #    #      #  ##   #  #    #    #  ##  #  ## ");
-        Console.WriteLine("#   #  #   #  #      #        #    #      #   #   #  #    #    #   #  #   # ");
-        Console.WriteLine("#   #  #   #  #      #        #    #####  #   #  ####    ###   #   #   ###  ");
+        Console.WriteLine(" #   #    #    ####   ####   #   #  #####  #   #  ####    ###   #   #   ###  ");
+        Console.WriteLine(" #   #   # #   #   #  #   #  #   #  #      #   #   #  #    #    #   #  #   # ");
+        Console.WriteLine(" #   #  #   #  #   #  #   #   # #   #      ##  #   #  #    #    ##  #  #     ");
+        Console.WriteLine(" #####  #   #  ####   ####     #    ####   # # #   #  #    #    # # #  #     ");
+        Console.WriteLine(" #   #  #####  #      #        #    #      #  ##   #  #    #    #  ##  #  ## ");
+        Console.WriteLine(" #   #  #   #  #      #        #    #      #   #   #  #    #    #   #  #   # ");
+        Console.WriteLine(" #   #  #   #  #      #        #    #####  #   #  ####    ###   #   #   ###  ");
         Console.WriteLine("");
 
 
@@ -6492,7 +6492,7 @@ internal class Program
         Console.ReadKey();
         Console.WriteLine(" 경례와 함께 모든 전역과정을 마쳤다");
         Console.ReadKey();
-        Console.WriteLine("이제 후임들과 인사를 나누고 덕담을 나눈다");
+        Console.WriteLine(" 이제 후임들과 인사를 나누고 덕담을 나눈다");
         Console.ReadKey();
         Console.WriteLine(" (후임들이 모여서) 개부럽네 형 사회에서 보자 고생했어!");
         Console.ReadKey();
@@ -6520,7 +6520,7 @@ internal class Program
         Console.ReadKey();
 
 
-
+        Environment.Exit();
     }
 
     static void BadEnding()
@@ -6626,7 +6626,7 @@ internal class Program
         Console.ReadKey();
         Console.WriteLine(" 해는 쨍쨍했지만 내눈에는 세상이 어두워 보였다...");
         Console.ReadKey();
-
+        Environment.Exit();
     }
     #endregion
 
