@@ -87,6 +87,9 @@ internal class Program
     private static Armor ShoulderSleeve2;
     private static Armor ShoulderSleeve3;
     private static Armor ShoulderSleeve4;
+    private static Armor AAAmopo;
+    private static Armor AAAME;
+    private static Armor AAAMB;
 
 
     //캐릭터 선언
@@ -136,6 +139,10 @@ internal class Program
 
 
         //직업 별 아이템 설정//
+        //드랍 아이템
+        AAAmopo = new Armor("AAA급 모포", 0, "전설의 김굳건 병장의 AAA급 모포", 10, 20, "체럭 +10, 정신력 +10");
+        AAAME = new Armor("AAA급 장구류", 0, "전설의 김굳건 병장의 AAA급 장구류", 10, 20, "체럭 +10, 정신력 +10");
+        AAAMB = new Armor("AAA급 군화", 0, "전설의 김굳건 병장의 AAA급 군화", 10, 20, "체럭 +10, 정신력 +10");
 
 
         //직업 별 사단 마크
@@ -4620,7 +4627,14 @@ internal class Program
                     Perfection += 2;
                     Console.WriteLine("우리 중대에 전설같은 존재인 김굳건 병장의 AAA급 모포를 발견했다.");
                     Console.ReadKey();
-                    //아이템 획득
+                    Console.WriteLine();
+                    Console.WriteLine("AAA급 모포를 착용합니다");
+                    player1.AddToInventoryArmor(AAAmopo);
+                    greenStrap.isEquipped = true;
+                    player1.Mind += AAAmopo.ItemMind;
+                    player1.Hp += AAAmopo.ItemHp;
+                    player1.MaxHp += AAAmopo.ItemHp;
+                    Console.ReadKey();
                     Console.WriteLine();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
@@ -4677,7 +4691,14 @@ internal class Program
                     Perfection += 2;
                     Console.WriteLine("우리 중대에 전설같은 존재인 김굳건 병장의 AAA급 군화를 발견했다.");
                     Console.ReadKey();
-                    //아이템 획득
+                    Console.WriteLine();
+                    Console.WriteLine("AAA급 군화를 착용합니다");
+                    player1.AddToInventoryArmor(AAAMB);
+                    greenStrap.isEquipped = true;
+                    player1.Mind += AAAMB.ItemMind;
+                    player1.Hp += AAAMB.ItemHp;
+                    player1.MaxHp += AAAMB.ItemHp;
+                    Console.ReadKey();
                     Console.WriteLine();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
@@ -4806,7 +4827,14 @@ internal class Program
                     Perfection += 1;
                     Console.WriteLine("우리 중대에 전설같은 존재인 김굳건 병장의 AAA급 장구류를 발견했다.");
                     Console.ReadKey();
-                    //아이템 획득
+                    Console.WriteLine();
+                    Console.WriteLine("AAA급 장구류를 착용합니다");
+                    player1.AddToInventoryArmor(AAAME);
+                    greenStrap.isEquipped = true;
+                    player1.Mind += AAAME.ItemMind;
+                    player1.Hp += AAAME.ItemHp;
+                    player1.MaxHp += AAAME.ItemHp;
+                    Console.ReadKey();
                     Console.WriteLine();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
