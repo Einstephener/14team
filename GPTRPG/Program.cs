@@ -899,7 +899,7 @@ internal class Program
         // Start Point
         int x = 0;
 
-        double time = 30;
+        double time = 25;
 
         Console.Clear();
 
@@ -956,7 +956,10 @@ internal class Program
                 Thread.Sleep(2000);
 
                 Console.WriteLine("\n 남은 시간 : {0}", time.ToString("F"));
-                Console.WriteLine("\n 남은 시간에 따른 보상 ( 보상목록 )");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\n 남은 시간에 따른 보상 ( 최대 체력 + {0})", (int)time);
+                Console.ResetColor();
+                player1.MaxHp += (int)time;
                 Console.WriteLine("\n >> Press the \"TAP\" key to proceed <<");
                 break;
             }
@@ -967,7 +970,7 @@ internal class Program
                 Console.WriteLine("\n 완주 실패....");
                 Console.WriteLine("\n >> Press the \"TAP\" key to proceed <<");
                 Thread.Sleep(2000);
-                Home();
+                break;
             }
             Thread.Sleep(10);
         }
@@ -1094,14 +1097,18 @@ internal class Program
         // 화면 초기화
         Console.Clear();
 
+        Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine("\n 시작하려면 \"Tap키\" 를 눌러주세요.");
+        Console.ResetColor();
         // 선입력 방지
         InputPrevention();
 
         Console.Clear();
 
         // 입력 로직
-        Console.WriteLine("\n 알맞는 키를 입력하시오.");
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine("\n 알맞는 키를 입력하시오. \n\n");
+        Console.ResetColor();
         while (sequence < 10)
         {
             e = Console.ReadKey(true);
@@ -1128,11 +1135,17 @@ internal class Program
             }
             sequence++;
         }
+        Console.Clear();
+        Console.WriteLine("\n 보상 계산중.... 잠시만 기다려주십시오.");
+        Thread.Sleep(2000);
 
         Console.WriteLine("");
         Console.WriteLine("\n 총 맞춘 횟수 : {0}", hitCount);
-        Console.WriteLine("\n 보상 ( 보상 ) 을 지급합니다.");
-        Console.WriteLine("\n 진행하려면 \"Tap키\" 를 눌러주세요.");
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("\n 맞춘 횟수에 따른 보상 ( 정신력 + {0} ) 을 지급합니다.", hitCount);
+        Console.ResetColor();
+        player1.Mind += hitCount;
+        Console.WriteLine("\n >> Press the \"TAP\" key to proceed <<");
 
         InputPrevention();
         // 맞춘 횟수에 맞는 보상 지급 로직 추가
@@ -1242,8 +1255,15 @@ internal class Program
                 InputPrevention();
             }
         }
-        Console.WriteLine("\n 보상 (보상)을 지급합니다.");
-        Console.WriteLine("\n 진행하려면 \"Tap키\" 를 눌러주세요.");
+        Console.Clear();
+        Console.WriteLine("\n 보상 계산중.... 잠시만 기다려주십시오.");
+        Thread.Sleep(2000);
+
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("\n 성공 횟수에 따른 보상 (힘 + {0} ) 을 지급합니다.", hitCount);
+        Console.ResetColor();
+        player1.Str += hitCount;
+        Console.WriteLine("\n >> Press the \"TAP\" key to proceed <<");
         InputPrevention();
         // hitCount 횟수에 맞는 보상 지급
         // 메인화면 이동
@@ -1292,7 +1312,9 @@ internal class Program
         {
             Console.WriteLine("");
             Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("                         삽질 성공 !                ");
+            Console.ResetColor();
             Thread.Sleep(1000);
             _hitCount++;
         }
@@ -1300,7 +1322,9 @@ internal class Program
         {
             Console.WriteLine("");
             Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("                         삽질 실패 . . .              ");
+            Console.ResetColor();
             Thread.Sleep(1000);
         }
         // 화면 초기화
@@ -1917,17 +1941,21 @@ internal class Program
         if (input < 6) // 50%
         {
             Console.WriteLine(one);
-            // 체력 -- , 정신력 --
+            player1.Mind -= 30;
+            Console.WriteLine("\n 정신력 - 30");
         }
         else if (input < 9) // 30%
         {
             Console.WriteLine(two);
-            // 체력 ++ , 정신력 ++, 돈 --
+            player1.Mind += 20;
+            player1.Gold -= 500;
+            Console.WriteLine("\n 정신력 + 30, Gold - 500");
         }
         else // 20%
         {
             Console.WriteLine(three);
-            // 체력 -- , 정신력 --
+            player1.Mind -= 10;
+            Console.WriteLine("\n 정신력 - 10");
         }
     }
     #endregion
@@ -2003,8 +2031,42 @@ internal class Program
             onScene = true;
         }
 
+        Console.Clear();
+
+        if(hitCount < 6)
+        {
+            Console.WriteLine("\n 명중 횟수 : {0}", hitCount);
+            Console.WriteLine("\n 중대장님 한테 엄청 욕을 먹었다...");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\n 체력 - 10, 정신력 - 10");
+            Console.ResetColor();
+            player1.Hp -= 10;
+            player1.Mind -= 10;
+        }
+        else if(hitCount < 9)
+        {
+            Console.WriteLine("\n 명중 횟수 : {0}", hitCount);
+            Console.WriteLine("\n 나쁘지 않게 맞추었다.");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\n 민첩 + 5, 정신력 + 10");
+            Console.ResetColor();
+            player1.Dex += 5;
+            player1.Mind += 10;
+        }
+        else
+        {
+            Console.WriteLine("\n 명중 횟수 : {0}", hitCount);
+            Console.WriteLine("\n 특등사수!! 분대 지정사수보다 잘 맞추었다!");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\n 민첩 + 10, 정신력 + 20");
+            Console.ResetColor();
+            player1.Dex += 10;
+            player1.Mind += 20;
+        }
         // hitCount(명중 횟수)에 따른 보상 로직 작성.
         // 1~5 폐급, 6~8 평균, 9~10 특등사수 
+        Console.WriteLine("\n\n 진행하려면 \"Tap키\" 를 눌러주세요.");
+        InputPrevention();
         OneMonthLater();
     }
     // Shooting 처리 메서드
