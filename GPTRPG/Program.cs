@@ -128,7 +128,7 @@ internal class Program
         Console.Title = "K-Army";
 
         // 캐릭터 정보 세팅
-        player1 = new Character("", "용사", 5, 5, 5, 5, 100, 100, 0, 5);
+        player1 = new Character("", "용사", 5, 5, 5, 5, 100, 100, 10, 0, 10);
 
         // 녹견 세팅
         greenStrap = new Armor("분대장 견장", 0, "분대장의 상징인 녹견", 10, 10, "체력+10, 정신력+10");
@@ -307,7 +307,7 @@ internal class Program
         {
             case 0:
                 //보병 전직
-                player1 = new Infantry(player.Name, "보병", 5, 5, 5, 5, 100, 100, 0, 5);
+                player1 = new Infantry(player.Name, "보병", 5, 5, 5, 5, 100, 100, 10, 0, 10);
                 Console.WriteLine(" 보병을 선택했다.");
                 //사단마크 획득
                 player1.AddToInventoryArmor(ShoulderSleeve2);
@@ -320,7 +320,7 @@ internal class Program
                 break;
             case 1:
                 //포병 전직
-                player1 = new Artillery(player.Name, "포병", 5, 5, 5, 5, 100, 100, 0, 5);
+                player1 = new Artillery(player.Name, "포병", 5, 5, 5, 5, 100, 100, 10, 0, 10);
                 //사단마크 획득
                 player1.AddToInventoryArmor(ShoulderSleeve1);
                 //사단마크 스탯 적용
@@ -334,7 +334,7 @@ internal class Program
                 break;
             case 2:
                 //운전병 전직
-                player1 = new Transportation(player.Name, "운전병", 5, 5, 5, 5, 100, 100, 0, 5);
+                player1 = new Transportation(player.Name, "운전병", 5, 5, 5, 5, 100, 100, 10, 0, 10);
                 //사단마크 획득
                 player1.AddToInventoryArmor(ShoulderSleeve3);
                 //사단마크 스탯 적용
@@ -348,7 +348,7 @@ internal class Program
                 break;
             case 3:
                 //정비병 전직
-                player1 = new Maintenence(player.Name, "정비병", 5, 5, 5, 5, 100, 100, 0, 5);
+                player1 = new Maintenence(player.Name, "정비병", 5, 5, 5, 5, 100, 100, 10, 0, 10);
                 //사단마크 획득
                 player1.AddToInventoryArmor(ShoulderSleeve4);
                 //사단마크 스탯 적용
@@ -2140,6 +2140,7 @@ internal class Program
             Console.ResetColor();
             player1.Hp -= 10;
             player1.Mind -= 10;
+            player1.MaxMind -= 10;
         }
         else if(hitCount < 9)
         {
@@ -2366,6 +2367,7 @@ internal class Program
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(" 정신력 능력치가 10 상승하였습니다.");
                     player1.Mind += 10;
+                    player1.MaxMind += 10;
 
                     OneMonthLater();
                     break;
@@ -2397,6 +2399,8 @@ internal class Program
                     Console.WriteLine(" 정신력 능력치가 10 하락하였습니다.");
                     Console.ResetColor();
                     player1.Mind -= 10;
+                    player1.MaxMind -= 10;
+
 
                     OneMonthLater();
                     break;
@@ -4662,6 +4666,7 @@ internal class Program
                     player1.AddToInventoryArmor(AAAmopo);
                     greenStrap.isEquipped = true;
                     player1.Mind += AAAmopo.ItemMind;
+                    player1.MaxMind += AAAmopo.ItemMind;
                     player1.Hp += AAAmopo.ItemHp;
                     player1.MaxHp += AAAmopo.ItemHp;
                     Console.ReadKey();
@@ -4726,6 +4731,7 @@ internal class Program
                     player1.AddToInventoryArmor(AAAMB);
                     greenStrap.isEquipped = true;
                     player1.Mind += AAAMB.ItemMind;
+                    player1.MaxMind += AAAMB.ItemMind;
                     player1.Hp += AAAMB.ItemHp;
                     player1.MaxHp += AAAMB.ItemHp;
                     Console.ReadKey();
@@ -4862,6 +4868,7 @@ internal class Program
                     player1.AddToInventoryArmor(AAAME);
                     greenStrap.isEquipped = true;
                     player1.Mind += AAAME.ItemMind;
+                    player1.MaxMind += AAAME.ItemMind;
                     player1.Hp += AAAME.ItemHp;
                     player1.MaxHp += AAAME.ItemHp;
                     Console.ReadKey();
