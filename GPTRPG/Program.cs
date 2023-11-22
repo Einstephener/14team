@@ -4335,7 +4335,6 @@ internal class Program
             Console.WriteLine("옆에는 교회가 있고 군종병이 청소를 한다고 문을 열어뒀다.");
             Console.WriteLine();
             Console.WriteLine("주변을 둘러보니 간부는 보이지 않는다.");
-            Console.ReadKey();
             Console.WriteLine();
             TextChoice(cursor, text);
             e = Console.ReadKey();
@@ -4785,7 +4784,7 @@ internal class Program
                     Console.WriteLine();
                     Console.WriteLine("AAA급 모포를 착용합니다");
                     player1.AddToInventoryArmor(AAAmopo);
-                    greenStrap.isEquipped = true;
+                    AAAmopo.isEquipped = true;
                     player1.Mind += AAAmopo.ItemMind;
                     player1.MaxMind += AAAmopo.ItemMind;
                     player1.Hp += AAAmopo.ItemHp;
@@ -4854,7 +4853,7 @@ internal class Program
                     Console.WriteLine();
                     Console.WriteLine("AAA급 군화를 착용합니다");
                     player1.AddToInventoryArmor(AAAMB);
-                    greenStrap.isEquipped = true;
+                    AAAMB.isEquipped = true;
                     player1.Mind += AAAMB.ItemMind;
                     player1.MaxMind += AAAMB.ItemMind;
                     player1.Hp += AAAMB.ItemHp;
@@ -4863,6 +4862,7 @@ internal class Program
                     Console.WriteLine();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
+                    WarehouseWokr4();
                 }
                 else
                 {
@@ -5003,7 +5003,7 @@ internal class Program
                     Console.WriteLine();
                     Console.WriteLine("AAA급 장구류를 착용합니다");
                     player1.AddToInventoryArmor(AAAME);
-                    greenStrap.isEquipped = true;
+                    AAAME.isEquipped = true;
                     player1.Mind += AAAME.ItemMind;
                     player1.MaxMind += AAAME.ItemMind;
                     player1.Hp += AAAME.ItemHp;
