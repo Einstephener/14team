@@ -111,6 +111,7 @@ internal class Program
     static ConsoleKeyInfo e;
 
     static bool frenchSuccess;
+    static bool isWin = true;
     #endregion
     //시작
     static void Main(string[] args)
@@ -2311,23 +2312,23 @@ internal class Program
         string[] text = { " 1.가족",
         " 2.친구",
         " 3.여자친구" };
-
-        TextChoice(cursor, text);
-
-        // Key Input
-        e = Console.ReadKey();
-        // Cursor Index
-        cursor = CursorChoice(e, cursor, text, ref onScene);
         while (onScene)
         {
+        TextChoice(cursor, text);
+
+            // Key Input
+            e = Console.ReadKey();
+            // Cursor Index
+            cursor = CursorChoice(e, cursor, text, ref onScene);
+
             Console.WriteLine("");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(" 선택지마다 랜덤능력치가 부여됩니다. 신중하게 고르세요! ");
             Console.ResetColor();
             Console.WriteLine("");
 
-
-            switch (cursor)
+        }
+        switch (cursor)
             {
                 case 0:
                     Console.Clear();
@@ -2411,7 +2412,7 @@ internal class Program
                     Console.WriteLine(" 잘못된 선택입니다.");
                     break;
             }
-        }
+        
     }
 
 
@@ -3428,6 +3429,7 @@ internal class Program
 
     static void NCOBattle(Character player, Enemy enemy)
     {
+
         int cursor = 0;
         bool onScene = true;
 
@@ -3466,6 +3468,7 @@ internal class Program
                 Console.WriteLine("press any Key to continue");
                 Console.ReadKey();
                 Console.Clear();
+                isWin = false;
                 OneMonthLater();
             }
             else
@@ -3481,6 +3484,7 @@ internal class Program
                 Console.WriteLine("press any Key to continue");
                 Console.ReadKey();
                 Console.Clear();
+                isWin = false;
                 OneMonthLater();
             }
             TextChoice(cursor, text);
@@ -5566,7 +5570,8 @@ internal class Program
         Console.WriteLine("press any Key to continue");
         Console.ReadKey();
         Console.Clear();
-        OneMonthLater();
+        //엔딩 메서드
+        Ending();
     }
     #endregion
     #region 확률 구현
@@ -6334,11 +6339,21 @@ internal class Program
     }
     #endregion
 
-
+    static void Ending()
+    {
+        if(isWin == true)
+        {
+            HappyEnding();
+        }
+        else
+        {
+            BadEnding();
+        }
+    }
     //엔딩씬//
 
     //해피엔딩//
-    static void HappyEndingScene()
+    static void HappyEnding()
     {
         Console.Clear();
 
