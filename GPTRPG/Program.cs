@@ -64,7 +64,42 @@ internal class Program
             new Enemy("고라니", 2, 30),
             new Enemy("행보관", 30, 500),
             new Enemy("건장한 남성", 20, 100)
+           
         };
+    //상시전투 몬스터 리스트
+   
+    private static List<Enemy> GetRandomEnemies(int count)
+    {
+         List<Enemy> snowEnemies = new List<Enemy>
+    {
+         new Enemy("눈보라", 10, 20),
+         new Enemy("함박눈", 5, 30),
+         new Enemy("얼어붙은 눈", 15, 10)
+    };
+
+        Random monsteRandom = new Random();
+
+        List<Enemy> selectedEnemies = new List<Enemy>();
+
+        // 몬스터 리스트에서 무작위로 count개의 몬스터 선택
+        List<Enemy> shuffledEnemies = snowEnemies.OrderBy(e => monsteRandom.Next()).ToList();
+
+        for (int i = 0; i < count; i++)
+        {
+            if (i < shuffledEnemies.Count)
+            {
+                selectedEnemies.Add(shuffledEnemies[i]);
+            }
+            else
+            {
+                // 몬스터 리스트의 크기보다 count가 큰 경우 모든 몬스터 선택
+                break;
+            }
+        }
+
+        return selectedEnemies;
+    }
+    
 
     private static Enemy FindEnemyByName(string enemyName)
     {
@@ -78,6 +113,10 @@ internal class Program
     private static Enemy senior = FindEnemyByName("맞선임");
     private static Enemy masterSergent = FindEnemyByName("행보관");
     private static Enemy muscleguy = FindEnemyByName("건장한 남성");
+    private static Enemy blizzard = FindEnemyByName("눈보라");
+    private static Enemy largeSnowflakes = FindEnemyByName("함박눈");
+    private static Enemy iceSnow = FindEnemyByName("얼어붙은 눈");
+
 
 
     //아이템들 선언
@@ -821,7 +860,7 @@ internal class Program
         bool onScene = true;
 
         // Text 배열
-        string[] text = { " ==체력 단련==\n", " ==주특기 훈련==\n", " ==행보관님 작업==\n", " ==메인 화면==\n" };
+        string[] text = { " ==체력 단련==\n", " ==주특기 훈련==\n", " ==행보관님 작업==\n", " ==제설 작전==\n", " ==메인 화면==\n" };
 
         while (onScene)
         {
@@ -855,6 +894,9 @@ internal class Program
                 Work_Shoveling();
                 break;
             case 3:
+                RemoveSwon(player1);
+                break;
+            case 4:
                 Home();
                 break;
             default:
@@ -1369,6 +1411,34 @@ internal class Program
     }
     #endregion
 
+    //제설 작전
+    static void RemoveSwon(Character player1)
+    {
+        
+
+        // 무작위로 1~3마리의 몬스터 선택
+        List<Enemy> selectedEnemies = GetRandomEnemies(new Random().Next(1, 4));
+
+        // 나레이션 설정 값
+        StringBuilder narrationsBuilder = new StringBuilder();
+        narrationsBuilder.AppendLine(" \n 행정반에서 전파합니다 현시각부로 제설작전 실시하겠습니다. \n\n 맙소사 쓰레기처럼 눈이 계속 내린다... \n\n");
+        for (int i = 0; i < selectedEnemies.Count; i++)
+        {
+            narrationsBuilder.AppendLine($"\n {selectedEnemies[i].EnemyName}을 치우자!");
+        }
+
+        narrationsBuilder.AppendLine("\n 아무 키나 누르시오.");
+        // 나레이션 시작
+        Console.Clear();
+        foreach (char index in narrationsBuilder.ToString().ToCharArray())
+        {
+            Console.Write(index);
+            Thread.Sleep(80);
+        }
+        Console.ReadKey();
+        SnowBattleScene(player1, selectedEnemies.ToArray());
+    }
+
     //이등병 스토리//
     static void Basic(Character player)
     {
@@ -1665,8 +1735,9 @@ internal class Program
                     Console.WriteLine("");
                     foreach (Enemy e in enemies)
                     {
+                        int displayedHp = Math.Max(e.EnemyHp, 0); //음수가 아니라면 0을 사용
                         Console.ForegroundColor = (e.EnemyHp <= 0 ? ConsoleColor.DarkGray : ConsoleColor.White);
-                        Console.WriteLine($" {e.EnemyName}: HP {e.EnemyHp} {(e.EnemyHp <= 0 ? "Dead" : "")}");
+                        Console.WriteLine($" {e.EnemyName}: HP {displayedHp} {(displayedHp <= 0 ? "Dead" : "")}");
                     }
                     Console.ResetColor();
                     Console.WriteLine("");
@@ -1743,6 +1814,118 @@ internal class Program
             DisplayResult(player, enemies);
         }
         
+
+    }
+
+    //제설작전 전투 메서드
+    static void SnowBattleScene(Character player, params Enemy[] enemies)
+    {
+        // Cursor 선택 설정 값
+        int cursor = 0;
+        bool onScene = true;
+        string[] text = { " ==공격==\n", " ==스킬==" };
+
+        foreach (Enemy enemy in enemies)
+        {
+
+            while (player.Hp > 0 && enemies.Any(e => e.EnemyHp > 0))
+            {
+                //내 턴
+                while (onScene)
+                {
+                    //체력이 음수인 경우 0으로 처리
+                    if (enemy.EnemyHp < 0)
+                    {
+                        enemy.EnemyHp = 0;
+                    }
+                    if (player.Hp < 0)
+                    {
+                        player.Hp = 0;
+                    }
+                    // 화면 초기화
+                    Console.Clear();
+                    Console.WriteLine("");
+                    foreach (Enemy e in enemies)
+                    {
+                        int displayedHp = Math.Max(e.EnemyHp, 0); //음수가 아니라면 0을 사용
+                        Console.ForegroundColor = (e.EnemyHp <= 0 ? ConsoleColor.DarkGray : ConsoleColor.White);
+                        Console.WriteLine($" {e.EnemyName}: HP {displayedHp} {(displayedHp <= 0 ? "Dead" : "")}");
+                    }
+                    Console.ResetColor();
+                    Console.WriteLine("");
+                    Console.WriteLine("");
+                    Console.WriteLine($" {player.Name}");
+                    Console.WriteLine($" HP \t: {player.MaxHp}/{player.Hp}");
+                    Console.WriteLine($" MIND \t: {player.MaxMind}/{player.Mind}");
+                    Console.WriteLine("");
+                    Console.WriteLine("");
+                    Console.WriteLine(" 플레이어의 턴입니다. 행동을 선택하세요\n");
+                    Console.WriteLine(" ==============================================");
+                    Console.WriteLine("");
+                    // Text 배열 출력
+                    TextChoice(cursor, text);
+                    // Key 입력
+                    e = Console.ReadKey();
+                    // Cursor index
+                    cursor = CursorChoice(e, cursor, text, ref onScene);
+
+
+                }
+
+                // 공격할 몬스터 선택
+                Console.Clear();
+                Console.WriteLine("어떤 몬스터를 공격하시겠습니까?\n");
+                for (int i = 0; i < enemies.Length; i++)
+                {
+                    Console.WriteLine($"={enemies[i].EnemyName}=");
+                }
+
+
+                // Cursor input
+                switch (cursor)
+                {
+                    case 0:
+                        AttackAction(player1, enemies);
+                        Console.ReadKey();
+                        break;
+                    case 1:
+                        SkillAction(player1, enemies);
+                        Console.ReadKey();
+                        break;
+                }
+
+                // 화면 초기화
+                Console.Clear();
+                //몬스터 턴
+                foreach (Enemy e in enemies)
+                {
+                    if (e.EnemyHp > 0)
+                    {
+                        Console.WriteLine("");
+                        Console.WriteLine($" \n {e.EnemyName}의 공격!\n");
+
+                        if (player1.CheckEvade())
+                        {
+                            Console.WriteLine(" 공격을 회피했습니다!");
+                        }
+                        else
+                        {
+                            int enemyDamage = e.EnemyAtk;
+                            player1.Hp -= enemyDamage;
+                            Console.WriteLine($" {e.EnemyName}이(가) 플레이어에게 {enemyDamage}의 데미지를 입혔습니다.\n");
+                        }
+                    }
+                }
+                Console.Write("\n            :::::Press any key:::::");
+                Console.ReadKey();
+                // bool값 및 Cursor값 초기화
+                onScene = true;
+                cursor = 0;
+            }
+            //전투 결과
+            SnowDisplayResult(player, enemies);
+        }
+
 
     }
     //공격선택 메서드
@@ -1873,7 +2056,7 @@ internal class Program
                     if (player1.Mind < skill.MindCost)
                     {
                         //정식력 부족한 경우
-                        BattleScene(player1, wildBoar, waterDeer);
+                        BattleScene(player1, enemies);
                     }
                     else
                     {
@@ -1945,6 +2128,55 @@ internal class Program
             Console.ReadLine();
 
             OneMonthLater();
+            //보상 아이템? 스텟?
+        }
+
+
+    }
+
+    //제설작전 전투 보상처리
+    private static void SnowDisplayResult(Character player1, params Enemy[] enemies)
+    {
+        if (player1.Hp <= 0)
+        {
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine(" 눈이 또 내리기 시작했다...");
+            Console.ReadKey();
+            Home();
+            return;
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine(" 눈을 전부 치웠다!");
+            Console.WriteLine();
+            // 몬스터별 보상 처리
+            foreach (var enemy in enemies)
+            {
+                if (enemy.EnemyName == "눈보라")
+                {
+                    Console.WriteLine(" 눈보라를 쓰러뜨리고 100Gold 획득");
+                    player1.Gold += 100;
+                }
+                else if (enemy.EnemyName == "함박눈")
+                {
+                    Console.WriteLine(" 함박눈을 쓰러뜨리고 150Gold 획득");
+                    player1.Gold += 150;
+                }
+                //player1.Gold += enemy.GoldReward;
+                // 경험치 또는 다른 보상 처리도 추가 가능
+                if (enemy.EnemyName == "얼어붙은 눈")
+                {
+                    Console.WriteLine(" 얼어붙은 눈을 쓰러뜨리고 170Gold 획득");
+                    player1.Gold += 170;
+                }
+            }
+
+
+            Console.ReadLine();
+            Home();
             //보상 아이템? 스텟?
         }
 
