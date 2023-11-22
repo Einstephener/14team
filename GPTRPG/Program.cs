@@ -106,6 +106,7 @@ internal class Program
     static int ChargeCoins;
     static int __sum;
     static int ChargeMileages;
+    static int stress;
     // ConsoleKeyInfo 선언
     static ConsoleKeyInfo e;
 
@@ -3253,19 +3254,39 @@ internal class Program
 
 
 
-
+    static void StressDebuff()
+    {
+        stress = (int)(100 - Perfection) / 10;
+        int Debuff = 0;
+        if (Perfection >= 100)
+        {
+            Debuff = 1;
+        }
+        else Debuff *= (Perfection / 100);
+        if (stress <= 0) stress = 0;
+        int DStr = player1.Str * Debuff;
+        int DDex = player1.Dex * Debuff;
+        int DIQ = player1.IQ * Debuff;
+        int DMaxHp = player1.MaxHp * Debuff;
+    }
 
     #region 혹한기
     static void ColdWeatherTraining1()
     {
+
         int cursor = 0;
         bool onScene = true;
+
+        Perfection = 100;
+        StressDebuff();
 
         string[] text = { "1. px에서 미리 사두자", "2. 근들갑이야 다 해~" };
 
         while (onScene)
         {
             Console.Clear();
+            Console.WriteLine($"체력 : {player1.Hp} 스트레스 : {stress}단계");
+            Console.WriteLine();
             Console.WriteLine("혹한기 훈련이 시작되었다.");
             Console.WriteLine();
             Console.WriteLine("혹한기 일정동안 px는 잠시 폐쇠한다고 한다.");
@@ -3279,16 +3300,26 @@ internal class Program
             case 0:
                 if (player1.Gold > 2000)
                 {
-                    player1.Gold -= 2000;
-                    player1.MaxHp += 100;
-                    player1.Str += 50;
-                    player1.Dex += 50;
+                    Perfection += 50;
                     Console.Clear();
                     Console.WriteLine("후임에게 px에서 핫팩과 먹을 것을 사오라고 했다.");
                     Console.ReadKey();
                     Console.WriteLine("뭘 그렇게 많이 샀는지 2000Gold가 나갔다.");
+                    player1.Gold -= 2000;
                     Console.ReadKey();
                     Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("넉넉한 보급품으로 인해 스텟이 비약적으로 상승한다.");
+                    Console.WriteLine($"최대 생명력 : {player1.MaxHp}(+100)");
+                    player1.MaxHp += 100;
+                    Console.WriteLine($"힘 : {player1.Str}(+50)");
+                    player1.Str += 50;
+                    Console.WriteLine($"민첩 : {player1.Dex}(+50)");
+                    player1.Dex += 50;
+                    Console.WriteLine($"스트레스 저항: {Perfection}(+50)");
+                    Perfection += 50;
+                    Console.WriteLine();
+                    Console.ReadKey();
                     Console.WriteLine($"잔여 골드 : {player1.Gold - 2000}");
                     Console.ReadKey();
                     ColdWeatherTraining2();
@@ -3296,16 +3327,20 @@ internal class Program
                 else
                 {
                     Console.Clear();
+                    Perfection -= 10;
                     Console.WriteLine("px에서 사려고 했는데 골드가 없다.");
                     Console.WriteLine();
                     Console.ReadKey();
                     Console.WriteLine("평소에 돈좀 아낄껄 그랬다.");
                     Console.WriteLine();
                     Console.ReadKey();
+                    Console.WriteLine($"스트레스 저항: {Perfection}(-10)");
+                    Perfection -= 10;
+                    Console.ReadKey();
                     Console.WriteLine();
                     Console.WriteLine($"잔여 골드 : {player1.Gold}");
                     Console.ReadKey();
-                    ColdWeatherTraining2();
+                    ColdWeatherTraining2();              
                 }
                 break;
             case 1:
@@ -3320,10 +3355,15 @@ internal class Program
         int cursor = 0;
         bool onScene = true;
 
+        stress = (int)(100 - Perfection) / 10;
+        if (stress <= 0) stress = 0;
+
         string[] text = { "1. 경계근무라고 거짓말한 뒤 작업에서 빠진다.", "2. 간부님들도 많은데 내가 빠지기엔 눈치 보인다." };
         while (onScene)
         {
             Console.Clear();
+            Console.WriteLine($"체력 : {player1.Hp} 스트레스 : {stress}단계");
+            Console.WriteLine();
             Console.WriteLine("혹한기 훈련이 시작되었다.");
             Console.WriteLine();
             Console.WriteLine("우리 중대는 구연병장에 지휘소와 철조망을 설치하는 것이다.");
@@ -3349,7 +3389,7 @@ internal class Program
                     Console.WriteLine("장구류를 벗고 쉴려고 하는데 발자국 소리가 들린다.");
                     Console.WriteLine();
                     Console.ReadKey();
-                    Console.WriteLine("행보관님이 었다.!!");
+                    Console.WriteLine("행보관님이다.!!");
                     Console.ReadKey();
                     Console.WriteLine();
                     Console.WriteLine("press any Key to continue");
@@ -3360,6 +3400,10 @@ internal class Program
                 {
                     Console.Clear();
                     Console.WriteLine("개꿀 일과 빼먹었다.");
+                    Console.ReadKey();
+                    Console.WriteLine($"스트레스 저항: {Perfection}(+20)");
+                    Perfection += 20;
+                    Console.WriteLine();
                     Console.ReadKey();
                     Console.WriteLine("press and key to continue");
                     Console.ReadKey();
@@ -3378,12 +3422,15 @@ internal class Program
     {
         int cursor = 0;
         bool onScene = true;
+
+        stress = (int)(100 - Perfection) / 10;
+        if (stress <= 0) stress = 0;
+
         string[] text = { "일반 공격", "스킬 공격", "회피" };
         while (onScene)
         {
             if (player.Hp > 0 && enemy.EnemyHp > 0)
             {
-
                 Console.Clear();
                 Console.WriteLine($"{enemy.EnemyName}");
                 Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
@@ -3392,7 +3439,7 @@ internal class Program
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine($"{player.Name}");
-                Console.WriteLine($"남은 체력 : {player.Hp}");
+                Console.WriteLine($"체력 : {player1.Hp} 스트레스 : {stress}단계");
                 Console.WriteLine();
             }
             else if (player.Hp <= 0)
@@ -3676,11 +3723,16 @@ internal class Program
         int cursor = 0;
         bool onScene = true;
 
+        stress = (int)(100 - Perfection) / 10;
+        if (stress <= 0) stress = 0;
+
         string[] text = { "1. 행보관님을 도와 바위를 깬다.", "2. 소대장님과 같이 철조망을 친다." };
 
         while (onScene)
         {
             Console.Clear();
+            Console.WriteLine($"체력 : {player1.Hp} 스트레스 : {stress}단계");
+            Console.WriteLine();
             Console.WriteLine("행보관님이 곡괭이를 들고 땅을 내리치고 있다.");
             Console.WriteLine();
             Console.WriteLine("옆에선 소대장님이 철조망을 치려고 병사들을 부르고 있다.");
@@ -3708,12 +3760,16 @@ internal class Program
     {
         int cursor = 0;
         bool onScene = true;
+        stress = (int)(100 - Perfection) / 10;
+        if (stress <= 0) stress = 0;
 
         string[] text = { "1. 이 바위까지만 제가 깨겠습니다.", "2. 행보관님께 바로 곡괭이를 드린다." };
 
         while (onScene)
         {
             Console.Clear();
+            Console.WriteLine($"체력 : {player1.Hp} 스트레스 : {stress}단계");
+            Console.WriteLine();
             Console.WriteLine("행보관님께서 손 다친다며 장갑을 주셨고 곡괭이를 넘겨 받아 바위를 깨기 시작했다.");
             Console.WriteLine();
             Console.WriteLine("곡괭이질 몇번하니 힘이 빠지기 시작했다. 내가 힘이 빠지는게 보이자");
@@ -3761,12 +3817,16 @@ internal class Program
     {
         int cursor = 0;
         bool onScene = true;
+        stress = (int)(100 - Perfection) / 10;
+        if (stress <= 0) stress = 0;
 
         string[] text = { "가만히 지켜본다.", "소대장님을 도와준다." };
 
         while (onScene)
         {
             Console.Clear();
+            Console.WriteLine($"체력 : {player1.Hp} 스트레스 : {stress}단계");
+            Console.WriteLine();
             Console.WriteLine("여기가 사람이 많아서 더 쉬워보인다.");
             Console.WriteLine();
             Console.WriteLine("2단3열 윤형 철조망을 쳐야한다.");
@@ -3819,11 +3879,16 @@ internal class Program
         int cursor = 0;
         bool onScene = true;
 
+        stress = (int)(100 - Perfection) / 10;
+        if (stress <= 0) stress = 0;
+
         string[] text = { "1. 무시한다.", "2. 경계한다." };
 
         while (onScene)
         {
             Console.Clear();
+            Console.WriteLine($"체력 : {player1.Hp} 스트레스 : {stress}단계");
+            Console.WriteLine();
             Console.WriteLine("오후 일과가 끝났다.");
             Console.WriteLine();
             Console.WriteLine("숙영을 하기 떄문에 저녁식사 추진 후 바로 취침이다.");
@@ -3881,6 +3946,10 @@ internal class Program
     {
         int cursor = 0;
         bool onScene = true;
+
+        stress = (int)(100 - Perfection) / 10;
+        if (stress <= 0) stress = 0;
+
         string[] text = { "일반 공격", "스킬 공격", "회피" };
         while (onScene)
         {
@@ -3895,7 +3964,7 @@ internal class Program
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine($"{player.Name}");
-                Console.WriteLine($"남은 체력 : {player.Hp}");
+                Console.WriteLine($"체력 : {player1.Hp} 스트레스 : {stress}단계");
                 Console.WriteLine();
             }
             else if (player.Hp <= 0)
