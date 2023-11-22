@@ -46,13 +46,13 @@ internal class Program
 
     private static List<Food> foods = new List<Food>      //HP회복, 가격
         {
-             new Food("건빵", 10, 20, "건푸레이크 주레시피","HP 10만큼 회복합니다."),
-             new Food("전투식량", 15, 30, "전투시 빠르게 먹을수있는 식량","HP 15만큼 회복합니다."),
-             new Food("감자", 20, 35, "체력 회복을 위한 탄수화물 보충","HP 20만큼 회복합니다."),
-             new Food("단백질 바", 30, 40, "체력을 위한 단백질 섭취","HP 30만큼 회복합니다."),
-             new Food("야간식량", 40, 50, "야간에 몰래먹는 음식","HP 40만큼 회복합니다."),
-             new Food("특급 식사", 50, 60, "전투에 최적화된 특별한 식사","HP 50만큼 회복합니다."),
-             new Food("분대회식", 100, 100, "PX 파티","HP 100만큼 회복합니다.")
+             new Food("건빵", 10, 10, 20, "건푸레이크 주레시피","HP, MP 10만큼 회복합니다."),
+             new Food("전투식량", 15, 15, 30, "전투시 빠르게 먹을수있는 식량","HP, MP 15만큼 회복합니다."),
+             new Food("감자", 20, 20, 35, "체력 회복을 위한 탄수화물 보충","HP, MP 20만큼 회복합니다."),
+             new Food("단백질 바", 30, 30, 40, "체력을 위한 단백질 섭취","HP, MP 30만큼 회복합니다."),
+             new Food("야간식량", 40, 40, 50, "야간에 몰래먹는 음식","HP, MP 40만큼 회복합니다."),
+             new Food("특급 식사", 50, 50, 60, "전투에 최적화된 특별한 식사","HP, MP 50만큼 회복합니다."),
+             new Food("분대회식", 100, 100, 100, "PX 파티","HP, MP 100만큼 회복합니다.")
         };
     //몬스터 리스트
     private static List<Enemy> enemys = new List<Enemy>
@@ -307,6 +307,7 @@ internal class Program
                 //사단마크 스탯 적용
                 ShoulderSleeve2.isEquipped = true;
                 player1.Mind += ShoulderSleeve2.ItemMind;
+                player1.MaxMind += ShoulderSleeve2.ItemMind;
                 player1.MaxHp += ShoulderSleeve2.ItemHp;
                 player1.Hp += ShoulderSleeve2.ItemHp;
                 break;
@@ -318,6 +319,7 @@ internal class Program
                 //사단마크 스탯 적용
                 ShoulderSleeve1.isEquipped = true;
                 player1.Mind += ShoulderSleeve1.ItemMind;
+                player1.MaxMind += ShoulderSleeve1.ItemMind;
                 player1.MaxHp += ShoulderSleeve1.ItemHp;
                 player1.Hp += ShoulderSleeve1.ItemHp;
                 Console.WriteLine(" 포병을 선택했다.");
@@ -331,6 +333,7 @@ internal class Program
                 //사단마크 스탯 적용
                 ShoulderSleeve3.isEquipped = true;
                 player1.Mind += ShoulderSleeve3.ItemMind;
+                player1.MaxMind += ShoulderSleeve3.ItemMind;
                 player1.MaxHp += ShoulderSleeve3.ItemHp;
                 player1.Hp += ShoulderSleeve3.ItemHp;
                 Console.WriteLine(" 운전병을 선택했다.");
@@ -344,6 +347,7 @@ internal class Program
                 //사단마크 스탯 적용
                 ShoulderSleeve4.isEquipped = true;
                 player1.Mind += ShoulderSleeve4.ItemMind;
+                player1.MaxMind += ShoulderSleeve4.ItemMind;
                 player1.MaxHp += ShoulderSleeve4.ItemHp;
                 player1.Hp += ShoulderSleeve4.ItemHp;
                 Console.WriteLine(" 정비병을 선택했다.");
@@ -782,12 +786,19 @@ internal class Program
     {
         Console.WriteLine($"{food.ItemName}을 사용했습니다.");
         Console.WriteLine();
+
         player1.Hp += food.ItemHp;
         if (player1.Hp >= player1.MaxHp)
         {
             player1.Hp = player1.MaxHp;
         }
-        Console.WriteLine("체력이 회복되었습니다.");
+
+        player1.Mind += food.ItemMind;
+        if (player1.Mind >= player1.MaxMind)
+        {
+            player1.Mind = player1.MaxMind;
+        }
+        Console.WriteLine("체력, 정신력이 회복되었습니다.");
     }
     #endregion
 
@@ -1155,6 +1166,7 @@ internal class Program
         Console.WriteLine("\n 맞춘 횟수에 따른 보상 ( 정신력 + {0} ) 을 지급합니다.", hitCount);
         Console.ResetColor();
         player1.Mind += hitCount;
+        player1.MaxMind += hitCount;
         Console.WriteLine("\n >> Press the \"TAP\" key to proceed <<");
 
         InputPrevention();
@@ -1557,6 +1569,7 @@ internal class Program
                 Console.WriteLine(" 정신력이 50 증가했다.");
                 player.Str += 10;
                 player.Mind += 50;
+                player.MaxMind += 50;
                 Console.ReadKey();
                 //성공시 스텟증가 추가해야됨
                 OneMonthLater();
@@ -1898,6 +1911,7 @@ internal class Program
                 {
                     Console.WriteLine($" 멧돼지를 처치하여 근무교대를 할 수 있게 되었습니다!");
                     player1.Mind += 30;
+                    player1.MaxMind += 30;
                 }
                 else if(enemy.EnemyName == "고라니")
                 {
@@ -2019,12 +2033,14 @@ internal class Program
         {
             Console.WriteLine(one);
             player1.Mind -= 30;
+            player1.MaxMind -= 30;
             Console.WriteLine("\n 정신력 - 30");
         }
         else if (input < 9) // 30%
         {
             Console.WriteLine(two);
             player1.Mind += 20;
+            player1.MaxMind += 20;
             player1.Gold -= 500;
             Console.WriteLine("\n 정신력 + 30, Gold - 500");
         }
@@ -2032,6 +2048,7 @@ internal class Program
         {
             Console.WriteLine(three);
             player1.Mind -= 10;
+            player1.MaxMind -= 10;
             Console.WriteLine("\n 정신력 - 10");
         }
     }
@@ -2129,6 +2146,7 @@ internal class Program
             Console.ResetColor();
             player1.Dex += 5;
             player1.Mind += 10;
+            player1.MaxMind += 10;
         }
         else
         {
@@ -2139,6 +2157,7 @@ internal class Program
             Console.ResetColor();
             player1.Dex += 10;
             player1.Mind += 20;
+            player1.MaxMind += 20;
         }
         // hitCount(명중 횟수)에 따른 보상 로직 작성.
         // 1~5 폐급, 6~8 평균, 9~10 특등사수 
@@ -2336,6 +2355,7 @@ internal class Program
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(" 정신력 능력치가 10 상승하였습니다.");
                     player1.Mind += 10;
+                    player1.MaxMind += 10;
                     isValidInput = false;
                     OneMonthLater();
                     break;
@@ -2365,6 +2385,7 @@ internal class Program
                     Console.WriteLine(" 정신력 능력치가 10 하락하였습니다.");
                     Console.ResetColor();
                     player1.Mind -= 10;
+                    player1.MaxMind -= 10;
                     isValidInput = false;
                     OneMonthLater();
                     break;
@@ -2563,6 +2584,7 @@ internal class Program
 
                         //정신력 1 감소, 체력 감소
                         player1.Mind--;
+                        player1.MaxMind--;
                         player1.Hp -= 10;
                         player1.MaxHp -= 10;
 
@@ -2590,6 +2612,7 @@ internal class Program
                         Console.WriteLine();
                         //정신력 5 증가 체력 증가
                         player1.Mind += 5;
+                        player1.MaxMind += 5;
                         player1.Hp += 10;
                         player1.MaxHp += 10;
                         player1.Gold -= 100;
@@ -2619,6 +2642,7 @@ internal class Program
                 Console.WriteLine(" 하지만 체력은 증가되었다.");
                 Console.WriteLine();
                 player1.Mind--;
+                player1.MaxMind--;
                 player1.Hp += 10;
                 player1.MaxHp += 10;
 
@@ -2687,6 +2711,7 @@ internal class Program
             Console.WriteLine(" 정신력이 3 감소한다.");
             Console.WriteLine();
             player.Mind -= 3;
+            player.MaxMind -= 3;
 
             OneMonthLater();
         }
@@ -2975,6 +3000,7 @@ internal class Program
         //녹견 스탯 적용
         greenStrap.isEquipped = true;
         player1.Mind += greenStrap.ItemMind;
+        player1.MaxMind += greenStrap.ItemMind;
         player1.Hp += greenStrap.ItemHp;
         player1.MaxHp += greenStrap.ItemHp;
         Console.ReadKey();

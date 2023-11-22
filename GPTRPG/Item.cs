@@ -4,15 +4,20 @@ public class Food
     public string ItemName { get; } //아이템 이름
 
     public int ItemHp { get; } //아이템 체력
+
+    public int ItemMind { get; } //아이템 체력
+
     public int ItemGold { get; } //아이템 가격
+
     public string ItemDescription { get; } //아이템 상세설명
 
     public string ItemEffect { get; } //아이템 효과
 
-    public Food(string itemName, int itemHp, int itemGold, string itemDescription, string itemEffect)
+    public Food(string itemName, int itemHp, int itemMind, int itemGold, string itemDescription, string itemEffect)
     {
         ItemName = itemName;
         ItemHp = itemHp;
+        ItemMind = itemMind;
         ItemGold = itemGold;
         ItemDescription = itemDescription;
         ItemEffect = itemEffect;
