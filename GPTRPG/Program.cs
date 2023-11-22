@@ -572,8 +572,8 @@ internal class Program
         Console.WriteLine($" 민첩 \t\t: {player1.Dex}");
         Console.WriteLine($" 지능 \t\t: {player1.IQ}");
         Console.WriteLine($" 운 \t\t: {player1.Luk}");
-        Console.WriteLine($" 체력 \t\t: {player1.Hp}");
-        Console.WriteLine($" 정신력 \t: {player1.Mind}");
+        Console.WriteLine($" 체력 \t\t: {player1.MaxHp}/{player1.Hp}");
+        Console.WriteLine($" 정신력 \t: {player1.MaxMind}/{player1.Mind}");
         Console.WriteLine($" Gold \t\t: {player1.Gold} G");
         Console.WriteLine("====================================");
         Console.WriteLine();
@@ -6285,19 +6285,20 @@ internal class Program
         }
     }
     //엔딩씬//
-
+    #region 엔딩모음
     //해피엔딩//
     static void HappyEnding()
     {
         Console.Clear();
 
         Console.WriteLine("");
-        Console.WriteLine("                 ██╗  ██╗ █████╗ ██████╗ ██████╗ ██╗   ██╗    ███████╗███╗   ██╗██████╗ ██╗███╗   ██╗ ██████╗    ");
-        Console.WriteLine("                 ██║  ██║██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝    ██╔════╝████╗  ██║██╔══██╗██║████╗  ██║██╔════╝    ");
-        Console.WriteLine("                 ███████║███████║██████╔╝██████╔╝ ╚████╔╝     █████╗  ██╔██╗ ██║██║  ██║██║██╔██╗ ██║██║  ███╗   ");
-        Console.WriteLine("                 ██╔══██║██╔══██║██╔═══╝ ██╔═══╝   ╚██╔╝      ██╔══╝  ██║╚██╗██║██║  ██║██║██║╚██╗██║██║   ██║   ");
-        Console.WriteLine("                 ██║  ██║██║  ██║██║     ██║        ██║       ███████╗██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝   ");
-        Console.WriteLine("                 ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝        ╚═╝       ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝    ");
+        Console.WriteLine("#   #    #    ####   ####   #   #  #####  #   #  ####    ###   #   #   ###  ");
+        Console.WriteLine("#   #   # #   #   #  #   #  #   #  #      #   #   #  #    #    #   #  #   # ");
+        Console.WriteLine("#   #  #   #  #   #  #   #   # #   #      ##  #   #  #    #    ##  #  #     ");
+        Console.WriteLine("#####  #   #  ####   ####     #    ####   # # #   #  #    #    # # #  #     ");
+        Console.WriteLine("#   #  #####  #      #        #    #      #  ##   #  #    #    #  ##  #  ## ");
+        Console.WriteLine("#   #  #   #  #      #        #    #      #   #   #  #    #    #   #  #   # ");
+        Console.WriteLine("#   #  #   #  #      #        #    #####  #   #  ####    ###   #   #   ###  ");
         Console.WriteLine("");
 
 
@@ -6365,12 +6366,14 @@ internal class Program
         Console.Clear();
 
         Console.WriteLine("");
-        Console.WriteLine("                  ██████╗  █████╗ ██████╗     ███████╗███╗   ██╗██████╗ ██╗███╗   ██╗ ██████╗     ");
-        Console.WriteLine("                  ██╔══██╗██╔══██╗██╔══██╗    ██╔════╝████╗  ██║██╔══██╗██║████╗  ██║██╔════╝     ");
-        Console.WriteLine("                  ██████╔╝███████║██║  ██║    █████╗  ██╔██╗ ██║██║  ██║██║██╔██╗ ██║██║  ███╗    ");
-        Console.WriteLine("                  ██╔══██╗██╔══██║██║  ██║    ██╔══╝  ██║╚██╗██║██║  ██║██║██║╚██╗██║██║   ██║    ");
-        Console.WriteLine("                  ██████╔╝██║  ██║██████╔╝    ███████╗██║ ╚████║██████╔╝██║██║ ╚████║╚██████╔╝    ");
-        Console.WriteLine("                  ╚═════╝ ╚═╝  ╚═╝╚═════╝     ╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝     ");
+        Console.WriteLine(" ####     #    ####   #####  #   #  ####    ###   #   #   ###  ");
+        Console.WriteLine("  #  #   # #    #  #  #      #   #   #  #    #    #   #  #   # ");
+        Console.WriteLine("  #  #  #   #   #  #  #      ##  #   #  #    #    ##  #  #     ");
+        Console.WriteLine("  ###   #   #   #  #  ####   # # #   #  #    #    # # #  #     ");
+        Console.WriteLine("  #  #  #####   #  #  #      #  ##   #  #    #    #  ##  #  ## ");
+        Console.WriteLine("  #  #  #   #   #  #  #      #   #   #  #    #    #   #  #   # ");
+        Console.WriteLine(" ####   #   #  ####   #####  #   #  ####    ###   #   #   ###  ");
+
         Console.WriteLine("");
 
         Console.WriteLine(" 오늘은 전역날이다");
@@ -6462,14 +6465,8 @@ internal class Program
         Console.WriteLine(" 해는 쨍쨍했지만 내눈에는 세상이 어두워 보였다...");
         Console.ReadKey();
 
-
-
-
-
-
-
-
     }
+    #endregion
 
     #region px로 가기
     static void PX()
