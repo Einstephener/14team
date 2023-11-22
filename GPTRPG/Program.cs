@@ -3291,6 +3291,7 @@ internal class Program
     #region 혹한기
     static void ColdWeatherTraining1()
     {
+
         int cursor = 0;
         bool onScene = true;
 
@@ -3299,7 +3300,6 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine("혹한기 훈련이 시작되었다.");
             Console.WriteLine();
             Console.WriteLine("혹한기 일정동안 px는 잠시 폐쇠한다고 한다.");
@@ -3313,25 +3313,30 @@ internal class Program
             case 0:
                 if (player1.Gold > 2000)
                 {
-                    player1.Gold -= 2000;
-                    player1.MaxHp += 100;
-                    player1.Str += 50;
-                    player1.Dex += 50;
                     Console.Clear();
-                    Console.WriteLine();
                     Console.WriteLine("후임에게 px에서 핫팩과 먹을 것을 사오라고 했다.");
                     Console.ReadKey();
                     Console.WriteLine("뭘 그렇게 많이 샀는지 2000Gold가 나갔다.");
+                    player1.Gold -= 2000;
                     Console.ReadKey();
                     Console.WriteLine();
-                    Console.WriteLine($"잔여 골드 : {player1.Gold - 2000}");
+                    Console.ReadKey();
+                    Console.WriteLine("넉넉한 보급품으로 인해 스텟이 비약적으로 상승한다.");
+                    Console.WriteLine($"최대 생명력 : {player1.MaxHp}(+100)");
+                    player1.MaxHp += 100;
+                    Console.WriteLine($"힘 : {player1.Str}(+50)");
+                    player1.Str += 50;
+                    Console.WriteLine($"민첩 : {player1.Dex}(+50)");
+                    player1.Dex += 50;
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"잔여 골드 : {player1.Gold}");
                     Console.ReadKey();
                     ColdWeatherTraining2();
                 }
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     Console.WriteLine("px에서 사려고 했는데 골드가 없다.");
                     Console.WriteLine();
                     Console.ReadKey();
@@ -3360,6 +3365,7 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
+            Console.WriteLine($"체력 : {player1.Hp}");
             Console.WriteLine();
             Console.WriteLine("혹한기 훈련이 시작되었다.");
             Console.WriteLine();
@@ -3380,14 +3386,13 @@ internal class Program
                 if (eventOccurred)
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     Console.WriteLine("탄약고 경계근무인척 생활관으로 도망쳤다.");
                     Console.WriteLine();
                     Console.ReadKey();
                     Console.WriteLine("장구류를 벗고 쉴려고 하는데 발자국 소리가 들린다.");
                     Console.WriteLine();
                     Console.ReadKey();
-                    Console.WriteLine("행보관님이 었다.!!");
+                    Console.WriteLine("행보관님이다.!!");
                     Console.ReadKey();
                     Console.WriteLine();
                     Console.WriteLine("press any Key to continue");
@@ -3397,8 +3402,8 @@ internal class Program
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     Console.WriteLine("개꿀 일과 빼먹었다.");
+                    Console.WriteLine();
                     Console.ReadKey();
                     Console.WriteLine("press and key to continue");
                     Console.ReadKey();
@@ -3418,29 +3423,27 @@ internal class Program
 
         int cursor = 0;
         bool onScene = true;
+
         string[] text = { "일반 공격", "스킬 공격", "회피" };
         while (onScene)
         {
             if (player.Hp > 0 && enemy.EnemyHp > 0)
             {
-
                 Console.Clear();
-                Console.WriteLine();
                 Console.WriteLine($"{enemy.EnemyName}");
                 Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                Console.WriteLine("=====================================");
                 Console.WriteLine();
                 Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
+                Console.WriteLine("=====================================");
                 Console.WriteLine($"{player.Name}");
-                Console.WriteLine($"남은 체력 : {player.Hp}");
-                Console.WriteLine();
+                Console.WriteLine($"남은 체력 : {player1.Hp}");
+                Console.WriteLine("=====================================");
             }
             else if (player.Hp <= 0)
             {
                 turn = 0;
                 Console.Clear();
-                Console.WriteLine();
                 Console.WriteLine("행보관님한테 져버렸다.");
                 Console.WriteLine();
                 Console.ReadKey();
@@ -3460,7 +3463,6 @@ internal class Program
             {
                 turn = 0;
                 Console.Clear();
-                Console.WriteLine();
                 Console.Write("행보관님을 쓰러뜨렸다.");
                 Console.WriteLine();
                 Console.ReadKey();
@@ -3484,7 +3486,6 @@ internal class Program
                 if (eventOccurred)
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     turn++;
                     Console.WriteLine($"{enemy.EnemyName}");
                     Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
@@ -3502,13 +3503,11 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    NCOTurn(turn);
+                    NCOTurn(turn, enemy.EnemyHp);
                 }
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine();
-
                     turn++;
                     Console.WriteLine($"{enemy.EnemyName}");
                     Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
@@ -3529,76 +3528,77 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    NCOTurn(turn);
+                    NCOTurn(turn, enemy.EnemyHp);
                 }
                 break;
             case 1:
-                bool _eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
-                if (_eventOccurred)
+                if (player1.Mind >= 10)
                 {
-                    Console.Clear();
-                    Console.WriteLine();
-                    enemy.EnemyHp -= player1.Str * 4;
-                    turn++;
-                    Console.WriteLine($"{enemy.EnemyName}");
-                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("스킬 공격!!");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("치명타가 들어갔다.");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("사실 미구현 ㅈㅅ ㅎㅎ;; 그냥 일반 공격 2배 데미지");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine($"{player1.Str * 2}의 데미지");
-                    enemy.EnemyHp -= player1.Str * 2;
-                    Console.ReadKey();
-                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("press any Key to continue");
-                    Console.ReadKey();
-                    NCOTurn(turn);
+                    bool _eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                    if (_eventOccurred)
+                    {
+                        Console.Clear();
+                        player1.Mind -= 10;
+                        turn++;
+                        Console.WriteLine($"{enemy.EnemyName}");
+                        Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("스킬 공격!!");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("연속 펀치!");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("치명타가 들어갔다.");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine($"{(player1.Str + player1.Dex) * 2}의 데미지");
+                        enemy.EnemyHp -= (player1.Str + player1.Dex) * 2;
+                        Console.ReadKey();
+                        Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("press any Key to continue");
+                        Console.ReadKey();
+                        NCOTurn(turn, enemy.EnemyHp);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        player1.Mind -= 10;
+                        turn++;
+                        Console.WriteLine($"{enemy.EnemyName}");
+                        Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("스킬 공격!!");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("연속 펀치!");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("평범한 공격이었다.");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine($"{(player1.Str + player1.Dex)}의 데미지");
+                        enemy.EnemyHp -= (player1.Str + player1.Dex);
+                        Console.ReadKey();
+                        Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("press any Key to continue");
+                        Console.ReadKey();
+                        NCOTurn(turn, enemy.EnemyHp);
+                    }
                 }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine();
-                    enemy.EnemyHp -= player1.Str * 2;
-                    turn++;
-                    Console.WriteLine($"{enemy.EnemyName}");
-                    Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("스킬 공격!!");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("평범한 공격이었다.");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("사실 미구현 ㅈㅅ ㅎㅎ;; 그냥 일반 공격 2배 데미지");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine($"{player1.Str}의 데미지");
-                    enemy.EnemyHp -= player1.Str;
-                    Console.ReadKey();
-                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("press any Key to continue");
-                    Console.ReadKey();
-                    NCOTurn(turn);
-                }
+                else NCOBattle(player1, masterSergent);
                 break;
             case 2:
                 bool __eventOccurred = EventOccur(player1.CalculateProbability(player1.Dex));
                 if (__eventOccurred)
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     turn = -1;
                     Console.WriteLine($"{enemy.EnemyName}");
                     Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
@@ -3625,12 +3625,11 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    NCOTurn(turn);
+                    NCOTurn(turn, enemy.EnemyHp);
                 }
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     turn++;
                     Console.WriteLine($"{enemy.EnemyName}");
                     Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
@@ -3647,65 +3646,76 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    NCOTurn(turn);
+                    NCOTurn(turn, enemy.EnemyHp);
                 }
                 break;
             default:
                 break;
         }
     }
-    static void NCOTurn(int Value)
+    static void NCOTurn(int Value, int HpValue)
     {
-        if (Value > 0)
+        if (HpValue > 0)
         {
-            bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Dex));
-            if (eventOccurred)
+            if (Value > 0)
             {
-                Console.Clear();
-                Console.WriteLine();
-                Console.WriteLine($"{player1.Name}");
-                Console.WriteLine($"현재 체력 : {player1.Hp}");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("행보관님이 오른손을 들어올렸다.");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("익숙한 공격이군 타이밍에 맞춰 막는다!");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine($"{(int)(masterSergent.EnemyAtk / 2)}의 데미지");
-                Console.WriteLine();
-                player1.Hp -= (int)(masterSergent.EnemyAtk / 2);
-                Console.ReadKey();
-                Console.WriteLine($"남은 체력 : {player1.Hp}");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("press any Key to continue");
-                Console.ReadKey();
-                NCOBattle(player1, masterSergent);
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Dex));
+                if (eventOccurred)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"{player1.Name}");
+                    Console.WriteLine($"현재 체력 : {player1.Hp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("행보관님이 오른손을 들어올렸다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("익숙한 공격이군 타이밍에 맞춰 막는다!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{(int)(masterSergent.EnemyAtk / 2)}의 데미지");
+                    Console.WriteLine();
+                    player1.Hp -= (int)(masterSergent.EnemyAtk / 2);
+                    Console.ReadKey();
+                    Console.WriteLine($"남은 체력 : {player1.Hp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    NCOBattle(player1, masterSergent);
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine($"{player1.Name}");
+                    Console.WriteLine($"현재 체력 : {player1.Hp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("행보관님이 오른손을 들어올렸다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("익숙한 공격이군 타이밍에 맞춰 막는다!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("행보관님의 왼손이 나의 복부에 들왔다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{(int)(masterSergent.EnemyAtk)}의 데미지");
+                    Console.WriteLine();
+                    player1.Hp -= (int)(masterSergent.EnemyAtk);
+                    Console.ReadKey();
+                    Console.WriteLine($"남은 체력 : {player1.Hp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    NCOBattle(player1, masterSergent);
+                }
             }
             else
             {
                 Console.Clear();
-                Console.WriteLine();
-                Console.WriteLine($"{player1.Name}");
-                Console.WriteLine($"현재 체력 : {player1.Hp}");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("행보관님이 오른손을 들어올렸다.");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("익숙한 공격이군 타이밍에 맞춰 막는다!");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("행보관님의 왼손이 나의 복부에 들왔다.");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine($"{(int)(masterSergent.EnemyAtk)}의 데미지");
-                Console.WriteLine();
-                player1.Hp -= (int)(masterSergent.EnemyAtk);
-                Console.ReadKey();
-                Console.WriteLine($"남은 체력 : {player1.Hp}");
+                Console.WriteLine("행보관님이 그로기에 걸려 허우적대고 있다..");
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("press any Key to continue");
@@ -3715,15 +3725,11 @@ internal class Program
         }
         else
         {
-            Console.Clear();
-            Console.WriteLine();
-            Console.WriteLine("행보관님이 그로기에 걸려 허우적대고 있다..");
-            Console.WriteLine();
-            Console.ReadKey();
-            Console.WriteLine("press any Key to continue");
-            Console.ReadKey();
+            Value = 0;
             NCOBattle(player1, masterSergent);
         }
+
+
     }
     static void ColdWeatherTraining3()
     {
@@ -3735,6 +3741,7 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
+            Console.WriteLine($"체력 : {player1.Hp}");
             Console.WriteLine();
             Console.WriteLine("행보관님이 곡괭이를 들고 땅을 내리치고 있다.");
             Console.WriteLine();
@@ -3769,6 +3776,7 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
+            Console.WriteLine($"체력 : {player1.Hp}");
             Console.WriteLine();
             Console.WriteLine("행보관님께서 손 다친다며 장갑을 주셨고 곡괭이를 넘겨 받아 바위를 깨기 시작했다.");
             Console.WriteLine();
@@ -3785,7 +3793,6 @@ internal class Program
         {
             case 0:
                 Console.Clear();
-                Console.WriteLine();
                 Console.WriteLine("내가 곡괭이질 하는 동안 행보관님께서 막사에 다녀오셨다.");
                 Console.ReadKey();
                 Console.WriteLine("막사에 다녀온 행보관님께서 착암기를 가져오셨다.");
@@ -3799,7 +3806,6 @@ internal class Program
                 break;
             case 1:
                 Console.Clear();
-                Console.WriteLine();
                 Console.WriteLine("행보관님과 번갈아 곡괭이 질을 하기 시작했다.");
                 Console.ReadKey();
                 Console.WriteLine("오랜 작업으로 힘이 많이 빠졌다.");
@@ -3825,6 +3831,7 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
+            Console.WriteLine($"체력 : {player1.Hp}");
             Console.WriteLine();
             Console.WriteLine("여기가 사람이 많아서 더 쉬워보인다.");
             Console.WriteLine();
@@ -3844,7 +3851,6 @@ internal class Program
                 if (eventOccurred)
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     Console.WriteLine("막내가 손을 다쳤다.");
                     Console.ReadKey();
                     Console.WriteLine("맞선임이 막내를 데리고 의무대로 빠졌다.");
@@ -3859,7 +3865,6 @@ internal class Program
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     Console.WriteLine("개꿀 일과 빼먹었다.");
                     Console.ReadKey();
                     Console.WriteLine();
@@ -3880,11 +3885,13 @@ internal class Program
         int cursor = 0;
         bool onScene = true;
 
+
         string[] text = { "1. 무시한다.", "2. 경계한다." };
 
         while (onScene)
         {
             Console.Clear();
+            Console.WriteLine($"체력 : {player1.Hp}");
             Console.WriteLine();
             Console.WriteLine("오후 일과가 끝났다.");
             Console.WriteLine();
@@ -3921,7 +3928,6 @@ internal class Program
         if (eventOccurred)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine("아무 일도 일어나지 않았다.");
             Console.WriteLine();
             Console.WriteLine("Press and key to continue");
@@ -3931,7 +3937,6 @@ internal class Program
         else
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine("야생의 고라니가 나타났다!");
             Console.WriteLine();
             Console.ReadKey();
@@ -3945,29 +3950,27 @@ internal class Program
     {
         int cursor = 0;
         bool onScene = true;
+
         string[] text = { "일반 공격", "스킬 공격", "회피" };
         while (onScene)
         {
             if (player.Hp > 0 && enemy.EnemyHp > 0)
             {
-
                 Console.Clear();
-                Console.WriteLine();
                 Console.WriteLine($"{enemy.EnemyName}");
                 Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                Console.WriteLine("=====================================");
                 Console.WriteLine();
                 Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
+                Console.WriteLine("=====================================");
                 Console.WriteLine($"{player.Name}");
-                Console.WriteLine($"남은 체력 : {player.Hp}");
-                Console.WriteLine();
+                Console.WriteLine($"남은 체력 : {player1.Hp}");
+                Console.WriteLine("=====================================");
             }
             else if (player.Hp <= 0)
             {
                 turn = 0;
                 Console.Clear();
-                Console.WriteLine();
                 Console.WriteLine("정신을 차리니 모르는 천장이 있다.");
                 Console.WriteLine();
                 Console.ReadKey();
@@ -3988,7 +3991,6 @@ internal class Program
             {
                 turn = 0;
                 Console.Clear();
-                Console.WriteLine();
                 Console.Write("고라니를 쓰러뜨렸다!");
                 Console.WriteLine();
                 Console.ReadKey();
@@ -4010,7 +4012,6 @@ internal class Program
                 if (eventOccurred)
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     turn++;
                     Console.WriteLine($"{enemy.EnemyName}");
                     Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
@@ -4028,12 +4029,12 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    WDTurn(turn);
+                    WDTurn(turn, enemy.EnemyHp);
                 }
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine();
+
                     turn++;
                     Console.WriteLine($"{enemy.EnemyName}");
                     Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
@@ -4054,76 +4055,77 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    WDTurn(turn);
+                    WDTurn(turn, enemy.EnemyHp);
                 }
                 break;
             case 1:
-                bool _eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
-                if (_eventOccurred)
+                if (player1.Mind >= 10)
                 {
-                    Console.Clear();
-                    Console.WriteLine();
-                    enemy.EnemyHp -= player1.Str * 4;
-                    turn++;
-                    Console.WriteLine($"{enemy.EnemyName}");
-                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("스킬 공격!!");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("치명타가 들어갔다.");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("사실 미구현 ㅈㅅ ㅎㅎ;; 그냥 일반 공격 2배 데미지");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine($"{player1.Str * 2}의 데미지");
-                    enemy.EnemyHp -= player1.Str * 2;
-                    Console.ReadKey();
-                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("press any Key to continue");
-                    Console.ReadKey();
-                    WDTurn(turn);
+                    bool _eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                    if (_eventOccurred)
+                    {
+                        Console.Clear();
+                        player1.Mind -= 10;
+                        turn++;
+                        Console.WriteLine($"{enemy.EnemyName}");
+                        Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("스킬 공격!!");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("연속 펀치!");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("치명타가 들어갔다.");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine($"{(player1.Str + player1.Dex) * 2}의 데미지");
+                        enemy.EnemyHp -= (player1.Str + player1.Dex) * 2;
+                        Console.ReadKey();
+                        Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("press any Key to continue");
+                        Console.ReadKey();
+                        WDTurn(turn, enemy.EnemyHp);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        player1.Mind -= 10;
+                        turn++;
+                        Console.WriteLine($"{enemy.EnemyName}");
+                        Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("스킬 공격!!");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("연속 펀치!");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("평범한 공격이었다.");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine($"{(player1.Str + player1.Dex)}의 데미지");
+                        enemy.EnemyHp -= (player1.Str + player1.Dex);
+                        Console.ReadKey();
+                        Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("press any Key to continue");
+                        Console.ReadKey();
+                        WDTurn(turn, enemy.EnemyHp);
+                    }
                 }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine();
-                    enemy.EnemyHp -= player1.Str * 2;
-                    turn++;
-                    Console.WriteLine($"{enemy.EnemyName}");
-                    Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("스킬 공격!!");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("평범한 공격이었다.");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("사실 미구현 ㅈㅅ ㅎㅎ;; 그냥 일반 공격 2배 데미지");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine($"{player1.Str}의 데미지");
-                    enemy.EnemyHp -= player1.Str;
-                    Console.ReadKey();
-                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("press any Key to continue");
-                    Console.ReadKey();
-                    WDTurn(turn);
-                }
+                else NCOBattle(player1, waterDeer);
                 break;
             case 2:
                 bool __eventOccurred = EventOccur(player1.CalculateProbability(player1.Dex));
                 if (__eventOccurred)
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     turn = -1;
                     Console.WriteLine($"{enemy.EnemyName}");
                     Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
@@ -4150,12 +4152,11 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    WDTurn(turn);
+                    WDTurn(turn, enemy.EnemyHp);
                 }
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     turn++;
                     Console.WriteLine($"{enemy.EnemyName}");
                     Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
@@ -4172,68 +4173,79 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    WDTurn(turn);
+                    WDTurn(turn, enemy.EnemyHp);
                 }
                 break;
             default:
                 break;
         }
     }
-    static void WDTurn(int Value)
+    static void WDTurn(int Value, int HpValue)
     {
-        if (Value > 0)
+        if (HpValue > 0)
         {
-            bool eventOccurred = EventOccur(player1.CalculateProbability(player1.IQ));
-            if (eventOccurred)
+            if (Value > 0)
             {
-                Console.Clear();
-                Console.WriteLine();
-                Console.WriteLine($"{player1.Name}");
-                Console.WriteLine($"현재 체력 : {player1.Hp}");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("고라니가 뒤돌았다.");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("뒷발로 차려는게 분명해!");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("고라니의 공격을 막아냈습니다.");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine($"{(int)(waterDeer.EnemyAtk / 2)}의 데미지");
-                Console.WriteLine();
-                player1.Hp -= (int)(waterDeer.EnemyAtk / 2);
-                Console.ReadKey();
-                Console.WriteLine($"남은 체력 : {player1.Hp}");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("press any Key to continue");
-                Console.ReadKey();
-                WDBattle(player1, waterDeer);
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.IQ));
+                if (eventOccurred)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"{player1.Name}");
+                    Console.WriteLine($"현재 체력 : {player1.Hp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("고라니가 뒤돌았다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("뒷발로 차려는게 분명해!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("고라니의 공격을 막아냈습니다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{(int)(waterDeer.EnemyAtk / 2)}의 데미지");
+                    Console.WriteLine();
+                    player1.Hp -= (int)(waterDeer.EnemyAtk / 2);
+                    Console.ReadKey();
+                    Console.WriteLine($"남은 체력 : {player1.Hp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    WDBattle(player1, waterDeer);
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine($"{player1.Name}");
+                    Console.WriteLine($"현재 체력 : {player1.Hp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("고라니가 뒤돌았다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("나의 패기에 짓눌려 도망가는구나!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("고라니의 뒷발이 내 몸에 맞았다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{(int)(waterDeer.EnemyAtk)}의 데미지");
+                    Console.WriteLine();
+                    player1.Hp -= (int)(waterDeer.EnemyAtk);
+                    Console.ReadKey();
+                    Console.WriteLine($"남은 체력 : {player1.Hp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    WDBattle(player1, waterDeer);
+                }
             }
             else
             {
                 Console.Clear();
-                Console.WriteLine();
-                Console.WriteLine($"{player1.Name}");
-                Console.WriteLine($"현재 체력 : {player1.Hp}");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("고라니가 뒤돌았다.");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("나의 패기에 짓눌려 도망가는구나!");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("고라니의 뒷발이 내 몸에 맞았다.");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine($"{(int)(waterDeer.EnemyAtk)}의 데미지");
-                Console.WriteLine();
-                player1.Hp -= (int)(waterDeer.EnemyAtk);
-                Console.ReadKey();
-                Console.WriteLine($"남은 체력 : {player1.Hp}");
+                Console.WriteLine("고라니가 그로기에 걸려 허우적대고 있다..");
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("press any Key to continue");
@@ -4243,20 +4255,13 @@ internal class Program
         }
         else
         {
-            Console.Clear();
-            Console.WriteLine();
-            Console.WriteLine("고라니가 그로기에 걸려 허우적대고 있다..");
-            Console.WriteLine();
-            Console.ReadKey();
-            Console.WriteLine("press any Key to continue");
-            Console.ReadKey();
+            Value = 0;
             WDBattle(player1, waterDeer);
         }
     }
 
     static void ColdWeatherTraining5()
     {
-        Console.WriteLine();
         Console.WriteLine("혹한기 훈련의 마지막으로 행군이 남았다");
         Console.WriteLine();
         Console.WriteLine("하지만 행보관님이 병장이라고 열외를 시켜주셨다");
@@ -4281,7 +4286,6 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
             Console.WriteLine();
             Console.WriteLine("오늘 일과는 공구리 작업이다");
@@ -4324,7 +4328,6 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
             Console.WriteLine();
             Console.WriteLine("시멘트를 물과 섞어야한다.");
@@ -4346,6 +4349,10 @@ internal class Program
                 {
                     workCount += 2;
                     Perfection += 1;
+                    Console.Clear();
+                    Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("자는 동안 느려도 일이 진행되었다.");
                     Console.ReadKey();
                     Console.WriteLine("오전일과를 통으로 빼먹었다.");
@@ -4359,6 +4366,10 @@ internal class Program
                 {
                     workCount += 3;
                     Perfection = 0;
+                    Console.Clear();
+                    Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("후임들이 일을 망쳤다.");
                     Console.ReadKey();
                     Console.WriteLine("시멘트부터 다시 챙겨와야 겠다.");
@@ -4388,7 +4399,6 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
             Console.WriteLine();
             Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
@@ -4407,6 +4417,10 @@ internal class Program
                 {
                     workCount += 3;
                     Perfection += 2;
+                    Console.Clear();
+                    Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("자는 동안 느려도 일이 진행되었다.");
                     Console.ReadKey();
                     Console.WriteLine("오후 일과 절반을 보내버렸다.");
@@ -4420,6 +4434,10 @@ internal class Program
                 {
                     workCount += 1;
                     Perfection += 2;
+                    Console.Clear();
+                    Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("행보관님께 걸렸다.");
                     Console.ReadKey();
                     Console.WriteLine("작업모를 못챙겨서 잠깐 들어왔다고 거짓말을 한다.");
@@ -4451,7 +4469,6 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
             Console.WriteLine();
             Console.WriteLine("후임들이 곤란해 하는 것 같다.");
@@ -4475,6 +4492,10 @@ internal class Program
                 {
                     workCount += 1;
                     Perfection += 1;
+                    Console.Clear();
+                    Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("아무 일도 일어나지 않았다.");
                     Console.ReadKey();
                     Console.WriteLine();
@@ -4508,7 +4529,6 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
             Console.WriteLine();
             Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
@@ -4555,9 +4575,10 @@ internal class Program
             }
             else
             {
-                Perfection = 0;
-                workCount = 0;
+
                 Console.Clear();
+                Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                Console.ReadKey();
                 Console.WriteLine();
                 Console.WriteLine("작업이 완료되었다.");
                 Console.WriteLine();
@@ -4569,6 +4590,8 @@ internal class Program
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
+                Perfection = 0;
+                workCount = 0;
                 Console.ReadKey();
                 Console.Clear();
                 OneMonthLater();
@@ -4579,9 +4602,10 @@ internal class Program
         {
             if (Perfection >= 10)
             {
-                Perfection = 0;
-                workCount = 0;
+
                 Console.Clear();
+                Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                Console.ReadKey();
                 Console.WriteLine();
                 Console.WriteLine("작업이 완료되었다.");
                 Console.WriteLine();
@@ -4593,15 +4617,17 @@ internal class Program
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
+                Perfection = 0;
+                workCount = 0;
                 Console.ReadKey();
                 Console.Clear();
                 OneMonthLater();
             }
             else if (Perfection < 10 && Perfection >= 7)
             {
-                Perfection = 0;
-                workCount = 0;
                 Console.Clear();
+                Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                Console.ReadKey();
                 Console.WriteLine();
                 Console.WriteLine("일과가 마무리 되었다. 작업물이 살짝 아쉽지만 완벽한 가라는 진짜랬다.");
                 Console.WriteLine();
@@ -4613,15 +4639,17 @@ internal class Program
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
+                Perfection = 0;
+                workCount = 0;
                 Console.ReadKey();
                 Console.Clear();
                 OneMonthLater();
             }
             else
             {
-                Perfection = 0;
-                workCount = 0;
                 Console.Clear();
+                Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                Console.ReadKey();
                 Console.WriteLine();
                 Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
                 Console.WriteLine();
@@ -4636,6 +4664,8 @@ internal class Program
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
+                Perfection = 0;
+                workCount = 0;
                 Console.ReadKey();
                 Console.Clear();
                 OneMonthLater();
@@ -4652,7 +4682,6 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
             Console.WriteLine("오늘 일과는 2종 창고 정리이다.");
             Console.WriteLine();
@@ -4675,6 +4704,10 @@ internal class Program
                 {
                     workCount += 1;
                     Perfection += 1;
+                    Console.Clear();
+                    Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("아무 일도 일어나지 않았다.");
                     Console.ReadKey();
                     Console.WriteLine();
@@ -4686,6 +4719,10 @@ internal class Program
                 {
                     workCount += 2;
                     Perfection += 0;
+                    Console.Clear();
+                    Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("후임이 창고 열쇠가 아닌 무기고 열쇠를 가져왔다.");
                     Console.ReadKey();
                     Console.WriteLine();
@@ -4713,7 +4750,6 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
             Console.WriteLine();
             Console.WriteLine("한겨울의 컨테이너 한기가 느껴진다.");
@@ -4740,6 +4776,10 @@ internal class Program
                 {
                     workCount += 1;
                     Perfection += 2;
+                    Console.Clear();
+                    Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("우리 중대에 전설같은 존재인 김굳건 병장의 AAA급 모포를 발견했다.");
                     Console.ReadKey();
                     Console.WriteLine();
@@ -4778,7 +4818,6 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}"); ;
             Console.WriteLine();
             Console.WriteLine("점심먹고 오후 작업을 시작해야한다.");
@@ -4806,6 +4845,10 @@ internal class Program
                 {
                     workCount += 1;
                     Perfection += 2;
+                    Console.Clear();
+                    Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("우리 중대에 전설같은 존재인 김굳건 병장의 AAA급 군화를 발견했다.");
                     Console.ReadKey();
                     Console.WriteLine();
@@ -4843,7 +4886,6 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
             Console.WriteLine();
             Console.WriteLine("재고가 안맞는것 같다.");
@@ -4868,6 +4910,10 @@ internal class Program
                 {
                     workCount += 2;
                     Perfection += 2;
+                    Console.Clear();
+                    Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("멍청한데 부지런하다니 지옥이다.");
                     Console.ReadKey();
                     Console.WriteLine();
@@ -4897,7 +4943,6 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
             Console.WriteLine();
             Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
@@ -4922,6 +4967,10 @@ internal class Program
                 {
                     workCount += 1;
                     Perfection += 0;
+                    Console.Clear();
+                    Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("후임이 같은 상자를 계속 열고 닫고 있다.");
                     Console.ReadKey();
                     Console.WriteLine("오늘안에 끝나긴 글렀다.");
@@ -4945,6 +4994,10 @@ internal class Program
                 {
                     workCount += 1;
                     Perfection += 1;
+                    Console.Clear();
+                    Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                    Console.ReadKey();
+                    Console.WriteLine();
                     Console.WriteLine("우리 중대에 전설같은 존재인 김굳건 병장의 AAA급 장구류를 발견했다.");
                     Console.ReadKey();
                     Console.WriteLine();
@@ -4987,9 +5040,10 @@ internal class Program
             }
             else
             {
-                Perfection = 0;
-                workCount = 0;
+
                 Console.Clear();
+                Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                Console.ReadKey();
                 Console.WriteLine();
                 Console.WriteLine("작업이 완료되었다.");
                 Console.WriteLine();
@@ -5001,6 +5055,8 @@ internal class Program
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
+                Perfection = 0;
+                workCount = 0;
                 Console.ReadKey();
                 Console.Clear();
                 OneMonthLater();
@@ -5011,9 +5067,9 @@ internal class Program
         {
             if (Perfection >= 10)
             {
-                Perfection = 0;
-                workCount = 0;
                 Console.Clear();
+                Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                Console.ReadKey();
                 Console.WriteLine();
                 Console.WriteLine("가까스로 작업이 완료되었다.");
                 Console.WriteLine();
@@ -5022,15 +5078,17 @@ internal class Program
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
+                Perfection = 0;
+                workCount = 0;
                 Console.ReadKey();
                 Console.Clear();
                 OneMonthLater();
             }
             else if (Perfection < 10 && Perfection >= 7)
             {
-                Perfection = 0;
-                workCount = 0;
                 Console.Clear();
+                Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                Console.ReadKey();
                 Console.WriteLine();
                 Console.WriteLine("일과가 마무리 되었다. 작업물이 살짝 아쉽지만 완벽한 가라는 진짜랬다.");
                 Console.WriteLine();
@@ -5042,15 +5100,17 @@ internal class Program
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
+                Perfection = 0;
+                workCount = 0;
                 Console.ReadKey();
                 Console.Clear();
                 OneMonthLater();
             }
             else
             {
-                Perfection = 0;
-                workCount = 0;
                 Console.Clear();
+                Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
+                Console.ReadKey();
                 Console.WriteLine();
                 Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
                 Console.ReadKey();
@@ -5065,6 +5125,8 @@ internal class Program
                 Console.ReadKey();
                 Console.WriteLine();
                 Console.WriteLine("Press any key to contiune");
+                Perfection = 0;
+                workCount = 0;
                 Console.ReadKey();
                 Console.Clear();
                 OneMonthLater();
@@ -5083,7 +5145,6 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine("말년휴가를 나오게 되었다.");
             Console.WriteLine();
             Console.WriteLine("가족들을 놀래켜주려고 아무한테도 말을 하지 않았다.");
@@ -5097,6 +5158,7 @@ internal class Program
         switch (cursor)
         {
             case 0:
+                Console.Clear();
                 Console.WriteLine("집에 아무도 없다");
                 Console.ReadKey();
                 Console.WriteLine();
@@ -5115,6 +5177,7 @@ internal class Program
                 bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
                 if (eventOccurred)
                 {
+                    Console.Clear();
                     Console.WriteLine("전화기가 꺼져있다.");
                     Console.ReadKey();
                     Console.WriteLine();
@@ -5130,6 +5193,7 @@ internal class Program
                 }
                 else
                 {
+                    Console.Clear();
                     Console.WriteLine("친구에게 전화했더니 바쁘다고 끊어라고 한다.");
                     Console.ReadKey();
                     Console.WriteLine();
@@ -5161,7 +5225,6 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine("번화가로 나오게 되었다.");
             Console.WriteLine();
             Console.WriteLine("내 앞으로 이상형의 여성분이 지나간다.");
@@ -5173,6 +5236,7 @@ internal class Program
         switch (cursor)
         {
             case 0:
+                Console.Clear();
                 Console.WriteLine("말을 거니 여성분이 불쾌하게 나를 보고 있다.");
                 Console.ReadKey();
                 Console.WriteLine();
@@ -5185,6 +5249,7 @@ internal class Program
                 break;
 
             case 1:
+                Console.Clear();
                 Console.WriteLine("아직 민간인도 아닌데 뭔 작업이냐");
                 Console.ReadKey();
                 Console.WriteLine();
@@ -5209,7 +5274,6 @@ internal class Program
         while (onScene)
         {
             Console.Clear();
-            Console.WriteLine();
             Console.WriteLine("여성분의 남자친구와 눈이 마주쳤다.");
             Console.WriteLine();
             Console.WriteLine("그리고 나를 밀쳐냈다.");
@@ -5230,6 +5294,7 @@ internal class Program
                 bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Dex));
                 if (eventOccurred)
                 {
+                    Console.Clear();
                     Console.WriteLine("겨우 빠져나왔다.");
                     Console.ReadKey();
                     Console.WriteLine();
@@ -5245,6 +5310,7 @@ internal class Program
                 }
                 else
                 {
+                    Console.Clear();
                     Console.WriteLine("붙잡혔다.");
                     Console.ReadKey();
                     Console.WriteLine();
@@ -5272,21 +5338,19 @@ internal class Program
             {
 
                 Console.Clear();
-                Console.WriteLine();
                 Console.WriteLine($"{enemy.EnemyName}");
                 Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                Console.WriteLine("=====================================");
                 Console.WriteLine();
                 Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
+                Console.WriteLine("=====================================");
                 Console.WriteLine($"{player.Name}");
-                Console.WriteLine($"남은 체력 : {player.Hp}");
-                Console.WriteLine();
+                Console.WriteLine($"남은 체력 : {player1.Hp}");
+                Console.WriteLine("=====================================");
             }
             else if (player.Hp <= 0)
             {
                 Console.Clear();
-                Console.WriteLine();
                 Console.WriteLine("싸움에서 져버렸다.");
                 Console.WriteLine();
                 Console.ReadKey();
@@ -5304,7 +5368,6 @@ internal class Program
             else
             {
                 Console.Clear();
-                Console.WriteLine();
                 Console.Write("남성을 쓰러뜨렸다.");
                 Console.WriteLine();
                 Console.ReadKey();
@@ -5327,7 +5390,6 @@ internal class Program
                 if (eventOccurred)
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     turn++;
                     Console.WriteLine($"{enemy.EnemyName}");
                     Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
@@ -5345,12 +5407,12 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    MGTurn(turn);
+                    MGTurn(turn, enemy.EnemyHp);
                 }
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine();
+
                     turn++;
                     Console.WriteLine($"{enemy.EnemyName}");
                     Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
@@ -5371,76 +5433,77 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    MGTurn(turn);
+                    MGTurn(turn, enemy.EnemyHp);
                 }
                 break;
             case 1:
-                bool _eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
-                if (_eventOccurred)
+                if (player1.Mind >= 10)
                 {
-                    Console.Clear();
-                    Console.WriteLine();
-                    enemy.EnemyHp -= player1.Str * 4;
-                    turn++;
-                    Console.WriteLine($"{enemy.EnemyName}");
-                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("스킬 공격!!");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("치명타가 들어갔다.");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("사실 미구현 ㅈㅅ ㅎㅎ;; 그냥 일반 공격 2배 데미지");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine($"{player1.Str * 2}의 데미지");
-                    enemy.EnemyHp -= player1.Str * 2;
-                    Console.ReadKey();
-                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("press any Key to continue");
-                    Console.ReadKey();
-                    MGTurn(turn);
+                    bool _eventOccurred = EventOccur(player1.CalculateProbability(player1.Luk));
+                    if (_eventOccurred)
+                    {
+                        Console.Clear();
+                        player1.Mind -= 10;
+                        turn++;
+                        Console.WriteLine($"{enemy.EnemyName}");
+                        Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("스킬 공격!!");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("연속 펀치!");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("치명타가 들어갔다.");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine($"{(player1.Str + player1.Dex) * 2}의 데미지");
+                        enemy.EnemyHp -= (player1.Str + player1.Dex) * 2;
+                        Console.ReadKey();
+                        Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("press any Key to continue");
+                        Console.ReadKey();
+                        MGTurn(turn, enemy.EnemyHp);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        player1.Mind -= 10;
+                        turn++;
+                        Console.WriteLine($"{enemy.EnemyName}");
+                        Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("스킬 공격!!");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("연속 펀치!");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("평범한 공격이었다.");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine($"{(player1.Str + player1.Dex)}의 데미지");
+                        enemy.EnemyHp -= (player1.Str + player1.Dex);
+                        Console.ReadKey();
+                        Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
+                        Console.WriteLine();
+                        Console.ReadKey();
+                        Console.WriteLine("press any Key to continue");
+                        Console.ReadKey();
+                        MGTurn(turn, enemy.EnemyHp);
+                    }
                 }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine();
-                    enemy.EnemyHp -= player1.Str * 2;
-                    turn++;
-                    Console.WriteLine($"{enemy.EnemyName}");
-                    Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("스킬 공격!!");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("평범한 공격이었다.");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("사실 미구현 ㅈㅅ ㅎㅎ;; 그냥 일반 공격 2배 데미지");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine($"{player1.Str}의 데미지");
-                    enemy.EnemyHp -= player1.Str;
-                    Console.ReadKey();
-                    Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
-                    Console.WriteLine();
-                    Console.ReadKey();
-                    Console.WriteLine("press any Key to continue");
-                    Console.ReadKey();
-                    MGTurn(turn);
-                }
+                else MGBattle(player1, muscleguy);
                 break;
             case 2:
                 bool __eventOccurred = EventOccur(player1.CalculateProbability(player1.Dex));
                 if (__eventOccurred)
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     turn = -1;
                     Console.WriteLine($"{enemy.EnemyName}");
                     Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
@@ -5467,12 +5530,11 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    MGTurn(turn);
+                    MGTurn(turn, enemy.EnemyHp);
                 }
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine();
                     turn++;
                     Console.WriteLine($"{enemy.EnemyName}");
                     Console.WriteLine($"현재 체력 : {enemy.EnemyHp}");
@@ -5489,71 +5551,82 @@ internal class Program
                     Console.ReadKey();
                     Console.WriteLine("press any Key to continue");
                     Console.ReadKey();
-                    MGTurn(turn);
+                    MGTurn(turn, enemy.EnemyHp);
                 }
                 break;
             default:
                 break;
         }
     }
-    static void MGTurn(int Value)
+    static void MGTurn(int Value, int HpValue)
     {
-        if (Value > 0)
+        if (HpValue > 0)
         {
-            bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Dex));
-            if (eventOccurred)
+            if (Value > 0)
             {
-                Console.Clear();
-                Console.WriteLine();
-                Console.WriteLine($"{player1.Name}");
-                Console.WriteLine($"현재 체력 : {player1.Hp}");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("남성이 자세를 잡았다.");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("행보관님의 공격에 비해 너무 느리군");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("남성의 주먹을 손날로 쳐냈다.");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine($"{(int)(muscleguy.EnemyAtk / 2)}의 데미지");
-                Console.WriteLine();
-                player1.Hp -= (int)(muscleguy.EnemyAtk / 2);
-                Console.ReadKey();
-                Console.WriteLine($"남은 체력 : {player1.Hp}");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("press any Key to continue");
-                Console.ReadKey();
-                MGBattle(player1, muscleguy);
+                bool eventOccurred = EventOccur(player1.CalculateProbability(player1.Dex));
+                if (eventOccurred)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"{player1.Name}");
+                    Console.WriteLine($"현재 체력 : {player1.Hp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("남성이 자세를 잡았다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("행보관님의 공격에 비해 너무 느리군");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("남성의 주먹을 손날로 쳐냈다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{(int)(muscleguy.EnemyAtk / 2)}의 데미지");
+                    Console.WriteLine();
+                    player1.Hp -= (int)(muscleguy.EnemyAtk / 2);
+                    Console.ReadKey();
+                    Console.WriteLine($"남은 체력 : {player1.Hp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    MGBattle(player1, muscleguy);
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine($"{player1.Name}");
+                    Console.WriteLine($"현재 체력 : {player1.Hp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("남성이 자세를 잡았다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("나의 특공무술을 보여주지!");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("남자의 주먹이 내 손날을 가르고 들어왔다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("집체교육때 더 열심히 임할걸 그랬다.");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine($"{(int)(muscleguy.EnemyAtk)}의 데미지");
+                    Console.WriteLine();
+                    player1.Hp -= (int)(muscleguy.EnemyAtk);
+                    Console.ReadKey();
+                    Console.WriteLine($"남은 체력 : {player1.Hp}");
+                    Console.WriteLine();
+                    Console.ReadKey();
+                    Console.WriteLine("press any Key to continue");
+                    Console.ReadKey();
+                    MGBattle(player1, muscleguy);
+                }
             }
             else
             {
                 Console.Clear();
-                Console.WriteLine();
-                Console.WriteLine($"{player1.Name}");
-                Console.WriteLine($"현재 체력 : {player1.Hp}");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("남성이 자세를 잡았다.");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("나의 특공무술을 보여주지!");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("남자의 주먹이 내 손날을 가르고 들어왔다.");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine("집체교육때 더 열심히 임할걸 그랬다.");
-                Console.WriteLine();
-                Console.ReadKey();
-                Console.WriteLine($"{(int)(muscleguy.EnemyAtk)}의 데미지");
-                Console.WriteLine();
-                player1.Hp -= (int)(muscleguy.EnemyAtk);
-                Console.ReadKey();
-                Console.WriteLine($"남은 체력 : {player1.Hp}");
+                Console.WriteLine("남성은 그로기에 걸려 허우적대고 있다..");
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("press any Key to continue");
@@ -5563,20 +5636,13 @@ internal class Program
         }
         else
         {
-            Console.Clear();
-            Console.WriteLine();
-            Console.WriteLine("남성은 그로기에 걸려 허우적대고 있다..");
-            Console.WriteLine();
-            Console.ReadKey();
-            Console.WriteLine("press any Key to continue");
-            Console.ReadKey();
-            MGBattle(player1, muscleguy);
+            Value = 0;
+            NCOBattle(player1, muscleguy);
         }
     }
     static void LastLeave4()
     {
         Console.Clear();
-        Console.WriteLine();
         Console.WriteLine("밖은 위험하다 그냥 집에서 빈둥거리며 보내야겠다.");
         Console.WriteLine();
         Console.ReadKey();
@@ -5588,7 +5654,6 @@ internal class Program
     static void LastLeave5()
     {
         Console.Clear();
-        Console.WriteLine();
         Console.WriteLine("휴가 복귀를 하고 있다.");
         Console.WriteLine();
         Console.ReadKey();
