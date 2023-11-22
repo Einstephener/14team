@@ -1891,6 +1891,16 @@ internal class Program
             // 몬스터별 보상 처리
             foreach (var enemy in enemies)
             {
+                if (enemy.EnemyName == "멧돼지")
+                {
+                    Console.WriteLine($" 멧돼지를 처치하여 근무교대를 할 수 있게 되었습니다!");
+                    player1.Mind += 30;
+                }
+                else if(enemy.EnemyName == "고라니")
+                {
+                    Console.WriteLine($" 고라니를 처치하여 야간근무중 비명소리가 들리는 일이 없어졌습니다!");
+                    player1.Gold += 1000;
+                }
                 //player1.Gold += enemy.GoldReward;
                 // 경험치 또는 다른 보상 처리도 추가 가능
                 if(enemy.EnemyName == "초임 소위")
@@ -1903,8 +1913,8 @@ internal class Program
                     Console.WriteLine();
                 }
             }
-            player1.Mind += 30;
-            player1.Gold += 1000;
+            
+            
             Console.ReadLine();
 
             OneMonthLater();
