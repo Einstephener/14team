@@ -663,7 +663,7 @@ internal class Program
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write($"{equippedStatus}");
             Console.ResetColor();
-            Console.WriteLine($" \t {weapon.ItemName} \t | {weapon.ItemDescription}"); //무기 부가 정보
+            Console.WriteLine($" \t {weapon.ItemName} \t | {weapon.ItemDescription} \t | {weapon.ItemEffect}"); //무기 부가 정보
             Console.WriteLine();
         }
         Console.WriteLine();
@@ -707,7 +707,7 @@ internal class Program
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write($"{equippedStatus}");
             Console.ResetColor();
-            Console.WriteLine($" \t {armor.ItemName} \t | {armor.ItemDescription}"); //방어구 부가 정보
+            Console.WriteLine($" \t {armor.ItemName} \t | {armor.ItemDescription} \t | {armor.ItemEffect}"); //방어구 부가 정보
             Console.WriteLine();
         }
         Console.WriteLine("============================================================================");
@@ -737,14 +737,14 @@ internal class Program
     static void DisplayFood(Character player)
     {
         Console.Clear();
-        Console.WriteLine("음식");
+        Console.WriteLine(" 음식");
         Console.WriteLine("============================================================================");
         //인벤토리 리스트에 있는 아이템들 나열
         for (int i = 0; i < player.InventoryFood.Count; i++)
         {
             var food = player.InventoryFood[i];
             Console.Write($"{i + 1}. ");
-            Console.WriteLine($" \t {food.ItemName} \t | {food.ItemDescription}"); //음식 부가 정보
+            Console.WriteLine($" \t {food.ItemName} \t | {food.ItemEffect}"); //음식 부가 정보
             Console.WriteLine();
         }
 
@@ -1351,52 +1351,52 @@ internal class Program
 
         Console.Clear();
         Console.WriteLine();
-        Console.WriteLine("아침점호 시간이다");
+        Console.WriteLine(" 아침점호 시간이다");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine("긴장한 상태로 열을 맞춰서있다..");
+        Console.WriteLine(" 긴장한 상태로 열을 맞춰서있다..");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine($"그때 한 선임이 물어본다. \"{player.Name} 군화 닦았어 ? \"");
+        Console.WriteLine($" 그때 한 선임이 물어본다. \"{player.Name} 군화 닦았어 ? \"");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine("옙. 닦았습니다.");
+        Console.WriteLine(" 옙. 닦았습니다.");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine("맞선임:진짜? 확인해봐서 안닦였으면 뒤진다.");
+        Console.WriteLine(" 맞선임:진짜? 확인해봐서 안닦였으면 뒤진다.");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine("맞선임:이거 봐봐. 이게 닦은거야?");
+        Console.WriteLine(" 맞선임:이거 봐봐. 이게 닦은거야?");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine("죄.. 죄송합니다.");
+        Console.WriteLine(" 죄.. 죄송합니다.");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine("맞선임:너 점호끝나고 보자");
+        Console.WriteLine(" 맞선임:너 점호끝나고 보자");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine("<점호 후 막사 뒷편 창고>");
+        Console.WriteLine(" <점호 후 막사 뒷편 창고>");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine("맞선임: 너 왜 군화 닦앗다고 거짓말해?? ");
+        Console.WriteLine(" 맞선임: 너 왜 군화 닦앗다고 거짓말해?? ");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine("아 당황해서 잘못말한것 같습니다..");
+        Console.WriteLine(" 아 당황해서 잘못말한것 같습니다..");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine("맞선임: (발로 정강이를 까며)그렇다고 거짓말을 쳐? 라떼는 말이야 하.. 아니다");
+        Console.WriteLine(" 맞선임: (발로 정강이를 까며)그렇다고 거짓말을 쳐? 라떼는 말이야 하.. 아니다");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine("근데 때리는건 너무 하지 않습니까? ");
+        Console.WriteLine(" 근데 때리는건 너무 하지 않습니까? ");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine("맞선임: 머라고??(머리를 때리려 손을 들면서)");
+        Console.WriteLine(" 맞선임: 머라고??(머리를 때리려 손을 들면서)");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine("당신은 내려오는 맞선임의 주먹을 붙잡았다...!!");
+        Console.WriteLine(" 당신은 내려오는 맞선임의 주먹을 붙잡았다...!!");
         Console.WriteLine();
         Console.ReadKey();
-        Console.WriteLine("싸움을 진행하시려면 아무키나 눌러주세요");
+        Console.WriteLine(" 싸움을 진행하시려면 아무키나 눌러주세요");
         Console.WriteLine();
         Console.ReadKey();
 
@@ -1407,29 +1407,36 @@ internal class Program
 
     static void SeniorFight(Character player, Enemy enemy)
     {
-        while (enemy.EnemyHp>0)
+        Console.Clear();
+        while (enemy.EnemyHp > 0)
         {
             enemy.EnemyHp -= player.Str; //플레이어가 맞선임 공격
-            
-        Console.WriteLine($"플레이어의 공격! 맞선임의 체력이 {player.Str}만큼감소했습니다.");
+
+            Console.WriteLine($" 플레이어의 공격! 맞선임의 체력이 {player.Str}만큼감소했습니다.");
+            Console.WriteLine();
+            Console.ReadKey();
             if (enemy.EnemyHp <= 0)
             {
-                Console.WriteLine("맞선임과의 싸움에서 승리했습니다");
-        Console.WriteLine();
+                Console.WriteLine(" 맞선임과의 싸움에서 승리했습니다");
+                Console.WriteLine();
                 Console.ReadKey();
-                Console.WriteLine($"남은 체력:{player.Hp}");
+                Console.WriteLine($" 남은 체력:{player.Hp}");
                 break;
             }
-                    Console.WriteLine($"맞선임의 공격! 플레이어의 체력이 {enemy.EnemyAtk}만큼감소했습니다.");
+            Console.WriteLine($" 맞선임의 공격! 플레이어의 체력이 {enemy.EnemyAtk}만큼감소했습니다.");
+            Console.WriteLine();
+            Console.ReadKey();
             player.Hp -= enemy.EnemyAtk;//맞선임이 플레이어 공격
             if (player1.Hp <= 0)
             {
-                Console.WriteLine("맞선임과의 싸움에서 패배했습니다");
+                Console.WriteLine(" 맞선임과의 싸움에서 패배했습니다");
                 Console.ReadKey();
                 break;
             }
         }
-        Console.WriteLine("후.. 군생활 힘드네");
+        Console.WriteLine(" 후.. 군생활 힘드네");
+        Console.WriteLine();
+        Console.WriteLine(" 이제부터 전투에서 스킬을 사용할 수 있습니다!");
         OneMonthLater();
     }
 
@@ -1439,41 +1446,58 @@ internal class Program
         Console.Clear();
         Console.WriteLine();
         Console.WriteLine(" 오늘도 다사다난한 하루였고만");
+        Console.WriteLine();
         Console.ReadKey();
         Console.WriteLine(" 이제 군화닦고 청소를 시작해보자");
+        Console.WriteLine();
         Console.ReadKey();
         Console.WriteLine(" 오늘은 화장실 청소하는 날이네");
+        Console.WriteLine();
         Console.ReadKey();
         Console.WriteLine(" 선임한테 잘보이기 위해 내가 변기를 맡아서 열심히 닦아야겠다");
+        Console.WriteLine();
         Console.ReadKey();
         Console.WriteLine(" 라고 생각하며 청소를 마무리한다");
+        Console.WriteLine();
         Console.ReadKey();
         Console.WriteLine(" 드디어 오늘 하루도 끝나가는군!!");
+        Console.WriteLine();
         Console.ReadKey();
         Console.WriteLine("");
-        Console.WriteLine("----(저녁 점호 시간)-----)");
+        Console.WriteLine(" ----(저녁 점호 시간)-----)");
         Console.WriteLine();
         Console.ReadKey();
         Console.WriteLine(" 정적이 흐른다... 그때");
+        Console.WriteLine();
         Console.WriteLine(" 분대장: 굳건이 혹시 여자친구나 여동생이나 누나 있어?");
+        Console.WriteLine();
         Console.ReadKey();
         Console.WriteLine(" \'군생활이 걸린 대답 생각중...\'");
+        Console.WriteLine();
         Console.ReadKey();
 
         Random Talk = new Random();
         int number = Talk.Next(2);
         if (number == 0)
         {
-            Console.WriteLine("네 있습니다!! 저 여자친구도 있고 여동생 1명과 누나 1명 있습니다");
-            Console.WriteLine("군생활이 화창하다!");
+            player1.Luk += 3;
+            Console.WriteLine(" 네 있습니다!! 저 여자친구도 있고 여동생 1명과 누나 1명 있습니다.");
+            Console.WriteLine();
+            Console.WriteLine(" 선임들의 반응이 묘하게 살가워졌다.");
+            Console.WriteLine();
+            Console.WriteLine(" 군생활이 화창하다!");
         }
         else
         {
-            player1.Luk -= 30;
-            Console.WriteLine("아뇨.. 아무도 없습니다");
-            Console.WriteLine("군생활 어떻하냐.. 막막하네..");
+            player1.Luk -= 3;
+            Console.WriteLine(" 아뇨.. 아무도 없습니다.");
+            Console.WriteLine();
+            Console.WriteLine(" 선임들의 반응이 묘하게 차가워졌다.");
+            Console.WriteLine();
+            Console.WriteLine(" 군생활 어떻하냐.. 막막하네..");
         }
-        Console.WriteLine("하루가 1년같았다..");
+        Console.WriteLine(" 하루가 1년같았다..");
+        Console.WriteLine();
         Console.ReadKey();
         OneMonthLater();
     }
@@ -3071,16 +3095,19 @@ internal class Program
             {
                 Console.WriteLine("");
                 Console.WriteLine($" \n {newCommander.EnemyName}의 공격!\n");
+                Console.WriteLine();
 
                 if (player1.CheckEvade())
                 {
                     Console.WriteLine(" 공격을 회피했습니다!");
+                    Console.WriteLine();
                 }
                 else
                 {
                     int enemyDamage1 = newCommander.EnemyAtk;
                     player1.Hp -= enemyDamage1;
                     Console.WriteLine($" {newCommander.EnemyName}이(가) 플레이어에게 {enemyDamage1}의 데미지를 입혔습니다.\n");
+                    Console.WriteLine();
                 }
             }
 
