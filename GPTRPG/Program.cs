@@ -308,7 +308,7 @@ internal class Program
         {
             case 0:
                 //보병 전직
-                player1 = new Infantry(player.Name, "보병", 5, 5, 5, 5, 100, 100, 10, 10000000, 10);
+                player1 = new Infantry(player.Name, "보병", 5, 5, 5, 5, 100, 100, 10, 0, 10);
                 Console.WriteLine(" 보병을 선택했다.");
                 //사단마크 획득
                 player1.AddToInventoryArmor(ShoulderSleeve2);
@@ -5637,7 +5637,7 @@ internal class Program
         else
         {
             Value = 0;
-            NCOBattle(player1, muscleguy);
+            MGBattle(player1, muscleguy);
         }
     }
     static void LastLeave4()
