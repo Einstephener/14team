@@ -2202,23 +2202,24 @@ internal class Program
     static void DMsupport()
     {
         Console.Clear();
-        Console.WriteLine("민간 지역에 큰화재가 발생했다!");
-        Console.WriteLine("대민지원 활동에 참여해야겠다!");
+        Console.WriteLine("");
+        Console.WriteLine(" 민간 지역에 큰화재가 발생했다!");
+        Console.WriteLine(" 대민지원 활동에 참여해야겠다!");
         Console.WriteLine("");
         Console.ReadKey();
-        Console.WriteLine("화재진압은 되었다고 한다! ");
-        Console.WriteLine("무너진 건물 잔해가 많다고 하니 다치지 않게 하길 바란다!");
+        Console.WriteLine(" 화재진압은 되었다고 한다! ");
+        Console.WriteLine(" 무너진 건물 잔해가 많다고 하니 다치지 않게 하길 바란다!");
         Console.WriteLine("");
         Console.ReadKey();
         Console.Clear();
 
-        Console.WriteLine("=======================================");
-        Console.WriteLine("10번의 삽질을 시도해서 6번 성공하세요!");
-        Console.WriteLine("=======================================");
+        Console.WriteLine(" =======================================");
+        Console.WriteLine(" 10번의 삽질을 시도해서 6번 성공하세요!");
+        Console.WriteLine(" =======================================");
         Console.WriteLine("");
         Console.ReadKey();
 
-        Console.WriteLine("아무키나 눌러 삽질을 시작하세요");
+        Console.WriteLine(" 아무키나 눌러 삽질을 시작하세요");
         Console.ReadKey();
 
 
@@ -2237,32 +2238,32 @@ internal class Program
                 if (fireControlSuccess)
                 {
                     sucessCount++;
-                    Console.WriteLine($"{i}. 삽질에 성공했습니다!\n");
+                    Console.WriteLine($" {i}. 삽질에 성공했습니다!\n");
 
                 }
                 else
                 {
-                    Console.WriteLine($"{i}. 삽질에 실패했습니다!\n");
+                    Console.WriteLine($" {i}. 삽질에 실패했습니다!\n");
                 }
 
 
             }
-
-            Console.WriteLine("======================================================");
-            Console.WriteLine($"결과: 10번에 삽질 중 {sucessCount}번 성공했습니다!");
-            Console.WriteLine("======================================================");
             Console.WriteLine("");
-            Console.WriteLine("결과확인하기");
+            Console.WriteLine(" ======================================================");
+            Console.WriteLine($" 결과: 10번에 삽질 중 {sucessCount}번 성공했습니다!");
+            Console.WriteLine(" ======================================================");
+            Console.WriteLine("");
+            Console.WriteLine(" 결과확인하기");
             Console.ReadKey();
             Console.Clear();
 
             if (sucessCount >= 6)
             {
                 Console.WriteLine("");
-                Console.WriteLine("대민지원을 완료했습니다.");
+                Console.WriteLine(" 대민지원을 완료했습니다.");
                 Console.WriteLine("");
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("체력이 50증가합니다.");
+                Console.WriteLine(" 체력이 50증가합니다.");
                 Console.ResetColor();
                 player1.MaxHp += 50;
                 OneMonthLater();
@@ -2271,11 +2272,12 @@ internal class Program
             }
             else
             {
-                Console.WriteLine("대민지원을 실패했습니다.");
                 Console.WriteLine("");
-                Console.WriteLine("다시 시도하시겠습니까? (Y)");
+                Console.WriteLine(" 대민지원을 실패했습니다.");
                 Console.WriteLine("");
-                Console.WriteLine("나가시겠습니까? (N)");
+                Console.WriteLine(" 다시 시도하시겠습니까? (Y)");
+                Console.WriteLine("");
+                Console.WriteLine(" 나가시겠습니까? (N)");
                 string response = Console.ReadLine();
                 if (response.ToUpper() == "Y")
                 {
@@ -2295,43 +2297,48 @@ internal class Program
     {
         Console.Clear();
         Console.WriteLine("");
-        Console.WriteLine("첫 외박날짜가 정해졌습니다. 기대와 설렘이 가득찬 그의 마음속에는");
+        Console.WriteLine(" 첫 외박날짜가 정해졌습니다. 기대와 설렘이 가득찬 그의 마음속에는");
         Console.WriteLine("");
-        Console.WriteLine("어디를 가야할지, 누구를 만나야 할지에 대한 고민으로 가득차있습니다.");
+        Console.WriteLine(" 어디를 가야할지, 누구를 만나야 할지에 대한 고민으로 가득차있습니다.");
         Console.ReadKey();
         Console.Clear();
         Console.WriteLine("");
-        Console.WriteLine("가족, 친구, 여자친구 세가지 선택지중 하나를 고르세요");
-        Console.WriteLine("");
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("선택지마다 랜덤능력치가 부여됩니다. 신중하게 고르세요! ");
-        Console.ResetColor();
-        Console.WriteLine("");
+        Console.WriteLine(" 가족, 친구, 여자친구 세가지 선택지중 하나를 고르세요");
         Console.WriteLine("");
 
-        bool isValidInput = true;
 
-        while (isValidInput)
+        int cursor = 0;
+        bool onScene = true;
+        string[] text = { " 1.가족",
+        " 2.친구",
+        " 3.여자친구" };
+
+        TextChoice(cursor, text);
+
+        // Key Input
+        e = Console.ReadKey();
+        // Cursor Index
+        cursor = CursorChoice(e, cursor, text, ref onScene);
+        while (onScene)
         {
-
-            Console.WriteLine("선택지를 골라주세요! ");
-            Console.WriteLine("1. 가족");
             Console.WriteLine("");
-            Console.WriteLine("2. 친구");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(" 선택지마다 랜덤능력치가 부여됩니다. 신중하게 고르세요! ");
+            Console.ResetColor();
             Console.WriteLine("");
-            Console.WriteLine("3. 여자친구");
 
-            string userInput = Console.ReadLine();
 
-            switch (userInput)
+            switch (cursor)
             {
-                case "1":
+                case 0:
                     Console.Clear();
+                    Console.WriteLine("");
                     Console.WriteLine(" 가족을 선택하셨습니다.");
                     Console.WriteLine("");
                     Console.WriteLine(" 가족은 당신의 안정과 지지를 의미합니다.");
                     Console.ReadKey();
                     Console.Clear();
+                    Console.WriteLine("");
                     Console.WriteLine(" 그들과 함께하는 시간은 당신에게 힘을 주고");
                     Console.WriteLine("");
                     Console.WriteLine(" 당신은 그들을 위해 힘든 시간을 견디려고 노력할 것입니다.");
@@ -2342,10 +2349,10 @@ internal class Program
                     Console.WriteLine(" 힘 능력치가 10 상승하였습니다.");
                     Console.ResetColor();
                     player1.Str += 10;
-                    isValidInput = false;
+
                     OneMonthLater();
                     break;
-                case "2":
+                case 1:
                     Console.Clear();
                     Console.WriteLine("");
                     Console.WriteLine(" 당신은 친구를 선택했습니다.");
@@ -2362,17 +2369,18 @@ internal class Program
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(" 정신력 능력치가 10 상승하였습니다.");
                     player1.Mind += 10;
-                    player1.MaxMind += 10;
-                    isValidInput = false;
+
                     OneMonthLater();
                     break;
-                case "3":
+                case 2:
                     Console.Clear();
+                    Console.WriteLine("");
                     Console.WriteLine(" 여자친구를 선택하셨습니다.");
                     Console.WriteLine("");
                     Console.WriteLine(" 그녀에게 전화 했습니다. 전화를 안받습니다...");
                     Console.ReadKey();
                     Console.Clear();
+                    Console.WriteLine("");
                     Console.WriteLine(" 다시 한번 전화를 걸었습니다...");
                     Console.WriteLine("");
                     Console.ReadKey();
@@ -2392,8 +2400,7 @@ internal class Program
                     Console.WriteLine(" 정신력 능력치가 10 하락하였습니다.");
                     Console.ResetColor();
                     player1.Mind -= 10;
-                    player1.MaxMind -= 10;
-                    isValidInput = false;
+
                     OneMonthLater();
                     break;
 
