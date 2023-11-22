@@ -55,15 +55,15 @@ internal class Program
              new Food("분대회식", 100, 100, 100, "PX 파티","HP, MP 100만큼 회복합니다.")
         };
     //몬스터 리스트
-    private static List<Enemy> enemys = new List<Enemy>
+    private static List<Enemy> enemys = new List<Enemy>      //공격력, 체력
         {
             new Enemy("초임 소위", 100, 100),
             new Enemy("참호", 5, 100),
             new Enemy("맞선임", 4, 10),
             new Enemy("멧돼지", 3, 30),
             new Enemy("고라니", 2, 30),
-        new Enemy("행보관", 30, 500),
-        new Enemy("건장한 남성", 20, 100)
+            new Enemy("행보관", 30, 500),
+            new Enemy("건장한 남성", 20, 100)
         };
 
     private static Enemy FindEnemyByName(string enemyName)
@@ -1670,8 +1670,8 @@ internal class Program
                     Console.WriteLine("");
                     Console.WriteLine("");
                     Console.WriteLine($" {player.Name}");
-                    Console.WriteLine($" HP : {player.Hp}");
-                    Console.WriteLine($" MIND : {player.Mind}");
+                    Console.WriteLine($" HP \t: {player.MaxHp}/{player.Hp}");
+                    Console.WriteLine($" MIND \t: {player.MaxMind}/{player.Mind}");
                     Console.WriteLine("");
                     Console.WriteLine("");
                     Console.WriteLine(" 플레이어의 턴입니다. 행동을 선택하세요\n");
