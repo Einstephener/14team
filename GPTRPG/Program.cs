@@ -1887,15 +1887,26 @@ internal class Program
         {
             Console.Clear();
             Console.WriteLine("적을 처치했습니다. 승리!");
+            Console.WriteLine();
             // 몬스터별 보상 처리
             foreach (var enemy in enemies)
             {
                 //player1.Gold += enemy.GoldReward;
                 // 경험치 또는 다른 보상 처리도 추가 가능
+                if(enemy.EnemyName == "초임 소위")
+                {
+                    Console.WriteLine(" 하극상으로 처벌을 받습니다.");
+                    Console.WriteLine();
+                    Console.WriteLine(" 하지만 더이상 소대장이 당신을 건들이지 않습니다.");
+                    Console.WriteLine();                    
+                    Console.WriteLine(" 평화가 찾아옵니다.");                    
+                    Console.WriteLine();
+                }
             }
             player1.Mind += 30;
             player1.Gold += 1000;
             Console.ReadLine();
+
             OneMonthLater();
             //보상 아이템? 스텟?
         }
