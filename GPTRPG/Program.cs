@@ -504,13 +504,13 @@ internal class Program
                 break;
             //병장
             case 15:            //15개월
-                ColdWeatherTraining1();
+                WarehouseWokr1();
                 break;
             case 16:            //16개월
                 CementWork1();
                 break;
             case 17:            //17개월
-                WarehouseWokr1();
+                ColdWeatherTraining1();
                 break;
             case 18:            //18개월
                 LastLeave1();
@@ -3432,13 +3432,13 @@ internal class Program
                 Console.Clear();
                 Console.WriteLine($"{enemy.EnemyName}");
                 Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
-                Console.WriteLine("=====================================");
                 Console.WriteLine();
                 Console.WriteLine();
-                Console.WriteLine("=====================================");
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.WriteLine($"{player.Name}");
                 Console.WriteLine($"남은 체력 : {player1.Hp}");
-                Console.WriteLine("=====================================");
+                Console.WriteLine("===============================================");
             }
             else if (player.Hp <= 0)
             {
@@ -3959,13 +3959,13 @@ internal class Program
                 Console.Clear();
                 Console.WriteLine($"{enemy.EnemyName}");
                 Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
-                Console.WriteLine("=====================================");
                 Console.WriteLine();
                 Console.WriteLine();
-                Console.WriteLine("=====================================");
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.WriteLine($"{player.Name}");
                 Console.WriteLine($"남은 체력 : {player1.Hp}");
-                Console.WriteLine("=====================================");
+                Console.WriteLine("===============================================");
             }
             else if (player.Hp <= 0)
             {
@@ -4574,7 +4574,6 @@ internal class Program
             }
             else
             {
-
                 Console.Clear();
                 Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
                 Console.ReadKey();
@@ -4585,7 +4584,17 @@ internal class Program
                 Console.WriteLine($"개인정비까지 {9 - workCount}시간 남았으니 휴식하자");
                 Console.WriteLine();
                 Console.ReadKey();
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine($"능력치 상승");
+                Console.ReadKey();
+                Console.WriteLine($"힘 : {player1.Str} + 10");
+                Console.ReadKey();
+                Console.WriteLine($"민첩 : {player1.Dex} + 10");
+                Console.ReadKey();
+                Console.WriteLine($"지능 : {player1.IQ} + 10");
+                Console.ReadKey();
+                player1.Str += 10;
+                player1.Dex += 10;
+                player1.IQ += 10;
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
@@ -4612,7 +4621,17 @@ internal class Program
                 Console.WriteLine("가까스로 작업이 완료되었다.");
                 Console.WriteLine();
                 Console.ReadKey();
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine($"능력치 상승");
+                Console.ReadKey();
+                Console.WriteLine($"힘 : {player1.Str} + 5");
+                Console.ReadKey();
+                Console.WriteLine($"민첩 : {player1.Dex} + 5");
+                Console.ReadKey();
+                Console.WriteLine($"지능 : {player1.IQ} + 5");
+                Console.ReadKey();
+                player1.Str += 5;
+                player1.Dex += 5;
+                player1.IQ += 5;
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
@@ -4634,7 +4653,17 @@ internal class Program
                 Console.WriteLine("들키지만 않으면 아무렴 어떠한가");
                 Console.WriteLine();
                 Console.ReadKey();
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine($"능력치 상승");
+                Console.ReadKey();
+                Console.WriteLine($"힘 : {player1.Str} + 0");
+                Console.ReadKey();
+                Console.WriteLine($"민첩 : {player1.Dex} + 0");
+                Console.ReadKey();
+                Console.WriteLine($"지능 : {player1.IQ} + 5");
+                Console.ReadKey();
+                player1.Str += 0;
+                player1.Dex += 0;
+                player1.IQ += 5;
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
@@ -4659,7 +4688,17 @@ internal class Program
                 Console.WriteLine("개인정비 시간때 행보관님과 공구리 작업을 치게 되었다.");
                 Console.WriteLine();
                 Console.ReadKey();
-                Console.WriteLine("능력치 상승 & 스트레스 상승");
+                Console.WriteLine($"능력치 증가");
+                Console.ReadKey();
+                Console.WriteLine($"힘 : {player1.Str} + 10");
+                Console.ReadKey();
+                Console.WriteLine($"민첩 : {player1.Dex} - 10");
+                Console.ReadKey();
+                Console.WriteLine($"지능 : {player1.IQ} - 10");
+                Console.ReadKey();
+                player1.Str += 10;
+                player1.Dex -= 10;
+                player1.IQ -= 10;
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
@@ -5040,7 +5079,6 @@ internal class Program
             }
             else
             {
-
                 Console.Clear();
                 Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
                 Console.ReadKey();
@@ -5051,7 +5089,17 @@ internal class Program
                 Console.WriteLine($"개인정비까지 {9 - workCount}시간 남았으니 휴식하자");
                 Console.WriteLine();
                 Console.ReadKey();
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine($"능력치 상승");
+                Console.ReadKey();
+                Console.WriteLine($"힘 : {player1.Str} + 10");
+                Console.ReadKey();
+                Console.WriteLine($"민첩 : {player1.Dex} + 10");
+                Console.ReadKey();
+                Console.WriteLine($"지능 : {player1.IQ} + 10");
+                Console.ReadKey();
+                player1.Str += 10;
+                player1.Dex += 10;
+                player1.IQ += 10;
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
@@ -5067,14 +5115,28 @@ internal class Program
         {
             if (Perfection >= 10)
             {
+
                 Console.Clear();
                 Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
                 Console.ReadKey();
                 Console.WriteLine();
+                Console.WriteLine("작업이 완료되었다.");
+                Console.WriteLine();
+                Console.ReadKey();
                 Console.WriteLine("가까스로 작업이 완료되었다.");
                 Console.WriteLine();
                 Console.ReadKey();
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine($"능력치 상승");
+                Console.ReadKey();
+                Console.WriteLine($"힘 : {player1.Str} + 5");
+                Console.ReadKey();
+                Console.WriteLine($"민첩 : {player1.Dex} + 5");
+                Console.ReadKey();
+                Console.WriteLine($"지능 : {player1.IQ} + 5");
+                Console.ReadKey();
+                player1.Str += 5;
+                player1.Dex += 5;
+                player1.IQ += 5;
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
@@ -5096,7 +5158,17 @@ internal class Program
                 Console.WriteLine("들키지만 않으면 아무렴 어떠한가");
                 Console.WriteLine();
                 Console.ReadKey();
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine($"능력치 상승");
+                Console.ReadKey();
+                Console.WriteLine($"힘 : {player1.Str} + 0");
+                Console.ReadKey();
+                Console.WriteLine($"민첩 : {player1.Dex} + 0");
+                Console.ReadKey();
+                Console.WriteLine($"지능 : {player1.IQ} + 5");
+                Console.ReadKey();
+                player1.Str += 0;
+                player1.Dex += 0;
+                player1.IQ += 5;
                 Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
@@ -5113,17 +5185,27 @@ internal class Program
                 Console.ReadKey();
                 Console.WriteLine();
                 Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
-                Console.ReadKey();
                 Console.WriteLine();
+                Console.ReadKey();
                 Console.WriteLine("시작하고 가만히 있었겄만 결과가 터무니 없다.");
-                Console.ReadKey();
                 Console.WriteLine();
-                Console.WriteLine("개인정비 시간때 행보관님과 공구리 작업을 치게 되었다.");
                 Console.ReadKey();
+                Console.WriteLine("개인정비 시간때 행보관님과 창고 실사조사를 했다.");
                 Console.WriteLine();
-                Console.WriteLine("능력치 상승");
                 Console.ReadKey();
+                Console.WriteLine($"능력치 증가");
+                Console.ReadKey();
+                Console.WriteLine($"힘 : {player1.Str} + 10");
+                Console.ReadKey();
+                Console.WriteLine($"민첩 : {player1.Dex} - 10");
+                Console.ReadKey();
+                Console.WriteLine($"지능 : {player1.IQ} - 10");
+                Console.ReadKey();
+                player1.Str += 10;
+                player1.Dex -= 10;
+                player1.IQ -= 10;
                 Console.WriteLine();
+                Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
                 Perfection = 0;
                 workCount = 0;
@@ -5340,13 +5422,13 @@ internal class Program
                 Console.Clear();
                 Console.WriteLine($"{enemy.EnemyName}");
                 Console.WriteLine($"남은 체력 : {enemy.EnemyHp}");
-                Console.WriteLine("=====================================");
                 Console.WriteLine();
                 Console.WriteLine();
-                Console.WriteLine("=====================================");
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.WriteLine($"{player.Name}");
                 Console.WriteLine($"남은 체력 : {player1.Hp}");
-                Console.WriteLine("=====================================");
+                Console.WriteLine("===============================================");
             }
             else if (player.Hp <= 0)
             {
@@ -6520,7 +6602,7 @@ internal class Program
         Console.ReadKey();
 
 
-        Environment.Exit();
+        Environment.Exit(0);
     }
 
     static void BadEnding()
@@ -6626,7 +6708,7 @@ internal class Program
         Console.ReadKey();
         Console.WriteLine(" 해는 쨍쨍했지만 내눈에는 세상이 어두워 보였다...");
         Console.ReadKey();
-        Environment.Exit();
+        Environment.Exit(0);
     }
     #endregion
 
