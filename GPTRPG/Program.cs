@@ -6354,7 +6354,7 @@ internal class Program
         for (int i = 0; i < weapons.Count; i++)
         {
             var item = weapons[i];
-            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}");
+            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}").Configure(o => o.EnableCount = false);
         }
         buyWeaponTable.Write();
         Console.WriteLine("============================================================================================================");
@@ -6388,7 +6388,7 @@ internal class Program
         for (int i = 0; i < armors.Count; i++)
         {
             var item = armors[i];
-            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}");
+            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}").Configure(o => o.EnableCount = false);
         }
         buyWeaponTable.Write();
         Console.WriteLine("=====================================================================================");
@@ -6422,7 +6422,7 @@ internal class Program
         for (int i = 0; i < foods.Count; i++)
         {
             var item = foods[i];
-            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}");
+            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}").Configure(o => o.EnableCount = false);
         }
         buyWeaponTable.Write();
         Console.WriteLine("=====================================================================================");
@@ -6465,7 +6465,7 @@ internal class Program
         for (int i = 0; i < weapons.Count; i++)
         {
             var item = weapons[i];
-            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}");
+            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}").Configure(o => o.EnableCount = false);
         }
         buyWeaponTable.Write();
         Console.WriteLine("=====================================================================================");
@@ -6508,7 +6508,7 @@ internal class Program
         for (int i = 0; i < armors.Count; i++)
         {
             var item = armors[i];
-            buyArmorTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}");
+            buyArmorTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}").Configure(o => o.EnableCount = false);
         }
         buyArmorTable.Write();
         Console.WriteLine("=====================================================================================");
@@ -6552,7 +6552,7 @@ internal class Program
         for (int i = 0; i < foods.Count; i++)
         {
             var item = foods[i];
-            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}");
+            buyWeaponTable.AddRow($"{i + 1}", $"{item.ItemName}", $"{item.ItemGold}", $"{item.ItemDescription}", $"{item.ItemEffect}").Configure(o => o.EnableCount = false);
         }
         buyWeaponTable.Write();
         Console.WriteLine("=====================================================================================");
