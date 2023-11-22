@@ -1605,7 +1605,7 @@ internal class Program
                 Console.WriteLine($" Hp : {player.Hp}");
                 Console.WriteLine($" 정신력 : {player.Mind}");
                 Console.WriteLine("");
-                success += 0.03; //실패시 성공확률 3%씩 증가
+                success += 0.05; //실패시 성공확률 5%씩 증가
                 Console.ReadKey();
                 //추가로 실패시 정신력, 체력 감소 추가해야됨
             }
@@ -1914,12 +1914,14 @@ internal class Program
             {
                 if (enemy.EnemyName == "멧돼지")
                 {
+                    Console.WriteLine("");
                     Console.WriteLine($" 멧돼지를 처치하여 근무교대를 할 수 있게 되었습니다!");
                     player1.Mind += 30;
                     player1.MaxMind += 30;
                 }
                 else if(enemy.EnemyName == "고라니")
                 {
+                    Console.WriteLine("");
                     Console.WriteLine($" 고라니를 처치하여 야간근무중 비명소리가 들리는 일이 없어졌습니다!");
                     player1.Gold += 1000;
                 }
@@ -1927,6 +1929,7 @@ internal class Program
                 // 경험치 또는 다른 보상 처리도 추가 가능
                 if(enemy.EnemyName == "초임 소위")
                 {
+                    Console.WriteLine("");
                     Console.WriteLine(" 하극상으로 처벌을 받습니다.");
                     Console.WriteLine();
                     Console.WriteLine(" 하지만 더이상 소대장이 당신을 건들이지 않습니다.");
