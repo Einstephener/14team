@@ -3092,6 +3092,7 @@ internal class Program
             }
             else if (player.Hp <= 0)
             {
+                turn = 0;
                 Console.Clear();
                 Console.WriteLine("행보관님한테 져버렸다.");
                 Console.WriteLine();
@@ -3104,11 +3105,12 @@ internal class Program
                 Console.ReadKey();
                 Console.WriteLine("press any Key to continue");
                 Console.ReadKey();
-                turn = 0;
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
             else
             {
+                turn = 0;
                 Console.Clear();
                 Console.Write("행보관님을 쓰러뜨렸다.");
                 Console.WriteLine();
@@ -3118,8 +3120,8 @@ internal class Program
                 Console.ReadKey();
                 Console.WriteLine("press any Key to continue");
                 Console.ReadKey();
-                turn = 0;
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
             TextChoice(cursor, text);
             e = Console.ReadKey();
@@ -3431,7 +3433,7 @@ internal class Program
                 Console.WriteLine();
                 Console.WriteLine("press and key to continue");
                 Console.ReadKey();
-                Home();
+                ColdWeatherTraining4();
                 break;
             case 1:
                 Console.Clear();
@@ -3444,7 +3446,7 @@ internal class Program
                 Console.WriteLine();
                 Console.WriteLine("press and key to continue");
                 Console.ReadKey();
-                Home();
+                ColdWeatherTraining4();
                 break;
             default:
                 break;
@@ -3593,6 +3595,7 @@ internal class Program
             }
             else if (player.Hp <= 0)
             {
+                turn = 0;
                 Console.Clear();
                 Console.WriteLine("정신을 차리니 모르는 천장이 있다.");
                 Console.WriteLine();
@@ -3608,11 +3611,11 @@ internal class Program
                 Console.ReadKey();
                 Console.WriteLine("press any Key to continue");
                 Console.ReadKey();
-                turn = 0;
                 ColdWeatherTraining5();
             }
             else
             {
+                turn = 0;
                 Console.Clear();
                 Console.Write("고라니를 쓰러뜨렸다!");
                 Console.WriteLine();
@@ -3622,8 +3625,7 @@ internal class Program
                 Console.ReadKey();
                 Console.WriteLine("press any Key to continue");
                 Console.ReadKey();
-                turn = 0;
-                Home();
+                ColdWeatherTraining5();
             }
             TextChoice(cursor, text);
             e = Console.ReadKey();
@@ -3879,10 +3881,13 @@ internal class Program
         Console.WriteLine();
         Console.WriteLine("나의 군생활 마지막 훈련인 혹한기가 끝이났다.");
         Console.WriteLine();
+        Console.ReadKey();
+        OneMonthLater();
+        Console.WriteLine();
         Console.WriteLine("Press and key to continue");
         Console.ReadKey();
-        Home();
-        //혹한기 훈련 끝
+        Console.Clear();
+        OneMonthLater();
     }
     #endregion
     #region 작업
@@ -4118,6 +4123,7 @@ internal class Program
             Console.Clear();
             Console.WriteLine($"완성도 : {Perfection} 남은 시간 : {10 - workCount}");
             Console.WriteLine("아직 작업량이 많이 남은 것 같다.");
+            Console.WriteLine();
             Console.ReadKey();
             Console.WriteLine("시간 내로 끝내려면 나도 거들어야 한다.");
             Console.ReadKey();
@@ -4162,15 +4168,22 @@ internal class Program
             }
             else
             {
-                Console.Clear();
-                Console.WriteLine("작업이 완료되었다.");
-                Console.ReadKey();
-                Console.WriteLine($"개인정비까지 {9 - workCount}시간 남았으니 휴식하자");
-                Console.ReadKey();
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
-                Console.ReadKey();
                 Perfection = 0;
                 workCount = 0;
+                Console.Clear();
+                Console.WriteLine("작업이 완료되었다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine($"개인정비까지 {9 - workCount}시간 남았으니 휴식하자");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("Press any key to contiune");
+                Console.ReadKey();
+                Console.Clear();
+                OneMonthLater();
             }
 
         }
@@ -4178,18 +4191,22 @@ internal class Program
         {
             if (Perfection >= 10)
             {
-                Console.Clear();
-                Console.WriteLine("작업이 완료되었다.");
-                Console.ReadKey();
-                Console.WriteLine($"개인정비까지 {9}시간 남았으니 휴식하자");
-                Console.ReadKey();
-                Console.WriteLine("능력치 상승 & 스트레스 감소");
-                Console.ReadKey();
                 Perfection = 0;
                 workCount = 0;
+                Console.Clear();
+                Console.WriteLine("작업이 완료되었다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("가까스로 작업이 완료되었다.");
+                Console.WriteLine();
+                Console.ReadKey();
+                Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine();
+                Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
                 Console.ReadKey();
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
             else if (Perfection < 10 && Perfection >= 7)
             {
@@ -4197,14 +4214,18 @@ internal class Program
                 workCount = 0;
                 Console.Clear();
                 Console.WriteLine("일과가 마무리 되었다. 작업물이 살짝 아쉽지만 완벽한 가라는 진짜랬다.");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("들키지만 않으면 아무렴 어떠한가");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
                 Console.ReadKey();
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
             else
             {
@@ -4212,16 +4233,21 @@ internal class Program
                 workCount = 0;
                 Console.Clear();
                 Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("시작하고 가만히 있었겄만 결과가 터무니 없다.");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("개인정비 시간때 행보관님과 공구리 작업을 치게 되었다.");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("능력치 상승 & 스트레스 상승");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
                 Console.ReadKey();
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
         }
     }
@@ -4544,14 +4570,18 @@ internal class Program
                 workCount = 0;
                 Console.Clear();
                 Console.WriteLine("작업이 완료되었다.");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine($"개인정비까지 {9 - workCount}시간 남았으니 휴식하자");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
                 Console.ReadKey();
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
 
         }
@@ -4562,15 +4592,16 @@ internal class Program
                 Perfection = 0;
                 workCount = 0;
                 Console.Clear();
-                Console.WriteLine("작업이 완료되었다.");
-                Console.ReadKey();
-                Console.WriteLine($"개인정비까지 {9}시간 남았으니 휴식하자");
+                Console.WriteLine("가까스로 작업이 완료되었다.");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
                 Console.ReadKey();
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
             else if (Perfection < 10 && Perfection >= 7)
             {
@@ -4578,14 +4609,18 @@ internal class Program
                 workCount = 0;
                 Console.Clear();
                 Console.WriteLine("일과가 마무리 되었다. 작업물이 살짝 아쉽지만 완벽한 가라는 진짜랬다.");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("들키지만 않으면 아무렴 어떠한가");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("능력치 상승 & 스트레스 감소");
+                Console.WriteLine();
                 Console.ReadKey();
                 Console.WriteLine("Press any key to contiune");
                 Console.ReadKey();
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
             else
             {
@@ -4594,15 +4629,20 @@ internal class Program
                 Console.Clear();
                 Console.WriteLine("시작이 반이고 가만히 있으면 반이라도 간다고 한다.");
                 Console.ReadKey();
+                Console.WriteLine();
                 Console.WriteLine("시작하고 가만히 있었겄만 결과가 터무니 없다.");
                 Console.ReadKey();
+                Console.WriteLine();
                 Console.WriteLine("개인정비 시간때 행보관님과 공구리 작업을 치게 되었다.");
                 Console.ReadKey();
-                Console.WriteLine("능력치 상승 & 스트레스 상승");
+                Console.WriteLine();
+                Console.WriteLine("능력치 상승");
                 Console.ReadKey();
+                Console.WriteLine();
                 Console.WriteLine("Press any key to contiune");
                 Console.ReadKey();
-                Home();
+                Console.Clear();
+                OneMonthLater();
             }
         }
     }
@@ -5081,7 +5121,8 @@ internal class Program
         Console.ReadKey();
         Console.WriteLine("press any Key to continue");
         Console.ReadKey();
-        Home();
+        Console.Clear();
+        OneMonthLater();
     }
     #endregion
     #region 확률 구현
