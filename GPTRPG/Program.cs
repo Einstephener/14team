@@ -17,28 +17,28 @@ internal class Program
     #region 셋팅
     private static List<Weapon> weapons = new List<Weapon> //이름, 가격, 설명, 힘, 민첩, 지능, 운, 효과
         {
-            new Weapon("야전삽", 1000, "군대 보급 삽", 10, 5, 3, 2,"공격+10 민첩+5 지능+3 운+2 상승"),
-            new Weapon("K2", 1500, "국산 소총", 20, 10, 5, 3,"공격+20 민첩+7 지능+5 운+3 상승"),
-            new Weapon("AK47", 2000, "돌격소총", 25, 15, 5, 4, "공격+25 민첩+9 지능+5 운+4 상승"),
-            new Weapon("샷건", 2500, "원거리 전투용 산탄총", 30, 11, 6, 5,"공격+30 민첩+11 지능+6 운+5 상승"),
-            new Weapon("M60", 4000, "무거운 기관총", 35, 13, 7, 6, "공격+35 민첩+13 지능+7 운+6 상승"),
-            new Weapon("AWP", 5000, "저격소총", 40, 15, 8, 7,"공격+40 민첩+15 지능+8 운+7 상승"),
-            new Weapon("판처파우스트", 6000, "바주카", 45, 17, 9, 8,"공격+45 민첩+17 지능+9 운+8 상승"),
-            new Weapon("발칸", 7000, "롤링 발칸", 50, 19, 10, 9,"공격+50 민첩+19 지능+10 운+9 상승"),
-            new Weapon("K-9자주포", 8000, "대형 포탄 발사기", 55, 21, 11, 10,"공격+70 민첩+21 지능+11 운+10 상승"),
+            new Weapon("야전삽          ", 1000, "군대 보급 삽", 10, 5, 3, 2,"공격+10 민첩+5 지능+3 운+2 상승"),
+            new Weapon("K2            ", 1500, "국산 소총", 20, 10, 5, 3,"공격+20 민첩+7 지능+5 운+3 상승"),
+            new Weapon("AK47          ", 2000, "돌격소총", 25, 15, 5, 4, "공격+25 민첩+9 지능+5 운+4 상승"),
+            new Weapon("샷건          ", 2500, "원거리 전투용 산탄총", 30, 11, 6, 5,"공격+30 민첩+11 지능+6 운+5 상승"),
+            new Weapon("M60          ", 4000, "무거운 기관총", 35, 13, 7, 6, "공격+35 민첩+13 지능+7 운+6 상승"),
+            new Weapon("AWP          ", 5000, "저격소총", 40, 15, 8, 7,"공격+40 민첩+15 지능+8 운+7 상승"),
+            new Weapon("판처파우스트  ", 6000, "바주카", 45, 17, 9, 8,"공격+45 민첩+17 지능+9 운+8 상승"),
+            new Weapon("발칸          ", 7000, "롤링 발칸", 50, 19, 10, 9,"공격+50 민첩+19 지능+10 운+9 상승"),
+            new Weapon("K-9자주포    ", 8000, "대형 포탄 발사기", 55, 21, 11, 10,"공격+70 민첩+21 지능+11 운+10 상승"),
             new Weapon("극초음속순항미사일", 10000, "최첨단 미사일", 100, 25, 15, 15,"공격+100 민첩+25 지능+15 운+15 상승"),
-            new Weapon("마음의편지", 99999, "최강의 무기", 999, 999, 999, 999,"공격+999 민첩+999 지능+999 운+999 상승")
+            new Weapon("마음의편지    ", 99999, "최강의 무기", 999, 999, 999, 999,"공격+999 민첩+999 지능+999 운+999 상승")
         };
 
 
     private static List<Armor> armors = new List<Armor> //이름, 가격, 설명, 정신력, 체력, 효과
         {
-            new Armor("생활복", 500, "군대 생활복", 5, 10,"체력+10 정신력+5 상승"),
-            new Armor("로카티", 1000, "강화된 로카복", 7, 20,"체력+20 정신력+7 상승"),
-            new Armor("화생방 보호의", 1500, "생화학적 위협으로부터 보호하는 의복", 9, 30,"체력+30 정신력+9 상승"),
-            new Armor("깔깔이", 2000, "최첨단 솜으로 만든 방어복", 11, 40,"체력+40 정신력+11 상승"),
-            new Armor("신형 전투복", 2500, "디지털 전투복", 13, 50,"체력+50 정신력+13 상승"),
-            new Armor("개구리 전투복", 5000, "개구리 가죽으로 만든 전투복", 15, 100,"체력+100 정신력+15 상승"),
+            new Armor("생활복        ", 500, "군대 생활복", 5, 10,"체력+10 정신력+5 상승"),
+            new Armor("로카티        ", 1000, "강화된 로카복", 7, 20,"체력+20 정신력+7 상승"),
+            new Armor("화생방 보호의  ", 1500, "생화학적 위협으로부터 보호하는 의복", 9, 30,"체력+30 정신력+9 상승"),
+            new Armor("깔깔이        ", 2000, "최첨단 솜으로 만든 방어복", 11, 40,"체력+40 정신력+11 상승"),
+            new Armor("신형 전투복  ", 2500, "디지털 전투복", 13, 50,"체력+50 정신력+13 상승"),
+            new Armor("개구리 전투복  ", 5000, "개구리 가죽으로 만든 전투복", 15, 100,"체력+100 정신력+15 상승"),
             new Armor("특전사 이준호 전투복", 99999, "특전사 이준호님의 전투복", 999, 999,"체력+999 정신력+999 상승")
         };
 
@@ -46,9 +46,9 @@ internal class Program
 
     private static List<Food> foods = new List<Food>      //HP회복, 가격
         {
-             new Food("건빵", 10, 10, 20, "건푸레이크 주레시피","HP, MP 10만큼 회복합니다."),
+             new Food("건빵    ", 10, 10, 20, "건푸레이크 주레시피","HP, MP 10만큼 회복합니다."),
              new Food("전투식량", 15, 15, 30, "전투시 빠르게 먹을수있는 식량","HP, MP 15만큼 회복합니다."),
-             new Food("감자", 20, 20, 35, "체력 회복을 위한 탄수화물 보충","HP, MP 20만큼 회복합니다."),
+             new Food("감자    ", 20, 20, 35, "체력 회복을 위한 탄수화물 보충","HP, MP 20만큼 회복합니다."),
              new Food("단백질 바", 30, 30, 40, "체력을 위한 단백질 섭취","HP, MP 30만큼 회복합니다."),
              new Food("야간식량", 40, 40, 50, "야간에 몰래먹는 음식","HP, MP 40만큼 회복합니다."),
              new Food("특급 식사", 50, 50, 60, "전투에 최적화된 특별한 식사","HP, MP 50만큼 회복합니다."),
@@ -308,7 +308,7 @@ internal class Program
         {
             case 0:
                 //보병 전직
-                player1 = new Infantry(player.Name, "보병", 5, 5, 5, 5, 100, 100, 10, 0, 10);
+                player1 = new Infantry(player.Name, "보병", 5, 5, 5, 5, 100, 100, 10, 10000000, 10);
                 Console.WriteLine(" 보병을 선택했다.");
                 //사단마크 획득
                 player1.AddToInventoryArmor(ShoulderSleeve2);
@@ -678,7 +678,8 @@ internal class Program
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write($"{equippedStatus}");
             Console.ResetColor();
-            Console.WriteLine($" \t {weapon.ItemName} \t | {weapon.ItemDescription} \t | {weapon.ItemEffect}"); //무기 부가 정보
+            Console.WriteLine($" \t {weapon.ItemName} \t | {weapon.ItemDescription} "); //무기 부가 정보
+            Console.WriteLine($"\t\t\t\t | {weapon.ItemEffect}");
             Console.WriteLine();
         }
         Console.WriteLine();
@@ -722,7 +723,8 @@ internal class Program
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.Write($"{equippedStatus}");
             Console.ResetColor();
-            Console.WriteLine($" \t {armor.ItemName} \t | {armor.ItemDescription} \t | {armor.ItemEffect}"); //방어구 부가 정보
+            Console.WriteLine($" \t {armor.ItemName} \t | {armor.ItemDescription} "); //방어구 부가 정보
+            Console.WriteLine($"\t\t\t\t | {armor.ItemEffect}");
             Console.WriteLine();
         }
         Console.WriteLine("============================================================================");
@@ -759,7 +761,7 @@ internal class Program
         {
             var food = player.InventoryFood[i];
             Console.Write($"{i + 1}. ");
-            Console.WriteLine($" \t {food.ItemName} \t | {food.ItemEffect}"); //음식 부가 정보
+            Console.WriteLine($" \t {food.ItemName} \t\t | {food.ItemEffect}"); //음식 부가 정보
             Console.WriteLine();
         }
 
