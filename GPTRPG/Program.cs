@@ -1315,6 +1315,7 @@ internal class Program
 
 
         Console.Clear();
+        
         Console.WriteLine();
         Console.WriteLine(" 아침점호 시간이다");
         Console.ReadKey();
@@ -1361,22 +1362,24 @@ internal class Program
             enemy.EnemyHp -= player.Str; //플레이어가 맞선임 공격
             if (enemy.EnemyHp <= 0)
             {
-                Console.WriteLine("맞선임과의 맞짱에서 승리했습니다");
-                Console.WriteLine($"남은 체력:{player.Hp}");
+                Console.WriteLine(" 맞선임과의 맞짱에서 승리했습니다");
+                Console.ReadKey();
+                Console.WriteLine($" 남은 체력:{player.Hp}");
                 break;
             }
             player.Hp -= enemy.EnemyAtk;//맞선임이 플레이어 공격
             if (player1.Hp <= 0)
             {
-                Console.WriteLine("맞선임과의 맞짱에서 패배했습니다");
+                Console.WriteLine(" 맞선임과의 맞짱에서 패배했습니다");
                 break;
             }
         }
-        Console.WriteLine("후.. 군생활 힘드네");
         Console.ReadKey();
-        Console.WriteLine("앞으로 어떻게 생활하지?");
+        Console.WriteLine(" 후.. 군생활 힘드네");
         Console.ReadKey();
-        Console.WriteLine("걱정이 태산이네 ;;");
+        Console.WriteLine(" 앞으로 어떻게 생활하지?");
+        Console.ReadKey();
+        Console.WriteLine(" 걱정이 태산이네 ;;");
         Console.ReadKey();
         OneMonthLater();
     }
