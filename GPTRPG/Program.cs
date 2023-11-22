@@ -2215,6 +2215,7 @@ internal class Program
         Console.ReadKey();
         Console.Clear();
 
+        Console.WriteLine("");
         Console.WriteLine(" =======================================");
         Console.WriteLine(" 10번의 삽질을 시도해서 6번 성공하세요!");
         Console.WriteLine(" =======================================");
@@ -2223,6 +2224,7 @@ internal class Program
 
         Console.WriteLine(" 아무키나 눌러 삽질을 시작하세요");
         Console.ReadKey();
+        Console.Clear();
 
 
 
@@ -2240,11 +2242,13 @@ internal class Program
                 if (fireControlSuccess)
                 {
                     sucessCount++;
+                    Console.WriteLine("");
                     Console.WriteLine($" {i}. 삽질에 성공했습니다!\n");
 
                 }
                 else
                 {
+                    Console.WriteLine("");
                     Console.WriteLine($" {i}. 삽질에 실패했습니다!\n");
                 }
 
@@ -2283,6 +2287,7 @@ internal class Program
                 string response = Console.ReadLine();
                 if (response.ToUpper() == "Y")
                 {
+                    Console.Clear();
                     continue; // 실패시 다시 시작
                 }
                 else
@@ -2306,7 +2311,7 @@ internal class Program
         Console.Clear();
         Console.WriteLine("");
         Console.WriteLine(" 가족, 친구, 여자친구 세가지 선택지중 하나를 고르세요");
-        Console.WriteLine("");
+
 
 
         int cursor = 0;
@@ -2316,105 +2321,109 @@ internal class Program
         " 3.여자친구" };
         while (onScene)
         {
-        TextChoice(cursor, text);
+            Console.Clear();
+            Console.WriteLine("");
+            Console.WriteLine(" 가족, 친구, 여자친구 세가지 선택지중 하나를 고르세요");
+            Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(" 선택지마다 랜덤능력치가 부여됩니다. 신중하게 고르세요! ");
+            Console.ResetColor();
+            Console.WriteLine("");
+            TextChoice(cursor, text);
 
             // Key Input
             e = Console.ReadKey();
             // Cursor Index
             cursor = CursorChoice(e, cursor, text, ref onScene);
 
-            Console.WriteLine("");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(" 선택지마다 랜덤능력치가 부여됩니다. 신중하게 고르세요! ");
-            Console.ResetColor();
-            Console.WriteLine("");
 
         }
         switch (cursor)
-            {
-                case 0:
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.WriteLine(" 가족을 선택하셨습니다.");
-                    Console.WriteLine("");
-                    Console.WriteLine(" 가족은 당신의 안정과 지지를 의미합니다.");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.WriteLine(" 그들과 함께하는 시간은 당신에게 힘을 주고");
-                    Console.WriteLine("");
-                    Console.WriteLine(" 당신은 그들을 위해 힘든 시간을 견디려고 노력할 것입니다.");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(" 힘 능력치가 10 상승하였습니다.");
-                    Console.ResetColor();
-                    player1.Str += 10;
+        {
+            case 0:
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine(" 가족을 선택하셨습니다.");
+                Console.WriteLine("");
+                Console.WriteLine(" 가족은 당신의 안정과 지지를 의미합니다.");
+                Console.ReadKey();
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine(" 그들과 함께하는 시간은 당신에게 힘을 주고");
+                Console.WriteLine("");
+                Console.WriteLine(" 당신은 그들을 위해 힘든 시간을 견디려고 노력할 것입니다.");
+                Console.ReadKey();
+                Console.Clear();
+                Console.WriteLine("");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(" 힘 능력치가 10 상승하였습니다.");
+                Console.ResetColor();
+                player1.Str += 10;
 
-                    OneMonthLater();
-                    break;
-                case 1:
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.WriteLine(" 당신은 친구를 선택했습니다.");
-                    Console.WriteLine("");
-                    Console.WriteLine(" 김밥천국가서 대충먹고 PC방가서 날밤을 깠습니다.");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
+                OneMonthLater();
+                break;
+            case 1:
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine(" 당신은 친구를 선택했습니다.");
+                Console.WriteLine("");
+                Console.WriteLine(" 김밥천국가서 대충먹고 PC방가서 날밤을 깠습니다.");
+                Console.ReadKey();
+                Console.Clear();
+                Console.WriteLine("");
 
-                    Console.WriteLine(" 친구들과 함께하는 시간은 즐거웠습니다.");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(" 정신력 능력치가 10 상승하였습니다.");
-                    player1.Mind += 10;
-                    player1.MaxMind += 10;
+                Console.WriteLine(" 친구들과 함께하는 시간은 즐거웠습니다.");
+                Console.ReadKey();
+                Console.Clear();
+                Console.WriteLine("");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(" 정신력 능력치가 10 상승하였습니다.");
+                Console.ResetColor();
+                player1.Mind += 10;
+                player1.MaxMind += 10;
 
-                    OneMonthLater();
-                    break;
-                case 2:
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.WriteLine(" 여자친구를 선택하셨습니다.");
-                    Console.WriteLine("");
-                    Console.WriteLine(" 그녀에게 전화 했습니다. 전화를 안받습니다...");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.WriteLine(" 다시 한번 전화를 걸었습니다...");
-                    Console.WriteLine("");
-                    Console.ReadKey();
-                    Console.WriteLine(" 전화를 받았습니다!!");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.WriteLine(" 나 남자친구 생겼어 이제 전화하지말아줬으면 좋겠어 미안 툭 뚜..뚜..뚜..뚜");
-                    Console.ReadKey();
-                    Console.WriteLine("");
-                    Console.WriteLine(" 이로 인해 당신은 좌절하고 실망하며 슬픔을 겪게 됩니다.");
-                    Console.WriteLine("");
-                    Console.ReadKey();
-                    Console.Clear();
-                    Console.WriteLine("");
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(" 정신력 능력치가 10 하락하였습니다.");
-                    Console.ResetColor();
-                    player1.Mind -= 10;
-                    player1.MaxMind -= 10;
+                OneMonthLater();
+                break;
+            case 2:
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine(" 여자친구를 선택하셨습니다.");
+                Console.WriteLine("");
+                Console.WriteLine(" 그녀에게 전화 했습니다. 전화를 안받습니다...");
+                Console.ReadKey();
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine(" 다시 한번 전화를 걸었습니다...");
+                Console.WriteLine("");
+                Console.ReadKey();
+                Console.WriteLine(" 전화를 받았습니다!!");
+                Console.ReadKey();
+                Console.Clear();
+                Console.WriteLine("");
+                Console.WriteLine(" 나 남자친구 생겼어 이제 전화하지말아줬으면 좋겠어 미안 툭 뚜..뚜..뚜..뚜");
+                Console.ReadKey();
+                Console.WriteLine("");
+                Console.WriteLine(" 이로 인해 당신은 좌절하고 실망하며 슬픔을 겪게 됩니다.");
+                Console.WriteLine("");
+                Console.ReadKey();
+                Console.Clear();
+                Console.WriteLine("");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(" 정신력 능력치가 10 하락하였습니다.");
+                Console.ResetColor();
+                player1.Mind -= 10;
+                player1.MaxMind -= 10;
 
 
-                    OneMonthLater();
-                    break;
+                OneMonthLater();
+                break;
 
-                default:
-                    Console.WriteLine("");
-                    Console.WriteLine(" 잘못된 선택입니다.");
-                    break;
-            }
-        
+            default:
+                Console.WriteLine("");
+                Console.WriteLine(" 잘못된 선택입니다.");
+                break;
+        }
+
     }
 
 
